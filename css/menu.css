@@ -1,0 +1,74 @@
+/** ------------ MAIN MENU --------------------*/
+nav
+{
+        /*text-align: center;*/
+        height: 31px;
+        padding-left: 210px;
+}
+#main_menu {
+        border-top: 2px solid #4590FF;
+        border-left: 2px solid #4590FF;
+        border-right: 2px solid #2828FB;
+        border-bottom: 2px solid #2828FB;
+        background:white url(bg.gif) repeat-x left top;
+        background:#4444FF;
+}
+#main_menu ul
+{
+        padding: 6px 0px 5px 0px;
+        margin: 0px;
+}
+#main_menu ul li
+{
+        display: inline;
+        /*margin: 0 5px 0 0px;*/
+        vertical-align: middle;
+        border-left: 1px dotted yellow;
+        border-right: 1px dotted yellow;
+}
+#main_menu ul li:last-child a{
+        color: yellow;
+}
+#main_menu ul li:last-child {
+    float:right;
+    /*margin: 0;*/
+}
+
+#main_menu ul li a
+{
+        font-family: "Liberation Serif", serif;
+        color: #ffffff;
+        background-color: transparent;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 5px 8px;
+        border: 0px transparent solid;
+}
+
+#main_menu ul li.active a , #main_menu ul li.active a:hover
+{
+        color: #6399cd;
+        background-color: #EFF4FA;
+        text-decoration: none;
+        border-top: 2px solid gray;
+        border-left: 2px solid gray;
+        border-right: 2px solid white;
+        border-bottom: 2px solid white;
+}
+
+#main_menu ul li a:hover {
+    /*color: black;*/
+    background-color: #6677FF;
+}
+
+.exitname {color: #99FF99;}
+
+#main_menu ul li:last-child a:hover{
+        color: red;
+}
+
+img {
+       display: inline;
+}
+/*-----------------------main menu----------------***/

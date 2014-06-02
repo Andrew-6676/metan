@@ -1,0 +1,48 @@
+#left {
+        background: #EEFFEE; /*transparent;*/
+        /*--border: 2px solid ;*/
+        /*margin-top: 8px;*/
+        width: 200px;
+        /*--min-height: 600px;
+        --position: absolute;
+        --top: 184px;
+        --bottom: 50px;*/
+        float: left;
+		box-shadow: 8px -8px 6px -2px gray;
+}
+.portlet {
+	background: #EEFFEE;
+}
+.portlet-decoration {
+	background: #2BBE41;
+}
+.portlet-title {
+
+}
+.portlet-content {
+
+}
+
+.leftmenu a{
+	text-decoration: none;
+}
+.leftmenu a:active, .leftmenu a:visited, .leftmenu a:link {
+        color: #000;
+        //background-color: #EFF4FA;
+        text-decoration: none;
+}
+.leftmenu{
+	list-style: none;
+	margin-left: 25px;
+}
+.leftmenu li {
+	padding: 10px 5px 10px 5px;
+}
+.leftmenu li:hover {
+	background-color: #58FA82;
+}
+
+.active {
+	list-style-type: disc;
+	/*background-color: #ccFFcc;*/
+}

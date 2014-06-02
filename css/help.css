@@ -1,0 +1,131 @@
+nav
+{
+        text-align: center;
+        height: 31px;
+        /*padding-left: 210px;*/
+}
+#main_menu {
+        border-top: 2px solid #4590FF;
+        border-left: 2px solid #4590FF;
+        border-right: 2px solid #2828FB;
+        border-bottom: 2px solid #2828FB;
+        /*background:white url(bg.gif) repeat-x left top;*/
+        background: #FFFF44;
+}
+/*--------------------------------------------------------------------*/
+#left {
+        background: #EEFFEE; /*transparent;*/
+        /*--border: 2px solid ;*/
+        /*margin-top: 8px;*/
+        width: 200px;
+        /*--min-height: 600px;
+        --position: absolute;
+        --top: 184px;
+        --bottom: 50px;*/
+        float: left;
+		box-shadow: 8px -8px 6px -2px gray;
+}
+
+#workdate {
+    position:absolute;
+    right: 0;
+    top: 0;
+}
+#loadImg {
+    display: none;
+    position: absolute;
+    z-index: 8888;
+}
+article, aside, figure, figcaption, footer, header, hgroup, nav, section, summary {
+   display: block;
+}
+* {
+        margin: 0;
+        padding: 0;
+}
+html {
+    height:100%;
+    /*background: url(../images/183357310.jpg) repeat;*/
+    background: url(../images/311387369.jpg) repeat;
+}
+body {
+        /*text-align: center;*/
+        /*--background: #fff;
+        --border: 2px solid black;*/
+        margin: auto;
+        min-height: 100%;
+        position:relative;
+        width: 1100px;
+}
+/**------------------------ HEADER -------------------*/
+#header {
+        background-color: #CEECF5;
+        --border: 2px solid blue;
+        height: 150px;
+}
+/*------------------------ header -------------------*/
+/*.wrapper {height:100%}*/
+/** ---------------------- CONTENT + LEFT ------------*/
+#content, #content2 {
+        margin-top: 8px;
+        /*--border: 1px solid gray;
+        --position: absolute;
+        --top: 184px;
+        --bottom: 50px;
+        --width: 860px;
+        --overflow: auto;*/
+        background: #fff;
+        padding: 10px 10px 70px 10px;
+        /*margin-bottom: 51px;*/
+        height: 100%;
+        box-shadow: 0px 0px 25px 5px gray;
+        /* 1-смещение по Х 2-смещение по Y 3-размытость 4-     */
+}
+
+#content ul, #content2 ul {
+    margin-left: 30px;
+}
+
+#content2 {
+        margin-left: 220px;
+}
+
+/* ---------------------- content ----------*/
+
+
+/**----------------------- FOOTER ------------------*/
+#footer {
+        background-color: #fff;
+        position: absolute;
+        bottom: 0px;
+        border-top: 2px solid gray;
+        padding-top: 8px;
+        height: 50px;
+        width: 100%;
+        text-align: center;
+        clear: both; /* Отменяем обтекание */
+        --box-shadow: 0px 0px 30px rgba(154, 154, 154, 0.9) inset
+}
+/*----------------------- footer ------------------*/
+
+/* ---------------------- отладочная таблица ----------------------- */
+#time_table {
+    width:auto !important;
+    position:fixed;
+    border-collapse: collapse;
+    right:0;
+    top:0;
+    z-index:20000;
+    background: #fff !important;
+    box-shadow: 0px 0px 30px 10px rgba(154, 154, 154, 0.9)
+}
+
+#time_table th {
+    background: #FCFC72;
+    background: linear-gradient(to top, #FCFC72, #f1da36);
+    border: 1px solid gray;
+}
+
+#time_table td {
+    border: 1px solid black;
+}

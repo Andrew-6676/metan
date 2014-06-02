@@ -1,0 +1,44 @@
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.report_title {
+	font-size: 1.3em;
+	text-align: center;
+}
+.report_title  div {
+/*//	float: right;*/
+	display: inline;
+	/*margin: 10px 15px 10px 15px;*/
+}
+
+.div_right {font-size: 0.6em;}
+
+th, td {
+	/*word-wrap: normal;*/
+	white-space: nowrap;
+	border: 1px solid gray;
+	padding: 2px 5px 2px 5px;
+}
+/*--------------------------------------------------------*/
+.n {
+	width: 1px;
+}
+.gid {
+	text-align: center;
+	width: 70px;
+}
+.gname {
+	width: 500px;
+}
+/*--------------------------------------------------------*/
+.sum, .price, .rest {
+	text-align: right;
+}
+.sum_gr .sum, .sum_m .sum {
+	font-weight: bold;
+}
+
+.sum_gr td{
+	text-align: right;
+}

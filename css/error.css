@@ -1,0 +1,40 @@
+.uname {
+	color: red;
+}
+
+.errcaption {
+	font-size: 30pt;
+	text-align: center;
+	margin: auto;
+	margin-bottom: 50px;
+	margin-top: 50px;
+	box-shadow: 0px 15px 30px -15px rgba(0, 0, 0, 0.5);
+	width: 300px;
+}
+
+.errnum {
+	color: red;
+	font-weight: bold;
+}
+
+.errmess {
+	font-size: 2em;
+	text-align: center;
+	width: 70%;
+	margin: auto;
+	padding: 30px;
+	border-top: 2px solid white;
+	border-left:  2px solid white;
+	border-bottom:  2px solid silver;
+	border-right:  2px solid silver;
+	box-shadow: 0px 0px 50px 5px rgba(0, 0, 0, 0.5);
+}
+
+.detail{
+	margin-top: 80px;
+	border-top: 1px solid gray;
+}
+
+.errdetail, .errvar{
+	margin-left: 50px;
+}

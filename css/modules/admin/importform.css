@@ -1,0 +1,85 @@
+.tables label {
+    display: inline-block;
+    min-width:100px;
+}
+.tables input {
+    height:16px;
+    width:270px;
+    padding:2px 2px;
+}
+/*------------------------------------------------------*/
+textarea {
+    width: 400px;
+    height: 100px;
+}
+.mess ul li:hover {
+    background: #ACFA58;
+}
+.mess ul li {
+    width: 90%;
+    cursor: pointer;
+}
+
+#response {
+    width: 350px;
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    padding: 32px 20px 20px 20px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    border-radius: 3px;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.5), 0px 0px 30px rgba(0, 0, 0, 0.2) inset;
+    color: rgb(86, 86, 86);
+    z-index: 1000;
+    display: none;
+    border-top: 1px solid silver;
+    border-left: 1px solid silver;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
+.caption {
+    background-color: #04B45F;
+    cursor: move;
+    color: #fff;
+    padding-top: 5px;
+    font-weight: bold;
+    text-align: center;
+    height: 23px;
+    width: 100%;
+    border-bottom: #000 1px solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#close_popup:hover {
+    background: url("../../../images/close_hover.png") no-repeat scroll 0% 0% transparent;
+}
+#close_popup {
+    width: 14px;
+    height: 16px;
+    background: url("../../../images/close.png") no-repeat scroll 0% 0% transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+#overlay {
+    background: none repeat scroll 0% 0% rgb(0, 0, 0);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    z-index: 999;
+    display: none;
+}
+
+.selected {
+    color: #0F0;
+}
+.disabled{
+    color: silver;
+}
