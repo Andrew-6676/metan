@@ -30,7 +30,7 @@
 		<?php }
 			echo CHtml::encode(Yii::app()->name);
 			//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
-			echo '<br>basePath--------------------: <b>'.$this->basePath.'</b><br>';
+			echo '<br>basePath = <b>'.$this->basePath.'</b><br>';
 			if (Yii::app()->user->isGuest) {
 				echo "isGuest = <b>Yes</b><br>";
 			} else {
