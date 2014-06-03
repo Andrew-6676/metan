@@ -13,28 +13,28 @@ nav
         background:white url(bg.gif) repeat-x left top;
         background:#4444FF;
 }
-#main_menu ul
+#main_menu>ul
 {
         padding: 6px 0px 5px 0px;
         margin: 0px;
 }
-#main_menu ul li
-{
+#main_menu>ul>li {
+        position: relative;
         display: inline;
         /*margin: 0 5px 0 0px;*/
         vertical-align: middle;
         border-left: 1px dotted yellow;
         border-right: 1px dotted yellow;
 }
-#main_menu ul li:last-child a{
+#main_menu>ul>li:last-child>a{
         color: yellow;
 }
-#main_menu ul li:last-child {
+#main_menu>ul>li:last-child {
     float:right;
     /*margin: 0;*/
 }
 
-#main_menu ul li a
+#main_menu>ul>li>a
 {
         font-family: "Liberation Serif", serif;
         color: #ffffff;
@@ -46,7 +46,7 @@ nav
         border: 0px transparent solid;
 }
 
-#main_menu ul li.active a , #main_menu ul li.active a:hover
+#main_menu>ul>li.active>a , #main_menu>ul>li.active>a:hover
 {
         color: #6399cd;
         background-color: #EFF4FA;
@@ -57,14 +57,14 @@ nav
         border-bottom: 2px solid white;
 }
 
-#main_menu ul li a:hover {
+#main_menu>ul>li>a:hover {
     /*color: black;*/
     background-color: #6677FF;
 }
 
 .exitname {color: #99FF99;}
 
-#main_menu ul li:last-child a:hover{
+#main_menu>ul>li:last-child>a:hover{
         color: red;
 }
 
@@ -72,3 +72,66 @@ img {
        display: inline;
 }
 /*-----------------------main menu----------------***/
+
+/*-----------------------SUB-MENU----------------***/
+
+.sub_menu {
+        z-index: 888;
+        margin: 10px;
+        /*padding-top: 60px;*/
+        /*display: block;*/
+        /*margin: 0 -3px;*/
+        list-style: disc inside none;
+        padding: 5px 15px 5px 10px;
+        /*display: none;*/
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        left: 0;
+        /*top: 35px;*/
+        background: #4444FF;
+        min-width: 160%;
+        box-shadow: 8px 8px 10px -2px black;
+        transition: all .2s ease-in-out;
+}
+
+#main_menu>ul>li:hover>ul {
+    opacity: 1;
+    visibility: visible;
+    /*margin: 0;*/
+}
+.sub_menu li {
+        /*display: block;*/
+        line-height: 20px;
+        width: 95%;
+        white-space: nowrap;
+        padding: 0 0 0 10px;
+        padding-right: 4px;
+}
+.sub_menu li a {
+        display: inline-block;
+        /*width: 100%;*/
+        color: #fff;
+        background-color: transparent;
+        /*font-size: 14px;*/
+        line-height: 20px;
+        padding: 7px 10px;
+        font-weight: bold;
+        text-decoration: none;
+        /*padding: 21px 10px;*/
+}
+/*---------------*/
+.sub_menu li:hover{
+        text-decoration: none;
+        /*padding-left: 3px;*/
+        /*box-shadow: 10px 5px 10px 0px black;*/
+}
+.sub_menu li:hover {
+    transition: 0.2s;
+    padding-left: 15px;
+    padding-right: 0px;
+    /*background-color: #4d4d4d;*/
+}
+.sub_menu li:hover a {
+    color: #fff;
+}

@@ -55,19 +55,61 @@
 	<nav id="main_menu">
 		<?php
 				// загружаем из БД главное меню
-			$menu = Menu::model()->findAllBySql('select m.url
+			$menu = Menu::model()->findAllBySql('select m.id, m.url
 													from {{menu}} m inner join {{group}} g on g.id=m.id_group
 													where enabled=true and level=0 and category=\'main\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
 													order by ord',
 													array(':id'=>intval(Yii::app()->user->id)));
+
+
+			$sub_menu = Menu::model()->findAllBySql('select m.id, m.url
+													from {{menu}} m inner join {{group}} g on g.id=m.id_group
+													where enabled=true and level>0 and category=\'sub\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
+													order by ord',
+													array(':id'=>intval(Yii::app()->user->id)));
+
+
+					// echo "<pre>";
+					// print_r($sub_menu);
+					// echo "</pre>";
+//exit;
 				//print_r($menu);
 				$items = array();
+				$sub_items = array();
+
+
+					// полученные из БД данные пихаем в масив $sub_items[]
+				foreach($sub_menu as $item) {
+					// echo $item->url.'---';
+					eval($item->url);
+				}
+					// echo "<pre>";
+					// print_r($sub_items);
+					// echo "</pre>";
+
+				$i = 0;
 					// полученные из БД данные пихаем в масив $items[]
 				foreach($menu as $item) {
 					eval($item->url);
-					//print_r($items[0]['visible']);
 					//print_r($item->name.' -- '.$item->url."\n");
+					$items[$i]["itemOptions"] = array('id'=>'m_'.$item->id);
+					$items[$i]["submenuOptions"] = array('id'=>'sub_'.$item->id, 'class'=>'sub_menu');
+					if (array_key_exists($item->id, $sub_items)) {
+						$items[$i]['items'] = $sub_items[$item->id];
+					}
+					$i++;
 				}
+					// echo "<pre>";
+					// print_r($items);
+					// echo "</pre>";
+
+
+					// echo "<pre>";
+					// print_r($sub_menu);
+					// echo "</pre>";
+
+
+				 // exit;
 					// выводим полученное меню
 				$this->widget('zii.widgets.CMenu',array(
 							'encodeLabel'=>false,
