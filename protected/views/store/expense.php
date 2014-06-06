@@ -1,7 +1,7 @@
 <?php
-	$this->addCSS('expence.css');
+	$this->addCSS('store/expence.css');
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
-	$this->addJS('expence.js');
+	$this->addJS('store/expence.js');
 	$this->addJS('jquery-ui.js');
 	// echo '<pre>';
 	// print_r($oper);
@@ -20,7 +20,7 @@
 				// print_r($list);
 				// echo '</pre>';
 				echo CHtml::dropDownList('expence[id_operation]',
-									  	  $oper,
+									  	  '51',
 					              		  $list,
 					              		  array('class'=>'ddd')
 					              		 // array('empty' => '(Select a category')

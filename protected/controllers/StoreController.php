@@ -14,6 +14,7 @@ class StoreController extends Controller
         	'receipt'=>'application.controllers.store.receiptAction',
             'expense'=>'application.controllers.store.expenseAction',
             'rest'=>'application.controllers.store.restAction',
+            'restClose'=>'application.controllers.store.restCloseAction',
             'invoice'=>'application.controllers.store.invoiceAction',
             'print'=>'application.controllers.store.printAction',
         );

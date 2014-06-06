@@ -36,6 +36,7 @@ nav
 
 #main_menu>ul>li>a
 {
+        /*line-height: 31px;*/
         font-family: "Liberation Serif", serif;
         color: #ffffff;
         background-color: transparent;
@@ -77,12 +78,13 @@ img {
 
 .sub_menu {
         z-index: 888;
-        margin: 10px;
+        margin: 7px;
         /*padding-top: 60px;*/
         /*display: block;*/
         /*margin: 0 -3px;*/
         list-style: disc inside none;
         padding: 5px 15px 5px 10px;
+        border-radius: 5px;
         /*display: none;*/
         opacity: 0;
         visibility: hidden;
@@ -110,7 +112,7 @@ img {
 }
 .sub_menu li a {
         display: inline-block;
-        /*width: 100%;*/
+        width: 100%;
         color: #fff;
         background-color: transparent;
         /*font-size: 14px;*/
@@ -134,4 +136,5 @@ img {
 }
 .sub_menu li:hover a {
     color: #fff;
+    text-decoration: underline;
 }

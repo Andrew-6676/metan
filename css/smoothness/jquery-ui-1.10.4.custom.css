@@ -91,6 +91,7 @@
 	top: 0;
 	left: 0;
 	cursor: default;
+	box-shadow: 3px 3px 10px 0px #333333;
 }
 .ui-menu {
 	list-style: none;
@@ -140,6 +141,9 @@
 	cursor: default;
 }
 
+.ui-menu-item a span {
+	color: red;
+}
 /* icon support */
 .ui-menu-icons {
 	position: relative;
