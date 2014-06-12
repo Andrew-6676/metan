@@ -1,12 +1,28 @@
 <?php
-class Goods extends CActiveRecord
+
+/**
+ * This is the model class for table "{{rest}}".
+ *
+ * The followings are the available columns in table '{{rest}}':
+ * @property integer $id
+ * @property integer $id_store
+ * @property integer $id_goods
+ * @property string $rest_date
+ * @property double $quantity
+ * @property integer $cost
+ *
+ * The followings are the available model relations:
+ * @property Goods $idGoods
+ * @property Store $idStore
+ */
+class Rest extends CActiveRecord
 {
     /**
      * @return string the associated database table name
-     */
+    **/
     public function tableName()
     {
-        return '{{goods}}';
+        return '{{rest}}';
     }
 
     /**
@@ -17,13 +33,12 @@ class Goods extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('id_unit, id_supplier', 'numerical', 'integerOnly'=>true),
-            array('name', 'length', 'max'=>200),
-            array('producer', 'length', 'max'=>150),
-            array('norder', 'length', 'max'=>100),
+            array('id_goods, rest_date', 'required'),
+            array('id_store, id_goods, cost', 'numerical', 'integerOnly'=>true),
+            array('quantity', 'numerical'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('name, producer, norder', 'safe', 'on'=>'search'),
+            array('id, id_store, id_goods, rest_date, quantity, cost', 'safe', 'on'=>'search'),
         );
     }
 
@@ -35,8 +50,8 @@ class Goods extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'deliverynotelists' => array(self::HAS_MANY, 'Deliverynotelist', 'id_goods'),
-            'Unit' => array(self::BELONGS_TO, 'Unit', 'id_unit'),
+            'Goods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
+            'Store' => array(self::BELONGS_TO, 'Store', 'id_store'),
         );
     }
 
@@ -46,9 +61,12 @@ class Goods extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'name' => 'Наименование',
-            'producer' => 'Производитель',
-            'norder' => '№ прик.',
+            'id' => 'ID',
+            'id_store' => 'Id Store',
+            'id_goods' => 'Id Goods',
+            'rest_date' => 'Дата',
+            'quantity' => 'Кол-во',
+            'cost' => 'Стоимость',
         );
     }
 
@@ -71,11 +89,11 @@ class Goods extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('id_unit',$this->id_unit);
-        $criteria->compare('producer',$this->producer,true);
-        $criteria->compare('norder',$this->norder,true);
-        $criteria->compare('id_supplier',$this->id_supplier);
+        $criteria->compare('id_store',$this->id_store);
+        $criteria->compare('id_goods',$this->id_goods);
+        $criteria->compare('rest_date',$this->rest_date,true);
+        $criteria->compare('quantity',$this->quantity);
+        $criteria->compare('cost',$this->cost);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -86,7 +104,7 @@ class Goods extends CActiveRecord
      * Returns the static model of the specified AR class.
      * Please note that you should have this exact method in all your CActiveRecord descendants!
      * @param string $className active record class name.
-     * @return Goods the static model class
+     * @return Rest the static model class
      */
     public static function model($className=__CLASS__)
     {

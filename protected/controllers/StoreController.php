@@ -14,6 +14,7 @@ class StoreController extends Controller
         	'receipt'=>'application.controllers.store.receiptAction',
             'expense'=>'application.controllers.store.expenseAction',
             'rest'=>'application.controllers.store.restAction',
+            'restEdit'=>'application.controllers.store.restEditAction',
             'restClose'=>'application.controllers.store.restCloseAction',
             'invoice'=>'application.controllers.store.invoiceAction',
             'print'=>'application.controllers.store.printAction',
@@ -37,7 +38,12 @@ public function accessRules()
          //        'users'=>array('prod', 'admin'),					// остальным выдаст ошибку
          //    ),
             array('deny',
-                'actions'=>array('receipt','expense','rest'),	       	// запреить всем доступ к "*"
+                'actions'=>array('receipt',
+                                 'expense',
+                                 'invoice',
+                                 'rest',
+                                 'restEdit',
+                                 'restClose'),	       	// запреить всем доступ к "*"
                 'users'=>array('?'),					// запрет должен стоять после разрешения
             ),
         );

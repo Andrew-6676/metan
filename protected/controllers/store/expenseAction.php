@@ -6,7 +6,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 	{
 		if(Yii::app()->request->isAjaxRequest)
 		{
-			 print_r($_POST);
+			// print_r($_POST);
 			// exit;
 				// сохранить расход в БД
 			if(isset($_POST['new_expense'])) {
@@ -28,7 +28,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 		$res = Document::model()->with('documentdata')->findAll(array(
 														'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
-														'condition'=>'{{operation}}.operation<0 and extract(MONTH from doc_date)='.intval(substr(Yii::app()->session['workdate'],5,2)).' and id_store='.Yii::app()->session['id_store'],
+														'condition'=>'{{operation}}.operation<0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 														'order'=>'doc_date desc, doc_num desc')
 														);
 
@@ -77,7 +77,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			if($document->save()) {
 					// если удачное сохранение - получаем ID новой записи
 				// echo "<pre>";
-				 echo 'new ID='.$document->id."\n";
+				//echo 'new ID='.$document->id."\n";
 				$res['new_id'] = $document->id;
 
 				// 	// и добавляем данные в дочернюю таблицу

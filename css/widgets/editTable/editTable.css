@@ -1,0 +1,82 @@
+#edit {
+	display: none;
+	border: 2px solid red;
+	padding: 2px 5px;
+	position: absolute;
+	box-shadow: 0 0 5px 3px gray;
+}
+/*---------------------------------------------------*/
+.editRest {
+	position: relative;
+	margin: auto;
+	/*border: 1px solid silver;*/
+	border-collapse: collapse;
+}
+
+.editRest td {
+	border: 1px solid silver;
+	padding: 2px 5px;
+}
+
+.editRest tr:nth-child(even) {
+	background: #E8FCE8;
+}
+
+.editRest tr:hover {
+	background: #9f9;
+}
+.editRest tr.modified_tr:hover, .editRest tr:nth-child(even).modified_tr:hover {
+	background: #CCCC33;
+}
+.r {
+	text-align: right;
+}
+/*-----------------------------------------------------*/
+.modified_td {
+	color: #f00;
+	/*font-weight: bold;*/
+	font-style: italic;
+}
+.editRest tr:nth-child(even).modified_tr, .modified_tr {
+	background: yellow;
+}
+/*-----------------------------------------------------*/
+.editRest td.buttons {
+	padding: 0 5px ;
+	border: 0px solid #f00;
+	background: #fff;
+	width: 50px;
+}
+.save_row {
+	display: none;
+	background: url(../../../images/widgets/editTable/save_1.png) no-repeat center;
+	cursor: pointer;
+	border: none;
+	height: 100%;
+	width: 23px;
+}
+tr.modified_tr .save_row {
+	display: inline-block;
+}
+.save_row:hover {
+	background: url(../../../images/widgets/editTable/save_1_2.png) no-repeat center;
+}
+/*-----------------------------------------------------*/
+.cancel_row {
+	display: none;
+	background: url(../../../images/widgets/editTable/cancel_1.png) no-repeat center;
+	cursor: pointer;
+	border: none;
+	height: 100%;
+	width: 23px;
+}
+tr.modified_tr .cancel_row {
+	display: inline-block;
+}
+.cancel_row:hover {
+	background: url(../../../images/widgets/editTable/cancel_1_2.png) no-repeat center;
+}
+/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/
+/*-----------------------------------------------------*/

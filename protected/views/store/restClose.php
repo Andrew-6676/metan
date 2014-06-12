@@ -44,6 +44,8 @@
 								 array('id'=>'year_num')
 		);
 	?>
+	<span id='res_span'></span>
 	<br>
 	<button id='close_month'>Закрыть месяц</button>
+	<div id='res_div'></div>
 </div>

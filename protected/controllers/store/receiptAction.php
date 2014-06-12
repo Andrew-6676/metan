@@ -30,7 +30,7 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 		// 														);
 		$res = Document::model()->with('documentdata')->findAll(array(
 																'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
-																'condition'=>'{{operation}}.operation>0 and extract(MONTH from doc_date)='.intval(substr(Yii::app()->session['workdate'],5,2)).' and id_store='.Yii::app()->session['id_store'],
+																'condition'=>'{{operation}}.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 																'order'=>'doc_date desc')
 																);
 		// echo '<pre>';

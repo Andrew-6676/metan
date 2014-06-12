@@ -96,7 +96,7 @@ $(document).ready( function(){
           			alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
           		},
 		        success: function(data){
-		        	alert(JSON.stringify(data));
+		        //	alert(JSON.stringify(data));
 		        //	var res = eval(data);
 		        	//alert(data.status+'---');
 		        	//alert(typeof data);
