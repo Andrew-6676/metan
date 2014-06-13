@@ -2,5 +2,4 @@ assets
 assets/*
 public/*
 public
-protected/config
-protected/config/*
+protected/config/db.php
