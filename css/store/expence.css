@@ -51,6 +51,9 @@ label {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+#new_goods_table .th.t5 {
+    border-radius: 5px;
+}
 /*-------------------*/
 #new_goods_table {
 	border-collapse: collapse;
@@ -99,6 +102,18 @@ label {
     padding-right:5px;
     padding-left: 5px;
 }
+.summ {
+    background: #ffa;
+    text-align: right;
+    font-size: 0.8em;
+    padding-right: 5px;
+    line-height: 25px;
+    height: 25px;
+    width: 110px;
+    border-radius: 5px;
+    border: 1px solid #848484;
+}
+/*-------------------------------------------*/
 .td_buttons {
     border-radius: 5px;
     border: 1px solid #848484;

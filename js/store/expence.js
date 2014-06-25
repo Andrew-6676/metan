@@ -55,7 +55,6 @@ $(document).ready( function(){
 		//alert(document.location.host);
 		//alert($('[name = "expence[id_operation]"]').val());
 			// собираем данные в массив
-
 		var arr = {};
 		var goods_arr = {};
 		var exp = {'doc':'', 'doc_data':''};
@@ -64,16 +63,26 @@ $(document).ready( function(){
 		var quantity= $('.quantity');	// массив с количествами товаров
 		var price 	= $('.price'); 		// массив с ценами
 			// цикл по кодам товара
+		var err = false;
 		id.each(function(index, element){
 			//alert(index+' -- ["'+$(element).val() + '"] = '+ $(quantity).eq(index).val());
 
 				// если одно из полей пустое - выдать сообщение с вариантами: пропустить/отменить
 
 				// создаём массив вида array('id'=>array(quantity, price))
-			goods_arr[$(element).val()] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
+			if ($(quantity).eq(index).val() != '' && $(price).eq(index).val() !='') {
+				goods_arr[$(element).val()] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
+			} else {
+				alert('не все поля заполнены!');
+				err =  true;
+				return false;
+			}
 
 			// goods_arr[$(element).val()] = $(quantity).eq(index).val();
 		});
+
+		if (err) {return false;}
+
 			// массив с аттрибутами документа (шапка)
 		arr['id_operation'] = $('[name = "expence[id_operation]"]').val();
 		arr['doc_date']		= $('[name = "expence[doc_date]"]').val();
@@ -83,6 +92,9 @@ $(document).ready( function(){
 		exp['doc'] = arr;
 		exp['doc_data'] = goods_arr;
 	 	// alert(JSON.stringify(exp));
+
+	 	$('#overlay').show();
+        $('#loadImg').show();
 
 			// передаём данные на сервер
 		$.ajax({
@@ -122,6 +134,7 @@ $(document).ready( function(){
 		tr.attr('id',id);
 			// очищаем <input'ы>
 		$('#new_goods_table tr:last :input').val('');
+		$('#new_goods_table tr:last .summ').text('');
 		$('#new_goods_table tr:last .id_goods').focus();
 			// назначаем обработку событий новой строке
 		set_autocomplete('#'+id);
@@ -139,9 +152,10 @@ $(document).ready( function(){
 //         //}
 //     }, false);
 /*-------------------------------------------------------*/
-set_autocomplete('#row_1');
-/*-------------------------------------------------------*/
 
+
+/*-------------------------------------------------------*/
+	set_autocomplete('#row_1');
 })		//$(document).ready( function(){
 
 /*--------------------------------------------------------------------------------------------------------------*/
@@ -183,12 +197,13 @@ function set_autocomplete(id) {
      		$('#row_'+row+' .goods_name').val(ui.item.name+'   ('+ui.item.rest+' шт)');
      		$('#row_'+row+' .quantity').focus();
      		    // вставить цену товара в <input>
-     		$('#row_'+row+' .price').val(ui.item.price);
+     		    //alert(ui.item.price*1);
+     		$('#row_'+row+' .price').val((ui.item.price*1));
      	}
     });		// end $(id+" .id_goods" ).autocomplete
 
-/*------------------ Автодополнение для наименования товара --------------------------------*/
-$(id+" .goods_name" ).autocomplete({
+	/*------------------ Автодополнение для наименования товара --------------------------------*/
+	$(id+" .goods_name" ).autocomplete({
     	source: function(request, response){
     		//response функция для обработки ответа
     		//request.term - строка поиска;
@@ -228,19 +243,21 @@ $(id+" .goods_name" ).autocomplete({
      		$('#row_'+row+' .quantity').focus();
      	}
     });		// end $(id+" .goods_name" ).autocomplete
-/*---------------------------------------------------------*/
+	/*---------------------------------------------------------*/
 	$(id+' input').keypress(function(event){
 		if (event.keyCode==13 && !$(this).is(':button')) {
 			if ($(this).hasClass('price')) {
-				var idd = '#row_'+(id.substr(5)*1+1);
-				//alert(idd+' .id_goods');
-				$(idd+' .id_goods').focus();
+				if ($(this).closest('tr').next().length != 0) {
+					$(this).closest('tr').next().find('.id_goods').focus();
+				} else {
+					$('#add_expence').focus();
+				}
 			} else {
 				$(this).parent().next().find('input, button').focus();
 			}
 		}
 	})
-/*---------------------------------------------------------*/
+	/*---------------------------------------------------------*/
 	$(id+' input').keyup(function(event){
 		//alert(event.ctrlKey);
 		//alert(event.keyCode);
@@ -251,7 +268,7 @@ $(id+" .goods_name" ).autocomplete({
 			//alert('Ctrl+enter');
 		}
 	})
-/*---------------------------------------------------------*/
+	/*---------------------------------------------------------*/
 	$(id+' .del_row').click(function(){
 		if ($('#new_goods_table tbody tr').size()>1) {
 			var row = $(this).parent('div').parent('td').parent('tr').attr('id');
@@ -266,5 +283,17 @@ $(id+" .goods_name" ).autocomplete({
 		var row = $(this).parent('div').parent('td').parent('tr').attr('id').substr(4);
 		//alert('clear '+row);
 		$('#new_goods_table tr:last :input').val('');
+	})
+
+	/*-------------Пересчёт суммы при изменении количества---*/
+	$(id+' .quantity').change(function(){
+		// alert('ch q');
+		var tr = $(this).closest('tr');
+		var pr = tr.find('.price').val();
+		if (pr != '' || pr != 0) {
+			tr.find('.summ').text(formatNum(pr*$(this).val()));
+		} else {
+			tr.find('.summ').text('');
+		};
 	})
 }		// end set_autocomplete

@@ -51,6 +51,7 @@
 					<th><div class="th t2">Наименование товара</div></th>
 					<th><div class="th t3">Количество</div></th>
 					<th><div class="th t4">Цена</div></th>
+					<th><div class="th t5">Сумма</div></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -66,6 +67,9 @@
 				</td>
 				<td>
 					<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
+				</td>
+				<td>
+					<div class='summ'></div>
 				</td>
 				<td>
 					<div class="td_buttons">

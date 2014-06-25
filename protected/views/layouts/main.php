@@ -139,7 +139,7 @@
 			echo $content;
 		?>
 	</div>
-	<div id="overlay" style="opacity: 0.5; display: none;"></div>	<!-- для затемнения фона -->
+
 	<footer id="footer">
 		    <!--small><p>Copyright (c) 2014  #id: footer [Подвал сайта]</p></small-->
 		    <address>
@@ -151,7 +151,8 @@
 			</address>
 			<?php echo Yii::powered(); ?>
 	</footer>
+
+	<div id="overlay"></div>	<!-- для затемнения фона -->
+	<img id="loadImg" src="<?php echo Yii::app()->request->baseUrl; ?>/images/loading.gif" />
 </body>
 </html>
-<img id="loadImg" src="<?php echo Yii::app()->request->baseUrl; ?>/images/loading.gif" />
-

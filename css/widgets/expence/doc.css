@@ -119,9 +119,7 @@
 .child td, .child th {
 	border: 1px solid gray;
 }
-.cell_3,.cell_4,.cell_5,.cell_6,.cell_7,.cell_8,.cell_9 {
-	text-align: right;
-}
+
 .child {
 	font-size: 10pt;
 	font-family: monospace;
@@ -142,3 +140,19 @@
 .child:hover {
 	border-color: red;
 }
+/*------------------------------------------*/
+.cell_3,.cell_4,.cell_5 {
+	text-align: right;
+}
+
+.cell_0 {
+	width: 25px;
+}
+.cell_1 {
+	width: 73px;
+}
+.cell_2 {
+	width: 610px;
+}
+
+/*-----------------------------------------*/

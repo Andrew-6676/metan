@@ -88,24 +88,29 @@ class ExpenceWidget extends CWidget
 					echo '<th class="caption_'.$c++.'">';
 						echo 'Наименование товара';
 					echo ' </th>';
-					echo '<th class="caption_'.$c++.'">';
-						echo 'Оптовая<br>цена';
-					echo ' </th>';
-					echo '<th class="caption_'.$c++.'">';
-						echo 'Наценка';
-					echo ' </th>';
-					echo '<th class="caption_'.$c++.'">';
-						echo 'НДС';
-					echo ' </th>';
-					echo '<th class="caption_'.$c++.'">';
-						echo 'Розничная<br>цена';
-					echo ' </th>';
+
+					// echo '<th class="caption_'.$c++.'">';
+					// 	echo 'Оптовая<br>цена';
+					// echo ' </th>';
+					// echo '<th class="caption_'.$c++.'">';
+					// 	echo 'Наценка';
+					// echo ' </th>';
+					// echo '<th class="caption_'.$c++.'">';
+					// 	echo 'НДС';
+					// echo ' </th>';
+
 					echo '<th class="caption_'.$c++.'">';
 						echo 'Кол-во';
 					echo ' </th>';
+
 					echo '<th class="caption_'.$c++.'">';
-						echo 'Сумма<br>опт';
+						echo 'Розничная<br>цена';
 					echo ' </th>';
+
+					// echo '<th class="caption_'.$c++.'">';
+					// 	echo 'Сумма<br>опт';
+					// echo ' </th>';
+
 					echo '<th class="caption_'.$c++.'">';
 						echo 'Сумма<br>розница';
 					echo ' </th>';
@@ -125,24 +130,29 @@ class ExpenceWidget extends CWidget
 					echo '<td class="cell_'.$c++.'">';
 						echo $dnotelist->idGoods->name;
 					echo ' </td>';
-					echo '<td class="cell_'.$c++.'">';
-						echo number_format($dnotelist->cost,'0','.','`');
-					echo ' </td>';
-					echo '<td class="cell_'.$c++.'">';
-						echo $dnotelist->markup;
-					echo ' </td>';
-					echo '<td class="cell_'.$c++.'">';
-						echo $dnotelist->vat;
-					echo ' </td>';
-					echo '<td class="cell_'.$c++.'">';
-						echo number_format($dnotelist->price,'0','.','`');
-					echo ' </td>';
+
+					// echo '<td class="cell_'.$c++.'">';
+					// 	echo number_format($dnotelist->cost,'0','.','`');
+					// echo ' </td>';
+					// echo '<td class="cell_'.$c++.'">';
+					// 	echo $dnotelist->markup;
+					// echo ' </td>';
+					// echo '<td class="cell_'.$c++.'">';
+					// 	echo $dnotelist->vat;
+					// echo ' </td>';
+
 					echo '<td class="cell_'.$c++.'">';
 						echo $dnotelist->quantity;
 					echo ' </td>';
+
 					echo '<td class="cell_'.$c++.'">';
-						echo number_format($dnotelist->quantity*$dnotelist->cost,'0','.','`');
+						echo number_format($dnotelist->price,'0','.','`');
 					echo ' </td>';
+
+					// echo '<td class="cell_'.$c++.'">';
+					// 	echo number_format($dnotelist->quantity*$dnotelist->cost,'0','.','`');
+					// echo ' </td>';
+
 					echo '<td class="cell_'.$c++.'">';
 						echo number_format($dnotelist->quantity*$dnotelist->price,'0','.','`');
 					echo ' </td>';

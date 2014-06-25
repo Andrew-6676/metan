@@ -1,5 +1,39 @@
 var workdate=null
+var to_id = null;
+var anim = false;
 $(document).ready( function(){
+
+		// событие отправки ajax-запроса
+  $(document).ajaxSend(
+    function(){
+    		// ерез секунду после отправки показываем анимацию
+      to_id = setTimeout(
+      				function() {
+      						anim = true;
+                            $('#overlay').show();
+                            $('#loadImg').show();
+                    },
+              1000)
+
+    }
+  );
+  		// событие получения ответа от сервера
+  $(document).ajaxComplete(
+    function(){
+     	// alert("Пришёл ответ ссервера.");
+     	// если ответ пришёл раньше, чем показали анимацию - отменяем анимацию
+	    clearTimeout(to_id);
+	    	// если анимация показана, то прячем  через секунду, после получения ответа
+	    if (anim) {
+			setTimeout(
+					function() {
+		                $('#overlay').hide();
+		                $('#loadImg').hide();
+		            },
+		    1000)
+		}
+    }
+  );
 
 /*-------------------------------------------------------------------------------*/
 	workdate = $('#workdate input').val();
@@ -69,3 +103,23 @@ function onSetWorkDate(data) {
 	});*/
 /* --------------------------------- */
 })
+
+function formatNum(num) {
+		//alert('--->'+num+'<---');
+		str = num.toString();
+		str = str.replace(/(\.(.*))/g, '');
+		var arr = str.split('');
+		var str_temp = '';
+		if (str.length > 3) {
+			for (var i = arr.length - 1, j = 1; i >= 0; i--, j++) {
+				str_temp = arr[i] + str_temp;
+				if (j % 3 == 0) {
+					str_temp = ' ' + str_temp;
+				}
+			}
+			//alert(str_temp);
+			return str_temp;
+		} else {
+			return str;
+		}
+	}
