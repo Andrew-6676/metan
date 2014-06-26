@@ -83,10 +83,12 @@
 					// echo $item->url.'---';
 					eval($item->url);
 				}
-					// echo "<pre>";
-					// print_r($sub_items);
-					// echo "</pre>";
-
+					//Utils::print_r($sub_items);
+					//Utils::print_r($this->action->id);
+					//if ($this->action->id == 'index') {
+					//	$this->menu = $sub_items;
+						//Utils::print_r($this->menu);
+				//	}
 				$i = 0;
 					// полученные из БД данные пихаем в масив $items[]
 				foreach($menu as $item) {

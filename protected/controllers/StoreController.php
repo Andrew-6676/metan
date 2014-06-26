@@ -11,13 +11,15 @@ class StoreController extends Controller
 	public function actions()
     {
         return array(
-        	'receipt'=>'application.controllers.store.receiptAction',
-            'expense'=>'application.controllers.store.expenseAction',
-            'rest'=>'application.controllers.store.restAction',
-            'restEdit'=>'application.controllers.store.restEditAction',
-            'restClose'=>'application.controllers.store.restCloseAction',
-            'invoice'=>'application.controllers.store.invoiceAction',
-            'print'=>'application.controllers.store.printAction',
+            'index'     => 'application.controllers.store.indexAction',
+            'receipt'   => 'application.controllers.store.receiptAction',
+            'expense'   => 'application.controllers.store.expenseAction',
+            'return'    => 'application.controllers.store.returnAction',
+            'rest'      => 'application.controllers.store.restAction',
+            'restEdit'  => 'application.controllers.store.restEditAction',
+            'restClose' => 'application.controllers.store.restCloseAction',
+            'invoice'   => 'application.controllers.store.invoiceAction',
+            'print'     => 'application.controllers.store.printAction',
         );
     }
 

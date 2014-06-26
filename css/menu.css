@@ -11,23 +11,25 @@ nav
         border-right: 2px solid #2828FB;
         border-bottom: 2px solid #2828FB;
         background:white url(bg.gif) repeat-x left top;
-        background:#4444FF;
+        background:#fff;
 }
 #main_menu>ul
 {
-        padding: 6px 0px 5px 0px;
+        /*padding: 6px 0px 5px 0px;*/
         margin: 0px;
 }
 #main_menu>ul>li {
         position: relative;
-        display: inline;
+        display: inline-block;
         /*margin: 0 5px 0 0px;*/
+        /*height: 31px;*/
+        line-height: 31px;
         vertical-align: middle;
-        border-left: 1px dotted yellow;
-        border-right: 1px dotted yellow;
+        /*border-left: 1px dotted yellow;
+        border-right: 1px dotted yellow;*/
 }
 #main_menu>ul>li:last-child>a{
-        color: yellow;
+        color: black;
 }
 #main_menu>ul>li:last-child {
     float:right;
@@ -36,49 +38,55 @@ nav
 
 #main_menu>ul>li>a
 {
-        /*line-height: 31px;*/
+        height: 31px;
+        display: block;
+        border-radius: 3px;
         font-family: "Liberation Serif", serif;
-        color: #ffffff;
+        color: #000;
         background-color: transparent;
         font-size: 16px;
         font-weight: bold;
         text-decoration: none;
-        padding: 5px 8px;
+        padding: 0px 8px;
         border: 0px transparent solid;
 }
 
 #main_menu>ul>li.active>a , #main_menu>ul>li.active>a:hover
 {
-        color: #6399cd;
-        background-color: #EFF4FA;
+        color: #F5FF83;
+        background-color: #6677FF;
         text-decoration: none;
-        border-top: 2px solid gray;
+        /*border-top: 2px solid gray;
         border-left: 2px solid gray;
         border-right: 2px solid white;
-        border-bottom: 2px solid white;
+        border-bottom: 2px solid white;*/
 }
 
-#main_menu>ul>li>a:hover {
-    /*color: black;*/
-    background-color: #6677FF;
+#main_menu>ul>li>a:hover, #main_menu>ul>li:hover>a {
+    color: #fff;
+    box-shadow: 0 3px 10px 3px gray;
+    background-color: #8A8C8D;
 }
 
-.exitname {color: #99FF99;}
+.exitname {color: #9d9d9d;}
 
 #main_menu>ul>li:last-child>a:hover{
         color: red;
 }
-
-img {
-       display: inline;
+#main_menu>ul>li:last-child>a:hover>.exitname{
+    color: #fff;
 }
+
+/*img {
+       display: inline;
+}*/
 /*-----------------------main menu----------------***/
 
 /*-----------------------SUB-MENU----------------***/
 
 .sub_menu {
         z-index: 888;
-        margin: 7px;
+        /*margin: 7px;*/
         /*padding-top: 60px;*/
         /*display: block;*/
         /*margin: 0 -3px;*/
@@ -91,7 +99,7 @@ img {
         position: absolute;
         left: 0;
         /*top: 35px;*/
-        background: #4444FF;
+        background: #8A8C8D;
         min-width: 160%;
         box-shadow: 8px 8px 10px -2px black;
         transition: all .2s ease-in-out;
