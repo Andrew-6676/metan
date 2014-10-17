@@ -10,16 +10,16 @@
     height: 25px;
 }
 #cancel_workdate {
-    background: url('../images/cancel_25_1.png') no-repeat;
+    background: url(../images/cancel.png) no-repeat;
 }
 #cancel_workdate:hover {
-background: url('../images/cancel_25_2.png') no-repeat;
+background: url(../images/cancel.png) no-repeat 100% 0%;
 }
 #refresh_workdate {
-    background: url('../images/ok_25.png') no-repeat;
+    background: url(../images/ok.png) no-repeat;
 }
 #refresh_workdate:hover {
-    background: url('../images/ok_25_2.png') no-repeat;
+    background: url(../images/ok.png) no-repeat 100% 0%;
 }
 #workdate {
     height: 25px;
@@ -32,11 +32,14 @@ background: url('../images/cancel_25_2.png') no-repeat;
     margin: 2px;
     /*border: none;*/
 }
-#workdate div {
+#workdate div div {
     /*vertical-align: middle;*/
     height: 25px;
     display: inline-block;
     margin-top: 5px;
+}
+#workdate .btn {
+    float: right;
 }
 /*----------------------------------------------------------*/
 #loadImg {
@@ -63,8 +66,9 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section, summar
    display: block;
 }
 * {
-        margin: 0;
-        padding: 0;
+    font-family: Liberation Serif;
+    margin: 0;
+    padding: 0;
 }
 html {
     overflow-y: scroll;
@@ -84,8 +88,8 @@ body {
 /**------------------------ HEADER -------------------*/
 #header {
         background-color: #CEECF5;
-        --border: 2px solid blue;
-        height: 150px;
+        /*border: 2px solid blue;*/
+        height: 90px;
 }
 /*------------------------ header -------------------*/
 /*.wrapper {height:100%}*/
@@ -154,4 +158,37 @@ body {
 
 #time_table td {
     border: 1px solid black;
+}
+
+/*-------------------------------------------------------------------*/
+#to_top div, #to_bottom div {
+    position: fixed;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px 5px #5e5e5e;
+}
+#to_top div:hover, #to_bottom div:hover {
+    border: 2px solid #0f0;
+    box-shadow: 0 0 20px 5px #292929;
+}
+/*------------*/
+#to_top div{
+    top: 20px;
+    background: url(../images/arrows.png) 0% 0% no-repeat #000;
+}
+
+#to_top div:hover {
+    background: url(../images/arrows.png) 100% 0% no-repeat #000;
+}
+/*-----*/
+#to_bottom div{
+    bottom: 20px;
+    background: url(../images/arrows.png) 0% 100% no-repeat #000;
+}
+
+#to_bottom div:hover {
+    background: url(../images/arrows.png) 100% 100% no-repeat #000;
 }

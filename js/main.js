@@ -1,36 +1,88 @@
 var workdate=null
 var to_id = null;
 var anim = false;
+var ajax_count = 0;
+
 $(document).ready( function(){
+
+
+/*----------------------------------*/
+    $("#to_top").hide();
+        // если документ не больше окна браузера
+    if ($(window).innerHeight()-$(document).innerHeight()>-100) {
+        $("#to_bottom").hide();
+    }
+            // событие прокрутки документа
+        $(window).scroll(function () {
+            //alert('sdf');
+                // если прокрутили вниз на 150 и более пикселей от верха
+            if ($(this).scrollTop() > 150) {
+                $('#to_top').fadeIn();
+            } else {
+                $('#to_top').fadeOut();
+            }
+                // если прокрутили вниз на 100 и более пикселей от низа
+            if ($(window).scrollTop()+$(window).innerHeight()-$(document).innerHeight()>-100) {
+                $("#to_bottom").fadeOut();
+            } else {
+                $("#to_bottom").fadeIn();
+            }
+        });
+
+        // при изменениии высоты документа во время просмотра
+    OnResizeElement(document, function(el){
+            if ($(window).scrollTop()+$(window).innerHeight()-$(document).innerHeight()>-100) {
+                $("#to_bottom").fadeOut();
+            } else {
+                $("#to_bottom").fadeIn();
+            }
+    }, 300);
+
+/*---------------------------------------------------------------------------------*/
 
 		// событие отправки ajax-запроса
   $(document).ajaxSend(
     function(){
-    		// ерез секунду после отправки показываем анимацию
-      to_id = setTimeout(
-      				function() {
-      						anim = true;
-                            $('#overlay').show();
-                            $('#loadImg').show();
-                    },
-              1000)
-
+    	ajax_count++;
+    	console.log('--> send '+ajax_count+'  /anim='+anim);
+    	if (!anim) {
+	    		// через секунду после отправки показываем анимацию
+	        to_id = setTimeout(
+	      				function() {
+	      						// 	если пришли не все ответы - показываем анимацию
+      						if (ajax_count > 0) {
+	      						anim = true;
+	                            $('#overlay').show();
+	                            $('#loadImg').show();
+    							console.log('show '+ajax_count+'  /anim='+anim);
+	                        }
+	                    },
+	              1000)
+	    }
     }
   );
+
   		// событие получения ответа от сервера
   $(document).ajaxComplete(
     function(){
-     	// alert("Пришёл ответ ссервера.");
-     	// если ответ пришёл раньше, чем показали анимацию - отменяем анимацию
-	    clearTimeout(to_id);
-	    	// если анимация показана, то прячем  через секунду, после получения ответа
-	    if (anim) {
-			setTimeout(
-					function() {
-		                $('#overlay').hide();
-		                $('#loadImg').hide();
-		            },
-		    1000)
+    	ajax_count--;
+     	console.log("<-- ответ с сервера. "+ ajax_count+'  /anim='+anim);
+     	if (ajax_count == 0) {
+     		console.log('последний ответ!');
+	     	// если ответ пришёл раньше, чем показали анимацию - отменяем анимацию
+		    clearTimeout(to_id);
+		    	// если анимация показана, то прячем  через секунду, после получения ответа
+		    if (anim) {
+		    	console.log('запуск скрытия анимации')
+				setTimeout(
+						function() {
+							console.log('hide');
+			                $('#overlay').hide();
+			                $('#loadImg').hide();
+			                anim = false;
+			            },
+			    1000)
+			}
 		}
     }
   );
@@ -123,3 +175,26 @@ function formatNum(num) {
 			return str;
 		}
 	}
+
+/*--------------------------------------------------------------------------*/
+
+function OnResizeElement(element, handler, time){
+    var id = null;
+    var _constructor = function(){
+        var WIDTH = $(element).outerWidth(),
+            HEIGHT = $(element).outerHeight();
+        id = setInterval(function(){
+            if(WIDTH != $(element).outerWidth() || HEIGHT != $(element).outerHeight()){
+                WIDTH = $(element).outerWidth(), HEIGHT = $(element).outerHeight();
+                handler(element);
+            };
+        }, time);
+    };
+    var _destructor = function(){
+        clearInterval(id);
+    };
+    this.Destroy = function(){
+        _destructor();
+    };
+    _constructor();
+};

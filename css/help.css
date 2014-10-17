@@ -1,20 +1,18 @@
 nav
 {
         text-align: center;
-        height: 31px;
-        /*padding-left: 210px;*/
+        padding-top: 3px;
+        padding-bottom: 3px;
 }
 #main_menu {
-        border-top: 2px solid #4590FF;
-        border-left: 2px solid #4590FF;
-        border-right: 2px solid #2828FB;
-        border-bottom: 2px solid #2828FB;
-        /*background:white url(bg.gif) repeat-x left top;*/
-        background: #FFFF44;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #4590FF #2828FB #2828FB #4590FF;
+        background: none repeat scroll 0% 0% #FFF;
 }
 /*--------------------------------------------------------------------*/
 #left {
-        background: #EEFFEE; /*transparent;*/
+        /*background: #EEFFEE;*/ /*transparent;*/
         /*--border: 2px solid ;*/
         /*margin-top: 8px;*/
         width: 200px;
@@ -23,7 +21,56 @@ nav
         --top: 184px;
         --bottom: 50px;*/
         float: left;
-		box-shadow: 8px -8px 6px -2px gray;
+		/*box-shadow: 8px -8px 6px -2px gray;*/
+        /*background-color: #EFEFEF;
+        border: 1px solid #000;*/
+}
+.leftmenu_li{
+    background-color: #EFEFEF;
+    border: 1px solid #000;
+    list-style: none;
+    margin: 2px;
+    padding: 3px;
+}
+.leftmenu_li_a{
+    text-decoration: none;
+    color: black;    
+}
+.leftmenu_li:hover{
+    background-color: #FEFCFC;   
+    border: 1px solid #2348C8; 
+}
+#leftmenu_cap{
+    background-color: #EFEFEF;
+    border: 1px solid #000;
+    padding: 3px;
+    font-weight: bold;
+    font-weight: bold;
+    font-size: 10pt;
+    text-align: center;
+}
+#content_help_cap{
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+#content_help{
+    text-align: justify;
+    padding-top: 15px;
+}
+#editor_help{
+    font-size: 8pt;
+    right: 10px;
+    position: absolute;
+}
+#help_edit_cap{
+    width: 99.5%;
+    font-size: 12pt;
+}
+#help_edit_content{
+    width: 99.5%;
+    min-height: 150px;
 }
 
 #workdate {

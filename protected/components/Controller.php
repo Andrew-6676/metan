@@ -5,6 +5,7 @@
 class Controller extends CController
 {
 	public $basePath;	// путь к файлу контроллера
+	public $helpIndex = 0;
 	public $css = array();	// массив подключаемых стилей
 	public $js = array();	// массив подлючаемых скриптов
 	public $layout='//layouts/c1';	// представление по умолчанию (с1 - одноколоночный вид)

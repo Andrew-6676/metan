@@ -1,6 +1,6 @@
 <?php
 
-class indexAction extends CAction   /*HelpController*/
+class editorAction extends CAction   /*HelpController*/
 {
    public function run($c='0', $a='0', $i='0')
 	{
@@ -17,7 +17,7 @@ class indexAction extends CAction   /*HelpController*/
 			$this->controller->menu[] = array('label'=>$value->title, 'url'=>array('help/index/c/'.$value->controller.'/a/'.$value->action.'/i/'.$value->index),'itemOptions'=>array('class'=>'leftmenu_li'),'linkOptions'=>array('class'=>'leftmenu_li_a'));
 		}
 
-		$this->controller->render('index', array(
+		$this->controller->render('editor', array(
 			'data'=>$data,
 			));
 	}

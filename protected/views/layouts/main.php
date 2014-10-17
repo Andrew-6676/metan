@@ -22,20 +22,25 @@
 			  if (!Yii::app()->user->isGuest)
 			  { ?>
 				<div id="workdate">
-					<div>Работаем с датой:</div>
-					<input name="workdate" type="date" value="<?php echo Yii::app()->session['workdate']; ?>">
-					<button id="refresh_workdate"></button>
-					<button id="cancel_workdate"></button>
+					<div>
+						<div>Работаем с датой:</div>
+						<input name="workdate" type="date" value="<?php echo Yii::app()->session['workdate']; ?>">
+					</div>
+					<div class='btn'>
+						<button id="refresh_workdate"></button>
+						<button id="cancel_workdate"></button>
+					</div>
 				</div>
 		<?php }
 			echo CHtml::encode(Yii::app()->name);
 			//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
-			echo '<br>basePath = <b>'.$this->basePath.'</b><br>';
+			echo '<br>basePath = <b>'.$this->basePath.'</b>; ';
 			if (Yii::app()->user->isGuest) {
 				echo "isGuest = <b>Yes</b><br>";
 			} else {
 				$isg="No";
-				echo "login = <b>".Yii::app()->user->name."</b><br>";
+				echo 'Controller = <b>'.$this->uniqueId.'</b>; Action = <b>'.$this->action->id.'</b>;<br>';
+				echo "login = <b>".Yii::app()->user->name."</b>; ";
 				echo "id_user = <b>".intval(Yii::app()->user->id)."</b>=>";
 				echo User::model()->findByPk(Yii::app()->session['id_user'])->fname.'<br>';
 				echo "id_store=<b>".Yii::app()->session['id_store']."</b> => ";
@@ -101,6 +106,9 @@
 					}
 					$i++;
 				}
+				$items[]=array("label"=>"Справка", "linkOptions"=>array('target'=>'_blank'), "url"=>array("/help/index/c/".$this->uniqueId."/a/".$this->action->id.'/i/'.$this->helpIndex));
+				$items[]=array("label"=>"Войти","url"=>array("/site/login"), "visible"=>Yii::app()->user->isGuest);
+				$items[]=array("label"=>"Выйти <span class=\"exitname\">(".Yii::app()->user->name.")</span>", "url"=>array("/site/logout"), "visible"=>!Yii::app()->user->isGuest);
 					// echo "<pre>";
 					// print_r($items);
 					// echo "</pre>";
@@ -153,6 +161,16 @@
 			</address>
 			<?php echo Yii::powered(); ?>
 	</footer>
+
+
+	<a id="to_bottom" href='#footer'>
+		<div>
+		</div>
+	</a>
+	<a id="to_top" href='#header'>
+		<div>
+		</div>
+	</a>
 
 	<div id="overlay"></div>	<!-- для затемнения фона -->
 	<img id="loadImg" src="<?php echo Yii::app()->request->baseUrl; ?>/images/loading.gif" />

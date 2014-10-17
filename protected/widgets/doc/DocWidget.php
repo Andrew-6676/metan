@@ -10,8 +10,8 @@ class DocWidget extends CWidget
     {
         	// этот метод будет вызван внутри CBaseController::beginWidget()
         // $file=dirname(__FILE__).DIRECTORY_SEPARATOR.'delivery.css';
-        $cssFile='http://'.$_SERVER['HTTP_HOST'].'/metan_0.1/css/widgets/doc/'.'doc.css';
-        $jsFile='http://'.$_SERVER['HTTP_HOST'].'/metan_0.1/js/widgets/doc/'.'doc.js';
+        $cssFile=Yii::app()->request->baseUrl.'/css/widgets/doc/'.'doc.css';
+        $jsFile=Yii::app()->request->baseUrl.'/js/widgets/doc/'.'doc.js';
         // $this->cssFile=Yii::app()->getAssetManager()->publish($file);
         $cs=Yii::app()->clientScript;
         $cs->registerCssFile($cssFile);
@@ -69,6 +69,7 @@ class DocWidget extends CWidget
     		echo '<tr id="ch_'.$doc->id.'" class="child_row hidden">';
     		echo '<td colspan="4">';
     		echo '<table  class="child">';
+    		  echo '<thead>';
     			echo '<tr id="doc_hat_'.$doc->id.'" class="doc_hat">';
     				echo '<td colspan="10">';
 	    				echo '<span class="capt">ТТН №:</span><span class="doc_num">'.$doc->doc_num.'</span>';
@@ -109,6 +110,7 @@ class DocWidget extends CWidget
 							echo 'Сумма<br>розница';
 						echo ' </th>';
 					echo '</tr>';
+				echo '</thead>';
 			$i = 0;
 			foreach ($doc->documentdata as $dnotelist) {
 				$c = 0;

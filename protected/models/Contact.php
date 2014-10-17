@@ -41,7 +41,7 @@ class Contact extends CActiveRecord
             array('kpo', 'length', 'max'=>5),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, name, fname, rs, mfo, okpo, unn, address, kpo', 'safe', 'on'=>'search'),
+            array('id, name, fname, rs, mfo, okpo, unn, address, parent', 'safe', 'on'=>'search'),
         );
     }
 
@@ -100,7 +100,7 @@ class Contact extends CActiveRecord
         $criteria->compare('okpo',$this->okpo,true);
         $criteria->compare('unn',$this->unn,true);
         $criteria->compare('address',$this->address,true);
-        $criteria->compare('kpo',$this->kpo,true);
+        $criteria->compare('parent',$this->parent);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

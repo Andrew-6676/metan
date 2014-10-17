@@ -3,6 +3,28 @@
 class MainAjaxController extends CController
 {
 /* ---------------------------------------------------------------------- */
+	public function Actiontest() {
+		echo $_POST['var'];
+	}
+/* ---------------------------------------------------------------------- */
+	public function ActionupdateRest() {
+		Utils::print_r($_POST['data']) ;
+		$data = $_POST['data'];
+		// в таблице $tname у записи с $id  меняем поле $fname на $val
+		// обновим строки, отвечающие заданному условию
+		//Post::model()->updateAll($attributes,$condition,$params);
+		// обновим строки, удовлетворяющие заданному условию и значению первичного ключа (или нескольким значениям ключей)
+		//Post::model()->updateByPk($pk,$attributes,$condition,$params);
+		// обновим поля-счётчики в строках, удовлетворяющих заданным условиям
+		//Post::model()->updateCounters($counters,$condition,$params);
+		// Utils::print_r($data) ;
+		// Rest::model()->updateByPk($id, array($fname=>$val));
+
+		Rest::model()->updateByPk($data['id'], $data['f_vals']);
+		// $rest = Rest::model()->findByPk($data['id']);
+		// Utils::print_r($rest) ;
+	}
+/* ---------------------------------------------------------------------- */
 	public function ActionsetWorkDate($date)
 	{
 		// $connection=Yii::app()->db;
@@ -61,11 +83,25 @@ class MainAjaxController extends CController
 						 ) as motion
 					group by ggid, ggname, gid, gname, price
 					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
-					order by 4,1,2";
+					order by ".$f.", 1, 2";
 		// echo '<pre>'.$sql_rest.'</pre>';
 		$rest = $connection->createCommand($sql_rest)->queryAll();
 
 		$res = json_encode($rest);
+		echo $res;
+	}
+
+	public function ActionGetContactName($term, $f) {
+		$connection = Yii::app()->db;
+
+		$sql = "select id, trim(name) as name, trim(fname) as fname
+				from {{contact}}
+				where upper(".$f."::text) like upper('".$term."%') and parent=2
+				order by 2";
+		// echo '<pre>'.$sql_rest.'</pre>';
+		$res = $connection->createCommand($sql)->queryAll();
+
+		$res = json_encode($res);
 		echo $res;
 	}
 

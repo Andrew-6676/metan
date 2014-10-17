@@ -24,7 +24,8 @@ return array(
 
 		'application.components.*',
 		'application.models.*',
-		'application.widgets.doc.*',		// для рисования ьаблиц документов
+		'application.widgets.doc.*',		// для рисования таблиц документов
+		'application.widgets.invoice.*',		// для рисования таблиц счёт-фактур
 		'application.widgets.expence.*',	// для рисования таблиц расхода
 		'application.widgets.editTable.*',	// для рисования редактируемых таблиц
 		'application.extensions.pdf.mpdf60beta.mpdf',  //для печати в PDF
@@ -37,12 +38,12 @@ return array(
             ),
 	// 	// uncomment the following to enable the Gii tool
 
-	// 	'gii'=>array(
-	// 		'class'=>'system.gii.GiiModule',
-	// 		'password'=>'flatron',
-	// 		// If removed, Gii defaults to localhost only. Edit carefully to taste.
-	// 		'ipFilters'=>array('127.0.0.1','::1'),
-	// 	),
+		'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>'flatron',
+			// If removed, Gii defaults to localhost only. Edit carefully to taste.
+			'ipFilters'=>array('127.0.0.1','::1'),
+		),
 
 	 ),
 
@@ -71,15 +72,6 @@ return array(
 		),
 
 		'db'=>require(dirname(__FILE__).'/db.php'),
-		// 'db'=>array(
-		// 	//'class'=>'CDbConnection',
-		// 	'connectionString' => 'pgsql:host=localhost;port=5432;dbname=vg_metan',
-		// 	//'emulatePrepare' => true,
-		// 	'username' => 'postgres',
-		// 	'password' => 'root',
-		// 	'charset' => 'utf8',
-		// 	'tablePrefix' => 'vgm_',
-		// ),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

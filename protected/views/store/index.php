@@ -1,5 +1,3 @@
-index.php
-
 <?php
 	// Utils::print_r($this->menu);
 	if (sizeof($this->menu) > 0) {

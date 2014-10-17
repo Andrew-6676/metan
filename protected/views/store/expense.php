@@ -98,7 +98,7 @@
 		echo date(' Y');
 	?>
 	г.</b></u>
-	<?php echo ' (кол-во: '.count($data).')'; ?>
+	<?php echo ' (кол-во: <span class="counter">'.count($data).')</span>'; ?>
 <div>
 
 <div class="data">

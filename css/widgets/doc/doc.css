@@ -1,12 +1,12 @@
 .del_doc_button {
-	background:url(../../../images/del1.png) no-repeat;
+	background:url(../../../images/del.png) no-repeat;
     cursor:pointer;
     width: 25px;
     height: 25px;
     border: none;
 }
 .del_doc_button:hover {
-	background:url(../../../images/del2.png) no-repeat;
+	background:url(../../../images/del.png) no-repeat 100% 0%;
 }
 /*------------------- PARENT TABLE -------------------------------------------*/
 .parent {
@@ -67,9 +67,11 @@
 	padding: 2px;
 	/*border: 1px solid black;*/
 }
- .buttons {
+.buttons {
 	/*position: absolute;*/
-	margin-top: -25px;
+	margin-top: -27px;
+	margin-right: 3px;
+	height: 25px;
 	float: right;
 	/*top: 4px;*/
 	/*right: 2px;*/
@@ -119,7 +121,14 @@
 	background-color: #ccffff;
 }
 .child tr:hover {
-	background-color: #F2F5A9;
+	background-color: #D0FFD4;
+}
+.child .selected {
+	background: #FF9494;
+}
+.child .selected:hover {
+	background: #FF6B6B;
+	color: #fff;
 }
 .child:hover {
 	border-color: red;

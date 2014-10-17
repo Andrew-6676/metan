@@ -2,7 +2,7 @@
 <br>
 <a href="/metan_0.1/store/rest">Остатки на текущую дату</a>
 <br>
-<a href="/metan_0.1/store/rest?mode=edit" target="blank">Остатки на начало месяца (редактировать)</a>
+<a href="/metan_0.1/store/restEdit">Остатки на начало месяца (редактировать)</a>
 <?php
 	//echo "<pre>";
 	//print_r($data);

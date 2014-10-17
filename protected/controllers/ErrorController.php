@@ -14,7 +14,7 @@ class ErrorController extends Controller
 			if(Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
-
+				$this->helpIndex = $error['code'];
 				$this->render('error', array('error'=>$error));
 				//$acttion = 'Error'.$error['code'];
 		}

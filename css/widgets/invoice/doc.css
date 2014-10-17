@@ -1,9 +1,15 @@
-.edit_doc_button, .del_doc_button {
+.write_off_button, .edit_invoice_button, .del_doc_button {
     cursor:pointer;
     width: 25px;
     height: 25px;
     border: none;
     margin-left: 5px;
+}
+.write_off_button {
+	background:url(../../../images/write_off.png) no-repeat;
+}
+.write_off_button:hover {
+	background:url(../../../images/write_off.png) no-repeat 100% 0%;
 }
 .del_doc_button {
 	background:url(../../../images/del.png) no-repeat;
@@ -12,24 +18,25 @@
 	background:url(../../../images/del.png) no-repeat 100% 0%;
 }
 
-.edit_doc_button {
+.edit_invoice_button {
 	background:url(../../../images/edit.png) no-repeat;
 }
-.edit_doc_button:hover {
+.edit_invoice_button:hover {
 	background:url(../../../images/edit.png) no-repeat 100% 0%;
 }
 
 
 /*------------------- PARENT TABLE -------------------------------------------*/
 .parent {
-	/*background-color: #efefef;*/
+	background-color: #cfcfcf;
 	/*border-collapse: collapse;*/
+	border: 1px solid black;
 
 }
 .parent_header th{
 	background-color: #efefef;
 	height: 30px;
-	border: 1px solid #000;
+	border: 1px solid #efefef;
 }
 /*.p_caption_0,.p_caption_1,.p_caption_2 {
 	width: 80px;
@@ -70,7 +77,7 @@
 	background-color: #99FF99;
 }
 .parent td {
-	border: 1px solid #efefef;
+	border: 1px solid #ffffe0; /*#efefef*/
 }
 /*------------------- CHILD TABLE --------------------------------------------*/
 .child_row td{
@@ -148,7 +155,10 @@
 	border-color: red;
 }
 /*------------------------------------------*/
-.cell_3,.cell_4,.cell_5 {
+.cell_3, .cell_4 {
+	text-align: center;
+}
+.cell_5, .cell_6 {
 	text-align: right;
 }
 

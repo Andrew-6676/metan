@@ -2,9 +2,16 @@
 	$this->beginContent('//layouts/helppage'); ?>
 
 	<div id="left">
-			навигация по справке
+			<div id="leftmenu_cap">Навигация по справке</div>
 		<?php
 				// формируем содержимое левой панели (меню)
+		$this->widget('zii.widgets.CMenu', array(
+					'id' => 'leftmenu_nav',
+	    			'items'=>$this->menu,
+	     			'htmlOptions'=>array('class'=>'leftmenu'),
+	     			'encodeLabel'=>false,
+	     		));
+			
 
 		?>
 	</div> <!-- left -->

@@ -9,6 +9,26 @@ $(document).ready( function(){
 	//		alert(array[key]);
 	//}
 /*-------------------Редактирование расхода----------------------------------------------*/
+/*-------------------Удаление строки из текущего документа-------------------------------*/
+	$(document).keypress(function(event){
+		if (event.keyCode==127 && !$(this).is(':input')) {
+			//alert(event.keyCode);
+			var del_list = $('.child_row.visible .selected');
+			if ($(del_list).length > 0) {
+				var str = 'Точно хотите безвозвратно удалить строки из документов: \n\n';
+				//alert('del rows:'+$(del_list).length);
+				$('.child_row.visible .selected').closest('.child').each(function(i, el){
+					str += '№ ' + ($(el).find('.doc_num').text().trim());
+					str += ' от ' + ($(el).find('.doc_date').text().trim());
+					str += ' (' + $(el).find('.selected').length + ' стр.)' + '\n';
+				})
+				str += '\n(всего '+$(del_list).length+' стр.)';
+				if (confirm(str)) {
+					alert('del');
+				}
+			}
+		}
+	})
 /*-------------------удаление документа----------------------------------------------*/
 	$('.del_doc_button').click(function(event){
 			// получаем ID удаляемого документа
@@ -229,7 +249,7 @@ function set_autocomplete(id) {
 		        }
         	});
       	},
-     	minLength: 3,
+     	minLength: 4,
      		// действие на выбор из выпадающего списка
      	select: function(event, ui) {
      		/*ui.item будет содержать выбранный элемент*/
@@ -251,6 +271,7 @@ function set_autocomplete(id) {
 					$(this).closest('tr').next().find('.id_goods').focus();
 				} else {
 					$('#add_expence').focus();
+					$('#add_invoice').focus();
 				}
 			} else {
 				$(this).parent().next().find('input, button').focus();

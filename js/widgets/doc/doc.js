@@ -39,6 +39,7 @@ $(document).ready(function(){
 		//$('.parent_row .child_row').show();
 		// alert($('#ch_'+$(this).attr('id')).attr('id'));
 		ch.removeClass('hidden');
+		ch.addClass('visible');
 		pr.addClass('hidden');
 	})
 	/*  ---------------------------------------------------------  */
@@ -50,9 +51,18 @@ $(document).ready(function(){
 		var pr = $('#'+id);
 
 		ch.addClass('hidden');
+		ch.removeClass('visible');
 		pr.removeClass('hidden');
 	})
 	/*  ---------------------------------------------------------  */
+	$('.child tbody tr').click(function() {
+		if ($(this).hasClass('selected')) {
+			$(this).removeClass('selected');
+		} else {
+			$(this).addClass('selected');
+		}
+
+	})
 	/*  ---------------------------------------------------------  */
 	/*  ---------------------------------------------------------  */
 	/*  ---------------------------------------------------------  */

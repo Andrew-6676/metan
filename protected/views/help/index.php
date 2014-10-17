@@ -1,11 +1,23 @@
 <?php
 	/* HelpController->IndexAction->Index_view*/
 
-	$this->pageTitle='Help-Index-help-main';
-?>
+	if ($data) {
+		$this->pageTitle = 'Справка: '.$data->title;
+		// print_r($data);
+		echo "<div id='content_help_cap'>";
+		if(intval(Yii::app()->user->id)<0){
+			echo "<div id='editor_help'>";
+			echo CHtml::link('[править]',array('help/editor/c/'.$_GET['c'].'/a/'.$_GET['a'].'/i/'.$_GET['i'])); 
+			echo "</div>";
+		}
+		echo "<div style='text-align:center'>".$data->title."</div>";
+		echo "</div>";
 
-фывапфывап ы
-п фыва
-п ы
-вап
-фыва
+		echo "<div id='content_help'>";
+		echo nl2br($data->text);
+		echo "</div>";
+		
+	} else {
+		echo 'Справка не найдена';
+	}
+?>

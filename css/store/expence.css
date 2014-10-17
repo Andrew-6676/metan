@@ -11,6 +11,12 @@
     padding: 5px;
     margin-bottom: 1px;
 }
+.new_doc_hat input {
+    border-radius: 5px;
+    border: 1px solid #acacac;
+    padding: 2px 5px ;
+    height: 20px;
+}
 .row {
     margin: 5px;
 }
@@ -130,14 +136,14 @@ label {
     /*margin-left: 5px;*/
 }
 .clr_row {
-    background:url(../../images/clear_21_1.png) no-repeat;
+    background:url(../../images/clear.png) no-repeat;
 }
 .del_row {
-    background:url(../../images/del_krest_21_1.png) no-repeat;
+    background:url(../../images/del_krest.png) no-repeat;
 }
 .clr_row:hover {
-    background:url(../../images/clear_21_2.png) no-repeat;
+    background:url(../../images/clear.png) no-repeat 100% 0%;
 }
 .del_row:hover {
-    background:url(../../images/del_krest_21_2.png) no-repeat;
+    background:url(../../images/del_krest.png) no-repeat 100% 0%;
 }

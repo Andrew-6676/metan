@@ -82,9 +82,14 @@ class editTableWidget extends CWidget
                     echo '</td>';
                     echo '</tr>';
                 }
+                    //  последняя строка - для добавления новой записи
+                // echo '<tr>';
+
+                // echo '</tr>';
             echo '</table>';
             echo '<input id="edit">';
         }
         parent::run();
     }
 }
+

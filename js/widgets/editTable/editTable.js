@@ -1,6 +1,7 @@
 var curr_td = null;
 $(document).ready(function() {
 
+/*---------------------------Двойной клик по полю - сделать его редактируемым--------*/
 	$('td').dblclick(function(){
 		if ($(this).attr('ro') == 'false') {
 			// alert($(this).position().top);
@@ -18,7 +19,7 @@ $(document).ready(function() {
 			// alert('Это поле не доступно для редактирования');
 		}
 	})
-/*-----------------------------------------------------------------------------------*/
+/*------------------------Нажатие ENTER----------------------------------------------*/
 	$('#edit').keyup(function(event){
 		if (event.keyCode==13) {
 			curr_td.text($(this).val());
@@ -43,7 +44,7 @@ $(document).ready(function() {
  //    	event.stopPropagation();
  //  	});
 
-/*-----------------------------------------------------------------------------------*/
+/*------------------------Потеря фокуса полем ввода - спрятать-----------------------*/
 	$('#edit').blur(function(){
 		$(this).hide();
 	})
@@ -54,9 +55,11 @@ $(document).ready(function() {
 	})
 /*----------------СОХРАНЕНИЕ ВСЕХ СТРОК В БД СРАЗУ-----------------------------------*/
 	$('#save_all').click(function(){
-		if (confirm("Подтвердите сохранение всех изменённых записей.")) {
+		var modified = $('.modified_tr');
+
+		if ($(modified).size()>0 && confirm("Подтвердите сохранение всех изменённых записей.")) {
 				// выбрать измененённые записи
-			var modified = $('.modified_tr');
+
 				// цикл по строкам
 			modified.each(function(i, el){
 				// alert($(el).attr('id'));
@@ -71,9 +74,9 @@ $(document).ready(function() {
 	})
 /*-------------------------Отменить изменения всех строк---------------------------*/
 	$('#cancel_all').click(function(){
-		if (confirm("Подтвердите отмену всех изменений.")) {
+		var modified = $('.modified_tr');
+		if ($(modified).size()>0 && confirm("Подтвердите отмену всех изменений.")) {
 				// выбрать измененённые записи
-			var modified = $('.modified_tr');
 				// цикл по строкам
 			modified.each(function(i, el){
 				// alert($(el).attr('id'));
@@ -91,16 +94,26 @@ $(document).ready(function() {
 
 /*----------------ОТПРАВИТЬ ДАННЫЕ В БД ---------------------------------------------*/
 function save_row (row) {
-	var record = {id: $(row).attr('id')}
-	alert(record.id);
-	// $.ajax({
-	// 	url: '',
-	// 	type: "POST",
-	// 	data: {data: record},
-	// 	success: function(data){
-	 	   	cancel_row(row);
-	// 	}
-	// });
+	var record = {id: $(row).attr('id').substr(2), f_vals: {'quantity': $(row).find('[fname=quantity]').html(), 'cost': $(row).find('[fname=cost]').html()}};
+	//alert($(row).find('[fname=quantity]').html());
+	$.ajax({
+		url: '/metan_0.1/MainAjax/updateRest',
+		type: "POST",
+		data: {data: record},
+		error: function(data) {
+			alert('Ошибка сохранения');
+			cancel_row(row);
+		},
+		success: function(data) {
+	 	   	//alert(data);
+	 	   	// записать новые значения в тег val
+	 	 	$(row).find('[fname=quantity]').attr('val', $(row).find('[fname=quantity]').html());
+	 	 	$(row).find('[fname=cost]').attr('val', $(row).find('[fname=cost]').html());
+	 	 	$(row).find('.modified_td').removeClass('modified_td');
+	 	 	$(row).removeClass('modified_tr');
+
+		}
+	});
 }
 
 function cancel_row (row) {

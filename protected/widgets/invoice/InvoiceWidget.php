@@ -1,5 +1,5 @@
 <?php
-class ExpenceWidget extends CWidget
+class InvoiceWidget extends CWidget
 {
 	public $data=null;
 	public $mode=null;
@@ -10,8 +10,8 @@ class ExpenceWidget extends CWidget
     {
         	// этот метод будет вызван внутри CBaseController::beginWidget()
         // $file=dirname(__FILE__).DIRECTORY_SEPARATOR.'delivery.css';
-        $cssFile=Yii::app()->request->baseUrl.'/css/widgets/expence/'.'doc.css';
-        $jsFile=Yii::app()->request->baseUrl.'/js/widgets/expence/'.'doc.js';
+        $cssFile=Yii::app()->request->baseUrl.'/css/widgets/invoice/'.'doc.css';
+        $jsFile=Yii::app()->request->baseUrl.'/js/widgets/invoice/'.'doc.js';
         // $this->cssFile=Yii::app()->getAssetManager()->publish($file);
         $cs=Yii::app()->clientScript;
         $cs->registerCssFile($cssFile);
@@ -30,7 +30,7 @@ class ExpenceWidget extends CWidget
     	echo '<tr class="parent_header">';
     		echo '<th>№ документа</th>';
     		echo '<th>Дата</th>';
-    		echo '<th>Вид расхода</th>';
+    		echo '<th>Потребитель</th>';
     		echo '<th>&nbsp</th>';
     	echo '</tr>';
     	$caption1 = Document::model()->attributeLabels();	// массив заголовков таблицы
@@ -55,7 +55,8 @@ class ExpenceWidget extends CWidget
 					echo $doc_date;
 				echo ' </td>';
 				echo '<td class="p_cell_'.$j++.'">';
-					echo '('.$doc->idOperation->name.')';
+					// echo '('.$doc->idOperation->name.')';
+					echo '('.$doc->idContact->name.')';
 				echo ' </td>';
 				echo '<td class="p_cell_'.$j++.'">&nbsp</td>';
 
@@ -65,17 +66,20 @@ class ExpenceWidget extends CWidget
     		$c = 0;
     		$caption2 = Documentdata::model()->attributeLabels();
     			// строка .child_row содержит таблицу .child со строками документа
-    		echo '<tr class="child_row hidden" id="ch_'.$doc->id.'"><td colspan="4">';
-    		echo '<table  class="child">';
+    		echo '<tr class="child_row hidden" id="ch_'.$doc->id.'"><td colspan="4"><table  class="child">';
     		echo '<thead>';
     			echo '<tr id="doc_hat_'.$doc->id.'" class="doc_hat">';
     				// шапка документа 2 (невидимая сразу, показывается по клику вместо первой)
     				echo '<td colspan="10">';
 		    			echo '<span class="capt">Документ №:</span><span class="doc_num">'.$doc->doc_num.'</span>';
 						echo '<br><span class="capt">Дата:</span><span class="doc_date">'.$doc_date.'</span>';
-						echo '<br><span class="capt">Вид расхода:</span><span>'.$doc->idOperation->name.'</span>';
+						echo '<br><span class="capt">Потребитель:</span><span>'.$doc->idContact->name.'</span>';
 						//echo '<br><span>Приход от:</span>'.$doc->idContact->name;
-						echo "<div class='buttons' doc_id='".$doc->id."'><button class='edit_doc_button'></button><button class='del_doc_button'></button></div>";
+						echo "<div class='buttons' doc_id='".$doc->id."'>
+							<button class='write_off_button' title='Списать товары'></button>
+							<button class='edit_invoice_button' title='Изменить документ'></button>
+							<button class='del_doc_button' title='Удалить документ'></button>
+							</div>";
 	    			echo '</td>';
     			echo '</tr>';
     			// заголовки таблицы строк документа
@@ -102,6 +106,10 @@ class ExpenceWidget extends CWidget
 
 					echo '<th class="caption_'.$c++.'">';
 						echo 'Кол-во';
+					echo ' </th>';
+
+					echo '<th class="caption_'.$c++.'">';
+						echo 'НДС';
 					echo ' </th>';
 
 					echo '<th class="caption_'.$c++.'">';
@@ -138,12 +146,13 @@ class ExpenceWidget extends CWidget
 					// echo '<td class="cell_'.$c++.'">';
 					// 	echo $dnotelist->markup;
 					// echo ' </td>';
-					// echo '<td class="cell_'.$c++.'">';
-					// 	echo $dnotelist->vat;
-					// echo ' </td>';
 
 					echo '<td class="cell_'.$c++.'">';
 						echo $dnotelist->quantity;
+					echo ' </td>';
+
+					echo '<td class="cell_'.$c++.'">';
+						echo $dnotelist->vat;
 					echo ' </td>';
 
 					echo '<td class="cell_'.$c++.'">';

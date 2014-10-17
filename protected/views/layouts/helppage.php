@@ -35,29 +35,7 @@
 	</header>
 
 	<nav id="main_menu">
-		HELP
-		<?php
-				// загружаем из БД главное меню
-				$items = array();
-
-					// выводим полученное меню
-				$this->widget('zii.widgets.CMenu',array(
-							'encodeLabel'=>false,
-        	                'items'=>$items
-        	                		/*array(
-                                	// array('label'=>'<img src="'.Yii::app()->request->baseUrl.'/images/dom.png">', 'url'=>array('/site/index')),
-        	                		array('label'=>'Главная', 'url'=>array('/site/index')),
-                                /*	array('label'=>'Site-Info', 'url'=>array('/site/info')),
-                                	array('label'=>'Test-Index', 'url'=>array('/test/index')),
-									array('label'=>'Test-Test', 'url'=>array('/test/test')),
-                   					array('label'=>'Printer',   'url'=>array('/printer/index')),
-                   					array('label'=>'GuestBook',   'url'=>array('/guestbook/index')),*/
-								/*	array('label'=>'Gii', 'url'=>'http://'.Yii::app()->request->ServerName.'/test_yii/index.php/gii/default/index', 'visible'=>(Yii::app()->user->id<0)),
-									array('label'=>'Справочники', 'url'=>array('/admin/directory/index'), 'visible'=>(Yii::app()->user->id<0)),
-                   					array('label'=>'Выход <span class="exitname">('.Yii::app()->user->name.')</span>', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
-                   					array('label'=>'Вход','url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),*/
-				                )); ?>
-
+		<div id="main_menu_div">HELP</div>
 	</nav>  <!-- #main menu  -->
 
 	<div class="wrapper">
