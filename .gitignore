@@ -2,4 +2,6 @@ assets
 assets/*
 public/*
 public
+protected/runtime
+protected/runtime/*
 protected/config/db.php

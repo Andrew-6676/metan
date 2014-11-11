@@ -136,12 +136,6 @@ $(document).ready( function(){
 	/*$(".row").ajaxError(function(e, xhr, settings, exept){
     	alert("При выполнении ajax-запроса страницы " + settings.url + " произошла ошибка.");
   	});*/
-function onSetWorkDate(data) {
-	//alert(data);
-	//location="http://annet.dn.ua"
-		// если вызвалась эта функция, то дата на сервере поменялась - перезагружаем страницу
-	location.reload();
-}
 /* --------------------------------- запуск импорта ------------------------*
 	//$('#run_import').click(function(){
 	//	startLoadingAnimation();
@@ -154,7 +148,19 @@ function onSetWorkDate(data) {
 		// );
 	});*/
 /* --------------------------------- */
+
 })
+
+/* --------------------------------- */
+/* --------------------------------- */
+/* --------------------------------- */
+function onSetWorkDate(data) {
+	//alert(data);
+	//location="http://annet.dn.ua"
+		// если вызвалась эта функция, то дата на сервере поменялась - перезагружаем страницу
+	location.reload();
+}
+/* --------------------------------- */
 
 function formatNum(num) {
 		//alert('--->'+num+'<---');

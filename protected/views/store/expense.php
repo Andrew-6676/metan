@@ -1,6 +1,9 @@
 <?php
 	$this->addCSS('store/expence.css');
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
+	$this->addCSS('store/search_form.css');
+
+  	$this->addJS('store/search_form.js');
 	$this->addJS('store/expence.js');
 	$this->addJS('jquery-ui.js');
 	// echo '<pre>';
@@ -55,29 +58,34 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tr id="row_1" class="new_goods_row">
-				<td>
-					<input type="text" name="id_goods" class="id_goods" list="id_goods_list" placeholder="код товара">
-				</td>
-				<td>
-					<input type="text" name="goods_name" class="goods_name" list="goods_name_list" placeholder="наименование">
-				</td>
-				<td>
-					<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
-				</td>
-				<td>
-					<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
-				</td>
-				<td>
-					<div class='summ'></div>
-				</td>
-				<td>
-					<div class="td_buttons">
-						<button type="button" class="clr_row"></button>
-						<button type="button" class="del_row"></button>
-					</div>
-				</td>
-			</tr>
+			<tbody>
+				<tr id="row_1" class="new_goods_row">
+					<td>
+						<input type="text" name="id_goods" class="id_goods search" list="id_goods_list" placeholder="код товара">
+					</td>
+					<td>
+						<input type="text" name="goods_name" class="goods_name search" list="goods_name_list" placeholder="наименование">
+					</td>
+					<td>
+						<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
+					</td>
+					<td>
+						<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
+					</td>
+					<td>
+						<div class='summ'></div>
+					</td>
+					<td>
+						<div class="td_buttons">
+							<button type="button" class="clr_row"></button>
+							<button type="button" class="del_row"></button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr><td colspan='6' class='itog_summ'>0</td></tr>
+			</tfoot>
 		</table>
 		<button id="add_new_row" type="button">Добавить строку</button>
 	</div>

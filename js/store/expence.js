@@ -8,6 +8,22 @@ $(document).ready( function(){
 	//		alert(key);
 	//		alert(array[key]);
 	//}
+	$('.search.goods_name').keyup(function(event){
+		if (event.keyCode==118) {
+		 	//alert('Поиск');
+		 	//createSearchForm();
+		 	sForm = new searchForm();
+		 	sForm.create({
+		 		capt: "Поиск для расхода",
+		 		table: "goods",
+		 		field: "name",
+		 		key: "id",
+		 		width: 800,
+		 	});
+		}
+	})
+
+
 /*-------------------Редактирование расхода----------------------------------------------*/
 /*-------------------Удаление строки из текущего документа-------------------------------*/
 	$(document).keypress(function(event){
@@ -145,17 +161,17 @@ $(document).ready( function(){
 	$('#add_new_row').click(function(){
 			//	добавить пустую строку для нового товара в расходе
 			// клонируем последнюю строку таблицы и вставляем её в конец таблицы
-		$('#new_goods_table tr:last').clone().appendTo('#new_goods_table');
+		$('#new_goods_table tbody tr:last').clone().appendTo('#new_goods_table');
 			// получаем тлько что вставленную строку
-		var tr=$('#new_goods_table tr:last');
+		var tr=$('#new_goods_table tbody tr:last');
 			// вычисляем её id+1
 		var id = 'row_'+(tr.attr('id').substr(4)*1+1);
 			// меняем id  в последней строке
 		tr.attr('id',id);
 			// очищаем <input'ы>
-		$('#new_goods_table tr:last :input').val('');
-		$('#new_goods_table tr:last .summ').text('');
-		$('#new_goods_table tr:last .id_goods').focus();
+		$('#new_goods_table tbody tr:last :input').val('');
+		$('#new_goods_table tbody tr:last .summ').text('');
+		$('#new_goods_table tbody tr:last .id_goods').focus();
 			// назначаем обработку событий новой строке
 		set_autocomplete('#'+id);
 	})
@@ -306,15 +322,24 @@ function set_autocomplete(id) {
 		$('#new_goods_table tr:last :input').val('');
 	})
 
-	/*-------------Пересчёт суммы при изменении количества---*/
-	$(id+' .quantity').change(function(){
-		// alert('ch q');
+	/*-------------Пересчёт сумм при изменении количества---*/
+	$(id+' .quantity, '+id+'  .price').change(function(){
+
+		 // alert('ch q');
 		var tr = $(this).closest('tr');
 		var pr = tr.find('.price').val();
+		var qt = tr.find('.quantity').val();
 		if (pr != '' || pr != 0) {
-			tr.find('.summ').text(formatNum(pr*$(this).val()));
+			tr.find('.summ').text(formatNum(pr*qt));
 		} else {
 			tr.find('.summ').text('');
 		};
+
+		var itog_summ = 0;
+
+		$('.summ').each(function(i,e) {
+			itog_summ += $(e).text().replace(/\s+/g, '')*1;
+		})
+		$('.itog_summ').text(formatNum(itog_summ));
 	})
 }		// end set_autocomplete

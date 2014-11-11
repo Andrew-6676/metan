@@ -9,11 +9,11 @@
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/menu.css" rel="stylesheet">
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 	<?php
 		echo $this->getCSS();
 		echo $this->getJS();
 	?>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>

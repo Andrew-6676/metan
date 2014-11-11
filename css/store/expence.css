@@ -147,3 +147,12 @@ label {
 .del_row:hover {
     background:url(../../images/del_krest.png) no-repeat 100% 0%;
 }
+/*----------------------------------------*/
+.itog_summ {
+    text-align: right;
+    padding-right: 70px;
+}
+.itog_summ:before {
+    content: 'итого:    ';
+    font-weight: bold;
+}

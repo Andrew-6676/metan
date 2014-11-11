@@ -1,0 +1,85 @@
+#search_window {
+    width: 350px;
+    background: none repeat scroll 0% 0% rgb(255, 255, 255);
+    padding: 32px 6px 6px 3px;
+    position: fixed;
+    top: 10%;
+    /*left: 50%;*/
+    border-radius: 3px;
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.5), 0px 0px 30px rgba(0, 0, 0, 0.2) inset;
+    color: rgb(86, 86, 86);
+    z-index: 1000;
+    display: none;
+    border-top: 1px solid silver;
+    border-left: 1px solid silver;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+
+    /*width: 400px;*/
+    height: 500px;
+}
+
+.caption {
+    background-color: #04B45F;
+    cursor: move;
+    color: #fff;
+    padding-top: 5px;
+    font-weight: bold;
+    text-align: center;
+    height: 23px;
+    width: 100%;
+    border-bottom: #000 1px solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#close_popup:hover {
+    background: url("../../images/close_hover.png") no-repeat scroll 0% 0% transparent;
+}
+#close_popup {
+    width: 14px;
+    height: 16px;
+    background: url("../../images/close.png") no-repeat scroll 0% 0% transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+}
+
+#overlay {
+    background: none repeat scroll 0% 0% rgb(0, 0, 0);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    z-index: 999;
+    display: none;
+}
+
+
+.selector {
+    border: 2px inset;
+    overflow: scroll;
+    height: 460px;
+    width: 100%;
+}
+.search_list {
+    margin: 0;
+    padding: 0;
+}
+.search_item {
+    margin-left: -30px;
+    list-style: none;
+    padding: 0 5px;
+    border-bottom: 1px dotted #dadada;
+}
+.search_item:hover {
+    background: rgba(0,255,0, 0.2);
+    cursor: pointer;
+}
+.search_filter {
+    width: 100%;
+}
