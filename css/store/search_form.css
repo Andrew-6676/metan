@@ -83,3 +83,11 @@
 .search_filter {
     width: 100%;
 }
+
+/*----------------------------------------------------------*/
+
+li.selected {
+    background: #FFF9B5;
+    color: #000;
+    /*font-weight: bold;*/
+}

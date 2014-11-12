@@ -47,13 +47,68 @@ function searchForm () {
 
 		$('.counter').text($('.search_item').size());
 
+			// фильтруем список по нажатию
 		$('.search_filter').keyup(function(event) {
-			//alert('sdf');
+			if ((event.which > 45 && event.which < 222) || event.which==8 || event.which==32) {
+				filter($(this).val());
+					// проскролить до выделенного пункта
+				$(".selector").scrollTop($('.selected').prevAll('.visible').size()*$('.selected').height())
+			}
+		})
+
+			// обработчик нажатия стрелок
+		$('.search_filter').keydown(function(event) {
+				// alert(event.keyCode);
 			if (event.keyCode==27) {
-				alert('close');
+				// alert('close');
+				$('#close_popup').click();
+			}
+
+			if (event.keyCode==13) {
+				alert($('.search_item.selected').attr('key'));
+			}
+			if (event.keyCode==40 || event.keyCode==38) {
+					// 40 - down
+					// 38 - up
+				// alert('down');
+
+				var visible_items =  $('.search_item.visible');
+				var selected_item =  $('.search_item.selected');
+					// alert(selected_item.size());
+					// если ни одной строки ещё не выделено - выделяем первую
+				if (selected_item.size()==0) {
+					// alert('f');
+					visible_items.first().addClass('selected');
+				} else {
+					// alert('else');
+						// если есть выделеная строка - выделяем следующую или предыдущую
+					if 	(event.keyCode==40) {
+						var next_all = selected_item.nextAll('.search_item.visible');
+						if (next_all.size() > 0) {
+							next_all.first().addClass('selected');
+							selected_item.removeClass('selected');
+						}
+						// selected_item.nextAll('.search_item.visible').first().addClass('selected');
+					} else {
+						var prev_all = selected_item.prevAll('.search_item.visible');
+						if (prev_all.size() > 0) {
+							prev_all.first().addClass('selected');
+							selected_item.removeClass('selected');
+						}
+					}
+				}
+
+
+				if ($('.selected').position().top<36) {
+					$(".selector").scrollTop($('.selected').prevAll('.visible').size()*$('.selected').height());
+				}
+				if ($('.selected').position().top>460) {
+					$(".selector").scrollTop($(".selector").scrollTop()+19);
+				}
+
+
 			}
 			event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
-			filter($(this).val());
 		})
 
 			// делаем его закрываемым
@@ -79,7 +134,7 @@ function searchForm () {
 		        	// response(
 		        		$.map(data, function(item){	// пробегаем по каждой строке результата
 		        				// выводим строку на экран
-		        			$('.search_list').append('<li class="search_item" key='+item.id+'>'+'['+item.id+'] '+item.name + '    ('+item.rest+' шт по '+item.price+'р.)'+'</li>');
+		        			$('.search_list').append('<li class="search_item visible" key='+item.id+'>'+'['+item.id+'] '+item.name + '    ('+item.rest+' шт по '+item.price+'р.)'+'</li>');
 		        				// запихиваем в массив
 			            	arr[item.id] = ({ 	// формируем массив нужной структуры
 			            		//id: item.id,	// это поле для вставки в соседний <input> (код товара)
