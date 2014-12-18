@@ -117,7 +117,7 @@ $(document).ready( function() {
 		if (err) {return false;}
 
 			// массив с аттрибутами документа (шапка)
-
+		arr['doc_id']		= $('#new_goods_table').attr('doc_id');
 		arr['id_contact'] 	= $('#contact_name').attr('cid');
 		arr['doc_date']		= $('[name = "invoice[doc_date]"]').val();
 		arr['doc_num'] 		= $('[name = "invoice[doc_num]"]').val();
@@ -127,8 +127,8 @@ $(document).ready( function() {
 		exp['doc_data'] = goods_arr;
 	 	// alert(JSON.stringify(exp));
 
-	 	$('#overlay').show();
         $('#loadImg').show();
+	 	$('#overlay').show();
 
 			// передаём данные на сервер
 		$.ajax({
@@ -140,6 +140,8 @@ $(document).ready( function() {
           		error: function(data) {
           			alert(JSON.stringify(data)+'###');
           			alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+          			$('#overlay').hide();
+        			$('#loadImg').hide();
           		},
 		        success: function(data){
 		        	//alert(JSON.stringify(data));

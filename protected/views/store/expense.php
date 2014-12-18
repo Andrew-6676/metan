@@ -16,6 +16,7 @@
 	<div class="new_doc_hat">
 		<div class="doc_title">
 			<?php echo $this->pageTitle; ?>
+			<div class='action new'>[новый]</div>
 		</div>
 		<div class="row r1">
 			<label for="expence[id_operation]">Вид расхода:</label>

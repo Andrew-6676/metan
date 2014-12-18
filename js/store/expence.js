@@ -95,7 +95,9 @@ $(document).ready( function(){
 		//event.preventDefault();
 			// очищаем форму от предыдущих данных
 		clear_form();
-
+		$('.action').removeClass('new');
+		$('.action').addClass('edit');
+		$('.action').text('[редактирование]');
 			// загружаем данные в форму для редактирования прямо из HTML-таблицы
 		tbl_src = $(this).parentsUntil('.child_row');		// выбираем таблицу с исходными данными
 		tbl_dst = $('#new_goods_table tbody');				// таблица, куда вставлять данные
@@ -130,14 +132,20 @@ $(document).ready( function(){
 
 		tbl_dst.find('.new_goods_row').last().find('.del_row').click();
 
-			// дата и номер документа
-		$('[name*=doc_date]').val('2011-11-30');
+			// дата документа
+		date_arr = tbl_src.find('thead .doc_date').text().trim().split('.'); 	// разбиваем дату на состовляющие, чтобы поменять их местами
+			// console.log(date_arr);
+			// console.log(date_arr[2]+'-'+date_arr[1]+''+date_arr[0]);
+		$('[name*=doc_date]').val( date_arr[2]+'-'+date_arr[1]+'-'+date_arr[0] );
+			// номер документа
 		$('[name*=doc_num]').val(tbl_src.find('thead .doc_num').text().trim());
 			// id документа
 		$('#new_goods_table').attr('doc_id', tbl_src.parent().parent().prev().attr('id'));
 			// id операции
 		$('[name*=id_operation]').val(tbl_src.find('thead [id_operation]').attr('id_operation'));
-		$('[name*=id_contact]').val(tbl_src.find('thead [id_contact]').attr('id_contact'));
+			// id контакта и его наименование
+		$('#contact_name').attr('cid', tbl_src.find('thead [id_contact]').attr('id_contact'));
+		$('#contact_name').val(tbl_src.find('thead [id_contact]').text());
 
 
 		$(document).scrollTop(70)
@@ -162,6 +170,20 @@ $(document).ready( function(){
 			}
 			$('.itog_summ').text('0');
 		})
+
+		$('.action').removeClass('edit');
+		$('.action').addClass('new');
+		$('.action').text('[новый]');
+		$('#new_goods_table').attr('doc_id','-1');		// обнулить id документа в форме редактирования
+
+			// шапку чистим
+		$('[name*=doc_date]').val($('[name*=doc_date]').attr('value'));
+			// номер документа
+		$('[name*=doc_num]').val($('[name*=doc_num]').attr('value'));
+			// id контакта и его наименование
+		$('#contact_name').attr('cid', '');
+		$('#contact_name').val('');
+
 		//alert('cleared');
 	}
 /*------------------- Добавить расход в БД-----------------------------------------------*/
@@ -199,6 +221,7 @@ $(document).ready( function(){
 		if (err) {return false;}
 
 			// массив с аттрибутами документа (шапка)
+		arr['doc_id']		= $('#new_goods_table').attr('doc_id');
 		arr['id_operation'] = $('[name = "expence[id_operation]"]').val();
 		arr['doc_date']		= $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] 		= $('[name = "expence[doc_num]"]').val();
@@ -208,8 +231,8 @@ $(document).ready( function(){
 		exp['doc_data'] = goods_arr;
 	 	// alert(JSON.stringify(exp));
 
-	 	//$('#overlay').show();
-        //$('#loadImg').show();
+	 	$('#overlay').show();
+        $('#loadImg').show();
 
 			// передаём данные на сервер
 		$.ajax({
@@ -221,6 +244,8 @@ $(document).ready( function(){
           		error: function(data) {
           			alert(JSON.stringify(data)+'###');
           			alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+					$('#overlay').hide();
+			        $('#loadImg').hide();
           		},
 		        success: function(data){
 		        //	alert(JSON.stringify(data));

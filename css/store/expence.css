@@ -5,6 +5,18 @@
     font-size: 3em;
     margin: 0 20px;
 }
+.action {
+    font-size: 0.4em;
+    /*float: right;*/
+    /*font-weight: bold;*/
+}
+.action.new {
+    color: #9DC399;
+}
+.action.edit {
+   color: #E29696;
+}
+/*----------------------------------------*/
 #form {
     font-family: serif;
     font-size: 16px;

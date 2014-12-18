@@ -52,8 +52,15 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 /*---------------------- Добавление нового расхода в БД -----------------------------*/
 	private function addExpense($data) {
 		$res = array();
+			// тут надо проверить $data['doc']['doc_id']
+			// если меньше 0 - новый документ, иначе - редактирование существующего
+		if ($data['doc']['doc_id']<0) {
+			$document = new Document();
+		} else {
+			echo 'Редактирование документа id='.$data['doc']['doc_id'];
+			exit;
+		}
 
-		$document = new Document();
 			// начинаем транзакцию
 		$transaction=$document->dbConnection->beginTransaction();
 		// Yii::app()->db->emulatePrepare = false;

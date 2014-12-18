@@ -65,7 +65,7 @@ $('#add_return').click(function(){
 		if (err) {return false;}
 
 			// массив с аттрибутами документа (шапка)
-
+		arr['doc_id']		= $('#new_goods_table').attr('doc_id');
 		arr['id_operation'] = $('[name = "return_doc[id_operation]"]').val();
 		arr['doc_date']		= $('[name = "return_doc[doc_date]"]').val();
 		arr['doc_num'] 		= $('[name = "return_doc[doc_num]"]').val();

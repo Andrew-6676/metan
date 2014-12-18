@@ -53,7 +53,15 @@ class returnAction extends CAction   /*---- StoreController ----*/
 
 		//print_r($data);
 		//exit;
-		$document = new Document();
+			// тут надо проверить $data['doc']['doc_id']
+			// если меньше 0 - новый документ, иначе - редактирование существующего
+		if ($data['doc']['doc_id']<0) {
+			$document = new Document();
+		} else {
+			echo 'Редактирование документа id='.$data['doc']['doc_id'];
+			exit;
+		}
+
 			// начинаем транзакцию
 		$transaction=$document->dbConnection->beginTransaction();
 		// Yii::app()->db->emulatePrepare = false;
