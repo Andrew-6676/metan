@@ -2,6 +2,8 @@
 	$this->addCSS('store/expence.css');
 	$this->addCSS('store/invoice.css');
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
+	$this->addCSS('store/search_form.css');
+	$this->addJS('store/search_form.js');
 	$this->addJS('store/expence.js');
 	$this->addJS('store/invoice.js');
 	$this->addJS('jquery-ui.js');
@@ -13,12 +15,16 @@
 <div id="form">
 	<div class="form_caption"></div>
 	<div class="new_doc_hat">
-
+		<div class="doc_title">
+			<?php echo $this->pageTitle; ?>
+		</div>
 		<div class="row r0">
 			<label for="invoice[contact]">Потребитель:</label>
 			<input type="text" id='contact_name' cid='' name="invoice[contact]" placeholder="Потребитель" required value="">
 			<button class='add_contact' title='Добавить нового потребителя'></button>
 			<div class='new_contact'>
+				<div class='caption'>Добавить нового потребителя</div>
+				<div id='close_form'></div>
 				<input id='new_contact[id]' class='s' placeholder='Код'>
 				<input id='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
 				<br>
@@ -74,7 +80,7 @@
 	</div>    <!-- <div class="doc_hat"> -->
 
 	<div id="new_table">
-		<table id="new_goods_table">
+		<table id="new_goods_table" doc_id='-1'>
 			<thead>
 				<tr>
 					<th><div class="th t1">Код товара</div></th>
@@ -86,38 +92,43 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tr id="row_1" class="new_goods_row">
-				<td>
-					<input type="text" name="id_goods" class="id_goods" placeholder="код товара">
-				</td>
-				<td>
-					<input type="text" name="goods_name" class="goods_name" placeholder="наименование">
-				</td>
-				<td>
-					<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
-				</td>
-				<td>
-					<input type="number" name="vat" class="vat" placeholder="НДС, %" required pattern="[0-9]">
-				</td>
-				<td>
-					<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
-				</td>
-				<td>
-					<div class='summ'></div>
-				</td>
-				<td>
-					<div class="td_buttons">
-						<button type="button" class="clr_row" title='Очистить строку'></button>
-						<button type="button" class="del_row" title='Удалить строку'></button>
-					</div>
-				</td>
-			</tr>
+			<tbody>
+				<tr id="row_1" class="new_goods_row">
+					<td>
+						<input type="text" name="id_goods" class="id_goods" placeholder="код товара">
+					</td>
+					<td>
+						<input type="text" name="goods_name" class="goods_name search" placeholder="наименование">
+					</td>
+					<td>
+						<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
+					</td>
+					<td>
+						<input type="number" name="vat" class="vat" placeholder="НДС, %" required pattern="[0-9]">
+					</td>
+					<td>
+						<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
+					</td>
+					<td>
+						<div class='summ'></div>
+					</td>
+					<td>
+						<div class="td_buttons">
+							<button type="button" class="clr_row" title='Очистить строку'></button>
+							<button type="button" class="del_row" title='Удалить строку'></button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr><td colspan='6' class='itog_summ'>0</td></tr>
+			</tfoot>
 		</table>
 		<button id="add_new_row" type="button">Добавить строку</button>
 	</div>
 	<div class="form_footer">
 		<button id="add_invoice" type="button">Сохранить</button>
-		<button id="clear_invoice" type="button">Очистить</button>
+		<button id="clear_form" type="button">Очистить</button>
 	</div>
 </div>
 
@@ -132,7 +143,7 @@
 		echo date(' Y');
 	?>
 	г.</b></u>
-	<?php echo ' (кол-во: <span class="counter">'.count($data).')</span>'; ?>
+	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
 <div>
 
 <div class="data">

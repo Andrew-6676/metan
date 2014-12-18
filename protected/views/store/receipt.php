@@ -9,7 +9,7 @@
 		echo date(' Y');
 	?>
 	г.</b></u>
-	<?php echo ' (кол-во: '.count($data).')'; ?>
+	<?php echo ' (документов: '.count($data).')'; ?>
 </div>
 
 <div class="data">

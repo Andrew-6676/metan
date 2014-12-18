@@ -24,11 +24,12 @@ return array(
 
 		'application.components.*',
 		'application.models.*',
-		'application.widgets.doc.*',		// для рисования таблиц документов
-		'application.widgets.invoice.*',		// для рисования таблиц счёт-фактур
-		'application.widgets.expence.*',	// для рисования таблиц расхода
-		'application.widgets.editTable.*',	// для рисования редактируемых таблиц
-		'application.extensions.pdf.mpdf60beta.mpdf',  //для печати в PDF
+		'application.widgets.doc.*',					// для рисования таблиц документов
+		'application.widgets.invoice.*',				// для рисования таблиц счёт-фактур
+		'application.widgets.expence.*',				// для рисования таблиц расхода
+		'application.widgets.return.*',					// для рисования таблиц возврата
+		'application.widgets.editTable.*',				// для рисования редактируемых таблиц
+		'application.extensions.pdf.mpdf60beta.mpdf',  	//для печати в PDF
 	),
 
 	 'modules'=>array(

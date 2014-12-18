@@ -154,6 +154,18 @@ class Document extends CActiveRecord
     //          //        ), 'user_id=:user_id', array(':user_id'=> $this->id));
     //         }
     //     }
+
+    /*--------------------------------------------------*/
+
+    public function add($data) {
+            //$gr = $this->groups;
+            //return ;
+    }
+
+    public function del($id) {
+            //$gr = $this->groups;
+            //return ;
+    }
 }
 
                 // documentdata

@@ -1,3 +1,12 @@
+var search_data = {
+		 		capt: "Поиск для расхода",
+		 		table: "goods",
+		 		field: "name",
+		 		key: "id",
+		 		width: 800,
+		 		sender: null,
+		 	};
+/*--------------------------------------------------*/
 $(document).ready( function(){
 	// alert('epence.js')
 
@@ -8,20 +17,22 @@ $(document).ready( function(){
 	//		alert(key);
 	//		alert(array[key]);
 	//}
-	$('.search.goods_name').keyup(function(event){
-		if (event.keyCode==118) {
-		 	//alert('Поиск');
-		 	//createSearchForm();
-		 	sForm = new searchForm();
-		 	sForm.create({
-		 		capt: "Поиск для расхода",
-		 		table: "goods",
-		 		field: "name",
-		 		key: "id",
-		 		width: 800,
-		 	});
-		}
-	})
+
+
+	// $('.search.goods_name').keyup(function(event){
+	// 	if (event.keyCode==118) {
+	// 	 	//alert('Поиск');
+	// 	 	sForm = new searchForm();
+	// 	 	sForm.create({
+	// 	 		capt: "Поиск для расхода",
+	// 	 		table: "goods",
+	// 	 		field: "name",
+	// 	 		key: "id",
+	// 	 		width: 800,
+	// 	 		sender: $(this).parent().parent().attr('id'),
+	// 	 	});
+	// 	}
+	// })
 
 
 /*-------------------Редактирование расхода----------------------------------------------*/
@@ -80,11 +91,79 @@ $(document).ready( function(){
 	})
 /*-------------------  редактирование документа-----------------------------------------------*/
 	$('.edit_doc_button').click(function(event){
-		alert('edit');
+		//alert('edit');
 		//event.preventDefault();
+			// очищаем форму от предыдущих данных
+		clear_form();
 
+			// загружаем данные в форму для редактирования прямо из HTML-таблицы
+		tbl_src = $(this).parentsUntil('.child_row');		// выбираем таблицу с исходными данными
+		tbl_dst = $('#new_goods_table tbody');				// таблица, куда вставлять данные
+			//console.log($(tbl[4]).find('tbody tr'));
+			// обход строк таблицы с расходом
+		rows = $(tbl_src[4]).find('tbody tr');
+		rows.each(function(j,el){
+			td_dst = tbl_dst.find('.new_goods_row').last().find('td');
+			cells_src = $(el).find('td');
+				// console.log(cells_src);
+				// обход колонок (кроме первой и последней - они нам не нужны)
+			cells_src.each(function(i, el) {
+				if (i != 0  &&  i < cells_src.size()-1) {
+					if (i == cells_src.size()-2) {
+							// console.log($(el).text().trim().replace(/`/g,""));
+							// console.log(td_dst.eq(i));
+							// удаляем лишние символы из цены
+						td_dst.eq(i-1).find('input').val($(el).text().trim().replace(/`/g,""));
+					} else {
+						//console.log($(el).text());
+						td_dst.eq(i-1).find('input').val($(el).text().trim());
+					}
+				}
+			})// end each cells
+				// пересчитать суммы
+			td_dst.find('.quantity').change();
+				// добавить новую строку
+			//if (j != 0) {
+				$('#add_new_row').click();
+			//}
+		})// end each rows
+
+		tbl_dst.find('.new_goods_row').last().find('.del_row').click();
+
+			// дата и номер документа
+		$('[name*=doc_date]').val('2011-11-30');
+		$('[name*=doc_num]').val(tbl_src.find('thead .doc_num').text().trim());
+			// id документа
+		$('#new_goods_table').attr('doc_id', tbl_src.parent().parent().prev().attr('id'));
+			// id операции
+		$('[name*=id_operation]').val(tbl_src.find('thead [id_operation]').attr('id_operation'));
+		$('[name*=id_contact]').val(tbl_src.find('thead [id_contact]').attr('id_contact'));
+
+
+		$(document).scrollTop(70)
 		event.stopPropagation();
 	})
+/*-------------------- Очистить форму ---------------------------------------------------*/
+	$('#clear_form').click(function(){
+		if (confirm("Удалить введённые, но не сохранённые данные?")) {
+			clear_form();
+		}
+
+	})
+
+	function clear_form(){
+			// удалить все строки и очистить шапку
+		$('#new_goods_table .new_goods_row').each(function(i, el){
+			if (i==0) {
+				$(el).find('input').val('');
+				$(el).find('.summ').text('');
+			} else {
+				$(el).remove();
+			}
+			$('.itog_summ').text('0');
+		})
+		//alert('cleared');
+	}
 /*------------------- Добавить расход в БД-----------------------------------------------*/
 	$('#add_expence').click(function(){
 		//alert('сохранить расход');
@@ -106,7 +185,7 @@ $(document).ready( function(){
 				// если одно из полей пустое - выдать сообщение с вариантами: пропустить/отменить
 
 				// создаём массив вида array('id'=>array(quantity, price))
-			if ($(quantity).eq(index).val() != '' && $(price).eq(index).val() !='') {
+			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() !='') {
 				goods_arr[$(element).val()] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
 			} else {
 				alert('не все поля заполнены!');
@@ -129,8 +208,8 @@ $(document).ready( function(){
 		exp['doc_data'] = goods_arr;
 	 	// alert(JSON.stringify(exp));
 
-	 	$('#overlay').show();
-        $('#loadImg').show();
+	 	//$('#overlay').show();
+        //$('#loadImg').show();
 
 			// передаём данные на сервер
 		$.ajax({
@@ -288,6 +367,7 @@ function set_autocomplete(id) {
 				} else {
 					$('#add_expence').focus();
 					$('#add_invoice').focus();
+					$('#add_return').focus();
 				}
 			} else {
 				$(this).parent().next().find('input, button').focus();
@@ -342,4 +422,16 @@ function set_autocomplete(id) {
 		})
 		$('.itog_summ').text(formatNum(itog_summ));
 	})
+
+	/*-------------Поиск по F7------------------------------*/
+	$(id+' .search.goods_name').keyup(function(event){
+		if (event.keyCode==118) {
+		 	//alert('Поиск');
+		 	sForm = new searchForm();
+		 	search_data.sender = $(this).parent().parent().attr('id');
+		 	sForm.create(search_data);
+		}
+	})
+
+
 }		// end set_autocomplete

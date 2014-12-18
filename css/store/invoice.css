@@ -31,18 +31,14 @@
     width: 640px;
     left: 165px;
     top: 240px;
-    padding: 20px;
-    padding-bottom: 40px;
-    border-top: 25px solid #55f;
+    padding: 40px 20px;
+    /*padding-bottom: 40px;*/
+    /*border-top: 25px solid #55f;*/
     z-index: 999;
 }
-.new_contact:before {
-    content: 'Добавить нового потребителя';
-    display: block;
-    position: absolute;
-    color: #fff;
-    font-weight: bold;
-    top: -21px;
+.new_contact .caption {
+    border-radius: 5px 5px 0 0;
+    cursor:  auto;
 }
 .new_contact .s {
     width: 145px;
@@ -104,7 +100,7 @@ label {
 /*------------------------------------------------------------*/
 /*-----------Таблица для новых товаров------------------------*/
 #new_table {
-    padding: 20px;
+    padding: 20px 20px 20px 5px;
     border-radius: 5px;
     background: #efefef;
     border: 1px solid #cfcfcf;
@@ -159,7 +155,7 @@ label {
 
 /*--------------------*/
 .id_goods {
-    width: 70px;
+    width: 90px;
 }
 .vat {
     text-align: right;
@@ -175,3 +171,7 @@ label {
 }
 /*-------------------------------------------*/
 
+/*----------------------------------------*/
+.itog_summ {
+    padding-right: 5px;
+}

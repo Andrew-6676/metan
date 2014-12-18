@@ -37,7 +37,7 @@
 #close_popup:hover {
     background: url("../../images/close_hover.png") no-repeat scroll 0% 0% transparent;
 }
-#close_popup {
+#close_popup, #close_form {
     width: 14px;
     height: 16px;
     background: url("../../images/close.png") no-repeat scroll 0% 0% transparent;
@@ -55,7 +55,7 @@
     height: 100%;
     width: 100%;
     opacity: 0.5;
-    z-index: 999;
+    /*z-index: 995;*/
     display: none;
 }
 

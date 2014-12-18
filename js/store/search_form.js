@@ -1,7 +1,38 @@
+var sForm;
 // _this = this;
 //  document.getElementById(this.id).onmouseover =  function(){_this.func()};
 
+// function search(sender_1) {
+// 	sForm = new searchForm();
+//  	sForm.create({
+//  		capt: "Поиск для расхода",
+//  		table: "goods",
+//  		field: "name",
+//  		key: "id",
+//  		width: 800,
+//  		sender: $(sender_1).parent().parent().attr('id'),
+//  	});
+//  	//console.log($(sender_1).parent().parent().attr('id'));
+// }
 
+/*-----------------------------------------------------------------*/
+function paste_result(row_id, fields) {
+		/*		вставка результатов поиска
+			row_id - куда вставить
+			fields - что вставить
+		*/
+	// console.log('row_id - '+row_id );
+	// alert(JSON.stringify(fields));
+	row = $('#'+row_id);
+	row.find('.id_goods').val(fields.id);
+	row.find('.goods_name').val(fields.name);
+	row.find('.price').val(fields.price);
+	row.find('.goods_name').focus();
+	sForm.closeForm();
+}
+/*-----------------------------------------------------------------*//*-----------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------*//*-----------------------------------------------------------------*/
 	// объект окна поиска
 function searchForm () {
 		// свойства
@@ -10,12 +41,14 @@ function searchForm () {
 	this.visible = false;
 	this.filter = '';
 	this.arr = new Array();
+	//this.sender = '';
 /*-----------------------------------------------------------------*/
 		// метод создаёт окно и показывает
 	this.create = function(param) {
-		console.log(param.table);
-		console.log(param.field);
-		console.log(param.key);
+		//this.sender = param.sender;
+		//console.log(param.table);
+		//console.log(param.field);
+		//console.log(param.key);
 			// создать окно
 		$('#content').append(
 			"<div id='search_window'> \
@@ -47,7 +80,7 @@ function searchForm () {
 
 		$('.counter').text($('.search_item').size());
 
-			// фильтруем список по нажатию
+			// фильтруем список по мере набора текста
 		$('.search_filter').keyup(function(event) {
 			if ((event.which > 45 && event.which < 222) || event.which==8 || event.which==32) {
 				filter($(this).val());
@@ -56,7 +89,7 @@ function searchForm () {
 			}
 		})
 
-			// обработчик нажатия стрелок
+			// обработчик нажатия стрелок на клавиатуре
 		$('.search_filter').keydown(function(event) {
 				// alert(event.keyCode);
 			if (event.keyCode==27) {
@@ -65,7 +98,9 @@ function searchForm () {
 			}
 
 			if (event.keyCode==13) {
-				alert($('.search_item.selected').attr('key'));
+				//alert($('.search_item.selected').attr('key'));
+				event.stopPropagation();
+				$('.search_item.selected').click();
 			}
 			if (event.keyCode==40 || event.keyCode==38) {
 					// 40 - down
@@ -116,7 +151,7 @@ function searchForm () {
 			$('#search_window, #overlay').fadeOut(50);
 			//$('#response').fadeOut(50);
 			$('#search_window').remove();
-			console.log("close\n-------------------------------------\n");
+			//console.log("close\n-------------------------------------\n");
 	    });
 
 	    	// заполняем данными
@@ -146,15 +181,26 @@ function searchForm () {
 			              //	alert(arr[arr.length]);
 		            	})
 		         //    );
-					this.arr = arr;
+					sForm.arr = arr;
 					// alert(JSON.stringify(this.arr['42875425']));
 					// alert((this.arr['42875425'].value));
 		        }
         	});
 
-				// назначаем действие по клику по строке результата
+				// действие по клику по строке результата
 			$('.search_item').click(function(){
-				alert($(this).attr('key'));
+				//alert($(this).attr('key'));
+				//console.log('sForm.sender - '+);
+				//console.log(sForm.arr[$(this).attr('key')].price);
+				paste_result(
+					param.sender,
+					{
+						'id': $(this).attr('key'),
+						'name': sForm.arr[$(this).attr('key')].value,
+						'price': sForm.arr[$(this).attr('key')].price
+					}
+				);
+
 			})
 				// показываем кол-во найденных строк
 			$('.counter').text($('.search_item').size());
@@ -164,6 +210,7 @@ function searchForm () {
 	    this.show();
 	}
 /*----------------------- end create ------------------------------------------*/
+
 		// показать окно
 	this.show = function() {
 		$('#search_window, #overlay').fadeIn(50);	//показать всплывающее окно
@@ -171,13 +218,15 @@ function searchForm () {
 		$('.search_filter').focus();
 	}
 /*-----------------------------------------------------------------*/
+
 		// закрыть окно
-	this.close = function () {
+	this.closeForm = function () {
 		$('#search_window, #overlay').fadeOut(50);
 		$('#search_window').remove();
-		console.log("close\n-------------------------------------\n");
+		//console.log("close\n-------------------------------------\n");
 	}
 /*-----------------------------------------------------------------*/
+
 		// фильтрация списка
 	function filter(str) {
 		$('.search_item').each(function(i,e){

@@ -1,27 +1,44 @@
-$(document).ready( function(){
+var search_data = {
+		 		capt: "Поиск для счёт-фактуры",
+		 		table: "goods",
+		 		field: "name",
+		 		key: "id",
+		 		width: 800,
+		 		sender: null,
+		 	};
+/*-----------------------------------------------------------*/
 
-$('.add_contact').click(function() {
-	//alert('новый потребитель');
-	$('#overlay').show();
-	$('.new_contact').show();
-})
+$(document).ready( function() {
 
-$('#cancel_new_contact').click(function() {
-	$('#overlay').hide();
-	$('.new_contact').hide();
-})
+	// $(".new_contact").draggable({
+	// 		    cursor: "move",
+	// 		    // distance: 10,
+	// 		   	//revert: true,
+	// 		   	//revertDuration: 3000
+	// 		});
 
-	// спрятать форму нового потребителя по клику в не формы
-$(document).click(function(event) {
-    if ($(event.target).closest('.new_contact, .add_contact').length) return;
-    $('.new_contact').hide();
-	$('#overlay').hide();
-    event.stopPropagation();
-});
+	$('.add_contact').click(function() {
+		//alert('новый потребитель');
+		$('#overlay').show() //fadeIn(50); ;
+		$('.new_contact').show(); //fadeIn(100); //show();
+	})
+
+	$('#cancel_new_contact, #close_form').click(function() {
+		$('#overlay').fadeOut(100); //hide();
+		$('.new_contact').fadeOut(100); //hide();
+	})
+
+		// спрятать форму нового потребителя по клику в не формы
+	$(document).click(function(event) {
+	    if ($(event.target).closest('.new_contact, .add_contact').length) return;
+	    $('.new_contact').hide();
+		$('#overlay').hide();
+	    event.stopPropagation();
+	});
 
 /*------------------- Добавить расход в БД-----------------------------------------------*/
 
-$('#contact_name').autocomplete({
+	$('#contact_name').autocomplete({
     	source: function(request, response){
     		//response функция для обработки ответа
     		//alert(request.term); // - строка поиска;
@@ -82,7 +99,7 @@ $('#contact_name').autocomplete({
 				// если одно из полей пустое - выдать сообщение с вариантами: пропустить/отменить
 
 				// создаём массив вида array('id'=>array(quantity, price))
-			if ($(quantity).eq(index).val() != '' && $(price).eq(index).val() !='' && $(vat).eq(index).val() != '') {
+			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() !='' && $(vat).eq(index).val() != '') {
 				goods_arr[$(element).val()] = {
 						'quantity':$(quantity).eq(index).val(),
 						'price':$(price).eq(index).val(),
@@ -110,8 +127,8 @@ $('#contact_name').autocomplete({
 		exp['doc_data'] = goods_arr;
 	 	// alert(JSON.stringify(exp));
 
-        $('#loadImg').show();
 	 	$('#overlay').show();
+        $('#loadImg').show();
 
 			// передаём данные на сервер
 		$.ajax({
@@ -143,10 +160,10 @@ $('#contact_name').autocomplete({
 	})		// end $('#add_invoice').click
 /*-------------------------------------------------------------------------------------*/
 
-	$('.edit_invoice_button').click(function(event) {
-		alert('Редактировать счёт-фактуру ');
-		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
-	})
+	// $('.edit_invoice_button').click(function(event) {
+	// 	alert('Редактировать счёт-фактуру ');
+	// 	event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+	// })
 
 	$('.write_off_button').click(function(event) {
 		alert('списать ');

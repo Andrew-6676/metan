@@ -14,6 +14,9 @@
 <div id="form">
 	<div class="form_caption"></div>
 	<div class="new_doc_hat">
+		<div class="doc_title">
+			<?php echo $this->pageTitle; ?>
+		</div>
 		<div class="row r1">
 			<label for="expence[id_operation]">Вид расхода:</label>
 			<?php
@@ -42,12 +45,12 @@
 
 		<div class="row r3">
 			<label for="expence[doc_num]">№ документа:</label>
-			<input type="text" name="expence[doc_num]" placeholder="№ документа" value="<?php echo $doc_num ?>" required> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+			<input type="number" name="expence[doc_num]" placeholder="№ документа" value="<?php echo $doc_num ?>" required> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 		</div>	<!-- r3 -->
 	</div>    <!-- <div class="doc_hat"> -->
 
 	<div id="new_table">
-		<table id="new_goods_table">
+		<table id="new_goods_table"  doc_id='-1'>
 			<thead>
 				<tr>
 					<th><div class="th t1">Код товара</div></th>
@@ -91,7 +94,7 @@
 	</div>
 	<div class="form_footer">
 		<button id="add_expence" type="button">Сохранить</button>
-		<button id="clear_expence" type="button">Очистить</button>
+		<button id="clear_form" type="button">Очистить</button>
 	</div>
 </div>
 
@@ -106,7 +109,7 @@
 		echo date(' Y');
 	?>
 	г.</b></u>
-	<?php echo ' (кол-во: <span class="counter">'.count($data).')</span>'; ?>
+	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
 <div>
 
 <div class="data">
