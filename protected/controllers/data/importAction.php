@@ -56,7 +56,7 @@ class importAction extends CAction   /*DataController*/
 		foreach ($arr[1] as $fs => $fd) {
 			//echo ":$fs=".$this->check_type($data[$fs],$arr[3][$fs])."  ---  ";
 			//print_r($arr[3][$fs]);
-			$select->bindParam(':'.$fs, $this->check_type($data[$fs],$arr[3][$fs]));
+			$select->bindValue(':'.$fs, $this->check_type($data[$fs],$arr[3][$fs]));
 		}
 		$id = $select->queryScalar();
 		//echo '<br><br>'.$sql.'<br>'.$id;
@@ -344,8 +344,7 @@ class importAction extends CAction   /*DataController*/
 					  	//	echo $src.'-'.$dst.' --- ';
 					  		$data_f = $fs[array_search($dst, $fd)];
 				  			echo ":$src = ".$this->check_type(mb_convert_encoding($row[$data_f],'UTF-8','cp866'),$ftp[$src]).";  --  ";
-				  			$tmp_var = $this->check_type(mb_convert_encoding($row[$data_f], "UTF-8", "cp866"), $ftp[$src]);
-				 			$command_ch->bindParam($src, $tmp_var);
+				 			$command_ch->bindValue($src, $this->check_type(mb_convert_encoding($row[$data_f], "UTF-8", "cp866"),$ftp[$src]));
 					  	}
 					  	//exit;
 						  		// если таблица дочерняя, то присваиваем дополнительные параметры
@@ -364,7 +363,7 @@ class importAction extends CAction   /*DataController*/
 						  	{
 						  		//$param = $src.'_'.($p-count($FK_arr[1])+$fi++);
 						  		echo '::'.$src.' = '.$this->check_type(mb_convert_encoding($row[$src],'UTF-8','cp866'),$FK_arr[3][$src]).";  --  ";
-						 		$command_ch->bindParam($src, $this->check_type(mb_convert_encoding($row[$src], "UTF-8", "cp866"),$FK_arr[3][$src]));
+						 		$command_ch->bindValue($src, $this->check_type(mb_convert_encoding($row[$src], "UTF-8", "cp866"),$FK_arr[3][$src]));
 						 		//$command_ch->bindParam($param, $this->check_type(mb_convert_encoding($row[$src], "UTF-8", 'cp866'),$FK_arr[3][$src]));
 						 		//$command_ch->bindParam($src, $this->check_type($row[$src],$ft[$src]));
 						  	}
@@ -383,36 +382,35 @@ class importAction extends CAction   /*DataController*/
 						{
 				 				// присваиваем параметры
 							 //  echo '<br>$fp='; print_r($fp);
-							 // echo '<br>$fs='; print_r($fs);
+							 // // echo '<br>$fs='; print_r($fs);
 							 //  echo '<br>$ft='; print_r($ft);
 							 //  echo '<br>$ftp='; print_r($ftp);
 							 //  echo '<br>$fd='; print_r($fd);
 							 //  echo '<br>$fp_fs='; print_r($fp_fs);
 							 // echo '<br>$row='; print_r($row);
 
-							echo "<br><b>insert  --#- </b>";
+							echo "<br> <b>insert  --#- </b> ";
 							foreach ($fp as $key => $val)	// цикл по параметрам - присвоение параметрам запроса значений
 						  	{
 						  		//echo "$key - $val<br>";
 						  		//echo $ftp[$val].'--';
-						  		$tmp_var = $this->check_type(mb_convert_encoding($row[$fp_fs[$val]], "UTF-8", "cp866"),$ftp[$val]);
-						  		echo "$val-(".$ftp[$val].")= ".$tmp_var.";   ";
-					 			$command_i->bindParam($val, $tmp_var);
+						  		echo "$val-(".$ftp[$val].")= ".$this->check_type(mb_convert_encoding($row[$fp_fs[$val]], "UTF-8", "cp866"),$ftp[$val]).";   ";
+						 		$command_i->bindValue($val, $this->check_type(mb_convert_encoding($row[$fp_fs[$val]], "UTF-8", "cp866"),$ftp[$val]));
 						  	}
 						 		// exit;
 						  	//continue;
 						  		// если таблица дочерняя - присваиваем значение внешнего ключа
 						  	if ($table['fk']!='<none>') {
 						  		// print_r($table);
-						  		$id = $this->getFKvalue($table['fk'], $row);
-						  		$command_i->bindParam(':'.$FK_arr[2][1], $id);
+						  		$id = $this->getFKvalue($table['fk'],$row);
+						  		$command_i->bindParam(':'.$FK_arr[2][1],$id);
 						  		echo '::'.$FK_arr[2][1].'='.$id;
 						  	}
 						  	//echo '<br>';
 						  	// exit;
 						  	try {
-						  		// echo '<br>################';
-
+						  		// echo '################1';
+						  		// print_r($command_i->text);
 								$command_i->execute();	// добавляем запись
 								// echo '################2';
 								if ($update_id) {
@@ -420,14 +418,13 @@ class importAction extends CAction   /*DataController*/
 									$sql = "SELECT currval('seq_id_".preg_replace('/vgm_/', '', $table['table_dst'])."')";
 									$id = $connection->createCommand($sql)->queryScalar();
 									// echo '<br>---->'.$id.'<-----<br>';
-									$command_u->bindParam('id', $id);
+									$command_u->bindParam('id',$id);
 									$command_u->execute();	// обновляем запись
 								}
 						  	} catch(Exception $e) {
-						  		echo ' <br>---Ошибка импорта строки';
+						  		echo ' ---<br>Ошибка импорта строки';
 						  		echo "<br>###############################################################<br>";
 						  		print_r($e->errorInfo);
-						  		// print_r($e->trace);
 						  		echo "###############################################################<br>";
 						  		//echo ' --- Ошибка импорта строки<br>';
 						  		//continue;
