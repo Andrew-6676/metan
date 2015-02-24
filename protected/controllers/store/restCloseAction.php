@@ -8,12 +8,19 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 
 		 	$connection = Yii::app()->db;
 		 	$o = '';
+		 		// добавлять ли 0 перед номером месяца
 		 	if ($_POST['month'] <10) {
 		 		$o = '0';
 		 	}
 
 		 	if ($_POST['mode']=='close') {
-				$date = $_POST['year'].'-'.$o.($_POST['month']+1).'-01';
+		 				// дата нового месяца
+		 		if ($_POST['month'] < 12) {
+					$date = $_POST['year'].'-'.$o.($_POST['month']+1).'-01';
+				} else {
+					$date = $_POST['year']+1.'-01-01';
+				}
+						// месяц из которого брать
 				$month = $_POST['year'].'-'.$o.$_POST['month'].'-%';
 
 				$sql_del_rest = "delete from {{rest}} where rest_date='".$date."' and id_store=".Yii::app()->session['id_store'];

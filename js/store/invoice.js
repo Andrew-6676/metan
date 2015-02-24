@@ -172,4 +172,10 @@ $(document).ready( function() {
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	})
 
+             $('.print_doc_button').click(function(event){
+                        var id = $(this).parent().attr('doc_id');
+                       // alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
+                        window.open('/metan_0.1/print/index?report=Invoice&id='+id,'_blank')
+                        event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+              })
 })

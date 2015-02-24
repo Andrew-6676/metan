@@ -1,4 +1,11 @@
 $(document).ready(function(){
+	/*-------------------печать документа----------------------------------------------*/
+	$('.print_doc_button').click(function(event){
+		var id = $(this).parent().attr('doc_id');
+		//alert('print reestr  '+$('#doc_hat_'+id+' .doc_num').text());
+		window.open('/metan_0.1/print/index?report=Receipt&id='+id,'_blank')
+		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+	})
 	/*-------------------удаление документа----------------------------------------------*/
 	$('.del_doc_button').click(function(event){
 			// получаем ID удаляемого документа

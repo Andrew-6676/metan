@@ -56,11 +56,17 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
+		$document = new Document();
+		$new_doc = false;
+
 		if ($data['doc']['doc_id']<0) {
-			$document = new Document();
+
 		} else {
-			echo 'Редактирование документа id='.$data['doc']['doc_id'];
-			exit;
+			$new_doc = true;
+			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
+			//$document = new Document();
+			//exit;
+				// наверно надо добавит документ как новый и в случае успеха удалить старый документ.
 		}
 
 			// начинаем транзакцию
@@ -124,6 +130,14 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 
 					}
 
+	        	}
+
+	        	// тут все данные уже сохранены.
+	        	// Если это редактирование - удаляем старые документы
+	        	if ($new_doc) {
+	        		// удалить старый док
+	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
+	        		Document::model()->deleteByPK($data['doc']['doc_id']);
 	        	}
 			} else {
 				// если данные не сохранены

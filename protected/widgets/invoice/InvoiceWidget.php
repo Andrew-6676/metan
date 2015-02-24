@@ -77,6 +77,7 @@ class InvoiceWidget extends CWidget
 						//echo '<br><span>Приход от:</span>'.$doc->idContact->name;
 						echo "<div class='buttons' doc_id='".$doc->id."'>
 							<button class='write_off_button' title='Списать товары'></button>
+                                                                                                <button class='print_doc_button' title='Напечатать счёт-фактуру'></button>
 							<button class='edit_doc_button' title='Изменить документ'></button>
 							<button class='del_doc_button' title='Удалить документ'></button>
 							</div>";

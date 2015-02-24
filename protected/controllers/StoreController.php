@@ -13,6 +13,7 @@ class StoreController extends Controller
         return array(
             'index'     => 'application.controllers.store.indexAction',
             'receipt'   => 'application.controllers.store.receiptAction',
+            'expense_day'=> 'application.controllers.store.expense_dayAction',
             'expense'   => 'application.controllers.store.expenseAction',
             'return'    => 'application.controllers.store.returnAction',
             'rest'      => 'application.controllers.store.restAction',

@@ -10,17 +10,17 @@ class returnAction extends CAction   /*---- StoreController ----*/
 				// сохранить расход в БД
 			if(isset($_POST['new_return'])) {
 				$this->addReturn($_POST['new_return']);
-				exit;
+				Yii::app()->end();
         	}		// if(isset($_POST['new_expense']))
 
         		// удалить расход
 			if(isset($_POST['del_expense'])) {
 				$this->delReturn($_POST['del_return']);
-				exit;
+				Yii::app()->end();
         	}		// if(isset($_POST['del_expense']))
 
         	echo 'Неправильный запроc';
-        	exit;
+        	Yii::app()->end();
 		}
 
 
@@ -55,11 +55,14 @@ class returnAction extends CAction   /*---- StoreController ----*/
 		//exit;
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
+		$document = new Document();
+		$new_doc = false;
 		if ($data['doc']['doc_id']<0) {
-			$document = new Document();
+
 		} else {
-			echo 'Редактирование документа id='.$data['doc']['doc_id'];
-			exit;
+			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
+			// exit;
+			$new_doc = true;
 		}
 
 			// начинаем транзакцию
@@ -124,6 +127,13 @@ class returnAction extends CAction   /*---- StoreController ----*/
 					}
 
 	        	}
+
+				if ($new_doc) {
+	        		// удалить старый док
+	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
+	        		Document::model()->deleteByPK($data['doc']['doc_id']);
+	        	}
+
 			} else {
 				// если данные не сохранены
 

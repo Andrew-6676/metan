@@ -54,11 +54,14 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$res = array();
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
+		$document = new Document();
+		$new_doc = false;
 		if ($data['doc']['doc_id']<0) {
-			$document = new Document();
+
 		} else {
-			echo 'Редактирование документа id='.$data['doc']['doc_id'];
-			exit;
+			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
+			// exit;
+			$new_doc = true;
 		}
 
 			// начинаем транзакцию
@@ -123,6 +126,12 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 					}
 
 	        	}
+	        	if ($new_doc) {
+	        		// удалить старый док
+	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
+	        		Document::model()->deleteByPK($data['doc']['doc_id']);
+	        	}
+
 			} else {
 				// если данные не сохранены
 

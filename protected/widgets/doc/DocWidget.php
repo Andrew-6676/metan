@@ -75,7 +75,7 @@ class DocWidget extends CWidget
 	    				echo '<span class="capt">ТТН №:</span><span class="doc_num">'.$doc->doc_num.'</span>';
 						echo '<br><span class="capt">Дата:</span><span class="doc_date">'.$doc_date.'</span>';
 						echo '<br><span class="capt">Приход от:</span>'.$doc->idContact->name;
-						echo "<div class='buttons' doc_id='".$doc->id."'><button class='del_doc_button'></button>"./*<button class='edit_doc_button'>edit_doc</button>*/"</div>";
+						echo "<div class='buttons' doc_id='".$doc->id."'><button class='print_doc_button'></button><button class='del_doc_button'></button>"./*<button class='edit_doc_button'>edit_doc</button>*/"</div>";
 					echo '</td>';
     			echo '</tr>';
 	    		echo '<tr>';

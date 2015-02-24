@@ -12,7 +12,10 @@ class PrintController extends Controller
     public function actionIndex($report) {
         $printer = new PrintPDF();
         // echo $report;
-        echo $printer->printFromURL('http://localhost/metan_0.1/print/print'.$report.'?id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
+        // Utils::print_r($_GET);
+        // echo http_build_query($_GET);
+       // echo 'http://localhost/metan_0.1/print/print'.$report.'?'.http_build_query($_GET).'&id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
+        echo $printer->printFromURL('http://localhost/metan_0.1/print/print'.$report.'?'.http_build_query($_GET).'&id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
         // echo(Yii::app()->session['id_store']);
          // echo 'http://localhost/metan_0.1/print/print'.$report.'?id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
  //       echo $printer->getInfo();
@@ -29,10 +32,12 @@ class PrintController extends Controller
 
 }
 /* --------------------- список всех действий контроллера ---------------*/
-	public function actions()
+public function actions()
     {
         return array(
             'printRest'=>'application.controllers.print.printRestAction',
+            'printReceipt'=>'application.controllers.print.printReceiptAction',
+            'printInvoice'=>'application.controllers.print.printInvoiceAction',
             'pr'=>'application.controllers.print.prAction',
         );
     }
