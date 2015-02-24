@@ -1,7 +1,7 @@
 var search_data = {
 		 		capt: "Поиск для счёт-фактуры",
 		 		table: "goods",
-		 		field: "name",
+		 		field: "gname",
 		 		key: "id",
 		 		width: 800,
 		 		sender: null,
@@ -16,6 +16,24 @@ $(document).ready( function() {
 	// 		   	//revert: true,
 	// 		   	//revertDuration: 3000
 	// 		});
+
+    $('#contact_name').keyup(function(event){
+        if (event.keyCode==118) {
+            // alert('Поиск');
+            search_data1 = {
+                capt: "Поиск клиента",
+                table: "contact",
+                field: "name",
+                key: "id",
+                width: 800,
+                sender: 'contact_name',
+            };
+            sForm = new searchForm();
+            // search_data1.sender = $(this).parent().parent().attr('id');
+            sForm.create(search_data1);
+
+        }
+    })
 
 	$('.add_contact').click(function() {
 		//alert('новый потребитель');

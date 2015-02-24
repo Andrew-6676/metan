@@ -21,13 +21,19 @@ function paste_result(row_id, fields) {
 			row_id - куда вставить
 			fields - что вставить
 		*/
-	// console.log('row_id - '+row_id );
+	console.log('row_id - '+fields.id );
 	// alert(JSON.stringify(fields));
-	row = $('#'+row_id);
-	row.find('.id_goods').val(fields.id);
-	row.find('.goods_name').val(fields.name);
-	row.find('.price').val(fields.price);
-	row.find('.goods_name').focus();
+	if (row_id=='contact_name') {
+		$('#contact_name').val(fields.name);
+		$('#contact_name').attr('cid',(fields.id*1));
+		$('#contact_name').focus();
+	} else {
+		row = $('#'+row_id);
+		row.find('.id_goods').val(fields.id);
+		row.find('.goods_name').val(fields.name);
+		row.find('.price').val(fields.price);
+		row.find('.goods_name').focus();
+	}
 	sForm.closeForm();
 }
 /*-----------------------------------------------------------------*//*-----------------------------------------------------------------*/
@@ -155,14 +161,20 @@ function searchForm () {
 	    });
 
 	    	// заполняем данными
+	    	if (param.table=='contact') {
+	    		action = 'GetContactName';
+	    	} else {
+	    		action = 'GetGoodsNameFromRest';
+	    	}
 	    		// запрос данных с сервера
 			$.ajax({
 				async: false,
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
+          		// url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
+          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/"+action,
           		type:'GET',
           		dataType: "json",
-          		data: 'term='+''+'&f=gname', /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
-		        success: function(data){
+          		data: 'term='+''+'&t='+param.table+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
+		        success: function(data) {
 		        	// alert((data));
 		        		// формируем массив из найденых в БД строк
 		        		arr = new Array();
