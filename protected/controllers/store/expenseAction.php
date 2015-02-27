@@ -32,6 +32,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 														'condition'=>'id_doctype=2 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 														'order'=>'doc_date desc, doc_num desc')
 														);
+		//doc_num2>0 and
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
 												  'order'=>'name'));

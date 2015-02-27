@@ -75,7 +75,7 @@ function check_closed (m,y) {
   			// alert(JSON.stringify(data));
   		},
         success: function(data){
-        	//alert(JSON.stringify(data));
+        	// alert(JSON.stringify(data));
         	switch (data.status) {
         		case 'ok':
         			$('#res_span').removeClass();

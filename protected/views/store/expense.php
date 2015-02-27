@@ -91,11 +91,11 @@
 				<tr><td colspan='6' class='itog_summ'>0</td></tr>
 			</tfoot>
 		</table>
-		<button id="add_new_row" type="button">Добавить строку</button>
-	</div>
-	<div class="form_footer">
-		<button id="add_expence" type="button">Сохранить</button>
-		<button id="clear_form" type="button">Очистить</button>
+		<div class="form_footer">
+			<button id="add_new_row" type="button">Добавить строку</button>
+			<button id="clear_form" type="button">Очистить</button>
+			<button id="add_expence" type="button">Сохранить</button>
+		</div>
 	</div>
 </div>
 

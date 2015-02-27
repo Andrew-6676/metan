@@ -18,7 +18,7 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 		 		if ($_POST['month'] < 12) {
 					$date = $_POST['year'].'-'.$o.($_POST['month']+1).'-01';
 				} else {
-					$date = $_POST['year']+1.'-01-01';
+					$date = ($_POST['year']+1).'-01-01';
 				}
 						// месяц из которого брать
 				$month = $_POST['year'].'-'.$o.$_POST['month'].'-%';
@@ -43,7 +43,7 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 									having sum(quantity)!=0
 									order by 1";
 
-				// echo '<pre>'.$sql_rest.'</pre>';
+				// echo '<pre>'.$sql_add_rest.'</pre>';
 				$res = array('status'=>'unknown', 'data'=>array());
 
 				$transaction = $connection->beginTransaction();
@@ -61,20 +61,21 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 				}
 				$transaction->commit();
 			}
-
+			/*------------------------------------------------------------------*/
 			if ($_POST['mode']=='check') {
 
-				if ($_POST['month']>8) {
-					$m = ($_POST['month']+1);
+				if ($_POST['month']<9) {
+					$m = '0'.($_POST['month']+1);
 				} else {
-					if ($_POST['month'] == 1) {
-						$m = 12;
-						$_POST['year']--;
+					if ($_POST['month'] == 12) {
+						$m = '01';
+						$_POST['month'] = $m;
+						$_POST['year']++;
 					} else {
-						$m = $o.($_POST['month']+1);
+						$m = ($_POST['month']+1);
 					}
 				}
-
+				//$res['post'] = $_POST;
 				$sql_count = 'select count(*) from {{rest}} where rest_date::text like \''.$_POST['year'].'-'.$m.'-%\' and id_store='.Yii::app()->session['id_store'];
 				if ($connection->createCommand($sql_count)->queryScalar() > 0) {
 					$res['status'] = 'ok';
@@ -82,7 +83,7 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 					$res['status'] = 'no';
 				}
 			}
-
+			//$res['sql'] = $sql_count;
 			echo json_encode($res);
 			// print_r($res);
 

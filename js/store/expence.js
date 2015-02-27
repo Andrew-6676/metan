@@ -1,7 +1,7 @@
 var search_data = {
 		 		capt: "Поиск для расхода",
 		 		table: "goods",
-		 		field: "name",
+		 		field: "gname",
 		 		key: "id",
 		 		width: 800,
 		 		sender: null,

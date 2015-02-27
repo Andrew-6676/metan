@@ -166,6 +166,10 @@ class Document extends CActiveRecord
             //$gr = $this->groups;
             //return ;
     }
+
+    // public function maxID() {
+
+    // }
 }
 
                 // documentdata

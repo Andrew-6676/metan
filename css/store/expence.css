@@ -1,6 +1,6 @@
 .doc_title {
     float: right;
-    color: #bcbcbc;
+    color: #969696;
     font-weight: bold;
     font-size: 3em;
     margin: 0 20px;
@@ -48,7 +48,7 @@ label {
 /*------------------------------------------------------------*/
 /*-----------Таблица для новых товаров------------------------*/
 #new_table {
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     background: #efefef;
     border: 1px solid #cfcfcf;
@@ -137,6 +137,15 @@ label {
     width: 110px;
     border-radius: 5px;
     border: 1px solid #848484;
+}
+/*------------------------------------------------------------------*/
+#add_expence {
+    padding: 5px;
+    font-size: 1.3em;
+}
+#add_expence:hover {
+    color: #101C94;
+    cursor: pointer;
 }
 /*-------------------------------------------*/
 .td_buttons {
