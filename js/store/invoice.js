@@ -1,7 +1,8 @@
 var search_data = {
 		 		capt: "Поиск для счёт-фактуры",
-		 		table: "goods",
-		 		field: "gname",
+		 		action: "GetGoodsNameFromRest",
+		 		fields: ["name", "rest", "price"],
+		 		field: 'gname',
 		 		key: "id",
 		 		width: 800,
 		 		sender: null,
@@ -22,8 +23,9 @@ $(document).ready( function() {
             // alert('Поиск');
             search_data1 = {
                 capt: "Поиск клиента",
-                table: "contact",
-                field: "name",
+                action: "GetContactName",
+                fields: ["name"],
+				field: 'name',
                 key: "id",
                 width: 800,
                 sender: 'contact_name',
@@ -35,6 +37,13 @@ $(document).ready( function() {
         }
     })
 
+	$('.edit_contact').click(function() {
+		// alert('изменитьпотребитель');
+		event.stopPropagation();
+		$('#overlay').show() //fadeIn(50); ;
+		$('[name="new_contact[id]"]').val($('#contact_name').attr('cid'));
+		$('.new_contact').show(); //fadeIn(100); //show();
+	})
 	$('.add_contact').click(function() {
 		//alert('новый потребитель');
 		$('#overlay').show() //fadeIn(50); ;
@@ -184,16 +193,16 @@ $(document).ready( function() {
 	// 	alert('Редактировать счёт-фактуру ');
 	// 	event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	// })
-
+        // списание в расход счёта фактуры
 	$('.write_off_button').click(function(event) {
 		alert('списать ');
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	})
-
-             $('.print_doc_button').click(function(event){
-                        var id = $(this).parent().attr('doc_id');
-                       // alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
-                        window.open('/metan_0.1/print/index?report=Invoice&id='+id,'_blank')
-                        event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
-              })
+        // печать счёт-фактуры
+    $('.print_doc_button').click(function(event){
+            var id = $(this).parent().attr('doc_id');
+           // alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
+            window.open('/metan_0.1/print/index?report=Invoice&id='+id,'_blank')
+            event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+    })
 })

@@ -1,11 +1,12 @@
 var search_data = {
-		 		capt: "Поиск для расхода",
-		 		table: "goods",
-		 		field: "gname",
-		 		key: "id",
-		 		width: 800,
-		 		sender: null,
-		 	};
+				capt: "Поиск для расхода",
+				action: "GetGoodsNameFromRest",
+				fields: ["name","rest","price"],
+				field: 'gname',
+				key: "id",
+				width: 800,
+				sender: null,
+			};
 /*--------------------------------------------------*/
 $(document).ready( function(){
 	// alert('epence.js')

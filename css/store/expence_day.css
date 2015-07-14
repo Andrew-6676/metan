@@ -1,209 +1,268 @@
-/*-----------------------------------------------*/
-.doc_title {
-    float: right;
-    color: #969696;
-    font-weight: bold;
-    font-size: 3em;
-    /*margin: 0 20px;*/
-    width: 100%;
-    text-align: center;
+@-webkit-keyframes newrow {
+	0% { background-color: #8FFF83;}
+	100% { background-color: #fff; }
+}
+@keyframes newrow {
+	0% { background-color: #8FFF83;}
+	100% { background-color: #fff; }
 }
 
+@-webkit-keyframes delrow {
+	0% { background-color: #fff; color: #000;}
+	100% { background-color: #FFBEBE; color: #f00;}
+}
+@keyframes delrow {
+	0% { background-color: #fff; color: #000;}
+	100% { background-color: #FFBEBE; color: #f00;}
+}
+
+/*-----------------------------------------------*/
+.doc_title {
+	float: right;
+	color: #969696;
+	font-weight: bold;
+	font-size: 3em;
+	/*margin: 0 20px;*/
+	width: 100%;
+	text-align: center;
+}
+.action {
+    font-size: 0.4em;
+    /*float: right;*/
+    /*font-weight: bold;*/
+}
+.action.new {
+    color: #9DC399;
+}
+.action.edit {
+   color: #E29696;
+}
 /*----------------------------------------*/
 #form {
-    font-family: serif;
-    font-size: 16px;
-    /*text-align: center;*/
+	font-family: serif;
+	font-size: 16px;
+	/*text-align: center;*/
 }
 .new_doc_hat {
-    /*margin: auto;*/
-    /*height: 70px;*/
-    /*width: 97%;*/
-    background: #cfcfcf;
-    border-radius: 5px;
-    /*padding: 5px;*/
-    margin-bottom: 1px;
+	/*margin: auto;*/
+	/*height: 70px;*/
+	/*width: 97%;*/
+	background: #cfcfcf;
+	border-radius: 5px;
+	/*padding: 5px;*/
+	margin-bottom: 1px;
 }
 
 
 /*------------------------------------------------------------*/
 /*-----------Таблица для новых товаров------------------------*/
 #new_table {
-    padding: 7px 5px;
-    border-radius: 5px;
-    background: #efefef;
-    border: 1px solid #cfcfcf;
+	padding: 7px 5px;
+	border-radius: 5px;
+	background: #efefef;
+	border: 1px solid #cfcfcf;
 }
 /*------------------------------------------------------------*/
 #new_goods_table th {
-    padding: 2px;
-    /*background: ;*/
+	padding: 2px;
+	/*background: ;*/
 }
 #new_goods_table .th {
-    /*margin-left: 2px;*/
-    /*display: table-cell;*/
-    line-height: 25px;
-    background: #D0D0D0;
-    vertical-align: middle;
-    /*border-radius: 5px;*/
-    border: 1px solid #afafaf;
-    height: 52px;
+	/*margin-left: 2px;*/
+	/*display: table-cell;*/
+	line-height: 25px;
+	background: #D0D0D0;
+	vertical-align: middle;
+	/*border-radius: 5px;*/
+	border: 1px solid #afafaf;
+	height: 52px;
 }
 #new_goods_table .th.t0 {
-    border-radius: 5px;
-    line-height: 52px;
+	border-radius: 5px;
+	line-height: 52px;
 }
 #new_goods_table .th.t2 {
-    line-height: 52px;
+	line-height: 52px;
 }
 #new_goods_table .th.t1 {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 #new_goods_table .th.t4 {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    line-height: 52px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	line-height: 52px;
 }
 #new_goods_table .th.t5 {
-    line-height: 52px;
-    border-radius: 5px;
+	line-height: 52px;
+	border-radius: 5px;
 }
 /*-------------------*/
 #new_goods_table {
-    border-collapse: collapse;
-    font-family: monospace;
+	border-collapse: collapse;
+	font-family: monospace;
 }
 #new_goods_table input{
-    border: 1px solid #848484;
-    outline:0;
-    height:24px;
+	border: 1px solid #848484;
+	outline:0;
+	height:24px;
 }
 .new_goods_row td {
-    /*background-color: #cfc;*/
-    padding: 2px;
+	/*background-color: #cfc;*/
+	padding: 2px;
 }
 .id_operation {
-    width: 150px;
-    height: 24px;
-    border-radius: 5px;
-    background: #fff;
+	width: 150px;
+	height: 24px;
+	border-radius: 5px;
+	background: #fff;
 }
 .id_goods {
-    text-align: right;
-    width: 70px;
-    -moz-border-radius-topleft: 5px;
-    -webkit-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    padding-left:10px;
-    padding-right: 5px;
+	text-align: right;
+	width: 70px;
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding-left:10px;
+	padding-right: 5px;
 }
 .goods_name {
-    width: 480px;
-    padding-right: 5px;
-    padding-left: 5px;
+	width: 480px;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 .quantity {
-    text-align: right;
-    width: 80px;
-    padding-right:5px;
+	text-align: right;
+	width: 80px;
+	padding-right:5px;
 }
 .price {
-    text-align: right;
-    width: 90px;
-    -moz-border-radius-topright: 5px;
-    -webkit-border-top-right-radius: 5px;
-    border-top-right-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding-right:5px;
-    padding-left: 5px;
+	text-align: right;
+	width: 90px;
+	-moz-border-radius-topright: 5px;
+	-webkit-border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding-right:5px;
+	padding-left: 5px;
 }
 .summ {
-    background: #ffa;
-    text-align: right;
-    font-size: 0.8em;
-    padding-right: 5px;
-    line-height: 25px;
-    height: 25px;
-    width: 110px;
-    border-radius: 5px;
-    border: 1px solid #848484;
+	background: #ffa;
+	text-align: right;
+	font-size: 0.8em;
+	padding-right: 5px;
+	line-height: 25px;
+	height: 25px;
+	width: 110px;
+	border-radius: 5px;
+	border: 1px solid #848484;
 }
 /*------------------------------------------------------------------*/
-#add_expence {
-    padding: 5px;
-    font-size: 1.3em;
+#add_expence, #cancel_expence {
+	padding: 5px;
+	font-size: 1.3em;
 }
-#add_expence:hover {
-    color: #101C94;
-    cursor: pointer;
+#add_expence:hover, #cancel_expence:hover {
+	color: #101C94;
+	cursor: pointer;
+}
+#cancel_expence {
+	color: #BD0000;
+}
+#cancel_expence {
+	display: none;
 }
 /*------------------------------------------------------------------*/
 .doc_data {
-    border-collapse: collapse;
-    width: 100%;
+	border-collapse: collapse;
+	width: 100%;
 }
 .doc_data td.npp {
 }
 .doc_data td.id {
-    text-align: center;
+	text-align: center;
 }
 .doc_data td.name {
 
 }
 .doc_data td.quantity {
-    text-align: right;
+	text-align: right;
 }
 .doc_data td.price {
-    text-align: right;
+	text-align: right;
 }
 .doc_data td.sum {
-    text-align: right;
+	text-align: right;
 }
 .doc_data td.operation {
-    text-align: center;
+	text-align: center;
 }
 .doc_data td.buttons {
 
 }
 .doc_data td, .doc_data th {
-    border: 1px solid #7E7E7E;
-    padding: 1px 3px;
+	border: 1px solid #7E7E7E;
+	padding: 1px 3px;
 }
 .doc_data tbody tr:hover {
-    background: rgba(200,255,255, 0.6)
+	background: rgba(200,255,255, 0.6)
 }
 .doc_data thead tr {
-    background: #cfcfcf;
+	background: #cfcfcf;
+}
+
+/*-----------------------------------------------------------------*/
+.newRow {
+   /*background-color: #D1FCD1;*/
+   color: #003C00;
+   -webkit-animation: newrow 25s linear 1;
+   animation: newrow 25s linear 1;
+}
+.delRow {
+	-webkit-animation: delrow 5s linear 1;
+	animation: delrow 5s linear 1;
+	background: #FFBEBE;
+	color: #f00;
 }
 /*-----------------------------------------------------------------*/
 .doc_data button {
-    height: 20px;
-    width: 20px;
-    border: none;
-    cursor: pointer;
-    background-position: 0% 0%;
-    /*background: none;*/
+	height: 20px;
+	width: 20px;
+	border: none;
+	cursor: pointer;
+	background-position: 0% 0%;
+	/*background: none;*/
 }
 .doc_data button:hover {
-    background-position: 100% 100%;
+	background-position: 100% 100%;
 }
-.del {
-    background: url(../../images/del_krest_20x40.png) no-repeat;
+.doc_data button.del {
+	background: url(../../images/del_krest_20x40.png) no-repeat;
 }
-.edit {
-    background: url(../../images/edit_20x40.png) no-repeat;
+.doc_data button.edit {
+	background: url(../../images/edit_20x40.png) no-repeat;
 }
-.save {
-    display: none;
-    background: url(../../images/save.png) no-repeat;
+.doc_data button.save {
+	display: none;
+	background: url(../../images/save.png) no-repeat;
 }
 /*-----------------------------------------------------------------*/
+.print_doc_button {
+    background:url(../../images/print.png) no-repeat;
+    background-position: 0% 0%;
+    cursor:pointer;
+    width: 25px !important;
+    height: 25px !important;
+    border: none;
+}
+.print_doc_button:hover {
+    background-position: 100% 0%;
+}
 /*-----------------------------------------------------------------*/
 /*-----------------------------------------------------------------*/
 /*-----------------------------------------------------------------*/

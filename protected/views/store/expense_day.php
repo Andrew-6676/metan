@@ -16,6 +16,7 @@
     <div class="new_doc_hat">
         <div class="doc_title">
             <?php echo $this->pageTitle; ?>
+            <div class='action new'>[добавление]</div>
         </div>
         <div class="row r2">
             <?php  $d = explode('-', Yii::app()->session['workdate']);  ?>
@@ -77,6 +78,7 @@
         </table>
         <div class="form_footer">
             <button id="add_expence" type="button">Добавить</button>
+            <button id="cancel_expence" type="button">Отмена</button>
         </div>
     </div>
 </div>
@@ -97,7 +99,7 @@
             <th>Розничная<br>цена</th>
             <th>Сумма<br>розница</th>
             <th>Операция</th>
-            <th></th>
+            <th><button class="print_doc_button" title="Распечатать расход"></button></th>
         </tr>
     </thead>
     <tbody>
@@ -111,7 +113,7 @@
                     <td class="quantity"><?php  echo $document->documentdata[0]->quantity; ?></td>
                     <td class="price"><?php  echo number_format($document->documentdata[0]->price,'0','.','`'); ?></td>
                     <td class="sum"><?php  echo number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity,'0','.','`'); ?></td>
-                    <td class="operation"><?php  echo $document->idOperation->name; ?></td>
+                    <td class="operation" id_operation="<?php  echo $document->idOperation->id; ?>"><?php  echo $document->idOperation->name; ?></td>
                     <td class="buttons">
                         <button class='del'></button>
                         <button class='edit'></button>

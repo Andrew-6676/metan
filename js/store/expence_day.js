@@ -1,21 +1,25 @@
+var timeout_id = window.setTimeout(checkNewData, 60000);;
 var search_data = {
 				capt: "Поиск для расхода",
-				table: "goods",
-				field: "gname",
+				action: "GetGoodsNameFromRest",
+				fields: ["name","rest","price"],
+				field: 'gname',
 				key: "id",
 				width: 800,
 				sender: null,
 			};
 /*--------------------------------------------------*/
 $(document).ready( function(){
-
+	$('.goods_name').focus();
 	/*-----------------------------------------------------*/
-	$('#expence_id_operation').click(function(){
+	$('#expence_id_operation').click(function(event){
 		$('.id_goods').focus();
+		event.stopPropagation();
 	})
-	$('#expence_id_operation').keypress(function(){
+	$('#expence_id_operation').keypress(function(event){
 		if (event.keyCode==13) {
 			$('.id_goods').focus();
+			event.stopPropagation();
 		}
 	})
 	/*-----------------------------------------------------*/
@@ -155,6 +159,7 @@ $(document).ready( function(){
 			$('#row_'+row+' .quantity').focus();
 		}
 	});     // end $(id+" .goods_name" ).autocomplete
+
 	/*---------------- Сохранить расход -------------------------------------------*/
 	$('#add_expence').click(function(){
 	   // alert('сохранить расход');
@@ -241,31 +246,34 @@ $(document).ready( function(){
 		var id = row.attr('doc_id');
 		// alert('del '+ id);
 		// exit;
+		if (row.hasClass('delRow')) {
+			row.remove();
+		} else
 		if (confirm("Точно хотите безвозвратно удалить строку \n "+row.find('td.name').text()+"?")) {
 			// alert('delte');
 			$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/store/expense",
-          		type:'POST',
-          		dataType: "json",
-          		data: {del_expense: id},
-          			// функция обработки ответа сервера
-          		error: function(data) {
-          			alert('Во время удаления произошла ошибка. Проверьте данные!');
-          			//alert(data);
-          		},
-		        success: function(data){
-		        	// alert(data);
-		        	//alert(data.status);
-		        	//alert(typeof data);
-		        	// удалить строку из таблицы на странице в случае удачного удаления
-		        	if (data.status == 'ok') {
-		        		//location.reload();
-		        		row.remove();
-		        	}
+				url: 'http://'+document.location.host+"/metan_0.1/store/expense",
+				type:'POST',
+				dataType: "json",
+				data: {del_expense: id},
+					// функция обработки ответа сервера
+				error: function(data) {
+					alert('Во время удаления произошла ошибка. Проверьте данные!');
+					//alert(data);
+				},
+				success: function(data){
+					// alert(data);
+					//alert(data.status);
+					//alert(typeof data);
+					// удалить строку из таблицы на странице в случае удачного удаления
+					if (data.status == 'ok') {
+						//location.reload();
+						row.remove();
+					}
 
 
-		        }
-	        });
+				}
+			});
 		}
 		row.css("background", "none");
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
@@ -275,37 +283,126 @@ $(document).ready( function(){
 
 	/*----------------------  --------------------------------------------*/
 	$('button.edit').click(function(){
-		checkNewData();
+		// alert('edit');
+			// ячейки куда надо вставлять данные
+		var td_dst = $('#new_goods_table tbody tr td');
+			// из этих ячеек надо сокпировать данные
+		var td_src = $(this).parent().parent().find('td');
+			// переносим нужные данные
+		td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
+		td_dst.eq(1).find('input').val(td_src.eq(1).text());
+		td_dst.eq(2).find('input').val(td_src.eq(2).text());
+		td_dst.eq(3).find('input').val(td_src.eq(3).text().trim().replace(/`/g,""));
+		td_dst.eq(4).find('input').val(td_src.eq(4).text().trim().replace(/`/g,""));
+			// id документа
+		$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
+			// пересчитываем сумму
+		$('.quantity, .price').change();
+
+		$('.action').removeClass('new');
+		$('.action').addClass('edit');
+		$('.action').text('[редактирование]');
+		$('#cancel_expence').show();
+		$('#add_expence').text('Сохранить');
 	})
+
+	$('#cancel_expence').click(function(){
+		$(this).hide();
+		$('#new_goods_table').attr('doc_id',-1);
+		$('#new_goods_table tbody tr td input').val('');
+		$('.summ').text('');
+		$('.action').removeClass('edit');
+		$('.action').addClass('new');
+		$('.action').text('[добавление]');
+		$('#add_expence').text('Добавить');
+	})
+
+    // печать расхода за день
+    $('.print_doc_button').click(function(event){
+            var id = $(this).parent().attr('doc_id');
+           // alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
+            window.open('/metan_0.1/print/index?report=Expenceday','_blank')
+            event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+    })
 })      // end document.ready
 
-
-/*---------------------------- ПРоверка и загрузка новых строк с сервера ---------------------------*/
+/*--------------------------------------------------------------------------------------------------*/
+/*---------------------------- Проверка и загрузка новых строк с сервера ---------------------------*/
 function checkNewData() {
 	// console.log('start check data');
-	var lastId = $('.doc_data tr').last().attr('doc_id');
+	// var lastId = $('.doc_data tr').last().attr('doc_id');
 	// console.log(lastId);
 
+		// создаём массив из id видимых пользователю строк
+	var idArr = new Array();
+	$('.doc_data tbody tr').each(function(){
+		idArr.push($(this).attr('doc_id'))
+	})
+
 	$.ajax({
-  		url: 'http://'+document.location.host+"/metan_0.1/store/expense_day",
-  		type:'POST',
-  		dataType: "json",
-  		data: {"action": "check", "lastId": lastId-3},
-  			// функция обработки ответа сервера
-  		error: function(data) {
-  			alert('Произошла ошибка!');
-  			alert(JSON.stringify(data));
-  		},
-        success: function(data){
-        	alert(data);
-        	alert(data.newRowsCount);
-        	alert(JSON.stringify(data.rowsData));
-        	//alert(typeof data);
-        	// удалить строку из таблицы на странице в случае удачного удаления
+		url: 'http://'+document.location.host+"/metan_0.1/store/expense_day",
+		type:'GET',
+		dataType: "json",
+		// data: {"action": "check", "lastId": lastId, "idArr": idArr},
+			// отправляем данные на сервер
+		data: {"action": "check", "idArr": idArr},
+			// функция обработки ответа сервера
+		error: function(data) {
+			alert('Произошла ошибка!');
+			alert(JSON.stringify(data));
+		},
+			// в случае "положительного"" ответа обрабатываем данные
+		success: function(data){
+			// alert(JSON.stringify(data));
+			// alert(JSON.stringify(data.delRows));
+			// alert(JSON.stringify(data.newRows));
+			// alert(JSON.stringify(data.newData));
 
-        	}
+				// цикл по строкам, которые надо вставить в таблицу
+			$.each( data.newData, function( key, val ) {
+				// console.log('новая строка для вставки');
+					// клонируем любую строку строку, например первую
+				var row = $('.doc_data>tbody>tr').first().clone();
+					// назначить действия кнопкам
+
+				row.removeClass('delRow');
+					// прячем её, пока не вставим данные
+				row.hide();
+					// добвляем строку в конец таблицы
+				$('.doc_data tbody').append(row);
+					// заполняем первую колонку номером по порядку
+				row.find('.npp').text($('.doc_data tr').size());
+					// вставляем id строки из БД
+				row.attr('doc_id', key);
+				row.addClass('newRow');
+
+				var td = row.find('td');
+					// цикл по ячекйкам - вносим данные, пришедшие с сервера
+				for (var i = 1; i < 6; i++) {
+					td.eq(i).text(val[i]);
+				};
+				// row.find('button.del').click() = $('button.del').click();
+					// медленно выплываем строку
+				row.fadeIn(1000);
+ 				//row.animate({ backgroundColor: "#ffffff" }, 400);
+
+			});
+
+			if (data.delRows != null) {
+				$.each(data.delRows, function(index, val) {
+					 // alert(val);
+					$("[doc_id = "+val+"]").addClass('delRow');
+				});
+			}
+		}
 
 
-        //}
-    })
+		//}
+	})
+
+	timeout_id = window.setTimeout(checkNewData, 60000);
 }
+
+// $(".newRow").animate({
+// 			backgroundColor: #fff
+//       }, 8500);               // анимация будет происходить 1,5 секунды

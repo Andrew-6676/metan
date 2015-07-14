@@ -31,14 +31,15 @@ nav
     list-style: none;
     margin: 2px;
     padding: 3px;
+    box-shadow: 4px 7px 16px 1px gray;
 }
 .leftmenu_li_a{
     text-decoration: none;
-    color: black;    
+    color: black;
 }
 .leftmenu_li:hover{
-    background-color: #FEFCFC;   
-    border: 1px solid #2348C8; 
+    background-color: #FEFCFC;
+    border: 1px solid #2348C8;
 }
 #leftmenu_cap{
     background-color: #EFEFEF;

@@ -13,7 +13,7 @@ class DataController extends Controller
     {
         return array(
         	'import'=>'application.controllers.data.importAction',
-            //'login'=>'application.controllers.site.loginAction',
+            'contact'=>'application.controllers.data.contactAction',
             //'logout'=>'application.controllers.site.logoutAction',
         );
     }

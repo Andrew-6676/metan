@@ -50,6 +50,9 @@ return array(
 
 	// application components -------------------------------------------------------------
 	'components'=>array(
+		// 'CHttpCookie'=>array(
+		// 	'domain'=>'.xxxxx.com'
+		// ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>false,

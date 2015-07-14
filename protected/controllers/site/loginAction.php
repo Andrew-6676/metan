@@ -16,10 +16,15 @@ class loginAction extends CAction   /*---- SiteController ----*/
 			$identity = new UserIdentity($_POST['login'],$_POST['pass']);
 				// проверка введённых пользователем данных
 			if($identity->authenticate()) {
-				//echo "Login!";
+				// echo "Login!";
+				//Yii::app()->session->sessionID;
+					error_log("----------------------------");
+					error_log(print_r(Yii::app()->session->sessionID, true));
 			    Yii::app()->user->login($identity);		// если всё правильно - аутентифицируем польователя
-			    //$this->controller->redirect(array('site/index'));
-
+			    // error_log(print_r($_SESSION,true));
+			    // $this->controller->redirect(array('site/index'));
+			    // print_r(Yii::app()->user);
+				// return;
 			    	// записываем дату в сессию
                 Yii::app()->session['workdate'] = $_POST['date'];
 
@@ -31,7 +36,7 @@ class loginAction extends CAction   /*---- SiteController ----*/
                 	// записываем id пользователя в сессию
                 Yii::app()->session['id_user'] = $st->id;
 		/*-----------------------------------------------------------------------------------------*/
-
+			// return;
 			    $this->controller->redirect(Yii::app()->user->returnUrl);	// перенаправляем
 			} else {
 				//echo "Error";

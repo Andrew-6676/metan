@@ -43,7 +43,6 @@ function paste_result(row_id, fields) {
 function searchForm () {
 		// свойства
 	this.table = '';
-	// this.action = '';
 	this.form = null;
 	this.visible = false;
 	this.filter = '';
@@ -56,7 +55,6 @@ function searchForm () {
 		//console.log(param.table);
 		//console.log(param.field);
 		//console.log(param.key);
-		sForm.fields = param.fields;
 			// создать окно
 		$('#content').append(
 			"<div id='search_window'> \
@@ -64,8 +62,8 @@ function searchForm () {
 				<div id='close_popup'></div> \
 				<div id='f_content'> \
 					<div class='selector'> \
-						<table class='search_list'> \
-						</table> \
+						<ul class='search_list'> \
+						</ul> \
 					</div> \
 					<input type='text' class='search_filter'>\
 					<div>Записей найдено: <span class='counter'></span></div>\
@@ -99,7 +97,7 @@ function searchForm () {
 
 			// обработчик нажатия стрелок на клавиатуре
 		$('.search_filter').keydown(function(event) {
-				 // alert(event.keyCode);
+				// alert(event.keyCode);
 			if (event.keyCode==27) {
 				// alert('close');
 				$('#close_popup').click();
@@ -110,11 +108,9 @@ function searchForm () {
 				event.stopPropagation();
 				$('.search_item.selected').click();
 			}
-			if (event.keyCode==40 || event.keyCode==38 || event.keyCode==33 || event.keyCode==34) {
+			if (event.keyCode==40 || event.keyCode==38) {
 					// 40 - down
 					// 38 - up
-					// 34 - page down
-					// 33 - page up
 				// alert('down');
 
 				var visible_items =  $('.search_item.visible');
@@ -126,36 +122,7 @@ function searchForm () {
 					visible_items.first().addClass('selected');
 				} else {
 					// alert('else');
-					var n = 1;
 						// если есть выделеная строка - выделяем следующую или предыдущую
-					if 	(event.keyCode==34) {
-						var next_all = selected_item.nextAll('.search_item.visible');
-						if (next_all.size() > 18) {
-							next_all.eq(18).addClass('selected');
-							selected_item.removeClass('selected');
-						} else if (next_all.size() > 0) {
-							next_all.last().addClass('selected');
-							selected_item.removeClass('selected');
-						} else {
-
-						}
-						n = 18;
-						// selected_item.nextAll('.search_item.visible').first().addClass('selected');
-					}
-					if 	(event.keyCode==33) {
-						var prev_all = selected_item.prevAll('.search_item.visible');
-						if (prev_all.size() > 18) {
-							prev_all.eq(18).addClass('selected');
-							selected_item.removeClass('selected');
-						} else if (prev_all.size() > 0) {
-							prev_all.last().addClass('selected');
-							selected_item.removeClass('selected');
-						} else {
-
-						}
-						n = 18;
-						// selected_item.nextAll('.search_item.visible').first().addClass('selected');
-					}
 					if 	(event.keyCode==40) {
 						var next_all = selected_item.nextAll('.search_item.visible');
 						if (next_all.size() > 0) {
@@ -163,8 +130,7 @@ function searchForm () {
 							selected_item.removeClass('selected');
 						}
 						// selected_item.nextAll('.search_item.visible').first().addClass('selected');
-					}
-					if 	(event.keyCode==38) {
+					} else {
 						var prev_all = selected_item.prevAll('.search_item.visible');
 						if (prev_all.size() > 0) {
 							prev_all.first().addClass('selected');
@@ -173,13 +139,12 @@ function searchForm () {
 					}
 				}
 
-					// если выделенная строка скрылась вверх
+
 				if ($('.selected').position().top<36) {
 					$(".selector").scrollTop($('.selected').prevAll('.visible').size()*$('.selected').height());
 				}
-					// если выделенная строка скрылась вниз
 				if ($('.selected').position().top>460) {
-					$(".selector").scrollTop($(".selector").scrollTop()+($('.selected').height()+2.1)*n);
+					$(".selector").scrollTop($(".selector").scrollTop()+19);
 				}
 
 
@@ -196,41 +161,31 @@ function searchForm () {
 	    });
 
 	    	// заполняем данными
-	    	// if (param.table=='contact') {
-	    	// 	action = 'GetContactName';
-	    	// } else {
-	    	// 	action = 'GetGoodsNameFromRest';
-	    	// }
+	    	if (param.table=='contact') {
+	    		action = 'GetContactName';
+	    	} else {
+	    		action = 'GetGoodsNameFromRest';
+	    	}
 	    		// запрос данных с сервера
 			$.ajax({
 				async: false,
           		// url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/"+param.action,
+          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/"+action,
           		type:'GET',
           		dataType: "json",
-          		data: 'term='+''+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
+          		data: 'term='+''+'&t='+param.table+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
 		        success: function(data) {
 		        	// alert((data));
 		        		// формируем массив из найденых в БД строк
 		        		arr = new Array();
 		        	// response(
 		        		$.map(data, function(item){	// пробегаем по каждой строке результата
-		        				// формируем строку таблицы из списка полей, переданных в конструтор формы
-		        			var row = '';
-		        			for (val of sForm.fields) {
-		        				var tmp = 'item.'+val;
-		        				row += '<td class="">' + eval(tmp) + '</td>';
-							}
-
 		        				// выводим строку на экран
-		        			$('.search_list').append('<tr class="search_item visible" key='+item.id + '>'
-		        					+ '<td class="char">' + item.id + '</td>'
-		        					+ row
-		        					+'</tr>');
+		        			$('.search_list').append('<li class="search_item visible" key='+item.id+'>'+'['+item.id+'] '+item.name + '    ('+item.rest+' шт по '+item.price+'р.)'+'</li>');
 		        				// запихиваем в массив
 			            	arr[item.id] = ({ 	// формируем массив нужной структуры
 			            		//id: item.id,	// это поле для вставки в соседний <input> (код товара)
-			            		value: item.name /*+ '    ('+item.rest+' шт)'*/,	// это поле вставится в <input>
+			            		value: item.name + '    ('+item.rest+' шт)',	// это поле вставится в <input>
 			            		label: '['+item.id+'] '+item.name + '    ('+item.rest+' шт по '+item.price+'р.)',		// это поле отобразится в выпадающем списке
 			            		price: item.price,
 			            		rest: item.rest

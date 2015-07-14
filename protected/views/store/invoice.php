@@ -23,22 +23,24 @@
 			<label for="invoice[contact]">Потребитель:</label>
 			<input type="text" id='contact_name' cid='' name="invoice[contact]" placeholder="Потребитель" required value="">
 			<button class='add_contact' title='Добавить нового потребителя'></button>
+			<button class='edit_contact' title='Редактировать потребителя'></button>
 			<div class='new_contact'>
 				<div class='caption'>Добавить нового потребителя</div>
 				<div id='close_form'></div>
-				<input id='new_contact[id]' class='s' placeholder='Код'>
-				<input id='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
+				<input name='new_contact[id]' class='s' placeholder='Код'>
+				<input name='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
 				<br>
-				<input id='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
+				<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
 				<br>
-				<input id='new_contact[address]' class='l' placeholder='Адрес'>
+				<input name='new_contact[address]' class='l' placeholder='Адрес'>
 				<br>
-				<input id='new_contact[unn]' class='s' placeholder='УНН'>
-				<input id='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
-				<input id='new_contact[mfo]' class='s' placeholder='МФО'>
-				<input id='new_contact[okpo]' class='s' placeholder='ОКПО'>
+				<input name='new_contact[unn]' class='s' placeholder='УНН'>
+				<input name='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
+				<input name='new_contact[mfo]' class='s' placeholder='МФО'>
+				<input name='new_contact[okpo]' class='s' placeholder='ОКПО'>
 				<br>
-				<input id='new_contact[bank]' class='l' placeholder='Банк'>
+				<input name='new_contact[bank]' class='l' placeholder='Банк'>
+				<input name='new_contact[agreement]' class='l' placeholder='Договор'>
 				<div class='buttons'>
 					<button id='add_new_contact'>Сохранить</button>
 					<button id='cancel_new_contact'>Отмена</button>

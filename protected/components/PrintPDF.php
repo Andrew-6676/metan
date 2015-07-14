@@ -8,7 +8,7 @@
         {
             $this->outputPath = Yii::getPathOfAlias('webroot.public');
             $this->mpdf = new mpdf('utf-8', $size, '8', '', 10, 10, 7, 7, 10, 10); /*задаем формат, отступы и.т.д.*/
-           // $this->mpdf->AddPage($orient); // Lanscape Portpait(def)
+            $this->mpdf->AddPage($orient); // Lanscape Portpait(def)
             $this->mpdf->charset_in = 'utf-8'; /*не забываем про русский, стандарт похоже utf8*/
 
         }

@@ -41,7 +41,10 @@ public function accessRules()
          //        'users'=>array('prod', 'admin'),					// остальным выдаст ошибку
          //    ),
             array('deny',
-                'actions'=>array('receipt',
+                'actions'=>array('expense_day',
+                                 'print',
+                                 'return',
+                                 'receipt',
                                  'expense',
                                  'invoice',
                                  'rest',

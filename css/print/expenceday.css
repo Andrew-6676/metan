@@ -1,0 +1,22 @@
+/*--------------------------------------------------------*/
+.n {
+    width: 1px;
+}
+.gid {
+    text-align: center;
+    width: 70px;
+}
+.gname {
+    width: 500px;
+}
+/*--------------------------------------------------------*/
+.sum, .price, .rest {
+    text-align: right;
+}
+.sum_gr .sum, .sum_m .sum {
+    font-weight: bold;
+}
+
+.sum_gr td{
+    text-align: right;
+}

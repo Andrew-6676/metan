@@ -1,4 +1,9 @@
-<?php if ($this->beginCache('main2_'.Yii::app()->user->id)) {?>
+<?php
+error_log("----------------------------");
+
+error_log(print_r(Yii::app()->session->sessionID, true));
+//if ($this->beginCache('main2_'.Yii::app()->user->id))
+{?>
 <!DOCTYPE HTML>
 <html lang="ru">
 <head>
@@ -140,7 +145,7 @@
 
 	</nav>  <!-- #main menu  -->
 	<?php
-			$this->endCache();
+		//	$this->endCache();
 	 	}
 	 ?>
 	<div class="wrapper">
