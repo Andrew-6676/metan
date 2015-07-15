@@ -14,7 +14,10 @@ class PrintController extends Controller {
 		// Utils::print_r($_GET);
 		// echo http_build_query($_GET);
 		// echo 'http://localhost/metan_0.1/print/print'.$report.'?'.http_build_query($_GET).'&id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
+
+			// вызываем нужный Action и передаём ему параметры
 		echo $printer->printFromURL('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
+
 		// echo(Yii::app()->session['id_store']);
 		// echo 'http://localhost/metan_0.1/print/print'.$report.'?id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
 		//       echo $printer->getInfo();
@@ -37,6 +40,7 @@ class PrintController extends Controller {
 			'printReceipt' => 'application.controllers.print.printReceiptAction',
 			'printInvoice' => 'application.controllers.print.printInvoiceAction',
 			'printExpenceday' => 'application.controllers.print.printExpencedayAction',
+			'printDeliverynote' => 'application.controllers.print.printDeliverynoteAction',
 			'pr' => 'application.controllers.print.prAction',
 		);
 	}

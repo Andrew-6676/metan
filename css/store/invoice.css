@@ -10,6 +10,10 @@
     width: 360px;
     /*height: 24px;*/
 }
+input.err {
+	border: 2px solid #F71414;
+}
+
 /*----------------------------------------------------------------------*/
 .edit_contact {
     position: relative;
@@ -190,3 +194,17 @@ label {
     padding-right: 5px;
 }
 /*---------------------------------------------------*/
+#add_invoice, #cancel_invoice, #add_new_row {
+	padding: 5px;
+	font-size: 1.3em;
+}
+#add_invoice:hover, #cancel_invoice:hover, #add_new_row:hover {
+	color: #101C94;
+	cursor: pointer;
+}
+#cancel_invoice, #clear_form {
+	color: #BD0000;
+}
+#cancel_invoice {
+	display: none;
+}

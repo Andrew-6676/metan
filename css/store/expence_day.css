@@ -210,7 +210,7 @@
 	padding: 1px 3px;
 }
 .doc_data tbody tr:hover {
-	background: rgba(200,255,255, 0.6)
+	background: rgba(200,255,255, 0.6) !important;
 }
 .doc_data thead tr {
 	background: #cfcfcf;

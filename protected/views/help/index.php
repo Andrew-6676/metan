@@ -14,10 +14,18 @@
 		echo "</div>";
 
 		echo "<div id='content_help'>";
-		echo nl2br($data->text);
+//		echo nl2br($data->text);
+		echo ($data->text);
 		echo "</div>";
 		
 	} else {
 		echo 'Справка не найдена';
 	}
+
+//  $this->addJs('../../protected/extensions/ckeditor/ckeditor.js');
+//<textarea id='editor' class="editor" name="editor"></textarea>
+//<script type='text/javascript'>CKEDITOR.replace( 'editor' );</script>
+
 ?>
+
+

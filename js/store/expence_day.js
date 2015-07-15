@@ -10,7 +10,7 @@ var search_data = {
 			};
 /*--------------------------------------------------*/
 $(document).ready( function(){
-	$('.goods_name').focus();
+	$('#expence_id_operation').focus();
 	/*-----------------------------------------------------*/
 	$('#expence_id_operation').click(function(event){
 		$('.id_goods').focus();
@@ -187,6 +187,8 @@ $(document).ready( function(){
 				goods_arr[$(element).val()] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
 			} else {
 				alert('не все поля заполнены!');
+				//$('#expence_id_operation').focus();
+				$('.goods_name').focus();
 				err =  true;
 				return false;
 			}

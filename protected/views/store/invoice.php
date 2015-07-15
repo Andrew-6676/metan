@@ -25,27 +25,28 @@
 			<button class='add_contact' title='Добавить нового потребителя'></button>
 			<button class='edit_contact' title='Редактировать потребителя'></button>
 			<div class='new_contact'>
-				<div class='caption'>Добавить нового потребителя</div>
-				<div id='close_form'></div>
-				<input name='new_contact[id]' class='s' placeholder='Код'>
-				<input name='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
-				<br>
-				<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
-				<br>
-				<input name='new_contact[address]' class='l' placeholder='Адрес'>
-				<br>
-				<input name='new_contact[unn]' class='s' placeholder='УНН'>
-				<input name='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
-				<input name='new_contact[mfo]' class='s' placeholder='МФО'>
-				<input name='new_contact[okpo]' class='s' placeholder='ОКПО'>
-				<br>
-				<input name='new_contact[bank]' class='l' placeholder='Банк'>
-				<input name='new_contact[agreement]' class='l' placeholder='Договор'>
-				<div class='buttons'>
-					<button id='add_new_contact'>Сохранить</button>
-					<button id='cancel_new_contact'>Отмена</button>
-				</div>
-
+<!--				<form id="new_contact_form">-->
+					<div class='caption'>Добавить нового потребителя</div>
+					<div id='close_form'></div>
+					<input name='new_contact[id]' class='s' placeholder='Код'>
+					<input name='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
+					<br>
+					<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
+					<br>
+					<input name='new_contact[address]' class='l' placeholder='Адрес'>
+					<br>
+					<input name='new_contact[unn]' class='s' placeholder='УНН'>
+					<input name='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
+					<input name='new_contact[mfo]' class='s' placeholder='МФО'>
+					<input name='new_contact[okpo]' class='s' placeholder='ОКПО'>
+					<br>
+					<input name='new_contact[bank]' class='l' placeholder='Банк'>
+					<input name='new_contact[agreement]' class='l' placeholder='Договор'>
+					<div class='buttons'>
+						<button id='add_new_contact'>Сохранить</button>
+						<button id='cancel_new_contact'>Отмена</button>
+					</div>
+<!--				</form>-->
 			</div>
 			<!-- [+ новый потребитель] -->
 		</div>	<!-- r0 -->
@@ -127,12 +128,13 @@
 				<tr><td colspan='6' class='itog_summ'>0</td></tr>
 			</tfoot>
 		</table>
-		<button id="add_new_row" type="button">Добавить строку</button>
+		<div class="form_footer">
+			<button id="add_new_row" type="button">Добавить строку</button>
+			<button id="add_invoice" type="button">Сохранить</button>
+			<button id="clear_form" type="button">Очистить</button>
+		</div>
 	</div>
-	<div class="form_footer">
-		<button id="add_invoice" type="button">Сохранить</button>
-		<button id="clear_form" type="button">Очистить</button>
-	</div>
+
 </div>
 
 <br>

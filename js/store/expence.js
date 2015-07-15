@@ -9,6 +9,42 @@ var search_data = {
 			};
 /*--------------------------------------------------*/
 $(document).ready( function(){
+
+	$('#expence_id_operation').focus();
+	$('#expence_id_operation').click(function(event){
+		$('[name*=doc_date]').focus();
+		event.stopPropagation();
+	})
+	$('#expence_id_operation').keypress(function(event){
+		if (event.keyCode==13) {
+			$('[name*=doc_date]').focus();
+			event.stopPropagation();
+		}
+	})
+	$('.new_doc_hat input').keypress(function (event) {
+		if (event.keyCode == 13) {
+			console.log('next input');
+			//console.log($('input:visible').index(this));
+			$('input:visible').eq($('input:visible').index(this)+1).focus();
+			event.stopPropagation();
+		}
+
+	});
+
+	$('button').keydown(function(event) {
+		if (event.keyCode==39) {
+			$(this).next('button').focus();
+		}
+		if (event.keyCode==37) {
+			$(this).prev('button').focus();
+		}
+		if (event.keyCode==38) {
+			$('.goods_name').last().focus();
+		}
+		event.stopPropagation();
+	});
+
+
 	// alert('epence.js')
 
 	// var array = {'goods_arr':''};
@@ -293,11 +329,17 @@ $(document).ready( function(){
 //         //}
 //     }, false);
 /*-------------------------------------------------------*/
-
+// печать накладной
+	$('.print_doc_button').click(function (event) {
+		var id = $(this).parent().attr('doc_id');
+		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
+		window.open('/metan_0.1/print/index?report=Deliverynote&id=' + id, '_blank')
+		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+	})
 
 /*-------------------------------------------------------*/
 	set_autocomplete('#row_1');
-})		//$(document).ready( function(){
+})		//$ end (document).ready( function(){
 
 /*--------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/
@@ -386,20 +428,56 @@ function set_autocomplete(id) {
     });		// end $(id+" .goods_name" ).autocomplete
 	/*---------------------------------------------------------*/
 	$(id+' input').keypress(function(event){
-		if (event.keyCode==13 && !$(this).is(':button')) {
-			if ($(this).hasClass('price')) {
-				if ($(this).closest('tr').next().length != 0) {
-					$(this).closest('tr').next().find('.id_goods').focus();
-				} else {
-					$('#add_expence').focus();
-					$('#add_invoice').focus();
-					$('#add_return').focus();
-				}
+		if (event.keyCode == 13) {
+			console.log('next input');
+			//console.log($('input:visible').index(this));
+			if ($('input:visible').size()>$('input:visible').index(this)+1) {
+				$('input:visible').eq($('input:visible').index(this) + 1).focus();
 			} else {
-				$(this).parent().next().find('input, button').focus();
+				//$('input:visible, button:visible').eq($('input:visible, button:visible').index(this) + 1).focus();
+				$('#add_new_row, .form_footer button').first().focus();
+			}
+
+			event.stopPropagation();
+		}
+
+		//if (event.keyCode==13 && !$(this).is(':button')) {
+		//	if ($(this).hasClass('price')) {
+		//		if ($(this).closest('tr').next().length != 0) {
+		//			$(this).closest('tr').next().find('.id_goods').focus();
+		//		} else {
+		//			$('#add_expence').focus();
+		//			$('#add_invoice').focus();
+		//			$('#add_return').focus();
+		//		}
+		//	} else {
+		//		$(this).parent().next().find('input, button').focus();
+		//	}
+		//}
+	});
+	/*----------------------------------------------------------*/
+	$(id+' input').keydown(function () {
+		if (event.ctrlKey) {
+			if (event.keyCode == 37 || event.keyCode == 39) {
+				var step = -38 + event.keyCode;
+				$('#new_goods_table input').eq($('#new_goods_table input').index(this) + step).focus();
+			}
+		//} else {
+			if (event.keyCode == 38 || event.keyCode == 40) {
+				event.stopPropagation();
+				//console.log('#new_goods_table input.' + $(this).attr('class').split(' ')[0]);
+				var step = -39 + event.keyCode;
+				//if (event.keyCode == 38) {
+				//	step = -1;
+				//}
+				//if (event.keyCode == 40) {
+				//	step = 1;
+				//}
+				//$('input:visible').size()>$('input:visible').index(this)+1)
+				$('#new_goods_table input.' + $(this).attr('class').split(' ')[0]).eq($('#new_goods_table input.' + $(this).attr('class').split(' ')[0]).index(this) + step).focus();
 			}
 		}
-	})
+	});
 	/*---------------------------------------------------------*/
 	$(id+' input').keyup(function(event){
 		//alert(event.ctrlKey);

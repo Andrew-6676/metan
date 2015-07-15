@@ -1,4 +1,4 @@
-.edit_doc_button, .del_doc_button {
+.edit_doc_button, .del_doc_button, .print_doc_button {
     cursor:pointer;
     width: 25px;
     height: 25px;
@@ -19,6 +19,17 @@
 	background:url(../../../images/edit.png) no-repeat 100% 0%;
 }
 
+.print_doc_button {
+	background:url(../../../images/print.png) no-repeat;
+	margin-right: 5px;
+	/*cursor:pointer;
+	width: 25px;
+	height: 25px;
+	border: none;*/
+}
+.print_doc_button:hover {
+	background-position: 100% 0%;
+}
 
 /*------------------- PARENT TABLE -------------------------------------------*/
 .parent {

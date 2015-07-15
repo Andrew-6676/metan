@@ -38,7 +38,8 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$criteria->order ='doc_date desc, doc_num desc';
 		$criteria->addCondition('id_doctype = 2');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
-		$criteria->addCondition('doc_date=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
 		$criteria->addCondition('doc_num2 != 0');
 
 		$res = Document::model()->with('documentdata')->findAll($criteria);
@@ -69,11 +70,10 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$document = new Document();
 		$new_doc = false;
 		if ($data['doc']['doc_id']<0) {
-
+			$new_doc = true;
 		} else {
 			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
 			// exit;
-			$new_doc = true;
 		}
 
 			// начинаем транзакцию
@@ -138,7 +138,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 					}
 
 	        	}
-	        	if ($new_doc) {
+	        	if (!$new_doc) {
 	        		// удалить старый док
 	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
 	        		Document::model()->deleteByPK($data['doc']['doc_id']);
@@ -147,7 +147,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			} else {
 				// если данные не сохранены
 
-			}		// if($model->save())
+			}		// end if($model->save())
 
 
 			// $model->attributes = $_POST['expense'];

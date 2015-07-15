@@ -1,5 +1,7 @@
 .*/
 .*
+*__
+~*
 assets
 assets/*
 public/*
