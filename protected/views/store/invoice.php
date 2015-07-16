@@ -131,6 +131,7 @@
 		<div class="form_footer">
 			<button id="add_new_row" type="button">Добавить строку</button>
 			<button id="add_invoice" type="button">Сохранить</button>
+			<button id="cancel_expence" type="button">Отмена</button>
 			<button id="clear_form" type="button">Очистить</button>
 		</div>
 	</div>
@@ -154,9 +155,28 @@
 <div class="data">
 <?php
 
-	$this->widget('InvoiceWidget',array(
-	  						'data'=>$data,
-	  		                ));
+//	$this->widget('InvoiceWidget',array(
+//	  						'data'=>$data,
+//	  		                ));
 	//Utils::print_r($data);
+
+	$this->widget('SuperdocWidget',array(
+		'data'=>$data,
+		//'mode'=>'one_to_many',
+		'head'=>array(
+			'doc_num'=>'Документ №',
+			'doc_date'=>'Дата',
+			'contact.name'=>'Потребитель'
+		),
+		'columns'=> array(
+			'id_goods'=>'Код',
+			'goods.name'=>'Наименование товара',
+			'quantity'=>'Количество',
+			'vat'=>'НДС',
+			'price'=>'Розничная цена',
+			'=quantity*price'=>'Сумма розница'
+		),
+		'buttons'=>array('write_off','print','del','edit'),
+	));
 ?>
 </div>

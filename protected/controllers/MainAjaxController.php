@@ -62,7 +62,7 @@ class MainAjaxController extends CController
 	}
 
 /*------------------------------------------------------------------------*/
-	public function ActionGetGoodsNameFromRest($term,$f) {
+	public function ActionGetGoodsNameFromRest($term, $f) {
 		$connection = Yii::app()->db;
 
 		$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
@@ -90,7 +90,7 @@ class MainAjaxController extends CController
 		$res = json_encode($rest);
 		echo $res;
 	}
-
+/*--------------------------------------------------------------------------------------------------------------------*/
 	public function ActionGetContactName($term, $f) {
 		$connection = Yii::app()->db;
 
@@ -104,5 +104,9 @@ class MainAjaxController extends CController
 		$res = json_encode($res);
 		echo $res;
 	}
-
+/*--------------------------------------------------------*/
+	public function ActionGetContact($id) {
+		$res = Contact::model()->findByPK($id);
+		echo json_encode($res->attributes);
+	}
 }

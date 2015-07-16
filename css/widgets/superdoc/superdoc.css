@@ -1,25 +1,28 @@
-.del_doc_button, .print_doc_button {
-	background:url(../../../images/del.png) no-repeat;
+.write_off_doc_button, .edit_doc_button, .del_doc_button,  .print_doc_button {
 	cursor:pointer;
 	width: 25px;
 	height: 25px;
 	border: none;
- 	margin-left: 5px;
+	margin-left: 5px;
 }
-.del_doc_button:hover {
-	background-position: 100% 0%;
+.write_off_doc_button {
+	background:url(../../../images/write_off.png) no-repeat;
+}
+.del_doc_button {
+	background:url(../../../images/del.png) no-repeat;
+}
+.edit_doc_button {
+	background:url(../../../images/edit.png) no-repeat;
 }
 .print_doc_button {
 	background:url(../../../images/print.png) no-repeat;
-    margin-right: 5px;
-    /*cursor:pointer;
-    width: 25px;
-    height: 25px;
-    border: none;*/
+	margin-right: 5px;
 }
-.print_doc_button:hover {
+
+.buttons button:hover {
 	background-position: 100% 0%;
 }
+/*----------------------------------------------------------------------------------*/
 /*------------------- PARENT TABLE -------------------------------------------*/
 .parent {
 	/*background-color: #efefef;*/
@@ -72,6 +75,7 @@
 .parent td {
 	border: 1px solid #efefef;
 }
+/*----------------------------------------------------------------------------------*/
 /*------------------- CHILD TABLE --------------------------------------------*/
 .child_row td{
 	/*position: relative;*/
@@ -92,7 +96,7 @@
 	background: #F0F0F0 ;
 	border: 1px solid silver;
 }
-/*------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
 .doc_hat td {
 	background-color: #ccffff;
 	/*position: relative;*/
@@ -110,16 +114,18 @@
 	padding: 2px;
 	margin: 0;
 }
+.doc_hat td{
+	cursor: pointer;
+}
 .child tr {
+	cursor: default;
 	height: 16px;
 	background-color: #fff;
 }
 .child td, .child th {
 	border: 1px solid gray;
 }
-.cell_3,.cell_4,.cell_5,.cell_6,.cell_7,.cell_8,.cell_9 {
-	text-align: right;
-}
+
 .child {
 	font-size: 10pt;
 	font-family: monospace;
@@ -144,4 +150,16 @@
 }
 .child:hover {
 	border-color: red;
+}
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+.cell.r {
+	text-align: right;
+}
+.cell.l {
+	text-align: left;
+}
+.cell.c2 {
+	text-align: left;
 }

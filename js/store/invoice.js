@@ -119,16 +119,39 @@ $(document).ready(function () {
 	});
 	/*----------------------------------------------------------------------*/
 	$('.edit_contact').click(function () {
-		// alert('изменитьпотребитель');
 		event.stopPropagation();
-		$('#overlay').show() //fadeIn(50); ;
-		//$('[name="new_contact[id]"]').removeAttr('disabled');
-		$('[name="new_contact[id]"]').attr('disabled','disabled');
-		$('[name="new_contact[id]"]').val($('#contact_name').attr('cid'));
-		$('[name="new_contact[name]"]').focus();
-		$('.new_contact').show(); //fadeIn(100); //show();
-		$('.new_contact .caption').text('Редактировать потребителя');
+		// alert('изменитьпотребитель');
+		if ($('#contact_name').attr('cid')=='') {
+			alert('Не выбран потребитель!');
+			$('#contact_name').focus();
+		} else {
+			$('#overlay').show() //fadeIn(50); ;
+			//$('[name="new_contact[id]"]').removeAttr('disabled');
+			$('[name="new_contact[id]"]').attr('disabled', 'disabled');
+			$('[name="new_contact[id]"]').val($('#contact_name').attr('cid'));
+			$('[name="new_contact[name]"]').focus();
+
+				// заполнить поля из БД
+			$.ajax({
+				url: 'http://' + document.location.host + "/metan_0.1/MainAjax/GetContact",
+				type: 'GET',
+				dataType: "json",
+				data: 'id='+$('#contact_name').attr('cid'),
+				success: function (data) {
+					console.log(data);
+					$.each(data, function(key,val){
+						//console.log(key+'-'+val);
+						$('[name="new_contact['+key+']"]').val(val);
+					});
+				}
+			});
+
+
+			$('.new_contact').show(); //fadeIn(100); //show();
+			$('.new_contact .caption').text('Редактировать потребителя');
+		}
 	});
+	/*---------------------------------------------*/
 	$('.add_contact').click(function () {
 		//alert('новый потребитель');
 		$('#overlay').show() //fadeIn(50); ;
@@ -138,7 +161,7 @@ $(document).ready(function () {
 		$('[name="new_contact[name]"]').focus();
 		$('.new_contact .caption').text('Добавить нового потребителя');
 	});
-
+	/*---------------------------------------------*/
 	$('#cancel_new_contact, #close_form').click(function () {
 		$('#overlay').fadeOut(100); //hide();
 		$('.new_contact').fadeOut(100); //hide();
@@ -218,9 +241,10 @@ $(document).ready(function () {
 
 			// если одно из полей пустое - выдать сообщение с вариантами: пропустить/отменить
 
+
 			// создаём массив вида array('id'=>array(quantity, price))
 			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() != '' && $(vat).eq(index).val() != '') {
-				goods_arr[$(element).val()] = {
+				goods_arr[$(element).val().replace(/`/g,"")] = {
 					'quantity': $(quantity).eq(index).val(),
 					'price': $(price).eq(index).val(),
 					'vat': $(vat).eq(index).val()
@@ -252,6 +276,8 @@ $(document).ready(function () {
 		$('#loadImg').show();
 		$('#overlay').show();
 
+		console.log({new_invoice: exp});
+		//return;
 		// передаём данные на сервер
 		$.ajax({
 			url: 'http://' + document.location.host + "/metan_0.1/store/invoice",

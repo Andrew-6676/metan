@@ -44,7 +44,7 @@ $(document).ready( function(){
   $(document).ajaxSend(
     function(){
     	ajax_count++;
-    	console.log('--> send '+ajax_count+'  /anim='+anim);
+    	//console.log('--> send '+ajax_count+'  /anim='+anim);
     	if (!anim) {
 	    		// через секунду после отправки показываем анимацию
 	        to_id = setTimeout(
@@ -66,9 +66,9 @@ $(document).ready( function(){
   $(document).ajaxComplete(
     function(){
     	ajax_count--;
-     	console.log("<-- ответ с сервера. "+ ajax_count+'  /anim='+anim);
+     	//console.log("<-- ответ с сервера. "+ ajax_count+'  /anim='+anim);
      	if (ajax_count == 0) {
-     		console.log('последний ответ!');
+     		//console.log('последний ответ!');
 	     	// если ответ пришёл раньше, чем показали анимацию - отменяем анимацию
 		    clearTimeout(to_id);
 		    	// если анимация показана, то прячем  через секунду, после получения ответа

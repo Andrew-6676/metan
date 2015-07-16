@@ -184,9 +184,23 @@ $(document).ready( function(){
 		$('#contact_name').attr('cid', tbl_src.find('thead [id_contact]').attr('id_contact'));
 		$('#contact_name').val(tbl_src.find('thead [id_contact]').text());
 
-
+		$('#cancel_expence').show();
+		$('#contact_name').removeClass('err');
 		$(document).scrollTop(70)
 		event.stopPropagation();
+	})
+/*---------------------------------------------------------------------------------------*/
+	$('#cancel_expence').click(function(){
+		if (confirm("Отменить все изменения?")) {
+			clear_form();
+			$(this).hide();
+			$('#contact_name').attr('cid', '');
+			$('#contact_name').val('');
+			$('#new_goods_table').attr('doc_id', -1);
+			$('.action').removeClass('edit');
+			$('.action').addClass('new');
+			$('.action').text('[добавление]');
+		}
 	})
 /*-------------------- Очистить форму ---------------------------------------------------*/
 	$('#clear_form').click(function(){
@@ -245,7 +259,7 @@ $(document).ready( function(){
 
 				// создаём массив вида array('id'=>array(quantity, price))
 			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() !='') {
-				goods_arr[$(element).val()] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
+				goods_arr[$(element).val().replace(/`/g,"")] = {'quantity':$(quantity).eq(index).val(), 'price':$(price).eq(index).val()};
 			} else {
 				alert('не все поля заполнены!');
 				err =  true;

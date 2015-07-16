@@ -24,6 +24,7 @@ return array(
 
 		'application.components.*',
 		'application.models.*',
+		'application.widgets.superdoc.*',					// для рисования таблиц документов
 		'application.widgets.doc.*',					// для рисования таблиц документов
 		'application.widgets.invoice.*',				// для рисования таблиц счёт-фактур
 		'application.widgets.expence.*',				// для рисования таблиц расхода

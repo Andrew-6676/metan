@@ -55,10 +55,12 @@ class Document extends CActiveRecord
         return array(
             'documentdata' => array(self::HAS_MANY, 'Documentdata', 'id_doc'),
             'idContact' => array(self::BELONGS_TO, 'Contact', 'id_contact'),
+	        'contact' => array(self::BELONGS_TO, 'Contact', 'id_contact'),
             'idStore' => array(self::BELONGS_TO, 'Store', 'id_store'),
             'idEditor' => array(self::BELONGS_TO, 'User', 'id_editor'),
             'idOwner' => array(self::BELONGS_TO, 'User', 'id_owner'),
-            'idOperation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
+	        'idOperation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
+	        'operation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
         );
     }
 

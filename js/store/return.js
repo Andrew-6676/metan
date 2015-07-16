@@ -1,15 +1,22 @@
 var search_data = {
-		 		capt: "Поиск для возврата",
-		 		table: "goods",
-		 		field: "name",
-		 		key: "id",
-		 		width: 800,
-		 		sender: null,
-		 	};
-
+		capt: "Поиск для возврата",
+		action: "GetGoodsNameFromRest",
+		fields: ["name", "rest", "price"],
+		field: 'gname',
+		key: "id",
+		width: 800,
+		sender: null,
+};
 /*----------------------------------------------------*/
 
 $(document).ready(function(){
+
+	$('#return_doc_id_operation').focus();
+	$('#return_doc_id_operation').click(function(event){
+		$('[name*=doc_date]').focus();
+		event.stopPropagation();
+	})
+
 
 	// $('.search').keyup(function(event){
 	// 	if (event.keyCode==118) {
@@ -49,7 +56,7 @@ $('#add_return').click(function(){
 
 				// создаём массив вида array('id'=>array(quantity, price))
 			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() !='') {
-				goods_arr[$(element).val()] = {
+				goods_arr[$(element).val().replace(/`/g,"")] = {
 						'quantity':$(quantity).eq(index).val(),
 						'price':$(price).eq(index).val()
 				};

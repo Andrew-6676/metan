@@ -1,7 +1,16 @@
 <?php
+	$this->addJS('store/receipt.js');
+	$this->addCSS('store/receipt.css');
+
 	// $this->addCSS('');
 	// $this->addJS('');
 ?>
+<div class="page_head">
+	<div class="doc_title">
+		<?php echo $this->pageTitle; ?>
+		<!--		<div class='action new'>Просмотр</div>-->
+	</div>
+</div>
 <div class="page_caption">
 	Приход товара за <b><u>
 	<?php
@@ -15,11 +24,32 @@
 <div class="data">
 <?php
 
-	$this->widget('DocWidget',array(
-							'data'=>$data,
-							'mode'=>'one_to_many',
-							'columns'=> array('doc_num','doc_date','reason'),
-			                ));
+//	$this->widget('DocWidget',array(
+//							'data'=>$data,
+//							'mode'=>'one_to_many',
+//							'columns'=> array('doc_num','doc_date','reason'),
+//			                ));
 
+	$this->widget('SuperdocWidget',array(
+		'data'=>$data,
+		//'mode'=>'one_to_many',
+		'head'=>array(
+			'doc_num'=>'Документ №',
+			'doc_date'=>'Дата',
+			'contact.name'=>'Поставщик'
+		),
+		'columns'=> array(
+			'id_goods'=>'Код',
+			'goods.name'=>'Наименование товара',
+			'cost'=>'Оптовая цена',
+			'markup'=>'Наценка',
+			'vat'=>'НДС',
+			'price'=>'Розничная цена',
+			'quantity'=>'Количество',
+			'=quantity*cost'=>'Сумма опт',
+			'=quantity*price'=>'Сумма розница'
+		),
+		'buttons'=>array('print','del'),
+	));
 ?>
 </div>

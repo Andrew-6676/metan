@@ -37,7 +37,8 @@ class Documentdata extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'idDocument' => array(self::BELONGS_TO, 'Document', 'id_doc'),
-            'idGoods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
+	        'idGoods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
+	        'goods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
             'idEditor' => array(self::BELONGS_TO, 'User', 'id_editor'),
             'idOwner' => array(self::BELONGS_TO, 'User', 'id_owner'),
         );

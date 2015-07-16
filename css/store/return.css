@@ -5,3 +5,19 @@
 	font-size: 3em;
 	margin: 0 20px;
 }
+
+/*----------------------------------*/
+#add_return, #cancel_return, #add_new_row {
+	padding: 5px;
+	font-size: 1.3em;
+}
+#add_return:hover, #cancel_return:hover, #add_new_row:hover {
+	color: #101C94;
+	cursor: pointer;
+}
+#cancel_return, #clear_form {
+	color: #BD0000;
+}
+#cancel_return {
+	display: none;
+}

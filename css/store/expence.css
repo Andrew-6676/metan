@@ -139,7 +139,7 @@ label {
     border: 1px solid #848484;
 }
 /*------------------------------------------------------------------*/
-#add_expence {
+#add_expence, #cancel_expence {
     padding: 5px;
     font-size: 1.3em;
 }
@@ -183,4 +183,20 @@ label {
 .itog_summ:before {
     content: 'итого:    ';
     font-weight: bold;
+}
+
+/*-----------------------------------------------------*/
+#add_expence, #cancel_invoice, #add_new_row {
+	padding: 5px;
+	font-size: 1.3em;
+}
+#add_expence:hover, #cancel_expence:hover, #add_new_row:hover {
+	color: #101C94;
+	cursor: pointer;
+}
+#cancel_expence, #clear_form {
+	color: #BD0000;
+}
+#cancel_expence {
+	display: none;
 }

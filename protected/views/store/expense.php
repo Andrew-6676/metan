@@ -93,8 +93,8 @@
 		</table>
 		<div class="form_footer">
 			<button id="add_new_row" type="button">Добавить строку</button>
-			<button id="clear_form" type="button">Очистить</button>
 			<button id="add_expence" type="button">Сохранить</button>
+			<button id="clear_form" type="button">Очистить</button>
 		</div>
 	</div>
 </div>
@@ -116,9 +116,28 @@
 <div class="data">
 <?php
 
-	 $this->widget('ExpenceWidget',array(
-	 						'data'=>$data,
-	 		                ));
+//	 $this->widget('ExpenceWidget',array(
+//	 						'data'=>$data,
+//	 		                ));
+
+	$this->widget('SuperdocWidget',array(
+		'data'=>$data,
+		//'mode'=>'one_to_many',
+		'head'=>array(
+			'doc_num'=>'Документ №',
+			'doc_date'=>'Дата',
+			'operation.name'=>'Вид расхода'
+		),
+		'columns'=> array(
+			'id_goods'=>'Код',
+			'goods.name'=>'Наименование товара',
+			'quantity'=>'Количество',
+			'vat'=>'НДС',
+			'price'=>'Розничная цена',
+	//			'=quantity*price'=>'Сумма розница'
+		),
+		'buttons'=>array('print','del','edit'),
+	));
 
 ?>
 </div>

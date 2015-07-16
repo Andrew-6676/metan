@@ -94,11 +94,11 @@
 				<tr><td colspan='6' class='itog_summ'>0</td></tr>
 			</tfoot>
 		</table>
-		<button id="add_new_row" type="button">Добавить строку</button>
-	</div>
-	<div class="form_footer">
-		<button id="add_return" type="button">Сохранить</button>
-		<button id="clear_form" type="button">Очистить</button>
+		<div class="form_footer">
+			<button id="add_new_row" type="button">Добавить строку</button>
+			<button id="add_return" type="button">Сохранить</button>
+			<button id="clear_form" type="button">Очистить</button>
+		</div>
 	</div>
 </div>
 
@@ -119,9 +119,28 @@
 <div class="data">
 <?php
 
-	 $this->widget('ReturnWidget',array(
-	 						'data'=>$data,
-	 		                ));
+//	 $this->widget('ReturnWidget',array(
+//	 						'data'=>$data,
+//	 		                ));
+
+	$this->widget('SuperdocWidget',array(
+		'data'=>$data,
+		//'mode'=>'one_to_many',
+		'head'=>array(
+			'doc_num'=>'Документ №',
+			'doc_date'=>'Дата',
+			'operation.name'=>'Вид возврата'
+		),
+		'columns'=> array(
+			'id_goods'=>'Код',
+			'goods.name'=>'Наименование товара',
+			'quantity'=>'Количество',
+	//		'vat'=>'НДС',
+			'price'=>'Розничная цена',
+				'=quantity*price'=>'Сумма розница'
+		),
+		'buttons'=>array(/*'write_off','print',*/'del','edit'),
+	));
 
 ?>
 </div>
