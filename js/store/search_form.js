@@ -30,7 +30,7 @@ function paste_result(row_id, fields) {
 	} else {
 		row = $('#'+row_id);
 		row.find('.id_goods').val(fields.id);
-		row.find('.goods_name').val(fields.name);
+		row.find('.goods_name').val(fields.name+'  ('+fields.rest+' шт.)');
 		row.find('.price').val(fields.price);
 		row.find('.goods_name').focus();
 	}
@@ -204,8 +204,8 @@ function searchForm () {
 	    		// запрос данных с сервера
 			$.ajax({
 				async: false,
-          		// url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/"+param.action,
+          		// url: 'http://'+document.location.host+rootFolder+"/MainAjax/GetGoodsNameFromRest",
+          		url: 'http://'+document.location.host + rootFolder + "/MainAjax/"+param.action,
           		type:'GET',
           		dataType: "json",
           		data: 'term='+''+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
@@ -217,16 +217,22 @@ function searchForm () {
 		        		$.map(data, function(item){	// пробегаем по каждой строке результата
 		        				// формируем строку таблицы из списка полей, переданных в конструтор формы
 		        			var row = '';
-		        			for (val of sForm.fields) {
-		        				var tmp = 'item.'+val;
-		        				row += '<td class="">' + eval(tmp) + '</td>';
+					        var minus = '';
+					        for (val of sForm.fields) {
+						        var tmp = 'item.'+val;
+						        row += '<td class="">' + eval(tmp) + '</td>';
+						        if (eval(tmp)<0) {
+							        //console.log(eval(tmp));
+							        minus = 'minus';
+						        };
 							}
 
-		        				// выводим строку на экран
-		        			$('.search_list').append('<tr class="search_item visible" key='+item.id + '>'
-		        					+ '<td class="char">' + item.id + '</td>'
-		        					+ row
-		        					+'</tr>');
+					        // выводим строку на экран
+						        $('.search_list').append('<tr class="search_item visible '+minus+'" key='+item.id + '>'
+						        + '<td class="char">' + item.id + '</td>'
+						        + row
+						        +'</tr>');
+
 		        				// запихиваем в массив
 			            	arr[item.id] = ({ 	// формируем массив нужной структуры
 			            		//id: item.id,	// это поле для вставки в соседний <input> (код товара)
@@ -254,7 +260,8 @@ function searchForm () {
 					{
 						'id': $(this).attr('key'),
 						'name': sForm.arr[$(this).attr('key')].value,
-						'price': sForm.arr[$(this).attr('key')].price
+						'price': sForm.arr[$(this).attr('key')].price,
+						'rest': sForm.arr[$(this).attr('key')].rest
 					}
 				);
 

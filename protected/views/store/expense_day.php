@@ -33,6 +33,7 @@
             <thead>
                 <tr>
                     <th><div class="th t0">Операция</div></th>
+	                <th><div class="th t01">Для чего</div></th>
                     <th><div class="th t1">Код<br>товара</div></th>
                     <th><div class="th t2">Наименование товара</div></th>
                     <th><div class="th t3">Кол-<br>во</div></th>
@@ -58,6 +59,13 @@
 
                         ?>
                     </td>
+	                <td>
+		                <select name="for" class="for" id="for">
+			                <option value="1">Общий товарооборот</option>
+			                <option value="2">Розничный товарооборот</option>
+			                <option value="3">Собственные нужды</option>
+		                </select>
+	                </td>
                     <td>
                         <input type="text" name="id_goods" class="id_goods search" list="id_goods_list" placeholder="код товара">
                     </td>
@@ -76,6 +84,21 @@
                 </tr>
             </tbody>
         </table>
+
+	    <details class="additional_data">
+		    <summary>Дополнительные данные:</summary>
+		    <div class="docadditional">
+			    <div class="row">
+				    <label for="expence[payment_order]">Платёжное поручение:</label>
+				    <input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+			    </div>
+			    <div class="row">
+				    <label for="expence[descr]">Примечание:</label>
+				    <input type="number" name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+			    </div>
+		    </div>
+	    </details>
+
         <div class="form_footer">
             <button id="add_expence" type="button">Добавить</button>
             <button id="cancel_expence" type="button">Отмена</button>
@@ -99,11 +122,13 @@
             <th>Розничная<br>цена</th>
             <th>Сумма<br>розница</th>
             <th>Операция</th>
+	        <th></th>
             <th><button class="print_doc_button" title="Распечатать расход"></button></th>
         </tr>
     </thead>
     <tbody>
         <?php
+            $for = array('-1'=>'-','1'=>'Общий товарооборот','2'=>'Розничный товарооборот','3'=>'Собственные нужды');
             $i = 0;
             foreach ($data as $document) :  ?>
                 <tr doc_id="<?php  echo $document->id; ?>">
@@ -114,6 +139,7 @@
                     <td class="price"><?php  echo number_format($document->documentdata[0]->price,'0','.','`'); ?></td>
                     <td class="sum"><?php  echo number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity,'0','.','`'); ?></td>
                     <td class="operation" id_operation="<?php  echo $document->idOperation->id; ?>"><?php  echo $document->idOperation->name; ?></td>
+	                <td class="for" id_for="<?php  echo $document->for; ?>"><?php  echo $for[$document->for]; ?></td>
                     <td class="buttons">
                         <button class='del'></button>
                         <button class='edit'></button>

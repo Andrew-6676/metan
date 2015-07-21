@@ -11,7 +11,7 @@ $(document).ready( function(){
 	$('#run_import').click(function(){
 		startLoadingAnimation();
 		// $.post(
-		// 	'/metan_0.1/admin/directory/import',
+		// 	rootFolder+'/admin/directory/import',
 		// 	{	// список параметров
 		// 		sql: $('#query_text').val(),
 		// 	},
@@ -23,7 +23,7 @@ $(document).ready( function(){
 	$('#exec_query').click(function(){
 		//alert($('#query_text').val());
 		$.post(
-			'/metan_0.1/admin/ajax/query',
+			rootFolder+'/admin/ajax/query',
 			{	// список параметров
 				sql: $('#query_text').val(),
 			},
@@ -82,7 +82,7 @@ $(document).ready( function(){
 	  		// отправляем POST-запрос
 	  	//alert($('#path').val());
 		$.post(
-			'/metan_0.1/admin/ajax/fieldsrclist',
+			rootFolder+'/admin/ajax/fieldsrclist',
 			{	// список параметров
 				path: $('#path').val(),
 			},
@@ -98,7 +98,7 @@ $(document).ready( function(){
 	  		// отправляем POST-запрос
 	  	//alert($('#path').value);
 		$.post(
-			'/metan_0.1/admin/ajax/tablelist',
+			rootFolder+'/admin/ajax/tablelist',
 			{	// список параметров
 				str: '',
 			},
@@ -113,7 +113,7 @@ $(document).ready( function(){
 	  		// отправляем POST-запрос
 	  	//alert($('#path').value);
 		$.get(
-			'/metan_0.1/admin/ajax/fieldlist/tname/'+$('#tname').val(),
+			rootFolder+'/admin/ajax/fieldlist/tname/'+$('#tname').val(),
 			{	// список параметров
 				tname2: $('#tname').val(),
 			},

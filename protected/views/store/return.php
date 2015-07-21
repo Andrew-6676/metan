@@ -47,7 +47,7 @@
 		</div>	<!-- r2 -->
 
 		<div class="row r3">
-			<label for="return_doc[doc_num]">№ документа:</label>
+			<label for="return_doc[doc_num]">№ чека:</label>
 			<input type="text" name="return_doc[doc_num]" placeholder="№ документа" value="<?php echo $doc_num ?>" required> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 		</div>	<!-- r3 -->
 	</div>    <!-- <div class="doc_hat"> -->

@@ -109,4 +109,37 @@ class MainAjaxController extends CController
 		$res = Contact::model()->findByPK($id);
 		echo json_encode($res->attributes);
 	}
+
+	public function ActionReplace_code () {
+		echo 'replace code<pre>';
+
+		$goods = Goods::model()->findAll();
+		foreach ($goods as $row) {
+//			$reg = '/(\d{2})(\d{2})(\d{2})(\d{3})/';
+//			preg_match($reg, $row->id_3torg, $arr);
+//			array_shift($arr);
+////			print_r($arr);
+//			echo $row->id.'---';
+//			echo implode('.',$arr)."\n";
+//			$row->id_3torg = implode('.',$arr);
+			//$row->save();
+			if (strpos($row->id_3torg,'.000')>0) {
+				echo $row->id_3torg.'-----'.substr($row->id_3torg,0,-4)."\n";
+				$row->id_3torg = substr($row->id_3torg,0,-4);
+				$row->save();
+			} else {
+				echo $row->id_3torg."\n";
+			}
+
+
+//			echo $row->id_3torg."\n";
+
+
+		}
+
+	}
+
+	/*------------------------------------------------------------------------------*/
+
+
 }

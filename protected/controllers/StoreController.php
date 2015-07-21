@@ -12,6 +12,7 @@ class StoreController extends Controller
     {
         return array(
             'index'     => 'application.controllers.store.indexAction',
+	        'kassa'     => 'application.controllers.store.kassaAction',
             'receipt'   => 'application.controllers.store.receiptAction',
             'expense_day'=> 'application.controllers.store.expense_dayAction',
             'expense'   => 'application.controllers.store.expenseAction',
@@ -21,6 +22,7 @@ class StoreController extends Controller
             'restClose' => 'application.controllers.store.restCloseAction',
             'invoice'   => 'application.controllers.store.invoiceAction',
             'print'     => 'application.controllers.store.printAction',
+	        'prepareGoodsreport' => 'application.controllers.store.prepareGoodsreportAction',
         );
     }
 
@@ -49,7 +51,8 @@ public function accessRules()
                                  'invoice',
                                  'rest',
                                  'restEdit',
-                                 'restClose'),	       	// запреить всем доступ к "*"
+                                 'restClose',
+	                            'setGoodsreport'),	       	// запреить всем доступ к "*"
                 'users'=>array('?'),					// запрет должен стоять после разрешения
             ),
         );

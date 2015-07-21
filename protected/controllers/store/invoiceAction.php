@@ -22,7 +22,28 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
         	}		// end if(isset($_POST['del_expense']))
 				// занести счёт-фактуру в расход-----------------------------------------------------------------------
 			if (isset($_POST['writeoff_invoice'])) {
-				$this->writeoffInvoice($_POST['writeoff_invoice']);
+
+				$goods = array();
+				$connection = Yii::app()->db;
+				$sql = "select id_goods as id, quantity from {{documentdata}} where id_doc=".$_POST['writeoff_invoice']['doc_id'];
+
+				$g = $connection->createCommand($sql)->queryAll();
+
+//				// цикл по товарам
+				foreach ($g as $id => $row) {
+					$goods[$row['id']] = $row['quantity'];
+				}
+
+//				echo json_encode($goods);
+//				exit;
+
+
+				$chk = Goods::model()->checkRest($goods);
+				if ($chk['status']=='ok') {
+					$this->writeoffInvoice($_POST['writeoff_invoice']);
+				} else {
+					echo json_encode($chk);
+				}
 				exit;
 			}
 				// добавить новый контакт -----------------------------------------------------------------------------
@@ -264,6 +285,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			$nakl->doc_num2     = $data['nakl_num'];
 			$nakl->date_insert  = date('Y-m-d H:i:s');
 			$nakl->date_edit    = date('Y-m-d H:i:s');
+			$nakl->payment_order= $data['payment_order'];
 			// $nakl->doc_date = $data['date'];
 			$nakl->doc_date = Yii::app()->session['workdate'];
 

@@ -128,6 +128,19 @@
 				<tr><td colspan='6' class='itog_summ'>0</td></tr>
 			</tfoot>
 		</table>
+		<details class="additional_data">
+			<summary>Дополнительные данные</summary>
+			<div class="docadditional">
+				<div class="row">
+					<label for="expence[payment_order]">Платёжное поручение:</label>
+					<input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+				</div>
+				<div class="row">
+					<label for="expence[descr]">Примечание:</label>
+					<input type="number" name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+				</div>
+			</div>
+		</details>
 		<div class="form_footer">
 			<button id="add_new_row" type="button">Добавить строку</button>
 			<button id="add_invoice" type="button">Сохранить</button>

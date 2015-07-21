@@ -169,8 +169,8 @@ function searchForm () {
 	    		// запрос данных с сервера
 			$.ajax({
 				async: false,
-          		// url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/"+action,
+          		// url: 'http://'+document.location.host+rootFolder+"/MainAjax/GetGoodsNameFromRest",
+          		url: 'http://'+document.location.host+rootFolder+"/MainAjax/"+action,
           		type:'GET',
           		dataType: "json",
           		data: 'term='+''+'&t='+param.table+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/

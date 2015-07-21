@@ -97,7 +97,7 @@ function save_row (row) {
 	var record = {id: $(row).attr('id').substr(2), f_vals: {'quantity': $(row).find('[fname=quantity]').html(), 'cost': $(row).find('[fname=cost]').html()}};
 	//alert($(row).find('[fname=quantity]').html());
 	$.ajax({
-		url: '/metan_0.1/MainAjax/updateRest',
+		url: rootFolder+'/MainAjax/updateRest',
 		type: "POST",
 		data: {data: record},
 		error: function(data) {

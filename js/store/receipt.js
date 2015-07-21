@@ -9,7 +9,7 @@ $(document).ready(function () {
 			if (confirm("Точно хотите безвозвратно удалить \n ТТН №"+$('#doc_hat_'+id+' .doc_num').text().trim()+" от "+$('#doc_hat_'+id+' .doc_date').text().trim()+"?\n (id="+id+")")) {
 				// alert('delte');
 				$.ajax({
-		     		url: 'http://'+document.location.host+"/metan_0.1/store/receipt",
+		     		url: 'http://'+document.location.host+rootFolder+"/store/receipt",
 		     		type:'POST',
 		     		dataType: "json",
 		     		data: {del_receipt: id},
@@ -33,4 +33,11 @@ $(document).ready(function () {
 			}
 			event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 		})
+
+	$('.cell.empty').dblclick(function (event) {
+		console.log('add id_3torg');
+		location.href = 'http://'+document.location.host+rootFolder+"/goods/update/"+$(this).parent().find('.cell.c2').text();
+	});
+
+	console.log($('.cell.empty').size());
 });

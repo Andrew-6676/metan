@@ -24,10 +24,10 @@ class HelpController extends ControllerH
         		// правила просматриваются по порядку до первого совпадения
         	array('allow',
                 'actions'=>array('editor'),          	// только пользователи "admin" получат доступ
-                'users'=>array('admin'),					// остальным выдаст ошибку 403
+                'users'=>array('admin','zavmag'),					// остальным выдаст ошибку 403
             ),
             array('deny',
-                'actions'=>array('editor'),	       	// запреить всем доступ 
+                'actions'=>array('editor'),	       	// запреить всем доступ
                 'users'=>array('*'),					// запрет должен стоять после разрешения
             ),
         );

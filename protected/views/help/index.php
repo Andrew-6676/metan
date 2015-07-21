@@ -22,9 +22,6 @@
 		echo 'Справка не найдена';
 	}
 
-//  $this->addJs('../../protected/extensions/ckeditor/ckeditor.js');
-//<textarea id='editor' class="editor" name="editor"></textarea>
-//<script type='text/javascript'>CKEDITOR.replace( 'editor' );</script>
 
 ?>
 

@@ -8,7 +8,7 @@
 	 					'columns'=>array(
 	 								'id_goods',
 	 								array('Goods', 'name'),
-	 								array('Goods', 'Unit', 'name'),
+	 								array('Goods', 'unitname'),
 	 								'cost',
 	 								'quantity'
 	 					),

@@ -41,6 +41,7 @@ class PrintController extends Controller {
 			'printInvoice' => 'application.controllers.print.printInvoiceAction',
 			'printExpenceday' => 'application.controllers.print.printExpencedayAction',
 			'printDeliverynote' => 'application.controllers.print.printDeliverynoteAction',
+			'printGoodsreport' => 'application.controllers.print.printGoodsreportAction',
 			'pr' => 'application.controllers.print.prAction',
 		);
 	}

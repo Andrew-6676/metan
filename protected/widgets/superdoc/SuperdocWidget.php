@@ -2,13 +2,14 @@
 
 class SuperdocWidget extends CWidget
 {
-	public $data = null;
-	public $mode = null;
-	public $columns = null;
-	public $head = null;
-	public $sumcolumns = null;
-	public $buttons = null;
-	public $cssFile = null;
+	public $data        = null;
+	public $mode        = null;
+	public $columns     = null;
+	public $head        = null;
+	public $sumcolumns  = null;
+	public $sums        = null;
+	public $buttons     = null;
+	public $cssFile     = null;
 
 	public function init()
 	{
@@ -27,6 +28,10 @@ class SuperdocWidget extends CWidget
 	{
 		$style = '-';
 //		var_dump(strpos($type, 'character'));
+		if (trim($val)=='') {
+			return array('val' => $val, 'style' => 'empty');
+		}
+
 		if (strpos($type, 'numeric') !== false) {
 			$val = number_format($val, '0', '.', '`');
 			$style = 'r';
@@ -70,6 +75,8 @@ class SuperdocWidget extends CWidget
 //		print_r($this->head);
 //	    print_r($this->columns);
 
+		$for = array('-1'=>'-','1'=>'Общий товарооборот','2'=>'Розничный товарооборот','3'=>'Собственные нужды');
+
 		$data_arr = array();
 		$type_arr = array();
 		foreach ($this->data as $data_row) {
@@ -90,6 +97,12 @@ class SuperdocWidget extends CWidget
 			foreach ($data_row->operation->attributes as $attr => $dr) {
 				$type_arr['operation'][$attr] = Operation::model()->tableSchema->getColumn($attr)->dbType;
 			}
+
+//			$data_arr[$data_row->id]['docaddition'] = $data_row->docaddition->attributes;
+			// типы плей в отдельный массив
+//			foreach ($data_row->operation->attributes as $attr => $dr) {
+//				$type_arr['operation'][$attr] = Operation::model()->tableSchema->getColumn($attr)->dbType;
+//			}
 
 			foreach ($data_row->documentdata as $documentdata_row) {
 				$data_arr[$data_row->id]['documentdata'][$documentdata_row->id] = $documentdata_row->attributes;
@@ -127,6 +140,12 @@ class SuperdocWidget extends CWidget
 				eval($estr);
 				$tstr = '$type = $type_arr["' . implode('"]["', $key) . '"];';
 				eval($tstr);
+
+				//костыль
+				if ($col=='for') {
+					$val = $for[$doc->for];
+					$type = 'character';
+				}
 				echo '<td>' . $this->format_type($val, $type)['val'] . '</td>';
 			}
 			echo '</tr>';
@@ -152,6 +171,11 @@ class SuperdocWidget extends CWidget
 						break;
 					case 'operation.name':
 						$str = "id_operation=" . $doc->id_operation;
+						break;
+					case 'for':
+						$str = 'id_for="'.$doc->for.'"';
+						$val = $for[$doc->for];
+						$type = 'character';
 						break;
 				}
 				$capt[] = '<span  class="capt">' . $title . ':</span>' .
@@ -199,6 +223,8 @@ class SuperdocWidget extends CWidget
 						eval($estr);
 						$tstr = '$type = $type_arr["documentdata"]["' . implode('"]["', $key) . '"];';
 						eval($tstr);
+							// костыль - вывести код товара как строку, а не число
+						if ($dcol=='id_goods') {$type = 'character';}
 						$tmp = $this->format_type($val, $type);
 //				                echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
 					}
@@ -218,136 +244,137 @@ class SuperdocWidget extends CWidget
 
 		echo '</table>';
 
+		parent::run();
 		return;
 		/*-------------------------------------------------------------------------------------*/
 
-		echo '<table id="table" class="parent">';
-
-		$caption1 = Document::model()->attributeLabels();
-		foreach ($this->data as $doc) {
-			$d = explode('-', $doc->doc_date);
-			$doc_date = date('d.m.Y', mktime(0, 0, 0, $d[1], $d[2], $d[0]));
-			$j = 0;
-			// родительская таблица
-			echo '<tr class="parent_row" id="' . $doc->id . '"">';
-			// 			echo '<td class="p_caption_'.$j.'">';
-			// 	echo 'ТТН №:';
-			// 	//echo $caption1['doc_num'].':';
-			// echo ' </td>';
-			echo '<td class="p_cell_' . $j++ . '">';
-			echo $doc->doc_num;
-			echo ' </td>';
-			// echo '<td class="p_caption_'.$j.'">';
-			// 	echo 'Дата:';
-			// echo ' </td>';
-			echo '<td class="p_cell_' . $j++ . '">';
-			echo $doc_date;
-			echo ' </td>';
-			// echo '<td class="p_caption_'.$j.'">';
-			// 	echo 'Приход от:';
-			// echo ' </td>';
-			echo '<td class="p_cell_' . $j++ . '">';
-			echo $doc->idContact->name;
-			echo ' </td>';
-			echo '<td class="p_cell_' . $j++ . '">&nbsp</td>';
-			echo '</tr>';
-
-			// подчинённаятаблица
-
-			$c = 0;
-			$caption2 = Documentdata::model()->attributeLabels();
-
-			echo '<tr id="ch_' . $doc->id . '" class="child_row hidden">';
-			echo '<td colspan="4">';
-			echo '<table  class="child">';
-			echo '<thead>';
-			echo '<tr id="doc_hat_' . $doc->id . '" class="doc_hat">';
-			echo '<td colspan="10">';
-			echo '<span class="capt">ТТН №:</span><span class="doc_num">' . $doc->doc_num . '</span>';
-			echo '<br><span class="capt">Дата:</span><span class="doc_date">' . $doc_date . '</span>';
-			echo '<br><span class="capt">Приход от:</span>' . $doc->idContact->name;
-			echo "<div class='buttons' doc_id='" . $doc->id . "'><button class='print_doc_button'></button><button class='del_doc_button'></button>" ./*<button class='edit_doc_button'>edit_doc</button>*/
-				"</div>";
-			echo '</td>';
-			echo '</tr>';
-			echo '<tr>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo '№<br>п.п.';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Код';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Наименование товара';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Оптовая<br>цена';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Наценка';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'НДС';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Розничная<br>цена';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Кол-во';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Сумма<br>опт';
-			echo ' </th>';
-			echo '<th class="caption_' . $c++ . '">';
-			echo 'Сумма<br>розница';
-			echo ' </th>';
-			echo '</tr>';
-			echo '</thead>';
-			$i = 0;
-			foreach ($doc->documentdata as $dnotelist) {
-				$c = 0;
-				echo '<tr>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo ++$i;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo $dnotelist->idGoods->id;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo $dnotelist->idGoods->name;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo number_format($dnotelist->cost, '0', '.', '`');
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo $dnotelist->markup;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo $dnotelist->vat;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo number_format($dnotelist->price, '0', '.', '`');
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo $dnotelist->quantity;
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo number_format($dnotelist->quantity * $dnotelist->cost, '0', '.', '`');
-				echo ' </td>';
-				echo '<td class="cell_' . $c++ . '">';
-				echo number_format($dnotelist->quantity * $dnotelist->price, '0', '.', '`');
-				echo ' </td>';
-				echo '</tr>';
-			}
-			echo "</table></td></tr>";
-		}
-		echo '</table>';
-		echo '<br>';
-		echo '<br>';
-		echo '<br>';
+//		echo '<table id="table" class="parent">';
+//
+//		$caption1 = Document::model()->attributeLabels();
+//		foreach ($this->data as $doc) {
+//			$d = explode('-', $doc->doc_date);
+//			$doc_date = date('d.m.Y', mktime(0, 0, 0, $d[1], $d[2], $d[0]));
+//			$j = 0;
+//			// родительская таблица
+//			echo '<tr class="parent_row" id="' . $doc->id . '"">';
+//			// 			echo '<td class="p_caption_'.$j.'">';
+//			// 	echo 'ТТН №:';
+//			// 	//echo $caption1['doc_num'].':';
+//			// echo ' </td>';
+//			echo '<td class="p_cell_' . $j++ . '">';
+//			echo $doc->doc_num;
+//			echo ' </td>';
+//			// echo '<td class="p_caption_'.$j.'">';
+//			// 	echo 'Дата:';
+//			// echo ' </td>';
+//			echo '<td class="p_cell_' . $j++ . '">';
+//			echo $doc_date;
+//			echo ' </td>';
+//			// echo '<td class="p_caption_'.$j.'">';
+//			// 	echo 'Приход от:';
+//			// echo ' </td>';
+//			echo '<td class="p_cell_' . $j++ . '">';
+//			echo $doc->idContact->name;
+//			echo ' </td>';
+//			echo '<td class="p_cell_' . $j++ . '">&nbsp</td>';
+//			echo '</tr>';
+//
+//			// подчинённаятаблица
+//
+//			$c = 0;
+//			$caption2 = Documentdata::model()->attributeLabels();
+//
+//			echo '<tr id="ch_' . $doc->id . '" class="child_row hidden">';
+//			echo '<td colspan="4">';
+//			echo '<table  class="child">';
+//			echo '<thead>';
+//			echo '<tr id="doc_hat_' . $doc->id . '" class="doc_hat">';
+//			echo '<td colspan="10">';
+//			echo '<span class="capt">ТТН №:</span><span class="doc_num">' . $doc->doc_num . '</span>';
+//			echo '<br><span class="capt">Дата:</span><span class="doc_date">' . $doc_date . '</span>';
+//			echo '<br><span class="capt">Приход от:</span>' . $doc->idContact->name;
+//			echo "<div class='buttons' doc_id='" . $doc->id . "'><button class='print_doc_button'></button><button class='del_doc_button'></button>" ./*<button class='edit_doc_button'>edit_doc</button>*/
+//				"</div>";
+//			echo '</td>';
+//			echo '</tr>';
+//			echo '<tr>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo '№<br>п.п.';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Код';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Наименование товара';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Оптовая<br>цена';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Наценка';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'НДС';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Розничная<br>цена';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Кол-во';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Сумма<br>опт';
+//			echo ' </th>';
+//			echo '<th class="caption_' . $c++ . '">';
+//			echo 'Сумма<br>розница';
+//			echo ' </th>';
+//			echo '</tr>';
+//			echo '</thead>';
+//			$i = 0;
+//			foreach ($doc->documentdata as $dnotelist) {
+//				$c = 0;
+//				echo '<tr>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo ++$i;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo $dnotelist->idGoods->id;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo $dnotelist->idGoods->name;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo number_format($dnotelist->cost, '0', '.', '`');
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo $dnotelist->markup;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo $dnotelist->vat;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo number_format($dnotelist->price, '0', '.', '`');
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo $dnotelist->quantity;
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo number_format($dnotelist->quantity * $dnotelist->cost, '0', '.', '`');
+//				echo ' </td>';
+//				echo '<td class="cell_' . $c++ . '">';
+//				echo number_format($dnotelist->quantity * $dnotelist->price, '0', '.', '`');
+//				echo ' </td>';
+//				echo '</tr>';
+//			}
+//			echo "</table></td></tr>";
+//		}
+//		echo '</table>';
+//		echo '<br>';
+//		echo '<br>';
+//		echo '<br>';
 		//	print_r($this->data);
 
-		parent::run();
+//		parent::run();
 	}
 }
 

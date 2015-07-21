@@ -12,6 +12,10 @@ $(document).ready( function(){
 
 	$('#expence_id_operation').focus();
 	$('#expence_id_operation').click(function(event){
+		$('#for').focus();
+		event.stopPropagation();
+	})
+	$('#for').click(function(event){
 		$('[name*=doc_date]').focus();
 		event.stopPropagation();
 	})
@@ -101,7 +105,7 @@ $(document).ready( function(){
 		if (confirm("Точно хотите безвозвратно удалить \n документ №"+$('#doc_hat_'+id+' .doc_num').text().trim()+" от "+$('#doc_hat_'+id+' .doc_date').text().trim()+"?")) {
 			// alert('delte');
 			$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/store/expense",
+          		url: 'http://'+document.location.host+rootFolder+"/store/expense",
           		type:'POST',
           		dataType: "json",
           		data: {del_expense: id},
@@ -155,7 +159,7 @@ $(document).ready( function(){
 						td_dst.eq(i-1).find('input').val($(el).text().trim().replace(/`/g,""));
 					} else {
 						//console.log($(el).text());
-						td_dst.eq(i-1).find('input').val($(el).text().trim());
+						td_dst.eq(i-1).find('input').val($(el).text().trim().replace(/`/g,""));
 					}
 				}
 			})// end each cells
@@ -180,6 +184,8 @@ $(document).ready( function(){
 		$('#new_goods_table').attr('doc_id', tbl_src.parent().parent().prev().attr('id'));
 			// id операции
 		$('[name*=id_operation]').val(tbl_src.find('thead [id_operation]').attr('id_operation'));
+			// for
+		$('[name=for]').val(tbl_src.find('thead [id_for]').attr('id_for'));
 			// id контакта и его наименование
 		$('#contact_name').attr('cid', tbl_src.find('thead [id_contact]').attr('id_contact'));
 		$('#contact_name').val(tbl_src.find('thead [id_contact]').text());
@@ -242,6 +248,7 @@ $(document).ready( function(){
 		//alert('сохранить расход');
 		//alert(document.location.host);
 		//alert($('[name = "expence[id_operation]"]').val());
+
 			// собираем данные в массив
 		var arr = {};
 		var goods_arr = {};
@@ -254,6 +261,8 @@ $(document).ready( function(){
 		var err = false;
 		id.each(function(index, element){
 			//alert(index+' -- ["'+$(element).val() + '"] = '+ $(quantity).eq(index).val());
+
+				// проверить остатки
 
 				// если одно из полей пустое - выдать сообщение с вариантами: пропустить/отменить
 
@@ -276,18 +285,19 @@ $(document).ready( function(){
 		arr['id_operation'] = $('[name = "expence[id_operation]"]').val();
 		arr['doc_date']		= $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] 		= $('[name = "expence[doc_num]"]').val();
+		arr['doc_for'] 	    = $('[name = "for"]').val();
 
 			// запихиваем два массива в один, который и отправится на сервер
 		exp['doc'] = arr;
 		exp['doc_data'] = goods_arr;
-	 	// alert(JSON.stringify(exp));
+		//console(exp);
 
 	 	$('#overlay').show();
         $('#loadImg').show();
 
 			// передаём данные на сервер
 		$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/store/expense",
+          		url: 'http://'+document.location.host+rootFolder+"/store/expense",
           		type:'POST',
           		dataType: "json",
           		data: {new_expense: exp},
@@ -299,14 +309,19 @@ $(document).ready( function(){
 			        $('#loadImg').hide();
           		},
 		        success: function(data){
-		        //	alert(JSON.stringify(data));
-		        //	var res = eval(data);
-		        	//alert(data.status+'---');
-		        	//alert(typeof data);
-		        	if (data.status == 'ok') {
-		        		location.reload();
-		        	}
-		        	// обновить страницу в случае удачного сохранения
+
+			        if (data.status == 'ok') {
+				        location.reload();
+			        } else {
+				        $('#overlay').hide();
+				        $('#loadImg').hide();
+				        str = '';
+				        $(data.no_rest).each(function (i,e) {
+					        //console.log(e);
+					        str += '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
+				        });
+				        alert(str);
+			        }
 
 		        }
         	});
@@ -347,7 +362,7 @@ $(document).ready( function(){
 	$('.print_doc_button').click(function (event) {
 		var id = $(this).parent().attr('doc_id');
 		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
-		window.open('/metan_0.1/print/index?report=Deliverynote&id=' + id, '_blank')
+		window.open(rootFolder+'/print/index?report=Deliverynote&id=' + id, '_blank')
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 	})
 
@@ -365,7 +380,7 @@ function set_autocomplete(id) {
     		//response функция для обработки ответа
     		//alert(request.term); // - строка поиска;
         	$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
+          		url: 'http://'+document.location.host+rootFolder+"/MainAjax/GetGoodsNameFromRest",
           		type:'GET',
           		dataType: "json",
           		data: 'term='+request.term+'&f=gid',
@@ -405,7 +420,7 @@ function set_autocomplete(id) {
     		//response функция для обработки ответа
     		//request.term - строка поиска;
         	$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/MainAjax/GetGoodsNameFromRest",
+          		url: 'http://'+document.location.host+rootFolder+"/MainAjax/GetGoodsNameFromRest",
           		type:'GET',
           		dataType: "json",
           		data: 'term='+request.term+'&f=gname', /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
@@ -509,6 +524,9 @@ function set_autocomplete(id) {
 			var row = $(this).parent('div').parent('td').parent('tr').attr('id');
 			//alert('delete '+row);
 			$('#'+row).remove();
+				// пересчитать сумму
+			$('.quantity').eq(0).change();
+			console.log('www');
 		} else {
 			alert('Нельзя удалить единственную строку!');
 		}

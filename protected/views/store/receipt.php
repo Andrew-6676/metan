@@ -40,6 +40,7 @@
 		),
 		'columns'=> array(
 			'id_goods'=>'Код',
+			'goods.id_3torg'=>'Группа',
 			'goods.name'=>'Наименование товара',
 			'cost'=>'Оптовая цена',
 			'markup'=>'Наценка',
@@ -48,6 +49,11 @@
 			'quantity'=>'Количество',
 			'=quantity*cost'=>'Сумма опт',
 			'=quantity*price'=>'Сумма розница'
+		),
+		'sums'=>array(
+			'=quantity*cost'=>'Сумма опт',
+			'=vat/100*quantity*cost'=>'Сумма НДС',
+			'=quantity*price'=>'Сумма розница',
 		),
 		'buttons'=>array('print','del'),
 	));

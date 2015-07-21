@@ -10,6 +10,8 @@ class indexAction extends CAction   /*HelpController*/
     	$criteria->addCondition('controller=\''.$c.'\'');
     	$criteria->addCondition('action=\''.$a.'\'');
     	$criteria->addCondition('index=\''.$i.'\'');
+		$criteria->order = 'chapter, controller';
+
 		$data = Help::model()->find($criteria);
 		$menuTmp=Help::model()->findAll();
 		

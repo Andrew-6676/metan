@@ -38,6 +38,7 @@ class Contact extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('name, fname, unn, rs, mfo, okpo, agreement', 'required'),
 			array('parent', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>80),
 			array('fname, address, agreement', 'length', 'max'=>255),
@@ -72,17 +73,17 @@ class Contact extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'fname' => 'Fname',
-			'rs' => 'Rs',
-			'mfo' => 'Mfo',
-			'okpo' => 'Okpo',
-			'unn' => 'Unn',
-			'address' => 'Address',
+			'name' => 'Наименование',
+			'fname' => 'Полное наименование',
+			'rs' => 'Рассчётный счёт',
+			'mfo' => 'МФО',
+			'okpo' => 'ОКПО',
+			'unn' => 'УНН',
+			'address' => 'Адрес',
 			'kpo' => 'для совместимости',
 			'parent' => 'Parent',
-			'bank' => 'Bank',
-			'agreement' => 'Agreement',
+			'bank' => 'Банк',
+			'agreement' => 'Договор',
 		);
 	}
 
@@ -117,8 +118,11 @@ class Contact extends CActiveRecord
 		$criteria->compare('bank',$this->bank,true);
 		$criteria->compare('agreement',$this->agreement,true);
 
+		$criteria->addCondition('parent=2');
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array('pageSize' => 50),
 		));
 	}
 

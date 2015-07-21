@@ -76,6 +76,7 @@ class importAction extends CAction   /* DirectoryController */
 					$u_arr = array();	// для UPDATE
 
 						// каждому полю из DST сопостовляем поле из SRC
+
 					foreach ($_POST['import']['field_dst'] as $key => $val) {
 						if ($val != '') {
 							$f_arr[] = $val;
@@ -91,7 +92,9 @@ class importAction extends CAction   /* DirectoryController */
 					$sql_i="INSERT INTO ".$_POST['import']['tname']."(".implode(',',$f_arr).") VALUES(".implode(',',$p_arr).")";
 							// запрос для обновления
 					$sql_u="UPDATE ".$_POST['import']['tname']." SET \n".implode(",\n",$u_arr).' WHERE '.$_POST['import']['key_field_dst'].'=:'.$_POST['import']['key_field_src'];
+//					echo $sql_u;
 
+//				    return;
 					echo "<pre>";
 					// print_r($sql_del)."\n";
 					print_r($sql_i)."\n<br>";
@@ -108,6 +111,10 @@ class importAction extends CAction   /* DirectoryController */
 			 			if (isset($_POST['import']['radio']) && $_POST['import']['radio']=='update')
 			 			{
 			 				// проверяем, есть ли нужная запись в БД
+						    if (trim($row[$_POST['import']['key_field_src']])=='') {
+							    echo "----continue----";
+							    continue;
+						    }
 			 				$sql_tmp = 'SELECT count('.$_POST['import']['key_field_dst'].') as c from '.$_POST['import']['tname'].' WHERE '.$_POST['import']['key_field_dst'].'='.$row[$_POST['import']['key_field_src']];
 							$r = $connection->createCommand($sql_tmp)->queryRow();
 
@@ -122,12 +129,19 @@ class importAction extends CAction   /* DirectoryController */
 									// присваиваем параметрам значения (цикл по масиву параметров)
 					 			foreach ($p_arr as $key => $val)
 					 			{
-					 				//echo $val.' --> '.mb_convert_encoding($row[$v_arr[$key]], "UTF-8", "cp866")."\n";
-									$command_u->bindParam($val, mb_convert_encoding($row[$v_arr[$key]], "UTF-8", "cp866"));
+
+								    $str = trim($row[$v_arr[$key]]);
+								    if (trim($row[$v_arr[$key]])=='') {$str = "0";}
+//								    echo "-$str-";
+								    echo $val.' --> '.mb_convert_encoding($str, "UTF-8", "cp866")."\n";
+								    $command_u->bindParam($val, mb_convert_encoding($str, "UTF-8", "cp866"));
 					 			}
 					 			//echo ':KPO'.' --> '.mb_convert_encoding($row['KPO'], "UTF-8", "cp866")."\n";
-					 			$command_u->bindParam(':KPO', mb_convert_encoding($row['KPO'], "UTF-8", "cp866"));
+//					 			$command_u->bindParam(':KPO', mb_convert_encoding($row['KPO'], "UTF-8", "cp866"));
+								echo ':'.$_POST['import']['key_field_src'].' --> '.mb_convert_encoding($row[$_POST['import']['key_field_src']], "UTF-8", "cp866")."\n\n";
+								$command_u->bindParam(':'.$_POST['import']['key_field_src'], mb_convert_encoding($row[$_POST['import']['key_field_src']], "UTF-8", "cp866"));
 								$command_u->execute();	// обновляем запись
+
 							} else {	// if $r['c']
 								// если нечего обновлять - добавляем
 								foreach ($p_arr as $key => $val)

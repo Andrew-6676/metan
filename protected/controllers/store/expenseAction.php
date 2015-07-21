@@ -10,7 +10,18 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			// exit;
 				// сохранить расход в БД
 			if(isset($_POST['new_expense'])) {
-				$this->addExpense($_POST['new_expense']);
+				$goods = array();
+					// цикл по товарам
+				foreach ($_POST['new_expense']['doc_data'] as $id => $row) {
+					$goods[$id] = $row['quantity'];
+				}
+
+				$chk = Goods::model()->checkRest($goods);
+				if ($chk['status']=='ok') {
+					$this->addExpense($_POST['new_expense']);
+				} else {
+					echo json_encode($chk);
+				}
 				exit;
         	}		// if(isset($_POST['new_expense']))
 
@@ -76,27 +87,32 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			// exit;
 		}
 
+
+//		echo json_encode($data);
+//		exit;
 			// начинаем транзакцию
 		$transaction=$document->dbConnection->beginTransaction();
 		// Yii::app()->db->emulatePrepare = false;
-		try
-		{
+		try {
 			$doc = $data['doc'];
-				// атрибуты родительской таблицы
-	    	$document->id_store 	= Yii::app()->session['id_store'];
-	    	$document->id_owner	 	= Yii::app()->user->id;
-	    	$document->id_editor	= Yii::app()->user->id;
-	    	$document->date_insert 	= date('Y-m-d');
-	    	$document->date_edit	= date('Y-m-d');
-	    	$document->doc_num		= $doc['doc_num'];
-	    	$document->doc_num2		= intval($doc['doc_num']);
-			$document->doc_date		= $doc['doc_date'];
-	    	$document->id_contact	= 0;
-	    	$document->id_storage	= 2;
-	    	$document->reason		= '';
-	    	$document->id_operation	= $doc['id_operation'];
-	    	$document->id_doctype 	= 2;
-	    	//$document->active = '1::boolean';
+			// атрибуты родительской таблицы
+			$document->id_store = Yii::app()->session['id_store'];
+			$document->id_owner = Yii::app()->user->id;
+			$document->id_editor = Yii::app()->user->id;
+			$document->date_insert = date('Y-m-d');
+			$document->date_edit = date('Y-m-d');
+			$document->doc_num = $doc['doc_num'];
+			$document->doc_num2 = intval($doc['doc_num']);
+			$document->doc_date = $doc['doc_date'];
+			$document->id_contact = 0;
+			$document->id_storage = 2;
+			$document->reason = '';
+			$document->id_operation = $doc['id_operation'];
+			$document->id_doctype = 2;
+			//$document->active = '1::boolean';
+			if (isset($doc['doc_for']) && $doc['doc_for']) {
+				$document->for = $doc['doc_for'];
+			}
 	    	//print_r($document);
 			if($document->save()) {
 					// если удачное сохранение - получаем ID новой записи

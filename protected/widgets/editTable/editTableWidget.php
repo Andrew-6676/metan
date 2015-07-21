@@ -71,7 +71,12 @@ class editTableWidget extends CWidget
                                 echo '"true" ';
                             }
                             echo 'val="'."{$row->$col}".'" fname="'.$col.'">';
-                            echo "{$row->$col}"; // вывод значения в ячейку таблицы
+	                            //ссылка на справочник
+	                        if ($col=='id_goods') {
+		                        echo "<a href='".Yii::app()->getBaseUrl()."/goods/update/".$row->$col."'>{$row->$col}</a>"; // вывод значения в ячейку таблицы
+	                        } else {
+		                        echo "{$row->$col}"; // вывод значения в ячейку таблицы
+	                        }
                             // echo ' ('.$row->model()->tableSchema->getColumn($col)->dbType.')';
                         }
                         echo '</td>';

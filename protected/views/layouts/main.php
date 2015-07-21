@@ -1,7 +1,7 @@
 <?php
-error_log("----------------------------");
+//error_log("----------------------------");
 
-error_log(print_r(Yii::app()->session->sessionID, true));
+//error_log(print_r(Yii::app()->session->sessionID, true));
 //if ($this->beginCache('main2_'.Yii::app()->user->id))
 {?>
 <!DOCTYPE HTML>
@@ -11,6 +11,7 @@ error_log(print_r(Yii::app()->session->sessionID, true));
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 	<meta charset="utf-8">
+	<link rel="icon" href="<?php echo Yii::app()->request->baseUrl; ?>/images/favicon.ico" type="image/x-icon">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" rel="stylesheet">
 	<link href="<?php echo Yii::app()->request->baseUrl; ?>/css/menu.css" rel="stylesheet">
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.js"></script>
@@ -36,6 +37,7 @@ error_log(print_r(Yii::app()->session->sessionID, true));
 						<button id="cancel_workdate"></button>
 					</div>
 				</div>
+				  <!--
 		<?php }
 			echo CHtml::encode(Yii::app()->name);
 			//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
@@ -50,7 +52,7 @@ error_log(print_r(Yii::app()->session->sessionID, true));
 				echo User::model()->findByPk(Yii::app()->session['id_user'])->fname.'<br>';
 				echo "id_store=<b>".Yii::app()->session['id_store']."</b> => ";
 				echo Store::model()->findByPk(Yii::app()->session['id_store'])->fname.'<br>';
-				echo "Workdate=<b>".Yii::app()->session['workdate']."</b><br>";
+				echo "Workdate=<b>".Yii::app()->session['workdate']."</b><br -->";
 			}
 
 
@@ -157,6 +159,7 @@ error_log(print_r(Yii::app()->session->sessionID, true));
 
 	<footer id="footer">
 		    <!--small><p>Copyright (c) 2014  #id: footer [Подвал сайта]</p></small-->
+			<?php echo CHTML::link('Обратная связь', Yii::app()->createAbsoluteUrl("site/gbook"), array('id'=>'feedback')); ?>
 		    <address>
       			Разработчик: <a href='mailto:
       				<?php echo Yii::app()->params['adminEmail']; ?>'>

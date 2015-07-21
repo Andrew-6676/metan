@@ -1,13 +1,16 @@
 <?php
 	/* HelpController->IndexAction->Index_view*/
 
+//		$this->addCSS('store/search_form.css');
+		$this->addJS('ckeditor/ckeditor.js');
+
 		$this->pageTitle = 'Справка: '.$data->title;
 		// print_r($data);
 		echo "<div id='content_help_cap'>";
 		echo "<input type='text' id='help_edit_cap' value='$data->title'>";
 		echo "</div>";
 
-		echo "<div id='content_help'><textarea id='help_edit_content'>";
+		echo "<div id='content_help'><textarea id='help_edit_content' class='editor' name='editor'>";
 		echo nl2br($data->text);
 		echo "</textarea></div>";
 
@@ -47,3 +50,6 @@
 					        array('class'=>'button', 'id'=>'save_btn', 'disabled'=>'disabled')
 			        );
 ?>
+
+<!--<textarea id='editor' class="editor" name="editor"></textarea>-->
+<script type='text/javascript'>CKEDITOR.replace( 'editor' );</script>

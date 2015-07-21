@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$('.print_doc_button').click(function(event){
 		var id = $(this).parent().attr('doc_id');
 		//alert('print reestr  '+$('#doc_hat_'+id+' .doc_num').text());
-		window.open('/metan_0.1/print/index?report=Receipt&id='+id,'_blank')
+		window.open(rootFolder+'/print/index?report=Receipt&id='+id,'_blank')
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	})
 	/*-------------------удаление документа----------------------------------------------*/
@@ -14,7 +14,7 @@ $(document).ready(function(){
 	//	if (confirm("Точно хотите безвозвратно удалить \n ТТН №"+$('#doc_hat_'+id+' .doc_num').text().trim()+" от "+$('#doc_hat_'+id+' .doc_date').text().trim()+"?\n (id="+id+")")) {
 	//		// alert('delte');
 	//		$.ajax({
-     //     		url: 'http://'+document.location.host+"/metan_0.1/store/receipt",
+     //     		url: 'http://'+document.location.host+rootFolder+"/store/receipt",
      //     		type:'POST',
      //     		dataType: "json",
      //     		data: {del_receipt: id},

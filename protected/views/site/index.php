@@ -5,7 +5,6 @@
 ?>
 
 <br><br>
-hi from index.php
 	<br>
 	<br>
 	<br>

@@ -41,6 +41,9 @@ $(document).ready(function () {
 	$(document).keyup(function (event) {
 		switch (event.keyCode) {
 			case 45:    // INS
+				if (event.shiftKey || event.ctrlKey) {
+					return false;
+				}
 				console.log('insert');
 				$('#add_new_row').click();
 				break;
@@ -92,7 +95,7 @@ $(document).ready(function () {
 		console.log(data);
 
 		$.ajax({
-			url: 'http://'+document.location.host+"/metan_0.1/store/invoice",
+			url: 'http://'+document.location.host+rootFolder+"/store/invoice",
 			type:'POST',
 			dataType: "json",
 			data: {new_contact: data},
@@ -133,7 +136,7 @@ $(document).ready(function () {
 
 				// заполнить поля из БД
 			$.ajax({
-				url: 'http://' + document.location.host + "/metan_0.1/MainAjax/GetContact",
+				url: 'http://' + document.location.host + rootFolder+"/MainAjax/GetContact",
 				type: 'GET',
 				dataType: "json",
 				data: 'id='+$('#contact_name').attr('cid'),
@@ -184,7 +187,7 @@ $(document).ready(function () {
 			//response функция для обработки ответа
 			//alert(request.term); // - строка поиска;
 			$.ajax({
-				url: 'http://' + document.location.host + "/metan_0.1/MainAjax/GetContactName",
+				url: 'http://' + document.location.host + rootFolder+"/MainAjax/GetContactName",
 				type: 'GET',
 				dataType: "json",
 				data: 'term=' + request.term + '&f=name',
@@ -280,7 +283,7 @@ $(document).ready(function () {
 		//return;
 		// передаём данные на сервер
 		$.ajax({
-			url: 'http://' + document.location.host + "/metan_0.1/store/invoice",
+			url: 'http://' + document.location.host + rootFolder+"/store/invoice",
 			type: 'POST',
 			dataType: "json",
 			data: {new_invoice: exp},
@@ -314,9 +317,9 @@ $(document).ready(function () {
 	// 	event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	// })
 
-	// списание в расход счёта фактуры
-	$('.write_off_button').click(function (event) {
-		//console.log('списать ');
+		// списание в расход счёта фактуры
+	$('.write_off_doc_button').click(function (event) {
+		console.log('списать ');
 		var nakl_num = prompt('Введите номер накладной', '');
 		if (nakl_num==null) {
 			return false;
@@ -325,11 +328,15 @@ $(document).ready(function () {
 			alert('Неправильный номер накладной');
 			return false;
 		}
+		var payment_order = prompt('Введите платёжное поручение', '');
+		if (payment_order==null) {
+			return false;
+		}
 		$.ajax({
-			url: 'http://' + document.location.host + "/metan_0.1/store/invoice",
+			url: 'http://' + document.location.host + rootFolder+"/store/invoice",
 			type: 'POST',
 			dataType: "json",
-			data: {writeoff_invoice: {'doc_id':$(this).parent().attr('doc_id'), 'nakl_num':nakl_num}},
+			data: {writeoff_invoice: {'doc_id':$(this).parent().attr('doc_id'), 'nakl_num':nakl_num, 'payment_order': payment_order}},
 			// функция обработки ответа сервера
 			error: function (data) {
 				console.log(data);
@@ -347,20 +354,31 @@ $(document).ready(function () {
 						alert(data.message);
 					}
 				} else {
-					alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
-					$('#overlay').hide();
-					$('#loadImg').hide();
-				}
+					if (data.no_rest) {
+						str = '';
+						$(data.no_rest).each(function (i,e) {
+							//console.log(e);
+							str += '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
+						});
+						alert(str);
 
+						//alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+					} else {
+						alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+					}
+				}
+				$('#overlay').hide();
+				$('#loadImg').hide();
 			}
 		});
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	})
-	// печать счёт-фактуры
+
+		// печать счёт-фактуры
 	$('.print_doc_button').click(function (event) {
 		var id = $(this).parent().attr('doc_id');
 		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
-		window.open('/metan_0.1/print/index?report=Invoice&id=' + id, '_blank')
+		window.open(rootFolder+'/print/index?report=Invoice&id=' + id, '_blank')
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 	})
 })

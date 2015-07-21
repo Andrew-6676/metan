@@ -9,7 +9,7 @@ $(document).ready( function(){
 		if (confirm('Закрываем '+$('#month_num').val()+'.'+$('#year_num').val()+'?')) {
 			// alert('delte');
 			$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/store/restClose",
+          		url: 'http://'+document.location.host+rootFolder+"/store/restClose",
           		type:'POST',
           		dataType: "json",
           		data: {mode: 'close', month: $('#month_num').val(), year: $('#year_num').val()},
@@ -65,7 +65,7 @@ $(document).ready( function(){
 
 function check_closed (m,y) {
 	$.ajax({
-  		url: 'http://'+document.location.host+"/metan_0.1/store/restClose",
+  		url: 'http://'+document.location.host+rootFolder+"/store/restClose",
   		type:'POST',
   		dataType: "json",
   		data: {mode: 'check', month: m, year: y},

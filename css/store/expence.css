@@ -200,3 +200,27 @@ label {
 #cancel_expence {
 	display: none;
 }
+
+/*-------------------------------------------------------*/
+details.additional_data {
+	/*position: absolute;*/
+	margin: -10px 12px 12px 12px;
+	/*margin-left: 135px;*/
+}
+details.additional_data summary {
+	cursor: pointer;
+}
+details label {
+	width: 180px;
+	display: inline-block;
+}
+.docadditional {
+	margin-left: 30px;
+	border: 1px solid #bcbcbc;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #fff;
+}
+.docadditional .row {
+	padding: 5px;
+}

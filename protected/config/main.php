@@ -9,7 +9,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',  //папка protected
 	'name'=>'Metan_0.1',
-	//'defaultController'=>'test',					// контроллер по умолчанию
+	'defaultController'=>'store',					// контроллер по умолчанию
 	/*array(
     'site/stop',
     'param1'=>'value1',
@@ -103,8 +103,9 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
+		'rootFolder' => '/metan_0.1',
 		'pathToDBF' => '/var/www/metan_0.1/public/dbf/',
-		'adminEmail'=>'Andrew@vitebsk.oblgas.by',
+		'adminEmail'=>'Shavneval@oblgas.by',
 		'adminFIO' => 'Шавнёв А.Л.',
 	),
 );

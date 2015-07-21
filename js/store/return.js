@@ -87,7 +87,7 @@ $('#add_return').click(function(){
 
 			// передаём данные на сервер
 		$.ajax({
-          		url: 'http://'+document.location.host+"/metan_0.1/store/return",
+          		url: 'http://'+document.location.host+rootFolder+"/store/return",
           		type:'POST',
           		dataType: "json",
           		data: {new_return: exp},

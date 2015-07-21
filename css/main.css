@@ -88,9 +88,9 @@ body {
 }
 /**------------------------ HEADER -------------------*/
 #header {
-        background-color: #CEECF5;
+        background-color: #A7CFF0;
         /*border: 2px solid blue;*/
-        height: 90px;
+        height: 60px;
 }
 /*------------------------ header -------------------*/
 /*.wrapper {height:100%}*/
@@ -114,7 +114,9 @@ body {
 #content ul, #content2 ul {
     margin-left: 30px;
 }
-
+#content ul>li {
+	padding: 5px;
+}
 #content2 {
         margin-left: 220px;
 }
@@ -192,4 +194,12 @@ body {
 
 #to_bottom div:hover {
     background: url(../images/arrows.png) 100% 100% no-repeat #000;
+}
+
+/*-----------------------*/
+#feedback {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
 }

@@ -11,16 +11,30 @@
 	margin: auto;
 	/*border: 1px solid silver;*/
 	border-collapse: collapse;
+
+	width: 100%;
+	/*border: 1px #D0E3EF solid;*/
+	/*background: white;*/
+
 }
 
 .editRest td {
 	border: 1px solid silver;
 	padding: 2px 5px;
+	font-size: 0.9em;
+	border: 1px white solid;
+	padding: 0.3em;
+
+}
+
+.editRest tr:nth-child(odd) {
+	background: #E5F1F4;
 }
 
 .editRest tr:nth-child(even) {
-	background: #E8FCE8;
+	background: #F8F8F8;
 }
+
 
 .editRest tr:hover {
 	background: #9f9;
@@ -77,6 +91,15 @@ tr.modified_tr .cancel_row {
 	background: url(../../../images/widgets/editTable/cancel.png) no-repeat 100% 0%;
 }
 /*-----------------------------------------------------*/
+td a {
+	color: #000;
+}
+td a:hover {
+	color: #00f;
+}
 /*-----------------------------------------------------*/
+td[ro=false] {
+	cursor: pointer;
+}
 /*-----------------------------------------------------*/
 /*-----------------------------------------------------*/

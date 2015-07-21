@@ -28,7 +28,7 @@ class restEditAction extends CAction   /*---- StoreController ----*/
 		$criteria->order ='left(id_goods::text,4), id_goods';
 		$model = Rest::model()->findAll($criteria);
 
-	 	$this->controller->pageTitle = 'Закрытие месяца';
+	 	$this->controller->pageTitle = 'Редактирование остатков';
 	 	$this->controller->render('restEdit', array('model'=>$model));
 	}
 }

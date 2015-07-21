@@ -17,6 +17,7 @@ class SiteController extends Controller
     {
         return array(
         	'index'=>'application.controllers.site.indexAction',
+	        'gbook'=>'application.controllers.site.gbookAction',
             'login'=>'application.controllers.site.loginAction',
             'logout'=>'application.controllers.site.logoutAction',
         );

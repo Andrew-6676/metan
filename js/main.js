@@ -1,3 +1,4 @@
+var rootFolder = '/metan_0.1';
 var workdate=null
 var to_id = null;
 var anim = false;
@@ -121,7 +122,7 @@ $(document).ready( function(){
 			//alert($('#workdate input').val());
 			// переприсвоить workdate в сессии
 		$.get(
-			'/metan_0.1/MainAjax/setWorkDate',
+			rootFolder+'/MainAjax/setWorkDate',
 			{	// список параметров
 				date: $('#workdate input').val(),
 			},
@@ -140,7 +141,7 @@ $(document).ready( function(){
 	//$('#run_import').click(function(){
 	//	startLoadingAnimation();
 		// $.post(
-		// 	'/metan_0.1/admin/directory/import',
+		// 	rootFolder+'/admin/directory/import',
 		// 	{	// список параметров
 		// 		sql: $('#query_text').val(),
 		// 	},
