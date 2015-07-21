@@ -123,13 +123,13 @@ class MainAjaxController extends CController
 //			echo implode('.',$arr)."\n";
 //			$row->id_3torg = implode('.',$arr);
 			//$row->save();
-			if (strpos($row->id_3torg,'.000')>0) {
-				echo $row->id_3torg.'-----'.substr($row->id_3torg,0,-4)."\n";
-				$row->id_3torg = substr($row->id_3torg,0,-4);
-				$row->save();
-			} else {
-				echo $row->id_3torg."\n";
-			}
+//			if (strpos($row->id_3torg,'.000')>0) {
+//				echo $row->id_3torg.'-----'.substr($row->id_3torg,0,-4)."\n";
+//				$row->id_3torg = substr($row->id_3torg,0,-4);
+//				$row->save();
+//			} else {
+//				echo $row->id_3torg."\n";
+//			}
 
 
 //			echo $row->id_3torg."\n";
@@ -141,5 +141,17 @@ class MainAjaxController extends CController
 
 	/*------------------------------------------------------------------------------*/
 
+	public function ActionDelDocdata() {
+		$res = array('status'=>'ok', 'message'=>'Удалено.');
+		$res['ids'] = $_POST['data'];
 
+		foreach ($_POST['data'] as $doc_id) {
+			if(Documentdata::model()->deleteByPK($doc_id)==0){
+				$res['status'] = 'error';
+				$res['message'] = 'Не получилось удалить';
+			}
+		}
+
+		echo json_encode($res);
+	}
 }

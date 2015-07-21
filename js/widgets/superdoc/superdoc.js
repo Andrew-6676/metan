@@ -39,6 +39,59 @@ $(document).ready(function(){
 	//	event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	//})
 
+/*--------------------------------------------------------------*/
+
+	$(document).keypress(function(event){
+		if (event.keyCode==127 && !$(this).is(':input')) {
+			//alert(event.keyCode);
+			var del_list = $('.child_row.visible .selected');
+			if ($(del_list).length > 0) {
+				var str = 'Точно хотите безвозвратно удалить строки из документов: \n\n';
+				//alert('del rows:'+$(del_list).length);
+				$('.child_row.visible .selected').closest('.child').each(function(i, el){
+					str += '№ ' + ($(el).find('.doc_num').text().trim());
+					str += ' от ' + ($(el).find('.doc_date').text().trim());
+					str += ' (' + $(el).find('.selected').length + ' стр.)' + '\n';
+				})
+				str += '\n(всего '+$(del_list).length+' стр.)';
+				if (confirm(str)) {
+					var ids = [];
+					$('.child_row.visible .selected').each(function (i,e) {
+						//console.log($(this).attr('docdata_id'));
+						ids[ids.length] = $(this).attr('docdata_id');
+					});
+					console.log('del: '+ids);
+					$.ajax({
+						url: 'http://'+document.location.host+rootFolder+"/MainAjax/delDocdata",
+						type:'POST',
+						dataType: "json",
+						data: {'data':ids},
+						// функция обработки ответа сервера
+						error: function(data) {
+							console.log(data);
+							alert('Во время удаления произошла ошибка. Проверьте данные!');
+							//alert(data);
+						},
+						success: function(data){
+							console.log(data);
+							//alert(data.status);
+							//alert(typeof data);
+							// удалить строку из таблицы на странице в случае удачного удаления
+							if (data.status == 'ok') {
+								$('.child_row.visible .selected').remove();
+								alert(data.message);
+								//location.reload();
+
+							}
+
+
+						}
+					});
+				}
+			}
+		}
+	})
+
 /*  ---------------------------------------------------------  */
 	$('.parent_row').click(function(){
 		var ch = $('#ch_'+$(this).attr('id'));
