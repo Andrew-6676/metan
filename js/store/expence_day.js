@@ -11,6 +11,8 @@ var search_data = {
 };
 /*--------------------------------------------------*/
 $(document).ready(function () {
+	$('#for').val($('td.for').attr('id_for'));
+
 	$('#expence_id_operation').focus();
 	/*-----------------------------------------------------*/
 	$('#expence_id_operation').click(function (event) {
@@ -245,6 +247,14 @@ $(document).ready(function () {
 				//alert(typeof data);
 					// обновить страницу в случае удачного сохранения
 				if (data.status == 'ok') {
+					if (data.no_rest) {
+						str = '';
+						$(data.no_rest.no_rest).each(function (i,e) {
+							//console.log(e);
+							str += '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
+						});
+						alert(str);
+					}
 					location.reload();
 				} else {
 					$('#overlay').hide();
@@ -252,7 +262,7 @@ $(document).ready(function () {
 					str = '';
 					$(data.no_rest).each(function (i,e) {
 						//console.log(e);
-						str = '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
+						str += '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
 					});
 					alert(str);
 					$('.goods_name').focus();

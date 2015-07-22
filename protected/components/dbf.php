@@ -19,7 +19,9 @@ class dbf
 {
 	public $table = NULL;
 	private $recNo = 0;
+	private $filter = NULL;
 	private $recCount = -1;
+
 /*-----------------------------------------------------------------------------------*/
 	public function __construct($file, $opt=0){
 		$this->table = dbase_open($file, $opt);
@@ -30,15 +32,25 @@ class dbf
 			// проверяем, не достигнут ли конец файла
 		if ($this->recNo != $this->count()) {
 			$this->recNo += 1;
+//			echo '/'.$this->recNo.'/' ;
+
 				// считываем запись
 			$rec = dbase_get_record_with_names($this->table,$this->recNo);
 				// если она помечена на удаление - считываем следующую запись
 			if ($rec['deleted']) {
 				$this->readRec();
 			} else {
-					// если не помечена на удаление - возвращаем её
+//				if ($this->apply_filter($rec)) {
+////					echo '*';
+//					return $rec;
+//				} else {
+//					$this->readRec();
+//				}
 				return $rec;
 			}
+
+//			return $rec;
+//			echo '%';
 		} else {
 			return false;
 		}
@@ -80,7 +92,35 @@ class dbf
 		// }
 		// return	$f;
 	}
+/*-----------------------------------------------------------------------------------*/
+	public function setFilter($filter) {
+		preg_match_all('/\[(\w+)\]=(\w+)/', $filter, $matches);
+		$filter_a = array_combine($matches[1], $matches[2]);
+		$this->filter = $filter_a;
+//		print_r($this->filter);
+	}
+/*-----------------------------------------------------------------------------------*/
+	public function apply_filter($row) {
+		if (!$this->filter) { return true;}
 
+		$accept = true;
+		// цикл по строкам фильтра
+		foreach ($this->filter as $f => $v) {
+			// сравниваем поля с фильтром поочерёдно
+			// $f - имя поля
+			// $v - значение фильтра
+			echo "<br>$f:  <u>$row[$f]</u>  -  $v ";
+			if ($row[$f]==$v) {
+				$accept = true;
+				echo " ---> true ";
+			} else {
+				$accept = false;
+				echo " ---> false";
+			}
+		}
+
+		return $accept;
+	}
 /*-----------------------------------------------------------------------------------*/
 	public function getRows($filter) {
 		/*

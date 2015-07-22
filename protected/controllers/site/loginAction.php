@@ -32,7 +32,14 @@ class loginAction extends CAction   /*---- SiteController ----*/
                 //$st = User::model()->findByAttributes(array('id'=>Yii::app()->user->id));
                 $st = User::model()->findByPk(Yii::app()->user->id);
 					// записываем id магазина в сессию
-                Yii::app()->session['id_store'] = $st->id_store;
+				if ($st->id_store < 0) {
+						// если крутой пользователь - предоставить магазин на выбор
+					Yii::app()->session['can_select_store'] = true;
+					Yii::app()->session['id_store'] = abs($st->id_store);
+				} else {
+					Yii::app()->session['can_select_store'] = false;
+					Yii::app()->session['id_store'] = $st->id_store;
+				}
                 	// записываем id пользователя в сессию
                 Yii::app()->session['id_user'] = $st->id;
 		/*-----------------------------------------------------------------------------------------*/

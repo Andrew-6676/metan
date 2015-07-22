@@ -18,7 +18,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 				// 				));
 
 				$connection = Yii::app()->db;
-				$sql = "select array_to_string(array(select id from {{document}} "." where doc_num2=0 and doc_date='".Yii::app()->session['workdate']."'), ',') as data";
+				$sql = "select array_to_string(array(select id from {{document}} "." where doc_num2=0 and doc_date='".Yii::app()->session['workdate']."' and id_store=".Yii::app()->session['id_store']."), ',') as data";
 				$rowsData = $connection->createCommand($sql)->queryAll();
 
 				$dbData = explode(',', $rowsData[0]['data']);

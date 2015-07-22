@@ -10,18 +10,18 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			// exit;
 				// сохранить расход в БД
 			if(isset($_POST['new_expense'])) {
-				$goods = array();
-					// цикл по товарам
-				foreach ($_POST['new_expense']['doc_data'] as $id => $row) {
-					$goods[$id] = $row['quantity'];
-				}
-
-				$chk = Goods::model()->checkRest($goods);
-				if ($chk['status']=='ok') {
+//				$goods = array();
+//					// цикл по товарам
+//				foreach ($_POST['new_expense']['doc_data'] as $id => $row) {
+//					$goods[$id] = $row['quantity'];
+//				}
+//
+//				$chk = Goods::model()->checkRest($goods);
+//				if ($chk['status']=='ok') {
 					$this->addExpense($_POST['new_expense']);
-				} else {
-					echo json_encode($chk);
-				}
+//				} else {
+//					echo json_encode($chk);
+//				}
 				exit;
         	}		// if(isset($_POST['new_expense']))
 
@@ -60,9 +60,9 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
 												  'order'=>'name'));
 			// следующий номер документа
-		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=2 and id_store='.Yii::app()->session['id_store'];
+		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=2 and id_store='.Yii::app()->session['id_store'].' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,4).'%\'';
 		$doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
-
+		if (!$doc_num) {$doc_num = 1;}
 
 		$this->controller->pageTitle = 'Расход';
 		$this->controller->render('expense', array(
@@ -76,6 +76,22 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 /*---------------------- Добавление нового расхода в БД -----------------------------*/
 	private function addExpense($data) {
 		$res = array();
+
+
+		$goods = array();
+			// цикл по товарам
+		foreach ($data['doc_data'] as $id => $row) {
+			$goods[$id] = $row['quantity'];
+		}
+
+		$chk = Goods::model()->checkRest($goods);
+		if ($chk['status']!='ok') {
+//			echo json_encode($chk);
+//			exit;
+			$res['no_rest'] = $chk;
+		}
+
+
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
 		$document = new Document();
@@ -177,6 +193,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 	  //       echo "----\n";
 			// print_r($data);
 			$res['status'] = 'ok';
+			$res['message'] = 'Документ сохранён';
 			echo json_encode($res);
 			// echo "</pre>";
 			//exit;

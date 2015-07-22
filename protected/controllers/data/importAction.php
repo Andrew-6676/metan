@@ -309,19 +309,19 @@ class importAction extends CAction   /*DataController*/
 						//continue;
 
 					$i = 0;
+					// зедсь можно применить фильтр из $table['filter'] и пропустить обработку строки из DBF
+//					if (trim($table['filter']) != '') {
+//						echo '<br><b><i>'.$table['filter'].'</i></b><br>';
+//						$dbf->setFilter($table['filter']);
+//					}
 						// цикл по записям импортируемой таблицы
-			 		while($row = $dbf->readRec())
-			 		{
-			 				// зедсь можно применить фильтр из $table['filter'] и пропустить обработку строки из DBF
-			 			// if (trim($table['filter'])!='') {
-			 			// 	//echo '<br><b><i>'.$table['filter'].'</i></b><br>';
-			 			// }
 
-			 			//print_r($dbf->getFields());
-			 			// print_r($row); echo '<br>';
-			 			// print_r($ft); echo '<br>';
-			 			// exit;
+			 		while($row = $dbf->readRec()) {
 
+					    //print_r($dbf->getFields());
+					    //print_r($row);
+					    echo '<br>';
+					    // print_r($ft); echo '<br>';
 			 				// проверяем повторяется ли запись
 			 			/* выбрать из целевой таблицы записи, значения key_field_dst (может быть несколько)
 			 			равны значениям полей key_field_dst текущей записи DBF	(kfd1=kfs1 and kfd2=kfs2 ....)*/

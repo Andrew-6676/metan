@@ -39,6 +39,23 @@ class MainAjaxController extends CController
 			echo 'error - no data';
 		}
 	}
+/* ---------------------------------------------------------------------- */
+	public function ActionsetStoreId($id)
+	{
+		// $connection=Yii::app()->db;
+		if (Yii::app()->request->isAjaxRequest) {
+			//echo $_POST['sql'];
+			// return $connection->createCommand($_POST['sql'])->execute();
+			// exit;
+			// переприсвоить переменную Yii::app()->session['workdate']
+			if (Yii::app()->session['can_select_store']) {
+				Yii::app()->session['id_store'] = $id;
+				echo Yii::app()->session['id_store'];
+			}
+		} else {
+			echo 'error - no data';
+		}
+	}
 /*------------------------------------------------------------------------*/
 	public function ActionGetGoodsName($term,$f) {
 			// выбор товаров для дропбокса в расходе (выбрать по хорошему надо из остатков + из прихода)
@@ -154,4 +171,59 @@ class MainAjaxController extends CController
 
 		echo json_encode($res);
 	}
+
+	/*------------------------------------------------------------------------------*/
+	public function ActionGoodsCart($id=0) {
+		echo 'goods cart<br>';
+
+		$criteria = new CDbCriteria;
+		$criteria->order = 'id_doctype, doc_date';
+
+
+		$criteria->addCondition('id_goods = '.$id);
+		$criteria->addCondition('id_doctype <> 3');
+		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
+//		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
+//		$criteria->addCondition('doc_num2 != 0');
+
+		$res = Document::model()->with('documentdata', 'documentdata.idGoods','doctype', 'operation')->findAll($criteria);
+
+//		echo $res[0]->doctype->name;
+//		echo $res[0]->operation->name;
+//		Utils::print_r($res[0]->documentdata[0]->idGoods->name);
+
+		foreach ($res as $row) {
+			echo $row->doctype->name.'  _______  '.$row->doc_date.'_______'.$row->doc_num.'_______'.$row->documentdata[0]->quantity.'_______'.$row->documentdata[0]->cost.'_______'.$row->documentdata[0]->price."<br>";
+		}
+	}
+	/*------------------------------------------------------------------------------*/
+	public function ActionTovRep($from,$to) {
+		echo 'goods cart<br>';
+
+		$criteria = new CDbCriteria;
+		$criteria->order = 'id_doctype, doc_date';
+
+
+		$criteria->addCondition('id_goods = '.$id);
+		$criteria->addCondition('id_doctype <> 3');
+		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
+//		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
+//		$criteria->addCondition('doc_num2 != 0');
+
+		$res = Document::model()->with('documentdata', 'documentdata.idGoods','doctype', 'operation')->findAll($criteria);
+
+//		echo $res[0]->doctype->name;
+//		echo $res[0]->operation->name;
+//		Utils::print_r($res[0]->documentdata[0]->idGoods->name);
+
+		foreach ($res as $row) {
+			echo $row->doctype->name.'  _______  '.$row->doc_date.'_______'.$row->doc_num.'_______'.$row->documentdata[0]->quantity.'_______'.$row->documentdata[0]->cost.'_______'.$row->documentdata[0]->price."<br>";
+		}
+	}
+	/*------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------*/
+	/*------------------------------------------------------------------------------*/
 }

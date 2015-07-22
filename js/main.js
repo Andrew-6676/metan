@@ -1,5 +1,6 @@
 var rootFolder = '/metan_0.1';
-var workdate=null
+var workdate=null;
+var id_store=null;
 var to_id = null;
 var anim = false;
 var ajax_count = 0;
@@ -87,7 +88,41 @@ $(document).ready( function(){
 		}
     }
   );
+/*-------------------------------------------------------------------------------*/
+	id_store = $('#id_store').val();
+	$('#id_store').change(function () {
+		//console.log(id_store);
+		if (id_store!=$('#id_store').val()) {
+			$('#store_info button').show();
+		} else {
+			$('#store_info button').hide();
+		}
+	});
+	$('#cancel_store').click(function(){
+		$('#store_info button').hide();
+		$('#id_store').val(id_store);
+	});
+	$('#refresh_store').click(function(){
+		// запросить подтверждение изменения даты и перезагрузки страницы
+		//alert($('#workdate input').val());
+		// переприсвоить workdate в сессии
+		$.get(
+			rootFolder+'/MainAjax/setStoreId',
+			{	// список параметров
+				id: $('#id_store').val()
+			},
+			onSetStoreId  // функция приёма сообщений от сервера
+		)
 
+		$('#store_info button').hide();
+
+		function onSetStoreId(data) {
+			console.log(data);
+			//location="http://annet.dn.ua"
+			// если вызвалась эта функция, то дата на сервере поменялась - перезагружаем страницу
+			location.reload();
+		}
+	});
 /*-------------------------------------------------------------------------------*/
 	workdate = $('#workdate input').val();
 	//alert(workdate);

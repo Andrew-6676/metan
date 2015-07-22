@@ -20,7 +20,7 @@ class Documentdata extends CActiveRecord
             array('id_doc, id_owner, id_editor, id_goods', 'required'),
             array('id_doc, id_owner, id_editor, id_goods, cost, packages, gross, price', 'numerical', 'integerOnly'=>true),
             array('quantity', 'numerical'),
-            array('markup, vat', 'length', 'max'=>2),
+//            array('markup, vat', 'length', 'max'=>2),
             array('date_insert, date_edit', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.

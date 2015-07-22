@@ -1,199 +1,265 @@
-#workdate button {
-    vertical-align: top;
-    display: none;
-    cursor:pointer;
-    border: none;
-    /*margin-left: 5px;*/
-    padding: 0;
-    /*margin: 1px;*/
-    width: 25px;
-    height: 25px;
+#workdate button, #store_info button {
+	vertical-align: top;
+	display: none;
+	cursor: pointer;
+	border: none;
+	/*margin-left: 5px;*/
+	padding: 0;
+	/*margin: 1px;*/
+	width: 25px;
+	height: 25px;
 }
-#cancel_workdate {
-    background: url(../images/cancel.png) no-repeat;
+
+#cancel_workdate, #cancel_store {
+	background: url(../images/cancel.png) no-repeat;
 }
-#cancel_workdate:hover {
-background: url(../images/cancel.png) no-repeat 100% 0%;
+
+#cancel_workdate:hover, #cancel_store:hover {
+	background-position: 100% 0%;
 }
-#refresh_workdate {
-    background: url(../images/ok.png) no-repeat;
+
+#refresh_workdate, #refresh_store {
+	background: url(../images/ok.png) no-repeat;
 }
-#refresh_workdate:hover {
-    background: url(../images/ok.png) no-repeat 100% 0%;
+
+#refresh_workdate:hover, #refresh_store:hover {
+	background-position: 100% 0%;
 }
+
 #workdate {
-    height: 25px;
-    position:absolute;
-    right: 0;
-    top: 0;
+	/*display: none;*/
+	height: 25px;
+	position: absolute;
+	right: 0;
+	top: 0;
 }
+
 #workdate input {
-    vertical-align: top;
-    margin: 2px;
-    /*border: none;*/
+	vertical-align: top;
+	margin: 2px;
+	/*border: none;*/
 }
+
 #workdate div div {
-    /*vertical-align: middle;*/
-    height: 25px;
-    display: inline-block;
-    margin-top: 5px;
+	/*vertical-align: middle;*/
+	height: 25px;
+	display: inline-block;
+	margin-top: 5px;
 }
+
 #workdate .btn {
-    float: right;
+	float: right;
+}
+
+/*----------------------------------------------------------*/
+#store_info {
+	padding: 7px;
+}
+
+#store_info {
+	font-size: 12px;
+}
+
+.store_names {
+	text-align: center;
+	font-size: 30px;
+	position: absolute;
+	bottom: 1px;
+	width: 100%;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.store_fname {
+	/*display: none;*/
+	margin-right: 14px;
+}
+
+.store_name {
+	/*display: none;*/
+}
+
+#id_store {
+	/*display: inline-block;*/
+	display: none;
+}
+
+#store_info .btn {
+	/*float: left;*/
+	position: relative;
+	top: -6px;
+	display: inline-block;
+	margin-left: 7px;
+}
+#header:hover #id_store {
+	display: inline-block;
 }
 /*----------------------------------------------------------*/
 #loadImg {
-    display: none;
-    position: fixed;
-    z-index: 8888;
-    top: 50%;
-    left: 50%;
-    margin-top: -150px;
-    margin-left: -150px;
+	display: none;
+	position: fixed;
+	z-index: 8888;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -150px;
 }
+
 #overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.5;
-    background: #4FB7BC;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	background: #4FB7BC;
 }
+
 /*-------------------------------------------------------------*/
 article, aside, figure, figcaption, footer, header, hgroup, nav, section, summary {
-   display: block;
+	display: block;
 }
+
 * {
-    /*font-family: Liberation Serif;*/
-    font-family: arial;
-    margin: 0;
-    padding: 0;
+	/*font-family: Liberation Serif;*/
+	font-family: arial;
+	margin: 0;
+	padding: 0;
 }
+
 html {
-    overflow-y: scroll;
-    height:100%;
-    /*background: url(../images/183357310.jpg) repeat;*/
-    background: url(../images/311387369.jpg) repeat  fixed left top;
+	overflow-y: scroll;
+	height: 100%;
+	/*background: url(../images/183357310.jpg) repeat;*/
+	background: url(../images/311387369.jpg) repeat fixed left top;
 }
+
 body {
-        /*text-align: center;*/
-        /*--background: #fff;
-        --border: 2px solid black;*/
-        margin: auto;
-        min-height: 100%;
-        position:relative;
-        width: 1100px;
+	/*text-align: center;*/
+	/*--background: #fff;
+	--border: 2px solid black;*/
+	margin: auto;
+	min-height: 100%;
+	position: relative;
+	width: 1100px;
 }
+
 /**------------------------ HEADER -------------------*/
 #header {
-        background-color: #A7CFF0;
-        /*border: 2px solid blue;*/
-        height: 60px;
+	background-color: #A7CFF0;
+	/*border: 2px solid blue;*/
+	height: 60px;
+	position: relative;
 }
+
 /*------------------------ header -------------------*/
 /*.wrapper {height:100%}*/
 /** ---------------------- CONTENT + LEFT ------------*/
 #content, #content2 {
-        margin-top: 8px;
-        /*--border: 1px solid gray;
-        --position: absolute;
-        --top: 184px;
-        --bottom: 50px;
-        --width: 860px;
-        --overflow: auto;*/
-        background: #fff;
-        padding: 10px 10px 70px 10px;
-        /*margin-bottom: 51px;*/
-        height: 100%;
-        box-shadow: 0px 0px 25px 5px gray;
-        /* 1-смещение по Х 2-смещение по Y 3-размытость 4-     */
+	margin-top: 8px;
+	/*--border: 1px solid gray;
+	--position: absolute;
+	--top: 184px;
+	--bottom: 50px;
+	--width: 860px;
+	--overflow: auto;*/
+	background: #fff;
+	padding: 10px 10px 70px 10px;
+	/*margin-bottom: 51px;*/
+	height: 100%;
+	box-shadow: 0px 0px 25px 5px gray;
+	/* 1-смещение по Х 2-смещение по Y 3-размытость 4-     */
 }
 
 #content ul, #content2 ul {
-    margin-left: 30px;
+	margin-left: 30px;
 }
-#content ul>li {
+
+#content ul > li {
 	padding: 5px;
 }
+
 #content2 {
-        margin-left: 220px;
+	margin-left: 220px;
 }
 
 /* ---------------------- content ----------*/
 
-
 /**----------------------- FOOTER ------------------*/
 #footer {
-        font-size: 0.7em;
-        background-color: #fff;
-        position: absolute;
-        bottom: 0px;
-        left: 0;
-        border-top: 2px solid gray;
-        padding-top: 8px;
-        height: 30px;
-        width: 100%;
-        text-align: center;
-        clear: both; /* Отменяем обтекание */
-        --box-shadow: 0px 0px 30px rgba(154, 154, 154, 0.9) inset
+	font-size: 0.7em;
+	background-color: #fff;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	border-top: 2px solid gray;
+	padding-top: 8px;
+	height: 30px;
+	width: 100%;
+	text-align: center;
+	clear: both; /* Отменяем обтекание */
+	--box-shadow: 0px 0px 30px rgba(154, 154, 154, 0.9) inset
 }
+
 /*----------------------- footer ------------------*/
 
 /* ---------------------- отладочная таблица ----------------------- */
 #time_table {
-    width:auto !important;
-    position:fixed;
-    border-collapse: collapse;
-    right:0;
-    top:0;
-    z-index:20000;
-    background: #fff !important;
-    box-shadow: 0px 0px 30px 10px rgba(154, 154, 154, 0.9)
+	width: auto !important;
+	position: fixed;
+	border-collapse: collapse;
+	right: 0;
+	top: 0;
+	z-index: 20000;
+	background: #fff !important;
+	box-shadow: 0px 0px 30px 10px rgba(154, 154, 154, 0.9)
 }
 
 #time_table th {
-    background: #FCFC72;
-    background: linear-gradient(to top, #FCFC72, #f1da36);
-    border: 1px solid gray;
+	background: #FCFC72;
+	background: linear-gradient(to top, #FCFC72, #f1da36);
+	border: 1px solid gray;
 }
 
 #time_table td {
-    border: 1px solid black;
+	border: 1px solid black;
 }
 
 /*-------------------------------------------------------------------*/
 #to_top div, #to_bottom div {
-    position: fixed;
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    border: 2px solid #fff;
-    box-shadow: 0 0 20px 5px #5e5e5e;
+	position: fixed;
+	right: 20px;
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+	border: 2px solid #fff;
+	box-shadow: 0 0 20px 5px #5e5e5e;
 }
+
 #to_top div:hover, #to_bottom div:hover {
-    border: 2px solid #0f0;
-    box-shadow: 0 0 20px 5px #292929;
+	border: 2px solid #0f0;
+	box-shadow: 0 0 20px 5px #292929;
 }
+
 /*------------*/
-#to_top div{
-    top: 20px;
-    background: url(../images/arrows.png) 0% 0% no-repeat #000;
+#to_top div {
+	top: 20px;
+	background: url(../images/arrows.png) 0% 0% no-repeat #000;
 }
 
 #to_top div:hover {
-    background: url(../images/arrows.png) 100% 0% no-repeat #000;
+	background: url(../images/arrows.png) 100% 0% no-repeat #000;
 }
+
 /*-----*/
-#to_bottom div{
-    bottom: 20px;
-    background: url(../images/arrows.png) 0% 100% no-repeat #000;
+#to_bottom div {
+	bottom: 20px;
+	background: url(../images/arrows.png) 0% 100% no-repeat #000;
 }
 
 #to_bottom div:hover {
-    background: url(../images/arrows.png) 100% 100% no-repeat #000;
+	background: url(../images/arrows.png) 100% 100% no-repeat #000;
 }
 
 /*-----------------------*/

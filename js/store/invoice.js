@@ -348,17 +348,25 @@ $(document).ready(function () {
 			success: function (data) {
 				console.log(data);
 				if (data.status == 'ok') {
-					if (data.nakl_id < 0) {
-						alert(data.message);
-					} else {
-						alert(data.message);
+					//if (data.nakl_id < 0) {
+					//	alert(data.message);
+					//} else {
+					//	alert(data.message);
+					//}
+					if (data.no_rest) {
+						str = '';
+						$(data.no_rest.no_rest).each(function (i,e) {
+							//console.log(e);
+							str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+						});
+						alert(data.message+"\n\n"+str);
 					}
 				} else {
 					if (data.no_rest) {
 						str = '';
 						$(data.no_rest).each(function (i,e) {
 							//console.log(e);
-							str += '"'+e.name +'" в остатке только ' + e.quantity + ' шт.'+"\n";
+							str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
 						});
 						alert(str);
 

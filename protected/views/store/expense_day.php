@@ -33,7 +33,7 @@
             <thead>
                 <tr>
                     <th><div class="th t0">Операция</div></th>
-	                <th><div class="th t01">Для чего</div></th>
+	                <th><div class="th t01">Товарооборот</div></th>
                     <th><div class="th t1">Код<br>товара</div></th>
                     <th><div class="th t2">Наименование товара</div></th>
                     <th><div class="th t3">Кол-<br>во</div></th>
@@ -62,7 +62,7 @@
 	                <td>
 		                <select name="for" class="for" id="for">
 			                <option value="1">Общий товарооборот</option>
-			                <option value="2">Розничный товарооборот</option>
+			                <option value="2" selected>Розничный товарооборот</option>
 			                <option value="3">Собственные нужды</option>
 		                </select>
 	                </td>

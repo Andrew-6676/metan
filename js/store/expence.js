@@ -309,8 +309,15 @@ $(document).ready( function(){
 			        $('#loadImg').hide();
           		},
 		        success: function(data){
-
 			        if (data.status == 'ok') {
+				        if (data.no_rest) {
+					        str = '';
+					        $(data.no_rest.no_rest).each(function (i,e) {
+						        //console.log(e);
+						        str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+					        });
+					        alert(data.message+"\n\n"+str);
+				        }
 				        location.reload();
 			        } else {
 				        $('#overlay').hide();

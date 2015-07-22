@@ -63,6 +63,7 @@ class Document extends CActiveRecord
 			'idOwner' => array(self::BELONGS_TO, 'User', 'id_owner'),
 			'idOperation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
 			'operation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
+			'doctype' => array(self::BELONGS_TO, 'Doctype', 'id_doctype'),
 			'docaddition' => array(self::BELONGS_TO, 'Docaddition', 'id'),
 		);
 	}
@@ -134,6 +135,7 @@ class Document extends CActiveRecord
 		parent::afterSave();
 		//             // если добавлена новая
 		if ($this->isNewRecord) {
+				// сохранение дополнительных данных
 			if ($this->payment_order) {
 				$da = new Docaddition();
 				$da->id_doc = $this->id;

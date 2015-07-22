@@ -23,27 +23,27 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 				// занести счёт-фактуру в расход-----------------------------------------------------------------------
 			if (isset($_POST['writeoff_invoice'])) {
 
-				$goods = array();
-				$connection = Yii::app()->db;
-				$sql = "select id_goods as id, quantity from {{documentdata}} where id_doc=".$_POST['writeoff_invoice']['doc_id'];
-
-				$g = $connection->createCommand($sql)->queryAll();
+//				$goods = array();
+//				$connection = Yii::app()->db;
+//				$sql = "select id_goods as id, quantity from {{documentdata}} where id_doc=".$_POST['writeoff_invoice']['doc_id'];
+//
+//				$g = $connection->createCommand($sql)->queryAll();
 
 //				// цикл по товарам
-				foreach ($g as $id => $row) {
-					$goods[$row['id']] = $row['quantity'];
-				}
+//				foreach ($g as $id => $row) {
+//					$goods[$row['id']] = $row['quantity'];
+//				}
 
 //				echo json_encode($goods);
 //				exit;
 
 
-				$chk = Goods::model()->checkRest($goods);
-				if ($chk['status']=='ok') {
+//				$chk = Goods::model()->checkRest($goods);
+//				if ($chk['status']=='ok') {
 					$this->writeoffInvoice($_POST['writeoff_invoice']);
-				} else {
-					echo json_encode($chk);
-				}
+//				} else {
+//					echo json_encode($chk);
+//				}
 				exit;
 			}
 				// добавить новый контакт -----------------------------------------------------------------------------
@@ -90,9 +90,9 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 		$res = Document::model()->with('documentdata')->findAll($criteria);
 
 			// получаем следующий номер документа
-		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=3 and id_store='.Yii::app()->session['id_store'];
+		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=3 and id_store='.Yii::app()->session['id_store'].' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,4).'%\'';
 		$doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
-
+		if (!$doc_num) {$doc_num = 1;}
 			// потребители
 		$contact = Contact::model()->findAll(array('condition'=>'parent=2','order'=>'name'));
 
@@ -261,14 +261,33 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 		);
 
 
+		$goods = array();
+		$connection = Yii::app()->db;
+		$sql = "select id_goods as id, quantity from {{documentdata}} where id_doc=".$data['doc_id'];
+
+		$g = $connection->createCommand($sql)->queryAll();
+		$goods = array();
+		// цикл по товарам
+		foreach ($g as $id => $row) {
+			$goods[ $row['id']] = $row['quantity'];
+		}
+
+		$chk = Goods::model()->checkRest($goods);
+		if ($chk['status']!='ok') {
+//			echo json_encode($chk);
+//			exit;
+			$res['no_rest'] = $chk;
+		}
+
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("doc_num = '".$data['nakl_num']."'");
 		$criteria->addCondition("id_doctype = 2");
-		$count = Document::model()->count($criteria);
+//		$criteria->addCondition("id_doctype = 2");
+		$n = Document::model()->find($criteria);
 
-		if ($count) {
+		if ($n) {
 			$res['status']  = 'ok';
-			$res['message'] = 'Накладная с номером '.$data['nakl_num'].' уже существует!';
+			$res['message'] = 'Накладная с номером '.$data['nakl_num'].' уже существует! (от '.$n->doc_date.', '.$n->idStore->name.')';
 
 			echo json_encode($res);
 			return;
