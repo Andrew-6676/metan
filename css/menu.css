@@ -10,11 +10,11 @@ nav {
 }
 
 #main_menu {
-	border-top: 2px solid #4590FF;
-	border-left: 2px solid #4590FF;
-	border-right: 2px solid #2828FB;
-	border-bottom: 2px solid #2828FB;
-	background: white url(bg.gif) repeat-x left top;
+	/*border-top: 2px solid #4590FF;*/
+	/*border-left: 2px solid #4590FF;*/
+	/*border-right: 2px solid #2828FB;*/
+	/*border-bottom: 2px solid #2828FB;*/
+	/*background: white url(bg.gif) repeat-x left top;*/
 	background: #fff;
 }
 
@@ -27,11 +27,14 @@ nav {
 	position: relative;
 	display: inline-block;
 	/*margin: 0 5px 0 0px;*/
+	/*margin-right: -6px;*/
 	/*height: 31px;*/
+	float: left;
 	line-height: 31px;
 	vertical-align: middle;
-	/*border-left: 1px dotted yellow;
-	border-right: 1px dotted yellow;*/
+	/*border-left: 1px solid #bcbcbc;*/
+	/*border-right: 1px solid #bcbcbc;*/
+	background: url(../images/vline.png) no-repeat 100% 0%;
 }
 
 #main_menu > ul > li:last-child > a {
@@ -40,9 +43,13 @@ nav {
 
 #main_menu > ul > li:last-child {
 	float: right;
+	background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;
 	/*margin: 0;*/
 }
 
+#main_menu > ul > li:nth-child(2) {
+	background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;
+}
 #main_menu > ul > li > a {
 	height: 31px;
 	display: block;
@@ -58,7 +65,7 @@ nav {
 }
 
 #main_menu > ul > li.active > a, #main_menu > ul > li.active > a:hover {
-	color: #F5FF83;
+	/*color: #F5FF83;*/
 	background-color: #585858;
 	text-decoration: none;
 	/*border-top: 2px solid gray;
@@ -66,7 +73,10 @@ nav {
 	border-right: 2px solid white;
 	border-bottom: 2px solid white;*/
 }
-
+#main_menu > ul > li.active > a {
+	background: #747474;
+	color: #fff;
+}
 #main_menu > ul > li > a:hover, #main_menu > ul > li:hover > a {
 	color: #fff;
 	/*box-shadow: 0 3px 10px 3px gray;*/

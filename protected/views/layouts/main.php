@@ -24,6 +24,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
+<div class="back_head"></div>
 <header id="header">
 
 	<?php // если пользователь залогинился - выводим справа сверху дату
@@ -88,7 +89,7 @@
 	?>
 	-->
 </header>
-
+<div class="back_menu"></div>
 <nav id="main_menu">
 	<?php
 	// загружаем из БД главное меню
