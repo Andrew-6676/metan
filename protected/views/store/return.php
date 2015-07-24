@@ -14,7 +14,7 @@
 ?>
 
 <div id="form">
-	<div class="form_caption">
+<!--	<div class="form_caption"></div>-->
 	<div class="new_doc_hat">
 		<div class="doc_title">
 			<?php echo $this->pageTitle; ?>
@@ -114,7 +114,7 @@
 	?>
 	г.</b></u>
 	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
-<div>
+</div>
 
 <div class="data">
 <?php

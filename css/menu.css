@@ -15,7 +15,9 @@ nav {
 	/*border-right: 2px solid #2828FB;*/
 	/*border-bottom: 2px solid #2828FB;*/
 	/*background: white url(bg.gif) repeat-x left top;*/
-	background: #fff;
+	background: #FFFFF5;
+	z-index: 123;
+	position: relative;
 }
 
 #main_menu > ul {

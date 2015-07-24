@@ -144,9 +144,17 @@ body {
 	margin: auto;
 	min-height: 100%;
 	position: relative;
-	width: 1100px;
+	/*width: 1100px;*/
+	min-height: calc(100% - 50px);
+	padding-bottom: 50px;
 }
 
+.body_wrapper {
+	position: relative;
+	width: 1100px;
+	height: 100%;
+	margin: auto;
+}
 /**------------------------ HEADER -------------------*/
 #header {
 	background-color: #A7CFF0;
@@ -161,19 +169,28 @@ body {
 }
 
 /*-------------------------------------------------------------------------------------*/
-.back_menu, .back_head {
-	height: 31px;
+.back_menu, .back_head, .back_footer {
 	position: absolute;
-	left: -1000px;
-	width: 1000%;
+	/*left: -1000px;*/
+	width: 100%;
 }
 .back_head {
 	background: #C2DBEF;
 	height: 90px;
 }
 .back_menu {
+	height: 31px;
 	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.5);
 	background-color: #FFFFF5;
+	z-index: 12;
+	top: 90px;
+}
+.back_footer {
+	height: 38px;
+	/*background: #d8d8d8;*/
+	background: #616161;
+	border-top: 2px solid gray;
+	bottom: 0px;
 }
 
 /*------------------------ header -------------------*/
@@ -211,20 +228,24 @@ body {
 
 /**----------------------- FOOTER ------------------*/
 #footer {
+	color: #FFF;
 	font-size: 0.7em;
-	background-color: #fff;
+	background-color: #616161;
 	position: absolute;
 	bottom: 0px;
 	left: 0;
-	border-top: 2px solid gray;
+	/*border-top: 2px solid gray;*/
 	padding-top: 8px;
 	height: 30px;
 	width: 100%;
 	text-align: center;
 	clear: both; /* Отменяем обтекание */
-	--box-shadow: 0px 0px 30px rgba(154, 154, 154, 0.9) inset
+	/*box-shadow: 0px 0px 30px rgba(154, 154, 154, 0.9) inset*/
+	/*background: -webkit-linear-gradient(left,  #d8d8d8 0%,#616161 20%,#616161 80%,#d8d8d8 100%); *//* Chrome10+,Safari5.1+ */
 }
-
+#footer a {
+	color: #FFFAC7;
+}
 /*----------------------- footer ------------------*/
 
 /* ---------------------- отладочная таблица ----------------------- */

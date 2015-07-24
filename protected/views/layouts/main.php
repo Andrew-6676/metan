@@ -6,7 +6,7 @@
 {
 ?>
 <!DOCTYPE HTML>
-<html lang="ru">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
 	<!--[if lt IE9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -25,71 +25,73 @@
 </head>
 <body>
 <div class="back_head"></div>
-<header id="header">
-
-	<?php // если пользователь залогинился - выводим справа сверху дату
-	if (!Yii::app()->user->isGuest) {
-
-//				  echo Yii::app()->session['id_store'];
-		if (Yii::app()->session['can_select_store']) {
-			echo '<div id="store_info">';
-			$stores = Store::model()->findAll(array('condition' => 'id>0', 'order' => 'name'));
-			$list = CHtml::listData($stores,
-				'id', 'name');
-			echo CHtml::dropDownList('id_store',
-				Yii::app()->session['id_store'],
-				$list
-				//			array('class'=>'ddd')
-			);
-
-			?>
-			<div class="btn">
-				<button id="refresh_store"></button>
-				<button id="cancel_store"></button>
-			</div>
-		</div>
-			<?php
-		}
-		echo '<div class="store_names"><span class="store_fname">' . Store::model()->findByPk(Yii::app()->session['id_store'])->fname . '</span>';
-		echo '<span class="store_name">(' . Store::model()->findByPk(Yii::app()->session['id_store'])->name . ')</span></div>';
-		?>
-
-		<div id="workdate">
-			<div>
-				<div>Работаем с датой:</div>
-				<input name="workdate" type="date" value="<?php echo Yii::app()->session['workdate']; ?>">
-			</div>
-			<div class='btn'>
-				<button id="refresh_workdate"></button>
-				<button id="cancel_workdate"></button>
-			</div>
-		</div>
-	<?php }
-	echo '<!--';
-	//echo CHtml::encode(Yii::app()->name);
-	//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
-	//echo '<br>basePath = <b>'.$this->basePath.'</b>; ';
-	if (Yii::app()->user->isGuest) {
-		//echo "isGuest = <b>Yes</b><br>";
-	} else {
-		$isg = "No";
-		echo 'Controller = <b>' . $this->uniqueId . '</b>; Action = <b>' . $this->action->id . '</b>;<br>';
-		echo "login = <b>" . Yii::app()->user->name . "</b>; ";
-		echo "id_user = <b>" . intval(Yii::app()->user->id) . "</b>=>";
-		echo User::model()->findByPk(Yii::app()->session['id_user'])->fname . '<br>';
-		echo "id_store=<b>" . Yii::app()->session['id_store'] . "</b> => ";
-		echo Store::model()->findByPk(Yii::app()->session['id_store'])->fname . '<br>';
-		echo "Workdate=<b>" . Yii::app()->session['workdate'] . "</b><br";
-	}
-
-	//echo $_SERVER['HTTP_HOST'].'   '.$_SERVER['REQUEST_URI'];
-	//print_r(Yii::app()->session['id_store']);
-	//echo "loginUrl = "; print_r(Yii::app()->user->loginUrl);  // страница ввода логина и пароля
-	//echo "returnUrl = "; print_r(Yii::app()->user->returnUrl);  // страница для перенаправления после удачного логина
-	?>
-	-->
-</header>
 <div class="back_menu"></div>
+<div class="body_wrapper">
+	<header id="header">
+
+		<?php // если пользователь залогинился - выводим справа сверху дату
+		if (!Yii::app()->user->isGuest) {
+
+		//				  echo Yii::app()->session['id_store'];
+		if (Yii::app()->session['can_select_store']) {
+		echo '<div id="store_info">';
+		$stores = Store::model()->findAll(array('condition' => 'id>0', 'order' => 'name'));
+		$list = CHtml::listData($stores,
+			'id', 'name');
+		echo CHtml::dropDownList('id_store',
+			Yii::app()->session['id_store'],
+			$list
+		//			array('class'=>'ddd')
+		);
+
+		?>
+		<div class="btn">
+			<button id="refresh_store"></button>
+			<button id="cancel_store"></button>
+		</div>
+</div>
+<?php
+}
+echo '<div class="store_names"><span class="store_fname">' . Store::model()->findByPk(Yii::app()->session['id_store'])->fname . '</span>';
+echo '<span class="store_name">(' . Store::model()->findByPk(Yii::app()->session['id_store'])->name . ')</span></div>';
+?>
+
+<div id="workdate">
+	<div>
+		<div>Работаем с датой:</div>
+		<input name="workdate" type="date" value="<?php echo Yii::app()->session['workdate']; ?>">
+	</div>
+	<div class='btn'>
+		<button id="refresh_workdate"></button>
+		<button id="cancel_workdate"></button>
+	</div>
+</div>
+<?php }
+echo '<!--';
+//echo CHtml::encode(Yii::app()->name);
+//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
+//echo '<br>basePath = <b>'.$this->basePath.'</b>; ';
+if (Yii::app()->user->isGuest) {
+	//echo "isGuest = <b>Yes</b><br>";
+} else {
+	$isg = "No";
+	echo 'Controller = <b>' . $this->uniqueId . '</b>; Action = <b>' . $this->action->id . '</b>;<br>';
+	echo "login = <b>" . Yii::app()->user->name . "</b>; ";
+	echo "id_user = <b>" . intval(Yii::app()->user->id) . "</b>=>";
+	echo User::model()->findByPk(Yii::app()->session['id_user'])->fname . '<br>';
+	echo "id_store=<b>" . Yii::app()->session['id_store'] . "</b> => ";
+	echo Store::model()->findByPk(Yii::app()->session['id_store'])->fname . '<br>';
+	echo "Workdate=<b>" . Yii::app()->session['workdate'] . "</b><br";
+}
+
+//echo $_SERVER['HTTP_HOST'].'   '.$_SERVER['REQUEST_URI'];
+//print_r(Yii::app()->session['id_store']);
+//echo "loginUrl = "; print_r(Yii::app()->user->loginUrl);  // страница ввода логина и пароля
+//echo "returnUrl = "; print_r(Yii::app()->user->returnUrl);  // страница для перенаправления после удачного логина
+?>
+-->
+</header>
+
 <nav id="main_menu">
 	<?php
 	// загружаем из БД главное меню
@@ -184,19 +186,6 @@
 	?>
 </div>
 
-<footer id="footer">
-	<!--small><p>Copyright (c) 2014  #id: footer [Подвал сайта]</p></small-->
-	<?php echo CHTML::link('Обратная связь', Yii::app()->createAbsoluteUrl("site/gbook"), array('id' => 'feedback')); ?>
-	<address>
-		Разработчик: <a href='mailto:
-      				<?php echo Yii::app()->params['adminEmail']; ?>'>
-			<?php echo Yii::app()->params['adminFIO'] . "  (" . Yii::app()->params['adminEmail'] ?>)
-		</a>
-		<br>
-	</address>
-	<?php echo Yii::powered(); ?>
-</footer>
-
 
 <a id="to_bottom" href='#footer'>
 	<div>
@@ -210,5 +199,23 @@
 <div id="overlay"></div>
 <!-- для затемнения фона -->
 <img id="loadImg" src="<?php echo Yii::app()->request->baseUrl; ?>/images/loading.gif"/>
+</div> <!-- body_wrapper -->
+
+<div class="back_footer"></div>
+
+
+<footer id="footer">
+	<!--small><p>Copyright (c) 2014  #id: footer [Подвал сайта]</p></small-->
+	<?php echo CHTML::link('Обратная связь', Yii::app()->createAbsoluteUrl("site/gbook"), array('id' => 'feedback')); ?>
+	<address>
+		Разработчик: <a href='mailto:
+      				<?php echo Yii::app()->params['adminEmail']; ?>'>
+			<?php echo Yii::app()->params['adminFIO'] . "  (" . Yii::app()->params['adminEmail'] ?>)
+		</a>
+		<br>
+	</address>
+	<?php echo Yii::powered(); ?>
+</footer>
+
 </body>
 </html>

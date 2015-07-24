@@ -12,7 +12,7 @@
 	<h2>Книга замечаний и предложений</h2>
 	<?php echo CHtml::textArea('mess'); ?>
 	<br>
-	<?php echo CHtml::button('Отправить',array('onclick'=>'send();')); ?>
+	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
 
 </div><!-- form -->
 
@@ -49,8 +49,15 @@
 </script>
 
 <style>
+	h2 {
+		text-align: center;
+	}
+	.form {
+		width: 700px;
+		margin: auto;
+	}
 	textarea {
-		width: 600px;
+		width: 100%;
 		height: 300px;
 		margin: auto;
 	}

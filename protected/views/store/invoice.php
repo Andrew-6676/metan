@@ -163,7 +163,7 @@
 	?>
 	г.</b></u>
 	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
-<div>
+</div>
 
 <div class="data">
 <?php
