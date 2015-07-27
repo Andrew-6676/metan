@@ -116,12 +116,14 @@ $(document).ready(function () {
 					$('#contact_name').removeClass('err');
 					$('.new_contact').fadeOut(200);
 					$('#contact_name').focus();
+				} else {
+					alert('Возникла ошибка при сохранении. Проверте введённые данные.');
 				}
 			}
 		})
 	});
 	/*----------------------------------------------------------------------*/
-	$('.edit_contact').click(function () {
+	$('.edit_contact').click(function (event) {
 		event.stopPropagation();
 		// alert('изменитьпотребитель');
 		if ($('#contact_name').attr('cid')=='') {
@@ -383,10 +385,10 @@ $(document).ready(function () {
 	})
 
 		// печать счёт-фактуры
-	$('.print_doc_button').click(function (event) {
-		var id = $(this).parent().attr('doc_id');
-		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
-		window.open(rootFolder+'/print/index?report=Invoice&id=' + id, '_blank')
-		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
-	})
+	//$('.print_doc_button').click(function (event) {
+	//	event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+	//	// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
+	//	var id = $(this).parent().attr('doc_id');
+	//	window.open(rootFolder+'/print/index?report=Invoice&id=' + id, '_blank')
+	//})
 })

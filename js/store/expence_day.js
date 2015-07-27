@@ -17,6 +17,9 @@ $(document).ready(function () {
 	/*-----------------------------------------------------*/
 	$('#expence_id_operation').click(function (event) {
 		$('#for').focus();
+		if ($('#expence_id_operation').val()==56) {
+			$('.additional_data').attr('open','');
+		}
 		event.stopPropagation();
 	});
 	$('#for').click(function (event) {

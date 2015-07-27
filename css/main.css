@@ -135,6 +135,7 @@ html {
 	height: 100%;
 	/*background: url(../images/183357310.jpg) repeat;*/
 	background: url(../images/bg6.jpg) repeat fixed left top;
+	box-shadow: inset 0 0 60px -20px;
 }
 
 body {
@@ -161,15 +162,16 @@ body {
 	/*border: 2px solid blue;*/
 	height: 90px;
 	position: relative;
+	z-index: 0;
 
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c2dbef+0,a7cff0+33,a7cff0+66,c2dbef+100 */
 	/*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c2dbef), color-stop(33%,#a7cff0), color-stop(66%,#a7cff0), color-stop(100%,#c2dbef)); *//* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(left,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%); /* Chrome10+,Safari5.1+ */
-	/*background: linear-gradient(to right,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%); *//* W3C */
+	background: linear-gradient(to right,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%);  W3C
 }
 
 /*-------------------------------------------------------------------------------------*/
-.back_menu, .back_head, .back_footer {
+.back_menu, .back_head, .back_footer, .back_menu2 {
 	position: absolute;
 	/*left: -1000px;*/
 	width: 100%;
@@ -177,13 +179,46 @@ body {
 .back_head {
 	background: #C2DBEF;
 	height: 90px;
+	z-index: -2;
 }
-.back_menu {
+.back_menu, .back_menu2 {
 	height: 31px;
-	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.5);
 	background-color: #FFFFF5;
-	z-index: 12;
 	top: 90px;
+	border-bottom: 1px solid #D7D7D0;
+}
+.back_menu2 {
+	z-index: 2;
+	box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.5);
+}
+.back_menu:before,
+.back_menu:after {
+	display: block;
+	content:"";
+	position:absolute;
+	z-index:-1;
+	bottom:16px;
+	left:-5px;
+	width:200%;
+	height:58%;
+	max-width:300px;
+	-webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+	-moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+	box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+	-webkit-transform:rotate(-3deg);
+	-moz-transform:rotate(-3deg);
+	-ms-transform:rotate(-3deg);
+	-o-transform:rotate(-3deg);
+	transform:rotate(-3deg);
+}
+.back_menu:after {
+	right:-5px;
+	left:auto;
+	-webkit-transform:rotate(3deg);
+	-moz-transform:rotate(3deg);
+	-ms-transform:rotate(3deg);
+	-o-transform:rotate(3deg);
+	transform:rotate(3deg);
 }
 .back_footer {
 	height: 38px;
@@ -193,9 +228,45 @@ body {
 	bottom: 0px;
 }
 
+/*.back_footer:before,*/
+/*.back_footer:after {*/
+	/*display: block;*/
+	/*content:"";*/
+	/*position:absolute;*/
+	/*z-index:-1;*/
+	/*bottom:5px;*/
+	/*left:-5px;*/
+	/*width:200%;*/
+	/*height:58%;*/
+	/*max-width:300px;*/
+	/*-webkit-box-shadow:0 -15px 10px rgba(0, 0, 0, 0.7);*/
+	/*-moz-box-shadow:0 -15px 10px rgba(0, 0, 0, 0.7);*/
+	/*box-shadow:0 -15px 10px rgba(0, 0, 0, 0.7);*/
+	/*-webkit-transform:rotate(3deg);*/
+	/*-moz-transform:rotate(3deg);*/
+	/*-ms-transform:rotate(3deg);*/
+	/*-o-transform:rotate(3deg);*/
+	/*transform:rotate(2deg);*/
+/*}*/
+/*.back_footer:after {*/
+	/*right:-5px;*/
+	/*left:auto;*/
+	/*-webkit-transform:rotate(-3deg);*/
+	/*-moz-transform:rotate(-3deg);*/
+	/*-ms-transform:rotate(-3deg);*/
+	/*-o-transform:rotate(-3deg);*/
+	/*transform:rotate(-2deg);*/
+/*}*/
+
 /*------------------------ header -------------------*/
 /*.wrapper {height:100%}*/
 /** ---------------------- CONTENT + LEFT ------------*/
+#content {
+	border-top: 1px solid #E4E4E4;
+	border-left: 1px solid #E4E4E4;
+	border-right: 1px solid #868686;
+	border-bottom: 1px solid #868686;
+}
 #content, #content2 {
 	margin-top: 8px;
 	/*--border: 1px solid gray;
@@ -208,10 +279,13 @@ body {
 	padding: 10px 10px 70px 10px;
 	/*margin-bottom: 51px;*/
 	height: 100%;
-	box-shadow: 0px 0px 25px 5px gray;
+	box-shadow: 0px 5px 25px 5px gray;
 	/* 1-смещение по Х 2-смещение по Y 3-размытость 4-     */
 }
-
+.wrapper {
+	position: relative;
+	/*z-index: -3;*/
+}
 #content ul, #content2 ul {
 	margin-left: 30px;
 }

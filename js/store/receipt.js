@@ -2,6 +2,14 @@
  * Created by andrew on 16.07.15.
  */
 $(document).ready(function () {
+
+	$('.print_doc_button').click(function(event){
+		var id = $(this).parent().attr('doc_id');
+		//alert('print reestr  '+$('#doc_hat_'+id+' .doc_num').text());
+		window.open(rootFolder+'/print/index?report=Receipt&id='+id,'_blank')
+		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+	});
+
 	$('.del_doc_button').click(function(event){
 		//		// получаем ID удаляемого документа
 			var id = $(this).parent().attr('doc_id');

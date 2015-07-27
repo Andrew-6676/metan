@@ -89,7 +89,7 @@
 		    <summary>Дополнительные данные:</summary>
 		    <div class="docadditional">
 			    <div class="row">
-				    <label for="expence[payment_order]">Платёжное поручение:</label>
+				    <label for="expence[payment_order]">Номер карты:</label>
 				    <input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 			    </div>
 			    <div class="row">
