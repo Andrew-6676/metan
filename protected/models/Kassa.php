@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $kassa_date
  * @property integer $sum
+ * @property integer $id_store
  */
 class Kassa extends CActiveRecord
 {
@@ -26,11 +27,11 @@ class Kassa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('sum', 'numerical', 'integerOnly'=>true),
+			array('sum, id_store', 'numerical', 'integerOnly'=>true),
 			array('kassa_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, kassa_date, sum', 'safe', 'on'=>'search'),
+			array('id, kassa_date, sum, id_store', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,8 +53,9 @@ class Kassa extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'kassa_date' => 'Kassa Date',
-			'sum' => 'Sum',
+			'kassa_date' => 'Дата',
+			'sum' => 'Остаок',
+			'id_store' => 'Id Store',
 		);
 	}
 
@@ -78,6 +80,7 @@ class Kassa extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('kassa_date',$this->kassa_date,true);
 		$criteria->compare('sum',$this->sum);
+		$criteria->compare('id_store',$this->id_store);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
