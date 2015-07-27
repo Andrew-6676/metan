@@ -97,7 +97,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 function format_date($date) {
 	$d = explode('-',$date);
-	return $d[2].'.'.$d[1];//.'.'.$d[0];
+	return $d[2].'.'.$d[1];
+	//.'.'.$d[0];
 }
 
 
