@@ -208,3 +208,8 @@ label {
 #cancel_invoice {
 	display: none;
 }
+
+/*-------------------------------------------------------------------*/
+div.search_invoice {
+	float: right;
+}

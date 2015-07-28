@@ -11,6 +11,7 @@ class StoreController extends Controller
 	public function actions()
     {
         return array(
+//	        'getForm'   => 'application.controllers.store.getFormAction',
             'index'     => 'application.controllers.store.indexAction',
 	        'kassa'     => 'application.controllers.store.kassaAction',
             'receipt'   => 'application.controllers.store.receiptAction',
@@ -23,9 +24,13 @@ class StoreController extends Controller
             'invoice'   => 'application.controllers.store.invoiceAction',
             'print'     => 'application.controllers.store.printAction',
 	        'prepareGoodsreport' => 'application.controllers.store.prepareGoodsreportAction',
+	        'prepareDeliverynote' => 'application.controllers.store.prepareDeliverynoteAction',
         );
     }
-
+/*--------------------------*/
+	public function actionGetform($form) {
+		$this->renderPartial('forms/_'.$form);
+	}
 /* ------------------------- фильтры -------------------------*/
 	 public function filters()
     {

@@ -151,18 +151,19 @@
 
 </div>
 
-<br>
-<hr>
-<br>
+<div class="delemiter"></div>
 
 <div class="page_caption">
-	Счёт-фактуры за <b><u>
+	Счёт-фактуры <b><u>
 	<?php
-		echo Utils::getMonthName(intval(substr(Yii::app()->session['workdate'],5,2)));
-		echo date(' Y');
+//		echo Utils::getMonthName(intval(substr(Yii::app()->session['workdate'],5,2)));
+//		echo date(' Y');
 	?>
-	г.</b></u>
+<!--	г.--></b></u>
 	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
+	<div class="search_invoice">
+		<input name="search_invoice" placeholder="поиск по № счёт-фактуры">
+	</div>
 </div>
 
 <div class="data">
@@ -175,12 +176,14 @@
 
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
+		'limit'=>20,
 		//'mode'=>'one_to_many',
 		'head'=>array(
 			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
 			'contact.name'=>'Потребитель'
 		),
+		'group' => 'doc_date', //array('month'=>'doc_date'),
 		'columns'=> array(
 			'id_goods'=>'Код',
 			'goods.name'=>'Наименование товара',

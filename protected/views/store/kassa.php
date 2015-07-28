@@ -139,3 +139,59 @@ function format_date($date) {
 //		'edit'=>array('sum'),
 //	)
 //);
+?>
+
+<?php
+//        //Подключаем виджет модального окна
+//        $this->beginWidget('bootstrap.widgets.TbModal', array(
+//	        'id'=>'loginModalForm',
+//	        'htmlOptions'=>array(
+//		        'style'=>'display: none;',  //скрываем модальное окно в неактивном состоянии, исключая возможное перекрытие с другими элементами страницы
+//	        ),
+//        ));
+//    ?>
+<!--<!-- заголовок модального окна -->
+<!--<div class="modal-header">-->
+<!--	<a class="close" data-dismiss="modal">×</a>-->
+<!--	<h4>Вход на сайт</h4>-->
+<!--</div>-->
+<!--<!-- тело модального окна, выводим элементы формы -->
+<!--<div class="modal-body">-->
+<!--	--><?php
+//
+////	$model = new Userlogin;
+////	$reg = new RegistrationForm;
+////	$profile=new Profile;
+//	$this->widget('bootstrap.widgets.TbTabs', array(
+//		'type'=>'tabs',
+//		'placement'=>'top',
+//		'tabs'=>array(
+//			array('label'=>Yii::t('login', 'Login'), 'content'=>'asdfasdfafasdfdf', 'active'=>true),
+//			array('label'=>Yii::t('registration', 'Register'), 'content'=>'dfasdfadsfa','active'=>false),
+////'tabs'=>array(
+////	array('label'=>Yii::t('login', 'Login'), 'content'=>Yii::app()->controller->renderPartial('//../modules/user/views/user/login', array('model'=>$model), true, false), 'active'=>true),
+////	array('label'=>Yii::t('registration', 'Register'), 'content'=>Yii::app()->controller->renderPartial('//../modules/user/views/user/registration', array('model'=>$reg, 'profile'=>$profile), true, false),'active'=>false),
+////),
+//		),
+//	));
+//	?>
+<!--</div>-->
+<!--<!-- подвал формы, где выводятся кнопки отправки формы и закрытия модального окна -->
+<!--<div class="modal-footer">-->
+<!--	--><?php
+//	$this->widget('bootstrap.widgets.TbButton', array(
+//		'buttonType'=>'submit',
+//		'label'=>'Вход',
+//	));
+//	?>
+<!--	--><?php
+//	$this->widget('bootstrap.widgets.TbButton', array(
+//		'label'=>'Закрыть',
+//		'htmlOptions'=>array('data-dismiss'=>'modal'),
+//	));
+//	?>
+<!--</div>-->
+
+<?php
+//$this->endWidget(); //Конец виджета модального окна
+?>

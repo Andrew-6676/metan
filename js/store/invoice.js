@@ -182,6 +182,13 @@ $(document).ready(function () {
 		event.stopPropagation();
 	});
 
+	/*---------------------------------------------------------------------------------------*/
+	$('div.search_invoice input').keypress(function (event) {
+		event.stopPropagation();
+		if (event.keyCode == 13) {
+			console.log('serch invoice '+$(this).val());
+		}
+	});
 	/*------------------- Добавить расход в БД-----------------------------------------------*/
 
 	$('#contact_name').autocomplete({

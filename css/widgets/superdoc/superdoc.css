@@ -75,6 +75,11 @@
 .parent td {
 	border: 1px solid #efefef;
 }
+.parent_group td{
+	background: #fff;
+	border: none;
+	text-align: center;
+}
 /*----------------------------------------------------------------------------------*/
 /*------------------- CHILD TABLE --------------------------------------------*/
 .child_row td{

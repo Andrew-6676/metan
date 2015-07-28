@@ -6,9 +6,44 @@
   	$this->addJS('store/search_form.js');
 	$this->addJS('store/expence.js');
 	$this->addJS('jquery-ui.js');
+
 	// echo '<pre>';
 	// print_r($oper);
 	// echo '</pre>';
+
+
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id' => 'mydialog2',
+	'options' => array(
+		'title'         => 'Реквизиты ТТН/ТН',
+		'autoOpen'      => FALSE,
+		'modal'         => true,
+		'closeOnEscape' => 'true',
+		'width'         =>'700',
+		'top'           => '30',
+		'resizable'     => false,
+//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
+		'position'=>array('50%',180),
+		'buttons'       => array(
+			'Печать'=>'js:function(){alert("ok")}',
+			'Отмена'=>'js:function(){alert("cancel")}',),
+	),
+));
+
+?>
+
+<div id="regions_tree"></div>
+
+<?php
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+
+//print CHtml::ajaxLink('Объекты', array('store/getForm','form'=>'deliverynote'),
+print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
+	array('update' => '#regions_tree'),
+	array('onclick' => '$("#mydialog2").dialog("open");', 'title' => 'Реквизиты ТТН/ТН', 'id'=>'ttn', 'style'=>'display:none')
+);
+
 ?>
 
 <div id="form">
@@ -119,9 +154,7 @@
 	</div>
 </div>
 
-<br>
-<hr>
-<br>
+<div class="delemiter"></div>
 
 <div class="page_caption">
 	Расход за <b><u>

@@ -8,7 +8,7 @@ class indexAction extends CAction   /*---- StoreController ----*/
 		//Utils::print_r($this->controller->id);
 
 
-		$page_menu = Menu::model()->findAllBySql('select * from {{menu}} where parent=32');
+		$page_menu = Menu::model()->findAll('parent=32');
 		$sub_items = array();
 		foreach($page_menu as $item) {
 			// echo $item->url.'---';

@@ -3,9 +3,11 @@
 class SuperdocWidget extends CWidget
 {
 	public $data        = null;
+	public $limit       = null;
 	public $mode        = null;
 	public $columns     = null;
 	public $head        = null;
+	public $group       = null;
 	public $sumcolumns  = null;
 	public $sums        = null;
 	public $buttons     = null;
@@ -130,9 +132,25 @@ class SuperdocWidget extends CWidget
 			echo '<th>' . $title . '</th>';
 		}
 		echo '</tr>';
+		$gr = '';
 		// вывод данных
+		$cnt = 1;
 		foreach ($this->data as $doc) {
-			echo '<tr class="parent_row" id="' . $doc->id . '"">';
+			$hide = '';
+			if ($this->limit!==null && $cnt++ > $this->limit) {
+				$hide = 'hidden';
+			}
+
+				// группировка по месяцам
+			if ($this->group) {
+				$d = explode('-',$doc->{$this->group});
+				if ($gr != $d[1].'.'.$d[0]) {
+					$gr = $d[1] . '.' . $d[0];
+					echo '<tr class="parent_group '.$hide.'"><td colspan="' . count($this->head) . '">' . Utils::getMonthName($d[1]) .' '.$d[0]. '</td></tr>';
+				}
+			}
+
+			echo '<tr class="parent_row '.$hide.'" id="' . $doc->id . '"">';
 			// вывод данных шапки
 			foreach ($this->head as $col => $title) {
 				$key = explode('.', $col);
@@ -243,6 +261,10 @@ class SuperdocWidget extends CWidget
 
 
 		echo '</table>';
+
+		if ($this->limit!==null && $cnt > $this->limit) {
+			echo "<a id='show_more' href='#'>Показать все</a>";
+		}
 
 		parent::run();
 		return;

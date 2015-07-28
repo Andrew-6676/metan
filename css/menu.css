@@ -18,6 +18,7 @@ nav {
 	background: #FFFFF5;
 	z-index: 3;
 	position: relative;
+	margin-top: 1px;
 }
 
 #main_menu > ul {
@@ -63,7 +64,8 @@ nav {
 	font-weight: bold;
 	text-decoration: none;
 	padding: 0px 8px;
-	border: 0px transparent solid;
+	/*border: 0px transparent solid;*/
+	border-radius: 3px;
 }
 
 #main_menu > ul > li.active > a, #main_menu > ul > li.active > a:hover {
@@ -90,7 +92,7 @@ nav {
 }
 
 #main_menu > ul > li:last-child > a:hover {
-	color: red;
+	color: rgb(255, 178, 168);
 }
 
 #main_menu > ul > li:last-child > a:hover > .exitname {
@@ -111,7 +113,8 @@ nav {
 	/*display: block;*/
 	/*margin: 0 -3px;*/
 	list-style: none;
-	padding: 5px 15px 5px 10px;
+	/*padding: 5px 15px 5px 10px;*/
+	padding: 0px 5px 0px 1px;
 	border-radius: 5px;
 	border-radius: 0 0 5px 5px;
 	/*display: none;*/
@@ -120,10 +123,11 @@ nav {
 	position: absolute;
 	left: 0;
 	/*top: 35px;*/
-	background: #CEECF5;
+	/*background: #CEECF5;*/
+	background-color: #FFFBB1;
 	min-width: 160%;
 	box-shadow: 2px 8px 30px 3px black;
-	transition: all .2s ease-in-out;
+	transition: all .3s ease-in-out;
 }
 
 #main_menu > ul > li:hover > ul {

@@ -91,7 +91,14 @@ $(document).ready(function(){
 			}
 		}
 	})
-
+/*  ---------------------------------------------------------  */
+	$('#show_more').click(function(event){
+		console.log('show_more');
+		$('.parent_row.hidden').show();
+		$('.parent_group.hidden').show();
+		$(this).hide();
+		return false;
+	});
 /*  ---------------------------------------------------------  */
 	$('.parent_row').click(function(){
 		var ch = $('#ch_'+$(this).attr('id'));

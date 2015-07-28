@@ -22,6 +22,7 @@
 	?>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/main.js"></script>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<?php //Yii::app()->bootstrap->register(); ?>
 </head>
 <body>
 <div class="back_head"></div>
@@ -145,6 +146,7 @@ if (Yii::app()->user->isGuest) {
 	$items[] = array("label" => "Справка", "linkOptions" => array('target' => '_blank'), "url" => array("/help/index/c/" . $this->uniqueId . "/a/" . $this->action->id . '/i/' . $this->helpIndex));
 	$items[] = array("label" => "Войти", "url" => array("/site/login"), "visible" => Yii::app()->user->isGuest);
 	$items[] = array("label" => "Выйти <span class=\"exitname\">(" . Yii::app()->user->name . ")</span>", "url" => array("/site/logout"), "visible" => !Yii::app()->user->isGuest);
+//	$items[] = array('label'=>'Login', 'url'=>'#', 'itemOptions'=>array('data-toggle'=>'modal', 'data-target'=>'#loginModalForm'));
 	// echo "<pre>";
 	// print_r($items);
 	// echo "</pre>";

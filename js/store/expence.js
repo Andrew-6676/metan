@@ -374,7 +374,8 @@ $(document).ready( function(){
 			window.open(rootFolder+'/print/index?report=Invoice&id=' + id, '_blank')
 		}
 		if ($('.doc_title').text().indexOf('Расход')+1) {
-			window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
+			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
+			$('#ttn').click();
 		}
 
 	})

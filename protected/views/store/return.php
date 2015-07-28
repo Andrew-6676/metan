@@ -102,9 +102,7 @@
 	</div>
 </div>
 
-<br>
-<hr>
-<br>
+<div class="delemiter"></div>
 
 <div class="page_caption">
 	Возврат за <b><u>

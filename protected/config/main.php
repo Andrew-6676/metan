@@ -6,7 +6,10 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../extensions/bootstrap');
+
 return array(
+//	'theme'=>'bootstrap', // requires you to copy the theme under your themes directory
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',  //папка protected
 	'name'=>'Metan_0.1',
 	'defaultController'=>'store',					// контроллер по умолчанию
@@ -45,6 +48,9 @@ return array(
 			'password'=>'flatron',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
+			'generatorPaths'=>array(
+				'bootstrap.gii',
+			),
 		),
 
 	 ),
@@ -54,6 +60,9 @@ return array(
 		// 'CHttpCookie'=>array(
 		// 	'domain'=>'.xxxxx.com'
 		// ),
+		'bootstrap'=>array(
+			'class'=>'bootstrap.components.Bootstrap',
+		),
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>false,
