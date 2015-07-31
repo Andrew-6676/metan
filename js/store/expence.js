@@ -1,3 +1,4 @@
+var _vat=parseFloat(localStorage["metan.nds"]);
 var search_data = {
 				capt: "Поиск для расхода",
 				action: "GetGoodsNameFromRest",
@@ -334,6 +335,9 @@ $(document).ready( function(){
         	});
 	})
 /*-------------------------------------------------------------------------------------*/
+	$('.vat').blur(function(){
+		_vat = $(this).val();
+	});
 /*--------------------- Добавить новую строку для товара ------------------------------*/
 	$('#add_new_row').click(function(){
 			//	добавить пустую строку для нового товара в расходе
@@ -348,6 +352,7 @@ $(document).ready( function(){
 			// очищаем <input'ы>
 		$('#new_goods_table tbody tr:last :input').val('');
 		$('#new_goods_table tbody tr:last .summ').text('');
+		$('#new_goods_table tbody tr:last .vat').val(_vat);
 		$('#new_goods_table tbody tr:last .id_goods').focus();
 			// назначаем обработку событий новой строке
 		set_autocomplete('#'+id);

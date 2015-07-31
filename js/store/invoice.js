@@ -7,10 +7,12 @@ var search_data = {
 	width: 800,
 	sender: null,
 };
+
 /*-----------------------------------------------------------*/
 
 $(document).ready(function () {
 
+	$('.vat').val(_vat);
 	//$(".new_contact").draggable({
 	//		    cursor: "move",
 	//		    // distance: 10,
@@ -225,6 +227,10 @@ $(document).ready(function () {
 	/*------------------- Добавить расход в БД-----------------------------------------------*/
 
 	$('#add_invoice').click(function () {
+
+		//test localstorage
+		localStorage["metan.nds"] = $('.vat:last').val();
+		/*-------*/
 
 		if ($('#contact_name').attr('cid') == '') {
 			alert('Не указан потребитель!');
