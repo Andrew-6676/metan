@@ -181,7 +181,8 @@
 		'head'=>array(
 			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
-			'contact.name'=>'Потребитель'
+			'contact.name'=>'Потребитель',
+			'sum_price'=>'Сумма',
 		),
 		'group' => 'doc_date', //array('month'=>'doc_date'),
 		'columns'=> array(
