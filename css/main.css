@@ -298,30 +298,6 @@ body {
 	width: 540px;
 }
 
-#content ul > li {
-	/* padding: 15px; */
-	list-style: none;
-	/*border: 1px solid #FA6F6F;*/
-	width: 215px;
-	display: inline-block;
-	margin: 25px;
-	text-align: center;
-	/* border-radius: 5px; */
-}
-
-#content ul > li > a {
-	border-radius: 5px;
-	display: block;
-	border: 1px solid #C5B758;
-	padding: 15px;
-	text-decoration: none;
-	color: #0002A6;
-	box-shadow: 1px 2px 0px #AE7700;
-}
-#content ul > li > a:hover {
-	background-color: #FFFAA0;
-	border: 1px solid #bcbcbc;
-}
 #content2 {
 	margin-left: 220px;
 }

@@ -77,7 +77,19 @@ class SuperdocWidget extends CWidget
 //		print_r($this->head);
 //	    print_r($this->columns);
 
+		/*
+		структура документа:
+		 - tr шапка документа (видимая)
+		 - tr с таблицей (скрытая)
+		   --- thead шапка документа + кнопки
+		   --- tbody строки документа
+		*/
+
 		$for = array('-1'=>'-','1'=>'Общий товарооборот','2'=>'Розничный товарооборот','3'=>'Собственные нужды');
+
+		$data_row->attributes[] = 'sum_cost';
+		$data_row->attributes[] = 'sum_vat';
+		$data_row->attributes[] = 'sum_price';
 
 		$data_arr = array();
 		$type_arr = array();
@@ -87,6 +99,9 @@ class SuperdocWidget extends CWidget
 			foreach ($data_row->attributes as $attr => $dr) {
 				$type_arr[$attr] = Document::model()->tableSchema->getColumn($attr)->dbType;
 			}
+			$type_arr['sum_cost'] = 'integer';
+			$type_arr['sum_vat'] = 'integer';
+			$type_arr['sum_price'] = 'integer';
 
 			$data_arr[$data_row->id]['contact'] = $data_row->contact->attributes;
 			// типы плей в отдельный массив
@@ -164,7 +179,8 @@ class SuperdocWidget extends CWidget
 					$val = $for[$doc->for];
 					$type = 'character';
 				}
-				echo '<td>' . $this->format_type($val, $type)['val'] . '</td>';
+				$tmp = $this->format_type($val, $type);
+				echo '<td class="'.$tmp['style'].'">' . $tmp['val'] . '</td>';
 			}
 			echo '</tr>';
 

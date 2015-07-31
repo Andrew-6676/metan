@@ -30,6 +30,7 @@ class prepareGoodsreportAction extends CAction   /*---- storeController ----*/
 	}
 
 	private function getGoodsReport($params) {
+
 		$res = array(
 			'status'=>'ok',
 			'message'=>json_encode($params),

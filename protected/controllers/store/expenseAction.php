@@ -129,6 +129,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			if (isset($doc['doc_for']) && $doc['doc_for']) {
 				$document->for = $doc['doc_for'];
 			}
+			$document->payment_order = $doc['payment_order'];
 	    	//print_r($document);
 			if($document->save()) {
 					// если удачное сохранение - получаем ID новой записи

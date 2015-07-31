@@ -28,9 +28,10 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 		// $res = Document::model()->with('documentdata')->findAll('id_operation=33 and extract(MONTH from doc_date)='.intval(substr(Yii::app()->session['workdate'],5,2)),
 		// 															array('order'=>'doc_date')
 		// 														);
-		$res = Document::model()->with('documentdata')->findAll(array(
-																'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
-																'condition'=>'id_doctype=1 and {{operation}}.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
+		$res = Document::model()->with('documentdata', 'sum_cost', 'operation')->findAll(array(
+																//'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
+//																'condition'=>'id_doctype=1 and {{operation}}.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
+																'condition'=>'id_doctype=1 and operation.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 																'order'=>'doc_date desc')
 																);
 		// echo '<pre>';

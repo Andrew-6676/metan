@@ -65,6 +65,9 @@ class Document extends CActiveRecord
 			'operation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
 			'doctype' => array(self::BELONGS_TO, 'Doctype', 'id_doctype'),
 			'docaddition' => array(self::BELONGS_TO, 'Docaddition', 'id'),
+			'sum_cost'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*cost)'),
+			'sum_vat'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(vat/100*quantity*cost)'),
+			'sum_price'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*price)'),
 		);
 	}
 
@@ -171,7 +174,14 @@ class Document extends CActiveRecord
 }
 
 /*--------------------------------------------------*/
-
+//public function getSums() {
+//	$criteria = new CDbCriteria;
+//	$criteria->select='sum(money) as money';  // подходит только то имя поля, которое уже есть в модели
+//	$criteria->condition='project_id=:project_id';
+//	$criteria->params=array(':project_id'=>1);
+//	$sBalance = Balance::model()->find($criteria)->getAttribute('money');
+//}
+/*--------------------------------------------------*/
 public function add($data)
 {
 	//$gr = $this->groups;

@@ -1,0 +1,37 @@
+.store_index{
+
+}
+.store_index .date {
+	width: 210px;
+	/*margin: auto;*/
+	margin: 30px auto;
+}
+#workdate_page {
+
+}
+
+
+.store_index ul > li {
+	/*padding: 15px;*/
+	list-style: none;
+	/*border: 1px solid #FA6F6F;*/
+	width: 215px;
+	display: inline-block;
+	margin: 25px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.store_index ul > li > a {
+	border-radius: 5px;
+	display: block;
+	border: 1px solid #C5B758;
+	padding: 15px;
+	text-decoration: none;
+	color: #0002A6;
+	box-shadow: 1px 2px 0px #AE7700;
+}
+.store_index ul > li > a:hover {
+	background-color: #FFFAA0;
+	border: 1px solid #bcbcbc;
+}

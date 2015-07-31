@@ -112,7 +112,8 @@ class GoodsController extends Controller
 		{
 			$model->attributes=$_POST['Goods'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+//				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('store/receipt'));
 		}
 
 		$this->render('update',array(

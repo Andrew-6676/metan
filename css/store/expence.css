@@ -92,7 +92,7 @@ label {
 }
 .new_goods_row td {
 	/*background-color: #cfc;*/
-	padding: 2px;
+	/*padding: 2px;*/
 }
 .id_goods {
     text-align: right;
@@ -151,7 +151,7 @@ label {
 /*-------------------------------------------*/
 .td_buttons {
     border-radius: 5px;
-    border: 1px solid #848484;
+    /*border-bottom: 1px solid #848484;*/
     padding: 1px 2px;
     height: 22px;
     width: 52px;

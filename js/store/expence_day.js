@@ -39,10 +39,17 @@ $(document).ready(function () {
 				if ($(this).closest('tr').next().length != 0) {
 					$(this).closest('tr').next().find('.id_goods').focus();
 				} else {
-					$('#add_expence').focus();
+					if ($('.additional_data').attr('open')) {
+						$('[name="expence[payment_order]"]').focus();
+					} else {
+						$('#add_expence').focus();
+					}
 				}
 			} else {
 				$(this).parent().next().find('input, button').focus();
+				if ($(this).hasClass('dop_data d2')) {
+					$('#add_expence').focus();
+				}
 			}
 			event.stopPropagation();
 		}
@@ -220,6 +227,7 @@ $(document).ready(function () {
 		arr['doc_date'] = $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] = $('[name = "expence[doc_num]"]').val();
 		arr['doc_for'] = $('[name = "for"]').val();
+		arr['payment_order'] = $('[name="expence[payment_order]"]').val();
 
 		//         // запихиваем два массива в один, который и отправится на сервер
 		exp['doc'] = arr;
@@ -321,19 +329,21 @@ $(document).ready(function () {
 	/*----------------------  --------------------------------------------*/
 	$('button.edit').click(function () {
 		// alert('edit');
-		// ячейки куда надо вставлять данные
+			// ячейки куда надо вставлять данные
 		var td_dst = $('#new_goods_table tbody tr td');
-		// из этих ячеек надо сокпировать данные
+			// из этих ячеек надо сокпировать данные
 		var td_src = $(this).parent().parent().find('td');
-		// переносим нужные данные
+			// переносим нужные данные
 		td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
 		td_dst.eq(1).find('[name=for]').val(td_src.eq(7).attr('id_for'));
 		td_dst.eq(2).find('input').val(td_src.eq(1).text());
 		td_dst.eq(3).find('input').val(td_src.eq(2).text());
 		td_dst.eq(4).find('input').val(td_src.eq(3).text().trim().replace(/`/g, ""));
 		td_dst.eq(5).find('input').val(td_src.eq(4).text().trim().replace(/`/g, ""));
-		// id документа
+			// id документа
 		$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
+			// номер карты
+		$('[name="expence[payment_order]"]').val(td_src.eq(6).attr('kart_num'));
 		// пересчитываем сумму
 		$('.quantity, .price').change();
 

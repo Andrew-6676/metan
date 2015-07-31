@@ -90,11 +90,11 @@
 		    <div class="docadditional">
 			    <div class="row">
 				    <label for="expence[payment_order]">Номер карты:</label>
-				    <input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+				    <input class="dop_data d1"  name="expence[payment_order]" placeholder="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 			    </div>
 			    <div class="row">
 				    <label for="expence[descr]">Примечание:</label>
-				    <input type="number" name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+				    <input class="dop_data d2"  name="expence[descr]" placeholder="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 			    </div>
 		    </div>
 	    </details>
@@ -136,7 +136,7 @@
                     <td class="quantity"><?php  echo $document->documentdata[0]->quantity; ?></td>
                     <td class="price"><?php  echo number_format($document->documentdata[0]->price,'0','.','`'); ?></td>
                     <td class="sum"><?php  echo number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity,'0','.','`'); ?></td>
-                    <td class="operation" id_operation="<?php  echo $document->idOperation->id; ?>"><?php  echo $document->idOperation->name; ?></td>
+                    <td class="operation" id_operation="<?php  echo $document->idOperation->id; ?>" kart_num="<?php echo @$document->docaddition->payment_order; ?>"><?php  echo $document->idOperation->name; ?></td>
 	                <td class="for" id_for="<?php  echo $document->for; ?>"><?php  echo $for[$document->for]; ?></td>
                     <td class="buttons">
                         <button class='del'></button>

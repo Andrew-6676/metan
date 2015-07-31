@@ -127,7 +127,8 @@
 		'head'=>array(
 			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
-			'operation.name'=>'Вид возврата'
+			'operation.name'=>'Вид возврата',
+			'sum_price'=>'Сумма',
 		),
 		'columns'=> array(
 			'id_goods'=>'Код',

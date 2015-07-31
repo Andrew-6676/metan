@@ -168,7 +168,7 @@ label {
 }
 .new_goods_row td {
 	/*background-color: #cfc;*/
-	padding: 2px;
+	/*padding: 2px;*/
 }
 
 /*--------------------*/
@@ -212,4 +212,5 @@ label {
 /*-------------------------------------------------------------------*/
 div.search_invoice {
 	float: right;
+	display: none;
 }

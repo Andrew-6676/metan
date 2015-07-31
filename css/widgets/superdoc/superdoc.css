@@ -75,6 +75,9 @@
 .parent td {
 	border: 1px solid #efefef;
 }
+.parent td.r {
+	text-align: right;
+}
 .parent_group td{
 	background: #fff;
 	border: none;
@@ -89,13 +92,13 @@
 	/*border: 1px solid black;*/
 }
 .buttons {
-	/*position: absolute;*/
-	margin-top: -27px;
-	margin-right: 3px;
+	position: absolute;
+	/*margin-top: -27px;*/
+	/*margin-right: 3px;*/
 	height: 25px;
-	float: right;
-	/*top: 4px;*/
-	/*right: 2px;*/
+	/*float: right;*/
+	top: 4px;
+	right: 2px;
 	border-radius: 5px;
 	padding: 5px;
 	background: #F0F0F0 ;
@@ -103,6 +106,7 @@
 }
 /*----------------------------------------------------------------------------------*/
 .doc_hat td {
+	position: relative;
 	background-color: #ccffff;
 	/*position: relative;*/
 	border: 1px solid black;

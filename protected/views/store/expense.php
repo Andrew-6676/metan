@@ -181,7 +181,10 @@ print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
 			'doc_date'=>'Дата',
 			'contact.name'=>'Покупатель',
 			'operation.name'=>'Вид расхода',
-			'for'=>'',
+//			'for'=>'',
+//			'sum_vat'=>'Сумма НДС',
+//			'sum_cost'=>'Сумма',
+			'sum_price'=>'Сумма',
 //			'paymentorder'=>''
 		),
 		'columns'=> array(

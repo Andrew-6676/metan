@@ -549,7 +549,7 @@ function set_autocomplete(id) {
 	$(id+' .clr_row').click(function(){
 		var row = $(this).parent('div').parent('td').parent('tr').attr('id').substr(4);
 		//alert('clear '+row);
-		$('#new_goods_table tr:last :input').val('');
+		$(this).parent().parent().parent().find(':input').val('');
 	})
 
 	/*-------------Пересчёт сумм при изменении количества---*/

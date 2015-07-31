@@ -37,3 +37,4 @@ $this->menu=array(
 	'groups'=>$groups,
 	'suppliers'=>$suppliers
 )); ?>
+

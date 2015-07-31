@@ -23,20 +23,23 @@
 
 <div class="data">
 <?php
-
+//Utils::print_r($data);
 //	$this->widget('DocWidget',array(
 //							'data'=>$data,
 //							'mode'=>'one_to_many',
 //							'columns'=> array('doc_num','doc_date','reason'),
 //			                ));
-
+//exit;
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
 		//'mode'=>'one_to_many',
 		'head'=>array(
 			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
-			'contact.name'=>'Поставщик'
+			'contact.name'=>'Поставщик',
+			'sum_vat'=>'Сумма НДС',
+//			'sum_cost'=>'Сумма',
+			'sum_price'=>'Сумма розница',
 		),
 		'columns'=> array(
 			'id_goods'=>'Код',
@@ -49,11 +52,6 @@
 			'quantity'=>'Количество',
 			'=quantity*cost'=>'Сумма опт',
 			'=quantity*price'=>'Сумма розница'
-		),
-		'sums'=>array(
-			'=quantity*cost'=>'Сумма опт',
-			'=vat/100*quantity*cost'=>'Сумма НДС',
-			'=quantity*price'=>'Сумма розница',
 		),
 		'buttons'=>array('print','del'),
 	));

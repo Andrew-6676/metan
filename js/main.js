@@ -159,12 +159,22 @@ $(document).ready( function(){
 		$.get(
 			rootFolder+'/MainAjax/setWorkDate',
 			{	// список параметров
-				date: $('#workdate input').val(),
+				date: $('#workdate input').val()
 			},
 			onSetWorkDate  // функция приёма сообщений от сервера
-		)
+		);
 
 		$('#workdate button').hide();
+	});
+
+	$('#accept_date').click(function(){
+		$.get(
+			rootFolder+'/MainAjax/setWorkDate',
+			{	// список параметров
+				date: $('#workdate_page').val()
+			},
+			onSetWorkDate  // функция приёма сообщений от сервера
+		);
 	});
 /*-------------------------------------------------------------------------------*/
 	//http://demo.webcareer.ru/2014/01/popup/index.html
