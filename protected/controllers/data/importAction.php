@@ -317,10 +317,13 @@ class importAction extends CAction   /*DataController*/
 						// цикл по записям импортируемой таблицы
 
 			 		while($row = $dbf->readRec()) {
-
+//					    if ($row['deleted']) {
+////							echo 'deleted';
+////						    continue;
+//						}
 					    //print_r($dbf->getFields());
 					    //print_r($row);
-					    echo '<br>';
+//					    echo '<br>'.$i++.')';
 					    // print_r($ft); echo '<br>';
 			 				// проверяем повторяется ли запись
 			 			/* выбрать из целевой таблицы записи, значения key_field_dst (может быть несколько)

@@ -234,26 +234,26 @@ class MainAjaxController extends CController
 //		Utils::print_r($res[0]->documentdata[0]->idGoods->name);
 //		Utils::print_r($res[0]);
 		$json = array();
-		$json['day']['sum'] = 0;
-		$json['karta']['sum'] = 0;
+		$json['expence']['day']['sum'] = 0;
+		$json['expence']['karta']['sum'] = 0;
 		foreach ($res as $row_d) {
 				// если вдруг документ пустой
 			if (count($row_d->documentdata)) {
 					// расход за день отдельно
 				if ($row_d->doc_num==0) {
 					if ($row_d->id_operation==56) {
-						$json['karta']['data'][] = array(
+						$json['expence']['karta']['data'][] = array(
 							'date'=>$row_d->doc_date,
 							'kart_num'=>$row_d->docaddition?$row_d->docaddition->payment_order:0,
 							'sum'=>$row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price,
 						);
-						$json['karta']['sum'] += $row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price;
+						$json['expence']['karta']['sum'] += $row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price;
 					} else {
-						$json['day']['data'][] = array(
+						$json['expence']['day']['data'][] = array(
 							'date'=>$row_d->doc_date,
 							'sum'=>$row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price,
 						);
-						$json['day']['sum'] += $row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price;
+						$json['expence']['day']['sum'] += $row_d->documentdata[0]->quantity*$row_d->documentdata[0]->price;
 					}
 				} else {
 					// шапка документа

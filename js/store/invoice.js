@@ -364,7 +364,7 @@ $(document).ready(function () {
 				console.log(data);
 				if (data.status == 'ok') {
 					//if (data.nakl_id < 0) {
-					//	alert(data.message);
+						alert(data.message);
 					//} else {
 					//	alert(data.message);
 					//}

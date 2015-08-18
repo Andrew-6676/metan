@@ -95,7 +95,10 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('doc_num2 = 0');
 
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
-
+		$day_sum = 0;
+		foreach ($q_model as $document) {
+			$day_sum += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
+		}
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
 												  'order'=>'name'));
@@ -103,6 +106,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$this->controller->pageTitle = 'Расход за день';
 		$this->controller->render('expense_day', array(
 									'data'=>$q_model,
+									'day_sum'=>$day_sum,
 									'oper'=>$oper,
 									// 'doc_num'=>$doc_num
 								 ));

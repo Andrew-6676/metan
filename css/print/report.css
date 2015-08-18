@@ -18,3 +18,29 @@ th, td {
     border: 1px solid gray;
     padding: 2px 5px 2px 5px;
 }
+
+td.r {
+	text-align: right;
+}
+
+td.l {
+	text-align: left;
+}
+td.c {
+	text-align: center;
+}
+td.no_border {
+	border: none;
+}
+
+.itog {
+	font-weight: bold;
+}
+
+.sub_title {
+	margin-top: 20px;
+	margin-bottom: 7px;
+	font-size: 1.2em;
+	text-align: center;
+}
+

@@ -3,6 +3,9 @@
  */
 $(document).ready(function () {
 
+	$('#printButton').click(function (){
+		window.open(rootFolder+'/print/index?report=Goodsreport&orient=P&from_date=' + $('[name*=from_date]').val() + '&to_date=' + $('[name*=to_date]').val(), '_blank')
+	});
 		// запрос отчёта
 	$('#getreportButton').click(function () {
 		console.log('getReport');
@@ -22,19 +25,19 @@ $(document).ready(function () {
 			data: {getReport: data},
 			error: function (data) {
 				//alert(JSON.stringify(data) + '###');
-				alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+				//alert('Произошла ошибка. Обратитесь к разработчику!');
+				alert(data.message);
+				console.log(data);
 				$('#overlay').hide();
 				$('#loadImg').hide();
 			},
 			success: function (data) {
-				//console.log(data);
-				//	var res = eval(data);
-				//alert(data.status+'---');
-				//alert(typeof data);
 				if (data.status == 'ok') {
-					$('#goodsReport').html(data.message);
+					$('#goodsReport').html(create_table(data.report_data));
 				} else {
-					alert('Во время сохранения произошла ошибка. Проверьте введённые данные!\n\r' + JSON.stringify(data));
+					//alert('Во время сохранения произошла ошибка. Проверьте введённые данные!\n\r' + JSON.stringify(data));
+					console.log(data);
+					alert(data.message);
 					$('#overlay').hide();
 					$('#loadImg').hide();
 				}
@@ -43,3 +46,25 @@ $(document).ready(function () {
 		});
 	});
 });
+
+function create_table(data) {
+	//return data;
+	var html = '';
+
+
+	//$(data).each(function(i, e){
+	//	html += '<br>'+ i;
+	//	$(e).each(function(i2, e2){
+	//		html += '<br>---'+ i2;
+	//		console.log(e2);
+	//	});
+	//	console.log(e);
+	//});
+
+	$.each(data, function(i,e){
+		html += '<br>'+ i;
+		console.log(e);
+	});
+
+	return html;
+}

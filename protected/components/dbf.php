@@ -38,8 +38,9 @@ class dbf
 			$rec = dbase_get_record_with_names($this->table,$this->recNo);
 				// если она помечена на удаление - считываем следующую запись
 			if ($rec['deleted']) {
-				$this->readRec();
-			} else {
+				return $this->readRec();
+			} else
+			{
 //				if ($this->apply_filter($rec)) {
 ////					echo '*';
 //					return $rec;

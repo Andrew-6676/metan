@@ -109,6 +109,9 @@
 <div class="delemiter"></div>
 
 <!-- ----------------------------------------------------------------------- -->
+<div class="day_sum">
+	Итого за день: <?php echo number_format($day_sum,'0','.','`'); ?>
+</div>
 <table class="doc_data">
     <caption></caption>
     <thead>

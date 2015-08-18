@@ -12,7 +12,7 @@
 	<h2>Книга замечаний и предложений</h2>
 	<?php echo CHtml::textArea('mess'); ?>
 	<br>
-	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
+	<?php echo CHtml::button('Отправить',array('onclick'=>'send();')); ?>
 
 </div><!-- form -->
 

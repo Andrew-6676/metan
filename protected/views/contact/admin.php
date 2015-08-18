@@ -24,6 +24,7 @@ $('.search-form form').submit(function(){
 	return false;
 });
 ");
+
 ?>
 
 <h1>Справочник потребителй</h1>
