@@ -9,7 +9,7 @@
 
 class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 {
-	public function run($from_date, $to_date) {
+	public function run($from_date, $to_date, $full) {
 		// Utils::print_r($_GET);
 //		 echo 'asdf';
 //		// echo "receipt doc";
@@ -21,15 +21,17 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 
 		$params['from_date'] = $from_date;
 		$params['to_date'] = $to_date;
-
-		;
+		$params['full'] = $full;
 
 		$data = $this->getData($_GET);
 //		$data = $_GET;
 //		$data = array_merge($_GET, $params);
 
-		$this->controller->render('goodsreport', array('data'=>$data));
+		$this->controller->render('goodsreport', array('data'=>$data, 'full'=>$full));
 	}
+
+
+/*--------------------------------------------------------------------------------------------------------------*/
 
 	private function getData($params) {
 
@@ -40,6 +42,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$criteria->addCondition('id_doctype <> 3'); // не счёт-фактура
 		//		$criteria->addCondition('doc_num2 <> 0'); // не расход за день
 		$criteria->addCondition('id_store=' .$params['id_store']);
+//		$criteria->addCondition('id_store=2');
 		$criteria->addCondition('doc_date>=\'' . $params['from_date'] . '\'');
 		$criteria->addCondition('doc_date<=\'' . $params['to_date'] . '\'');
 		//		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
@@ -52,7 +55,9 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		//		Utils::print_r($res[0]->documentdata[0]->idGoods->name);
 		//		Utils::print_r($res[0]);
 		$json = array();
+//		$json['expence']['return'] = array();
 		$json['expence']['day']['sum'] = 0;
+		$json['expence']['day']['data'] = array();
 		$json['expence']['karta']['sum'] = 0;
 		$json['expence']['kredit']['sum'] = 0;
 		$json['expence']['including'][-1] = 0;
@@ -64,10 +69,10 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		foreach ($res as $row_d) {
 			// если вдруг документ пустой
 			if (count($row_d->documentdata)) {
-				// расход за день отдельно
 				if ($row_d->operation->operation < 0) {
 					$json['expence']['including'][$row_d->for] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 				}
+				// расход за день отдельно
 				if ($row_d->doc_num == 0) {
 					if ($d == '') {$d = $row_d->doc_date;}
 					if ($d != $row_d->doc_date) {
@@ -98,15 +103,43 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 
 
 						$s += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
-						$json['expence']['day']['data'][$row_d->doc_date] = array(
-							'date' => $row_d->doc_date,
-							'sum' => $s,
-						);
+							// чтобы не затереть уже добавленный возврат - сливаем массивы
+						if (isset($json['expence']['day']['data'][$row_d->doc_date])) {
+							$json['expence']['day']['data'][$row_d->doc_date] = array_merge($json['expence']['day']['data'][$row_d->doc_date], array(
+								'date' => $row_d->doc_date,
+								'sum' => $s,
+								'kassa' => Kassa::getRest($row_d->doc_date),
+							));
+						} else {
+							$json['expence']['day']['data'][$row_d->doc_date] = array(
+								'date' => $row_d->doc_date,
+								'sum' => $s,
+								'kassa' => Kassa::getRest($row_d->doc_date),
+							);
+						}
 						$json['expence']['day']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 
 
 					}
 				} else {
+						// если возврат
+					if ($row_d->id_operation == 2) {
+
+//						if (!isset($json['expence']['day']['data'])) {
+//							$json['expence']['day']['data'][$row_d->doc_date]['sum'] = 0;
+//							$json['expence']['return'][$row_d->doc_date] = ($json['expence']['day']['data'][$row_d->doc_date]);
+//							if (!isset)
+//							echo 'asdsa--';
+							$json['expence']['day']['data'][$row_d->doc_date] = array(
+								'return' => $row_d->sum_price,
+								'date' => $row_d->doc_date,
+								'sum' => 0,
+								'kassa' => Kassa::getRest($row_d->doc_date),
+							);
+//						} else {
+
+//						}
+					}
 					// шапка документа
 					$json[$row_d->doctype->name][$row_d->operation->name][]['head'] = array(
 						'date' => $row_d->doc_date,

@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
 	$('#printButton').click(function (){
-		window.open(rootFolder+'/print/index?report=Goodsreport&orient=P&from_date=' + $('[name*=from_date]').val() + '&to_date=' + $('[name*=to_date]').val(), '_blank')
+		window.open(rootFolder+'/print/index?report=Goodsreport&orient=P&from_date=' + $('[name*=from_date]').val() + '&to_date=' + $('[name*=to_date]').val()+'&full='+$('[name*=full]').prop("checked"), '_blank')
 	});
 		// запрос отчёта
 	$('#getreportButton').click(function () {

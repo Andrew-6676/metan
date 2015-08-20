@@ -18,6 +18,8 @@ class PrintController extends Controller {
 			// вызываем нужный Action и передаём ему параметры
 		echo $printer->printFromURL('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
 
+//		$this->redirect('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
+
 		// echo(Yii::app()->session['id_store']);
 		// echo 'http://localhost/metan_0.1/print/print'.$report.'?id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
 		//       echo $printer->getInfo();

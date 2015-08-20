@@ -19,23 +19,24 @@ $form = $this->beginWidget('CActiveForm', array(
 
 $form->errorSummary($ttnForm);
 
-$form->labelEx($ttnForm,'addr1');
-$form->textField($ttnForm,'addr1', array('size'=>35));
-$form->error($ttnForm,'addr1');
+echo '<div>';
+	textField($form, $ttnForm, 'addr1');
+echo '</div>';
+echo '<div>';
+	textField($form, $ttnForm, 'otpusk');
+echo '</div>';
 
+echo '<div>';
+	textField($form, $ttnForm, 'car');
+echo '</div>';
 
-echo $form->labelEx($ttnForm,'otpusk');
-echo $form->textField($ttnForm,'otpusk', array('size'=>35));
-echo $form->error($ttnForm,'otpusk');
-
-echo "<br>";
-
-echo $form->labelEx($ttnForm,'car');
-echo $form->textField($ttnForm,'car', array('size'=>35));
-echo $form->error($ttnForm,'car');
-
-//echo "<br>";
 
 //echo CHtml::submitButton('Отправить');
 
 $this->endWidget();
+
+function textField($form, $fo, $fi) {
+	echo $form->labelEx($fo,$fi);
+	echo $form->textField($fo,$fi, array('size'=>35));
+	echo $form->error($fo,$fi);
+}

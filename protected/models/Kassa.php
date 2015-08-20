@@ -97,4 +97,17 @@ class Kassa extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/*----------------------------------------------*/
+	public static function getRest($date){
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("kassa_date='".$date."'");
+
+		$r = Kassa::model()->find($criteria);
+		if ($r) {
+			return $r->getAttribute('sum');
+		} else {
+			return -1;
+		}
+	}
 }

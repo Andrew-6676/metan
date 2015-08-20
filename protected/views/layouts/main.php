@@ -186,6 +186,8 @@ if (Yii::app()->user->isGuest) {
 	<?php
 	// вывод контента, сформированного в представлении контроллера и в файлах /layouts/c1.php или /layouts/c2.php
 	echo $content;
+
+
 	?>
 </div>
 

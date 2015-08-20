@@ -33,7 +33,7 @@ return array(
 		'application.widgets.expence.*',				// для рисования таблиц расхода
 		'application.widgets.return.*',					// для рисования таблиц возврата
 		'application.widgets.editTable.*',				// для рисования редактируемых таблиц
-		'application.extensions.pdf.mpdf60beta.mpdf',  	//для печати в PDF
+		'application.extensions.pdf.mpdf60.mpdf',  	    //для печати в PDF
 	),
 
 	 'modules'=>array(

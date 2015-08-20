@@ -14,6 +14,7 @@ $df = Utils::format_date($_GET['from_date']);
 $dt = Utils::format_date($_GET['to_date']);
 
 //Utils::print_r($data);
+//return;
 $expence = array_shift($data);
 
 ?>
@@ -27,7 +28,6 @@ $expence = array_shift($data);
 
 	$docs = array_shift($data);
 	$key = array_keys($docs);
-
 	?>
 
 	<div class="sub_title">
@@ -69,6 +69,19 @@ $expence = array_shift($data);
 		$tr .= '</tr>';
 		$s += $doc['head']['sum_price'];
 		echo $tr;
+		$tr = '';
+		if ($full=='true') {
+			foreach ($doc['data'] as $row) {
+				$tr .= '<tr>';
+				$tr .=    '<td colspan="3" class="no_border">';
+				$tr .=    '</td>';
+				$tr .=    '<td class="r">';
+				$tr .=         number_format($row['price']*$row['quantity'],'0','.',' ');
+				$tr .=    '</td>';
+				$tr .=    '</tr>';
+			}
+			echo $tr;
+		}
 	}
 	?>
 		<tr>
@@ -155,7 +168,7 @@ $expence = array_shift($data);
 	?>
 
 	<div class="sub_title">
-		Продажа за наличные
+		Продажа наличными
 	</div>
 
 	<table>
@@ -177,14 +190,14 @@ $expence = array_shift($data);
 			$tr .=   '<td>';
 			$tr .=      Utils::format_date($doc['date']);
 			$tr .=   '</td>';
-			$tr .=   '<td>';
-//			$tr .=      $doc['kart_num'];
+			$tr .=   '<td class="r">';
+			$tr .=      number_format($doc['kassa'],'0','.',' ');
 			$tr .=   '</td>';
 			$tr .=   '<td>';
 //			$tr .=      $doc['contact'];
 			$tr .=   '</td>';
-			$tr .=   '<td>';
-//			$tr .=      $doc['contact'];
+			$tr .=   '<td class="r">';
+			$tr .=      @number_format($doc['return'],'0','.',' ');
 			$tr .=   '</td>';
 			$tr .=   '<td class="r">';
 			$tr .=      number_format($doc['sum'],'0','.',' ');
@@ -257,17 +270,17 @@ $expence = array_shift($data);
 			<td class="r no_border itog"><?php echo number_format($s[count($s)-1],'0','.',' '); ?></td>
 		</tr>
 
-		<?php
+		<!--  ?php
 			if (count($s)==count($key))	{
 				// итого по накладным
 				?>
 				<tr class="itog">
 					<td colspan="3" class="no_border itog">Итого по накладным:</td>
-					<td class="r no_border itog"><?php echo number_format(array_sum($s),'0','.',' '); ?></td>
+					<td class="r no_border itog">< ?php echo number_format(array_sum($s),'0','.',' '); ?></td>
 				</tr>
-				<?php
+				<php
 			}
-		?>
+		?   -->
 	</table>
 
 <!--	<hr>-->
@@ -383,4 +396,4 @@ $expence = array_shift($data);
 </div>
 
 <?php
-Utils::print_r($expence);
+//Utils::print_r($expence);

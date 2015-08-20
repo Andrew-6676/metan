@@ -25,8 +25,13 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 //		'position'=> '{ my: "left top", at: "left bottom", of: button }',
 		'position'=>array('50%',180),
 		'buttons'       => array(
-			'Печать'=>'js:function(){alert("ok")}',
-			'Отмена'=>'js:function(){alert("cancel")}',),
+			'ТН'=>"js:function(){
+							window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&type=tn&id='+_id_ttn, '_blank');
+						}",
+			'ТТН'=>"js:function(){
+							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&type=ttn&id='+_id_ttn, '_blank');
+						}",
+			'Отмена'=>'js:function(){$("#mydialog2").dialog("close")}',),
 	),
 ));
 

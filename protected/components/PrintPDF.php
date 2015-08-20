@@ -4,11 +4,18 @@
         public $mpdf=null;
         public $outputPath=null;
     /*----------------------------------------------------------------------------------------------------------------*/
-        function __construct($size='A4',$orient='P')
+        function __construct($size='A4',$orient='P', $double=true)
         {
             $this->outputPath = Yii::getPathOfAlias('webroot.public');
-            $this->mpdf = new mpdf('utf-8', $size, '8', '', 10, 10, 7, 7, 10, 10); /*задаем формат, отступы и.т.д.*/
-            $this->mpdf->AddPage($orient); // Lanscape Portpait(def)
+	        $this->mpdf = new mpdf('utf-8', $size, '8', '', 10, 10, 5, 5); /*задаем формат, отступы и.т.д.*/
+
+//        $this->mpdf->autoPageBreak = false;
+
+	        if ($double) {
+		        $this->mpdf->mirroMargins = true;
+	        }
+
+	        $this->mpdf->AddPage($orient); // Lanscape Portpait(def)
             $this->mpdf->charset_in = 'utf-8'; /*не забываем про русский, стандарт похоже utf8*/
 
         }
@@ -59,8 +66,15 @@
                  // echo $page.'<br>';
                // $this->mpdf->list_indent_first_level = 0;
 
-                $this->mpdf->WriteHTML($page); /*формируем pdf*/
 
+
+	            //$this->mpdf->keep_table_proportions = true;
+	            //$this->mpdf->use_kwt = true;
+	            //$this->mpdf->shrink_tables_to_fit = 2;
+
+
+                $this->mpdf->WriteHTML($page); /*формируем pdf*/
+//	            $this->mpdf->autoPageBreak = false;
                 $this->mpdf->Output(/*'mpdf.pdf', 'I'*/);  //  - выдать на экран без сохранения
                // $this->mpdf->Output($this->outputPath.'/test.pdf', 'F');   // - сохранить в указанное место
 

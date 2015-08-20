@@ -1,4 +1,6 @@
+var _id_ttn = -1;
 var _vat=parseFloat(localStorage["metan.nds"]);
+
 var search_data = {
 				capt: "Поиск для расхода",
 				action: "GetGoodsNameFromRest",
@@ -380,6 +382,10 @@ $(document).ready( function(){
 		}
 		if ($('.doc_title').text().indexOf('Расход')+1) {
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
+			_id_ttn = id;
+			// заполнить данными
+
+			// показать
 			$('#ttn').click();
 		}
 
