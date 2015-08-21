@@ -8,15 +8,16 @@
 
 $this->addCSS('print/report.css');
 $this->addCSS('print/delivery.css');
-echo $_GET['type'];
+//echo $_GET['type'];
 //exit;
 ?>
 
 
 	<div class="rep_wrapper">
-		<div class="page p1 deliverynote">
+		<div class="page p1 more deliverynote">
+			<br><br>
 			<div>
-				<table class="no_border" align="center" width="300px">
+				<table class="no_border" align="center" style="width:200px">
 					<tr class="c">
 						<td>
 							<?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->unn; ?>
@@ -256,7 +257,7 @@ echo $_GET['type'];
 			<?php
 
 			?>
-			<table class="usr more" style="page-break-after:always">
+			<table class="usr " style="page-break-after:always">
 				<caption>
 					<br>
 					I. ТОВАРНЫЙ РАЗДЕЛ

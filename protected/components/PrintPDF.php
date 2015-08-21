@@ -4,10 +4,10 @@
         public $mpdf=null;
         public $outputPath=null;
     /*----------------------------------------------------------------------------------------------------------------*/
-        function __construct($size='A4',$orient='P', $double=true)
+        function __construct($size='A4',$orient='P', $double=false)
         {
             $this->outputPath = Yii::getPathOfAlias('webroot.public');
-	        $this->mpdf = new mpdf('utf-8', $size, '8', '', 10, 10, 5, 5); /*задаем формат, отступы и.т.д.*/
+	        $this->mpdf = new mpdf('utf-8', $size, '5', 'dejavusans', 10, 10, 5, 5); /*задаем формат, отступы и.т.д.*/
 
 //        $this->mpdf->autoPageBreak = false;
 

@@ -19,15 +19,45 @@ $form = $this->beginWidget('CActiveForm', array(
 
 $form->errorSummary($ttnForm);
 
-echo '<div>';
+echo '<div class="row">';
 	textField($form, $ttnForm, 'addr1');
 echo '</div>';
-echo '<div>';
+echo '<div class="row">';
+	$ttnForm->otpusk = Store::model()->findByPk(Yii::app()->session['id_store'])->storepassports[0]->fio;
 	textField($form, $ttnForm, 'otpusk');
 echo '</div>';
+echo '<div class="row">';
+	//f_ttnForm_sdal
+//	$ttnForm->sdal = Inputcache::model()->getList('f_ttnForm_sdal');
+	textField($form, $ttnForm, 'sdal');
+echo '</div>';
+echo '<div class="row">';
+textField($form, $ttnForm, 'car');
+echo '</div>';
+echo '<div class="row">';
+textField($form, $ttnForm, 'driver');
 
-echo '<div>';
-	textField($form, $ttnForm, 'car');
+
+//$this->widget('CAutoComplete',
+//	array(
+//		'model'=>'Inputcache',
+//		'name'=>'str',
+//		'url'=>array('MainAjax/autocomplete'),
+//		'minChars'=>2,
+//	)
+//);
+
+//$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+//	'name'=>'test1',
+//	'value'=>'test21',
+//	'source'=>$this->createUrl('MainAjax/autocomplete'),
+//	// additional javascript options for the autocomplete plugin
+////	'options'=>array(
+////		'showAnim'=>'fold',
+////	),
+));
+
+
 echo '</div>';
 
 

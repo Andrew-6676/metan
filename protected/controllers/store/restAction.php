@@ -33,7 +33,7 @@ class restAction extends CAction   /*---- StoreController ----*/
 		$SqldataProvider = new CSqlDataProvider($sql_rest, array(
 	    	'keyField'=>'gid',
 	    	'totalItemCount'=>$count,
-	    	'pagination'=>array('pageSize'=>50,),
+	    	'pagination'=>array('pageSize'=>5000,),
 		));
 
 

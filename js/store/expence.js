@@ -1,5 +1,6 @@
 var _id_ttn = -1;
 var _vat=parseFloat(localStorage["metan.nds"]);
+var _razreshil=(localStorage["metan.razreshil"]);
 
 var search_data = {
 				capt: "Поиск для расхода",
@@ -384,7 +385,7 @@ $(document).ready( function(){
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
 			_id_ttn = id;
 			// заполнить данными
-
+			$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
 			$('#ttn').click();
 		}

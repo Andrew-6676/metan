@@ -66,8 +66,10 @@ class Document extends CActiveRecord
 			'doctype' => array(self::BELONGS_TO, 'Doctype', 'id_doctype'),
 			'docaddition' => array(self::BELONGS_TO, 'Docaddition', 'id'),
 			'sum_cost'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*cost)'),
-			'sum_vat'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(vat/100*quantity*cost)'),
+			'sum_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((quantity*cost*(markup/100)))'),
+			'sum_vat'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*cost*(1+markup/100)))'),
 			'sum_price'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*price)'),
+			'sum_with_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((markup/100+1)*cost*quantity)'),
 		);
 	}
 

@@ -39,14 +39,13 @@ class dbf
 				// если она помечена на удаление - считываем следующую запись
 			if ($rec['deleted']) {
 				return $this->readRec();
-			} else
-			{
-//				if ($this->apply_filter($rec)) {
-////					echo '*';
-//					return $rec;
-//				} else {
-//					$this->readRec();
-//				}
+			} else {
+										if ($this->apply_filter($rec)) {
+						//					echo '*';
+											return $rec;
+										} else {
+											return $this->readRec();
+										}
 				return $rec;
 			}
 
@@ -98,7 +97,7 @@ class dbf
 		preg_match_all('/\[(\w+)\]=(\w+)/', $filter, $matches);
 		$filter_a = array_combine($matches[1], $matches[2]);
 		$this->filter = $filter_a;
-//		print_r($this->filter);
+		print_r($this->filter);
 	}
 /*-----------------------------------------------------------------------------------*/
 	public function apply_filter($row) {
@@ -110,13 +109,13 @@ class dbf
 			// сравниваем поля с фильтром поочерёдно
 			// $f - имя поля
 			// $v - значение фильтра
-			echo "<br>$f:  <u>$row[$f]</u>  -  $v ";
+			//echo "<br>$f:  <u>$row[$f]</u>  -  $v ";
 			if ($row[$f]==$v) {
 				$accept = true;
-				echo " ---> true ";
+			//	echo " ---> true ";
 			} else {
 				$accept = false;
-				echo " ---> false";
+			//	echo " ---> false";
 			}
 		}
 

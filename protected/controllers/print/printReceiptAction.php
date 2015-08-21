@@ -15,6 +15,6 @@ class printReceiptAction extends CAction   /*---- PrintController ----*/
        // $this->controller->render('receipt', array('workdate'=>$workdate, 'id_store'=>$id_store, 'data'=>$receipt_doc));
 
 
-        $this->controller->render('reestr', array('data'=>$data, 'id'=>529));
+        $this->controller->render('reestr', array('data'=>$data));
     }
 }

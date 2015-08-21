@@ -24,6 +24,11 @@ class MainAjaxController extends CController
 		// $rest = Rest::model()->findByPk($data['id']);
 		// Utils::print_r($rest) ;
 	}
+	/* ---------------------------------------------------------------------- */
+	public function ActiondelRest() {
+		$id = $_POST['id'];
+		Rest::model()->deleteByPk($id);
+	}
 /* ---------------------------------------------------------------------- */
 	public function ActionsetWorkDate($date)
 	{
@@ -300,6 +305,38 @@ class MainAjaxController extends CController
 		Utils::print_r($json);
 	}
 	/*------------------------------------------------------------------------------*/
+	public function ActionAutocomplete() {
+		$res =array();
+
+		if (isset($_GET['term'])) {
+			// http://www.yiiframework.com/doc/guide/database.dao
+			$qtxt ="SELECT str FROM vg_inputcache WHERE str LIKE :username";
+			$command =Yii::app()->db->createCommand($qtxt);
+			$command->bindValue(":username", '%'.$_GET['term'].'%', PDO::PARAM_STR);
+			$res =$command->queryColumn();
+		}
+
+		echo CJSON::encode($res);
+		//Yii::app()->end();
+//		if (isset($_GET['q'])) {
+//
+//			$criteria = new CDbCriteria;
+//			$criteria->condition = 'str LIKE :param';
+//			$criteria->params = array(':param'=>$_GET['q'].'%');
+//
+//			if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
+//				$criteria->limit = $_GET['limit'];
+//			}
+//
+//			$inputcache= Inputcache::model()->findAll($criteria);
+//
+//			$resStr = '';
+//			foreach ($inputcache as $ic) {
+//				$resStr .= $ic->str."\n";
+//			}
+//			echo $resStr;
+//		}
+	}
 	/*------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------*/

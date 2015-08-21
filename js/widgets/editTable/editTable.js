@@ -68,6 +68,24 @@ $(document).ready(function() {
 		}
 	})
 /*-----------------------------------------------------------------------------------*/
+	$('.del_row').click(function(){
+		console.log($(this).parent().parent().attr('row_id'));
+		if (confirm("Точно хотите безвозвратно удалить строку из остатков?")) {
+			var rid = $(this).parent().parent().attr('row_id');
+			$.ajax({
+				url: rootFolder + '/MainAjax/delRest',
+				type: "POST",
+				data: {id: rid},
+				error: function (data) {
+					alert('Ошибка удаления');
+				},
+				success: function (data) {
+					//alert(data);
+					$("[row_id=" + rid + "]").fadeOut(500);
+				}
+			});
+		}
+	})
 /*-------------------------отменить изменение одной строки---------------------------*/
 	$('.cancel_row').click(function(){
 		cancel_row($(this).closest('tr'));

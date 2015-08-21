@@ -8,7 +8,7 @@ class PrintController extends Controller {
 	//public id_store=-99;
 
 /* --------------------- инициализация печати------------ ---------------*/
-	public function actionIndex($report, $orient='L') {
+	public function actionIndex($report, $orient='L', $format='pdf') {
 		$printer = new PrintPDF('A4', $orient);
 		// echo $report;
 		// Utils::print_r($_GET);
@@ -16,9 +16,18 @@ class PrintController extends Controller {
 		// echo 'http://localhost/metan_0.1/print/print'.$report.'?'.http_build_query($_GET).'&id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];
 
 			// вызываем нужный Action и передаём ему параметры
-		echo $printer->printFromURL('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
+		switch ($format) {
+			case 'pdf':
+				echo $printer->printFromURL('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
+				break;
+			case 'html':
+				$this->redirect('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
+				break;
+			default:
+				echo "Указан неверный формат";
 
-//		$this->redirect('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
+		}
+
 
 		// echo(Yii::app()->session['id_store']);
 		// echo 'http://localhost/metan_0.1/print/print'.$report.'?id_store='.Yii::app()->session['id_store'].'&workdate='.Yii::app()->session['workdate'];

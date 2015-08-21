@@ -9,6 +9,7 @@ class f_ttnForm extends CFormModel
 {
 	public $addr1;
 	public $otpusk;
+	public $sdal;
 	public $car;
 	public $driver;
 
@@ -25,6 +26,7 @@ class f_ttnForm extends CFormModel
 		return array(
 			'addr1'=>'Адрес разгрузки',
 			'otpusk'=>'Отпуск разрешил',
+			'sdal'=>'Сдал',
 			'car'=>'Автомобиль',
 			'driver'=>'Водитель',
 		);

@@ -41,7 +41,8 @@ class editTableWidget extends CWidget
                     // цикл по строкам данных
                 foreach ($this->model as $row) {
                     // $row = $this->model[0];
-                    echo '<tr id="r_'.$row->id.'">';
+                    echo '<tr row_id="'.$row->id.'" id="r_'.$row->id.'">';
+	                echo '<td><button class="del_row"></button></td>';
                         // цикл по колонкам
                         // формируем строку типа 'row->subtable[->subtable2....]->field', для колонок из связанных моделей
                     foreach ($this->columns as $col) {

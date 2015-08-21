@@ -103,3 +103,19 @@ td[ro=false] {
 }
 /*-----------------------------------------------------*/
 /*-----------------------------------------------------*/
+
+.del_row {
+	cursor:pointer;
+	width: 16px;
+	height: 16px;
+	border: none;
+	/*margin-left: 5px;*/
+}
+.del_row {
+	background:url(../../../images/del_krest.png) no-repeat;
+	background-position: 100% 0;
+	background-size: 200%;
+}
+.del_row:hover {
+	background-position: 0 100%;
+}

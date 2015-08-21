@@ -20,6 +20,7 @@ class StoreController extends Controller
             'return'    => 'application.controllers.store.returnAction',
             'rest'      => 'application.controllers.store.restAction',
             'restEdit'  => 'application.controllers.store.restEditAction',
+	        'goodsCart' => 'application.controllers.store.goodsCartAction',
             'restClose' => 'application.controllers.store.restCloseAction',
             'invoice'   => 'application.controllers.store.invoiceAction',
             'print'     => 'application.controllers.store.printAction',
