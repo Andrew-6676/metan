@@ -262,7 +262,7 @@ class SuperdocWidget extends CWidget
 						$tmp = $this->format_type($val, $type);
 //				                echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
 					}
-					echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
+					echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '" field="'.$dcol.'">' . $tmp['val'] . '</td>';
 				}
 				echo '</tr>';
 			}

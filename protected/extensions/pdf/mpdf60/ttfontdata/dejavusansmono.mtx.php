@@ -2,19 +2,23 @@
 $name='DejaVuSansMono';
 $type='TTF';
 $desc=array (
+  'CapHeight' => 729,
+  'XHeight' => 547,
+  'FontBBox' => '[-558 -375 718 1042]',
+  'Flags' => 5,
   'Ascent' => 928,
   'Descent' => -236,
-  'CapHeight' => 928,
-  'Flags' => 5,
-  'FontBBox' => '[-558 -375 718 1042]',
+  'Leading' => 0,
   'ItalicAngle' => 0,
   'StemV' => 87,
-  'unitsPerEm' => 2048,
   'MissingWidth' => 602,
 );
+$unitsPerEm=2048;
 $up=-63;
 $ut=44;
-$ttffile='/var/www/metan_0.1/protected/extensions/pdf/mpdf60beta/ttfonts/DejaVuSansMono.ttf';
+$strp=259;
+$strs=50;
+$ttffile='/home/andrew/work/www/metan_0.1/protected/extensions/pdf/mpdf60/ttfonts/DejaVuSansMono.ttf';
 $TTCfontID='0';
 $originalsize=335068;
 $sip=false;
@@ -25,6 +29,10 @@ $panose=' 0 0 2 b 6 9 3 8 4 2 2 4';
 $haskerninfo=false;
 $haskernGPOS=false;
 $hassmallcapsGSUB=false;
+$fontmetrics='win';
+// TypoAscender/TypoDescender/TypoLineGap = 760, -240, 200
+// usWinAscent/usWinDescent = 928, -236
+// hhea Ascent/Descent/LineGap = 928, -236, 0
 $useOTL=255;
 $rtlPUAstr='';
 $GSUBScriptLang=array (
@@ -487,6 +495,7 @@ $GPOSLookups=array (
     array (
       0 => 856,
     ),
+    'MarkFilteringSet' => '',
   ),
   1 => 
   array (
@@ -497,6 +506,7 @@ $GPOSLookups=array (
     array (
       0 => 902,
     ),
+    'MarkFilteringSet' => '',
   ),
   2 => 
   array (
@@ -507,6 +517,7 @@ $GPOSLookups=array (
     array (
       0 => 982,
     ),
+    'MarkFilteringSet' => '',
   ),
   3 => 
   array (
@@ -517,6 +528,7 @@ $GPOSLookups=array (
     array (
       0 => 1208,
     ),
+    'MarkFilteringSet' => '',
   ),
   4 => 
   array (
@@ -527,6 +539,7 @@ $GPOSLookups=array (
     array (
       0 => 3234,
     ),
+    'MarkFilteringSet' => '',
   ),
   5 => 
   array (
@@ -537,6 +550,7 @@ $GPOSLookups=array (
     array (
       0 => 3532,
     ),
+    'MarkFilteringSet' => '',
   ),
   6 => 
   array (
@@ -548,6 +562,7 @@ $GPOSLookups=array (
       0 => 5562,
       1 => 7898,
     ),
+    'MarkFilteringSet' => '',
   ),
   7 => 
   array (
@@ -558,6 +573,7 @@ $GPOSLookups=array (
     array (
       0 => 14570,
     ),
+    'MarkFilteringSet' => '',
   ),
   8 => 
   array (
@@ -568,6 +584,7 @@ $GPOSLookups=array (
     array (
       0 => 14618,
     ),
+    'MarkFilteringSet' => '',
   ),
   9 => 
   array (
@@ -578,6 +595,7 @@ $GPOSLookups=array (
     array (
       0 => 15242,
     ),
+    'MarkFilteringSet' => '',
   ),
 );
 ?>

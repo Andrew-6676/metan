@@ -172,8 +172,8 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 	                $documentdata->date_insert  = date('Y-m-d');
 	                $documentdata->date_edit    = date('Y-m-d');
 	                $documentdata->id_goods     = $id;
-	                $documentdata->cost         = 0;
-	                $documentdata->markup       = 0;
+	                $documentdata->cost         = $row['cost'];
+	                $documentdata->markup       = $row['markup'];
 	                $documentdata->vat          = $row['vat'];
 	                $documentdata->quantity     = $row['quantity'];
 	                $documentdata->packages     = 0;

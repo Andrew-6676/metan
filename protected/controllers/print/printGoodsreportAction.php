@@ -66,13 +66,15 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['including'][3] = 0;
 		$s = 0;
 		$d='';
+
+			// формируем массив документов
 		foreach ($res as $row_d) {
-			// если вдруг документ пустой
+				// если вдруг документ пустой
 			if (count($row_d->documentdata)) {
 				if ($row_d->operation->operation < 0) {
 					$json['expence']['including'][$row_d->for] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 				}
-				// расход за день отдельно
+					// расход за день отдельно
 				if ($row_d->doc_num == 0) {
 					if ($d == '') {$d = $row_d->doc_date;}
 					if ($d != $row_d->doc_date) {
@@ -108,13 +110,13 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 							$json['expence']['day']['data'][$row_d->doc_date] = array_merge($json['expence']['day']['data'][$row_d->doc_date], array(
 								'date' => $row_d->doc_date,
 								'sum' => $s,
-								'kassa' => Kassa::getRest($row_d->doc_date),
+								'kassa' => Kassa::getRest($row_d->doc_date, $_GET['id_store']),
 							));
 						} else {
 							$json['expence']['day']['data'][$row_d->doc_date] = array(
 								'date' => $row_d->doc_date,
 								'sum' => $s,
-								'kassa' => Kassa::getRest($row_d->doc_date),
+								'kassa' => Kassa::getRest($row_d->doc_date,  $_GET['id_store']),
 							);
 						}
 						$json['expence']['day']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
@@ -134,13 +136,13 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 								'return' => $row_d->sum_price,
 								'date' => $row_d->doc_date,
 								'sum' => 0,
-								'kassa' => Kassa::getRest($row_d->doc_date),
+								'kassa' => Kassa::getRest($row_d->doc_date,  $_GET['id_store']),
 							);
 //						} else {
 
 //						}
 					}
-					// шапка документа
+						// шапка документа
 					$json[$row_d->doctype->name][$row_d->operation->name][]['head'] = array(
 						'date' => $row_d->doc_date,
 						'num' => $row_d->doc_num,

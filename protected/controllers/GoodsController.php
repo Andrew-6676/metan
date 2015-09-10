@@ -19,6 +19,13 @@ class GoodsController extends Controller
 //		);
 //	}
 
+	public function actions()
+	{
+		return array(
+			'selection' => 'application.controllers.goods.selectionAction',
+		);
+	}
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -113,7 +120,13 @@ class GoodsController extends Controller
 			$model->attributes=$_POST['Goods'];
 			if($model->save())
 //				$this->redirect(array('view','id'=>$model->id));
-				$this->redirect(array('store/receipt'));
+//				$this->redirect(array('store/receipt'));
+				$this->redirect(
+					array(
+						Yii::app()->session['history'][1]
+					)
+				);
+
 		}
 
 		$this->render('update',array(
@@ -154,6 +167,7 @@ class GoodsController extends Controller
 	 */
 	public function actionAdmin()
 	{
+//			Utils::print_r($_GET);
 		$model=new Goods('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Goods']))
@@ -161,6 +175,26 @@ class GoodsController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionWithout_gr()
+	{
+//			Utils::print_r($_GET);
+		$sort = new CSort;
+		$sort->defaultOrder = 'name ASC';
+		$sort->attributes = array('name', 'id', 'id_3torg');
+
+		$data = new CActiveDataProvider('Goods', array(
+			'criteria'=>array(
+				'condition'=>'id_3torg=\'\' or id_3torg=\'0\'',
+			),
+			'pagination'=>false,
+			'sort' => $sort
+		));
+
+		$this->render('without_gr',array(
+			'data'=>$data
 		));
 	}
 

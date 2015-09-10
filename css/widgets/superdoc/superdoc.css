@@ -1,4 +1,5 @@
-.write_off_doc_button, .edit_doc_button, .del_doc_button,  .print_doc_button {
+/*.write_off_doc_button, .edit_doc_button, .del_doc_button,  .print_doc_button {*/
+.buttons button {
 	cursor:pointer;
 	width: 25px;
 	height: 25px;
@@ -18,7 +19,10 @@
 	background:url(../../../images/print.png) no-repeat;
 	margin-right: 5px;
 }
-
+.cennic_doc_button {
+	background:url(../../../images/cennik_25x50.png) no-repeat;
+	margin-right: 8px;
+}
 .buttons button:hover {
 	background-position: 100% 0%;
 }

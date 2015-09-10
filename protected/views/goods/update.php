@@ -4,7 +4,7 @@
 
 //$this->addJS('goods/main.js');
 $this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
-$this->addCSS('spr/main.css');
+$this->addCSS('forms.css');
 
 
 $this->breadcrumbs=array(
@@ -21,20 +21,22 @@ $this->menu=array(
 );
 ?>
 
-<h2>Редактирование <span><?php echo '"'.$model->name.'"'; ?></span></h1>
+<div class="goods_wr">
+	<h2>Редактирование <span><?php echo '"'.$model->name.'"'; ?></span></h1>
 
-<?php
-//		// список единиц измерения
-//	$units = Unit::model()->findAll(array('order'=>'name'));
-//		// группы 3-торг
-//	$groups = Torg3::model()->findAll(array('order'=>'name'));
+	<?php
+	//		// список единиц измерения
+	//	$units = Unit::model()->findAll(array('order'=>'name'));
+	//		// группы 3-торг
+	//	$groups = Torg3::model()->findAll(array('order'=>'name'));
 
-?>
+	?>
 
-<?php $this->renderPartial('_form', array(
-	'model'=>$model,
-	'units'=>$units,
-	'groups'=>$groups,
-	'suppliers'=>$suppliers
-)); ?>
+	<?php $this->renderPartial('_form', array(
+		'model'=>$model,
+		'units'=>$units,
+		'groups'=>$groups,
+		'suppliers'=>$suppliers
+	)); ?>
 
+</div>

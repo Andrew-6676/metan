@@ -18,10 +18,10 @@ class PrintController extends Controller {
 			// вызываем нужный Action и передаём ему параметры
 		switch ($format) {
 			case 'pdf':
-				echo $printer->printFromURL('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://localhost/metan_0.1/css/print/rest.css');
+				echo $printer->printFromURL('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/css/print/rest.css');
 				break;
 			case 'html':
-				$this->redirect('http://localhost/metan_0.1/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
+				$this->redirect('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
 				break;
 			default:
 				echo "Указан неверный формат";
@@ -49,6 +49,7 @@ class PrintController extends Controller {
 		return array(
 			'printRest' => 'application.controllers.print.printRestAction',
 			'printReceipt' => 'application.controllers.print.printReceiptAction',
+			'printPricelabel' => 'application.controllers.print.printPricelabelAction',
 			'printInvoice' => 'application.controllers.print.printInvoiceAction',
 			'printExpenceday' => 'application.controllers.print.printExpencedayAction',
 			'printDeliverynote' => 'application.controllers.print.printDeliverynoteAction',

@@ -1,0 +1,72 @@
+span.required {
+	color: #f00
+}
+label {
+	display: inline-block;
+	width: 200px;
+}
+.row {
+	padding: 5px;
+}
+
+
+
+.note {
+	display: none;
+}
+
+
+form#goods-form {
+	width: 855px;
+	margin: auto;
+}
+form#store_form {
+	width: 855px;
+	margin: auto;
+}
+/*----------------------------------------------------------------------------------------------------------------*/
+
+form input, form select{
+	/*padding: 3px 5px;*/
+
+	border: 1px solid #aaa;
+	box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+	border-radius: 2px;
+
+	/*height: 20px;*/
+	width: 620px;
+	padding: 5px 8px;
+}
+form select{
+	width: 636px;
+}
+form input:focus {
+	/* background: #fff url(images/valid.png) no-repeat 98% center; */
+	box-shadow: 0 0 5px #5cd053;
+	border-color: #28921f;
+	background: #fff;
+	border: 1px solid #555;
+}
+
+form [type=submit] {
+	font-size: 20px;
+	padding: 7px;
+	width: 150px;
+}
+
+form .error {
+	border-color: #f00;
+}
+form .errorMessage {
+	padding-left: 204px;
+}
+
+form .errorSummary {
+	display: none;
+}
+
+form .row.buttons {
+	border-top: 2px solid #bcbcbc;
+	margin-top: 30px;
+	text-align: right;
+}

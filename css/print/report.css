@@ -4,6 +4,12 @@ table {
 	width: 100%;
 	font-size: 10px;
 }
+tr td:first-child {
+	width: 50px;
+}
+tr td:last-child {
+	width: 100px;
+}
 th {
 	white-space: normal;
 }
@@ -11,7 +17,7 @@ td {
 	white-space: nowrap;
 }
 .report_title {
-    font-size: 1.3em;
+    font-size: 18px;
     text-align: center;
 	margin: 10px;
 }
@@ -51,7 +57,7 @@ col.r {
 .sub_title {
 	margin-top: 20px;
 	margin-bottom: 7px;
-	font-size: 1.2em;
+	font-size: 14px;
 	text-align: center;
 }
 
@@ -72,6 +78,7 @@ body {
 .page {
 	margin: auto;
 	background-color: #fff;
+	page-break-after: always;
 }
 .page.l {
 	width: 290mm;

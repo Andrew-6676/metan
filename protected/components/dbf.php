@@ -35,7 +35,7 @@ class dbf
 //			echo '/'.$this->recNo.'/' ;
 
 				// считываем запись
-			$rec = dbase_get_record_with_names($this->table,$this->recNo);
+			$rec = dbase_get_record_with_names($this->table, $this->recNo);
 				// если она помечена на удаление - считываем следующую запись
 			if ($rec['deleted']) {
 				return $this->readRec();
@@ -94,18 +94,23 @@ class dbf
 	}
 /*-----------------------------------------------------------------------------------*/
 	public function setFilter($filter) {
-		preg_match_all('/\[(\w+)\]=(\w+)/', $filter, $matches);
-		$filter_a = array_combine($matches[1], $matches[2]);
+//		preg_match_all('/\[(\w+)\]=(\w+)/', $filter, $matches);
+		preg_match_all('/\[(\w+)\]([<=>like ]+)(\w+)/', $filter, $matches);
+//		$filter_a[] = array('f'=>$matches[1][0], 'r'=>$matches[2][0], 'p'=>$matches[3][0]);
+		$filter_a[0] = array_combine($matches[1], $matches[3]);
+		$filter_a[1] = array_combine($matches[1], $matches[2]);
 		$this->filter = $filter_a;
 		print_r($this->filter);
+//		print_r($matches);
 	}
 /*-----------------------------------------------------------------------------------*/
-	public function apply_filter($row) {
+	public function apply_filter_old($row) {
+//		return false;
 		if (!$this->filter) { return true;}
 
 		$accept = true;
 		// цикл по строкам фильтра
-		foreach ($this->filter as $f => $v) {
+		foreach ($this->filter[0] as $f => $v) {
 			// сравниваем поля с фильтром поочерёдно
 			// $f - имя поля
 			// $v - значение фильтра
@@ -116,6 +121,42 @@ class dbf
 			} else {
 				$accept = false;
 			//	echo " ---> false";
+			}
+		}
+
+		return $accept;
+	}
+	/*-----------------------------------------------------------------------------------*/
+/*  [KO]=00;[DATA]=20150801
+	[DATA] like 201508;[KP]==1410
+*/
+	public function apply_filter($row) {
+//		return false;
+		if (!$this->filter) { return true;}
+
+		$accept = true;
+		// цикл по строкам фильтра
+		foreach ($this->filter[0] as $f => $v) {
+			// сравниваем поля с фильтром поочерёдно
+			// filter[0][$f=>$v] - имя поля и значение фильтра
+			// filter[1][$f] - операция сравнения
+			//echo "<br>$f:  <u>$row[$f]</u>  -  $v ";
+			if ($this->filter[1][$f]==' like ') {
+//				substr_count
+				$val = '$bool=strpos("'.$row[$f].'","'.$v.'");';
+			} else {
+				$val = '$bool=(' . $row[$f] . $this->filter[1][$f] . $v . ');';
+			}
+//			echo $val;
+			eval($val);
+//			var_dump($bool);
+			if ($bool!==false) {
+				$accept = true;
+//					echo " ---> true ";
+			} else {
+//				$accept = false;
+				return false;
+//					echo " ---> false";
 			}
 		}
 

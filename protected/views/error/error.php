@@ -1,5 +1,12 @@
 <?php
 	/* ErrorController->ErrorAction->Error_view*/
+if ($error['code']==404) {
+	echo CHtml::image(Yii::app()->params['rootFolder'].'/images/404.png','404',
+		array(
+					//'width'=>$width,
+					'class'=>'center'
+		));
+} else {
 ?>
 <div class="errcaption">
 	Ошибка <span class="errnum"><?php echo $error['code'] ?></span>
@@ -7,11 +14,14 @@
 
 <div class="errmess">
 	<?php
-		$mess = preg_replace('/<user>/i', Yii::app()->user->name, $this->mess[$error['code']]);
-		echo $mess;
+			$mess = preg_replace('/<user>/i', Yii::app()->user->name, $this->mess[$error['code']]);
+			echo $mess;
 	?>
 </div>
 
+<?php
+	};
+?>
 
 <details class="detail">
 	<summary>Детали ошибки</summary>

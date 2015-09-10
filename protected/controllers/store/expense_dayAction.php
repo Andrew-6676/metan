@@ -95,9 +95,9 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('doc_num2 = 0');
 
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
-		$day_sum = 0;
+		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
 		foreach ($q_model as $document) {
-			$day_sum += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
+			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
 		}
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',

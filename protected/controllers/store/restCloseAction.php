@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * @TODO остаток по кассе тоже перенести
+ * */
 class restCloseAction extends CAction   /*---- StoreController ----*/
 {
 	public function run(){

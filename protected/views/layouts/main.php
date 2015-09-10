@@ -71,8 +71,8 @@ echo '<span class="store_name">(' . Store::model()->findByPk(Yii::app()->session
 <?php }
 echo '<!--';
 //echo CHtml::encode(Yii::app()->name);
-//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
-//echo '<br>basePath = <b>'.$this->basePath.'</b>; ';
+echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
+echo '<br>basePath = <b>'.$this->basePath.'</b>; ';
 if (Yii::app()->user->isGuest) {
 	//echo "isGuest = <b>Yes</b><br>";
 } else {
@@ -190,7 +190,18 @@ if (Yii::app()->user->isGuest) {
 
 	?>
 </div>
+	<?php
+			// миниистория посещений в сесии, для возврата на прошлую страницу
+		if (!isset( Yii::app()->session['history'])) {
+			Yii::app()->session['history'] = array(0=>'-', 1=>'-', 2=>'-');
+		}
 
+		$_SESSION['history'][2] = $_SESSION['history'][1];
+		$_SESSION['history'][1] = $_SESSION['history'][0];
+		$_SESSION['history'][0] = /*Yii::app()->request->getBaseUrl().'/'.*/$this->uniqueId.'/'.$this->action->id;;
+
+//		Utils::print_r(Yii::app()->session['history']);
+	?>
 
 <a id="to_bottom" href='#footer'>
 	<div>

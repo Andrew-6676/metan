@@ -90,7 +90,9 @@
 					<th><div class="th t1">Код товара</div></th>
 					<th><div class="th t2">Наименование товара</div></th>
 					<th><div class="th t3">Количество</div></th>
-					<th><div class="th t4">НДС, %</div></th>
+					<th><div class="th t4">Cost</div></th>
+					<th class="hidden"><div class="th t4">Markup</div></th>
+					<th class="hidden"><div class="th t4">НДС, %</div></th>
 					<th><div class="th t5">Цена</div></th>
 					<th><div class="th t6">Сумма</div></th>
 					<th></th>
@@ -106,6 +108,12 @@
 					</td>
 					<td>
 						<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
+					</td>
+					<td class="hidden">
+						<input type="number" name="cost" class="cost" placeholder="Cost" required pattern="[0-9]">
+					</td>
+					<td class="hidden">
+						<input type="number" name="markup" class="markup" placeholder="Markup" required pattern="[0-9]">
 					</td>
 					<td>
 						<input type="number" name="vat" class="vat" placeholder="НДС, %" required pattern="[0-9]">
@@ -179,18 +187,20 @@
 		'limit'=>20,
 		//'mode'=>'one_to_many',
 		'head'=>array(
-			'doc_num'=>'Документ №',
-			'doc_date'=>'Дата',
+			'doc_num'     =>'Документ №',
+			'doc_date'    =>'Дата',
 			'contact.name'=>'Потребитель',
-			'sum_price'=>'Сумма',
+			'sum_price'   =>'Сумма',
 		),
 		'group' => 'doc_date', //array('month'=>'doc_date'),
 		'columns'=> array(
-			'id_goods'=>'Код',
+			'id_goods'  =>'Код',
 			'goods.name'=>'Наименование товара',
-			'quantity'=>'Количество',
-			'vat'=>'НДС',
-			'price'=>'Розничная цена',
+			'quantity'  =>'Количество',
+			'cost'      =>'Покупная цена',
+			'markup'    =>'Наценка',
+			'vat'       =>'НДС',
+			'price'     =>'Розничная цена',
 			'=quantity*price'=>'Сумма розница'
 		),
 		'buttons'=>array('write_off','print','del','edit'),

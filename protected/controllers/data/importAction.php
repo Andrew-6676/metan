@@ -311,7 +311,7 @@ class importAction extends CAction   /*DataController*/
 					$i = 0;
 					// зедсь можно применить фильтр из $table['filter'] и пропустить обработку строки из DBF
 					if (trim($table['filter']) != '') {
-						echo '<br><b><i>'.$table['filter'].'</i></b><br>';
+						echo '<br><b>Filter=<i>'.$table['filter'].'</i></b><br>';
 						$dbf->setFilter($table['filter']);
 					}
 						// цикл по записям импортируемой таблицы

@@ -8,6 +8,9 @@ nav {
 #m_6 {
 	display: none !important;
 }
+.back_menu, .back_menu2, #main_menu {
+	background: #616161;
+}
 
 #main_menu {
 	/*border-top: 2px solid #4590FF;*/
@@ -15,7 +18,7 @@ nav {
 	/*border-right: 2px solid #2828FB;*/
 	/*border-bottom: 2px solid #2828FB;*/
 	/*background: white url(bg.gif) repeat-x left top;*/
-	background: #FFFFF5;
+
 	z-index: 3;
 	position: relative;
 	margin-top: 1px;
@@ -37,7 +40,7 @@ nav {
 	vertical-align: middle;
 	/*border-left: 1px solid #bcbcbc;*/
 	/*border-right: 1px solid #bcbcbc;*/
-	background: url(../images/vline.png) no-repeat 100% 0%;
+	/*background: url(../images/vline.png) no-repeat 100% 0%;*/
 }
 
 #main_menu > ul > li:last-child > a {
@@ -46,19 +49,20 @@ nav {
 
 #main_menu > ul > li:last-child {
 	float: right;
-	background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;
+	/*background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;*/
 	/*margin: 0;*/
 }
 
 #main_menu > ul > li:nth-child(2) {
-	background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;
+	/*background: url(../images/vline.png) no-repeat 0% 0%, url(../images/vline.png) no-repeat 100% 0%;*/
 }
 #main_menu > ul > li > a {
 	height: 31px;
 	display: block;
 	/*border-radius: 3px;*/
 	font-family: "Liberation Serif", serif;
-	color: #000;
+	/*color: #000;*/
+	color: #fff;
 	background-color: transparent;
 	font-size: 16px;
 	font-weight: bold;
@@ -78,13 +82,13 @@ nav {
 	border-bottom: 2px solid white;*/
 }
 #main_menu > ul > li.active > a {
-	background: #747474;
-	color: #fff;
+	/*background: #747474;*/
+	/*color: #fff;*/
 }
 #main_menu > ul > li > a:hover, #main_menu > ul > li:hover > a {
-	color: #fff;
+	color: #000;
 	/*box-shadow: 0 3px 10px 3px gray;*/
-	background-color: #585858;
+	background-color: #fff;
 }
 
 .exitname {
@@ -92,11 +96,11 @@ nav {
 }
 
 #main_menu > ul > li:last-child > a:hover {
-	color: rgb(255, 178, 168);
+	/*color: rgb(255, 178, 168);*/
 }
 
 #main_menu > ul > li:last-child > a:hover > .exitname {
-	color: #fff;
+	/*color: #fff;*/
 }
 
 /*img {
@@ -177,5 +181,5 @@ nav {
 
 .sub_menu > li:hover a {
 	color: #000;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }

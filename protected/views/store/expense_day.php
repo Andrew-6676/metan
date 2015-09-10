@@ -110,7 +110,32 @@
 
 <!-- ----------------------------------------------------------------------- -->
 <div class="day_sum">
-	Итого за день: <?php echo number_format($day_sum,'0','.','`'); ?>
+	<table>
+		<tr>
+			<td>
+				Общий товарооборот:
+			</td>
+			<td>
+				<?php echo number_format($day_sum[1],'0','.','`'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Розничный товарооборот:
+			</td>
+			<td>
+				<?php echo number_format($day_sum[2],'0','.','`'); ?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Собственные нужды:
+			</td>
+			<td>
+				<?php echo number_format($day_sum[3],'0','.','`'); ?>
+			</td>
+		</tr>
+	</table>
 </div>
 <table class="doc_data">
     <caption></caption>

@@ -99,9 +99,10 @@ class Kassa extends CActiveRecord
 	}
 
 	/*----------------------------------------------*/
-	public static function getRest($date){
+	public static function getRest($date, $store){
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("kassa_date='".$date."'");
+		$criteria->addCondition("id_store=".$store);
 
 		$r = Kassa::model()->find($criteria);
 		if ($r) {

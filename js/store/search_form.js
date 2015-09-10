@@ -31,7 +31,14 @@ function paste_result(row_id, fields) {
 		row = $('#'+row_id);
 		row.find('.id_goods').val(fields.id);
 		row.find('.goods_name').val(fields.name+'  ('+fields.rest+' шт.)');
+
+		console.log(fields.cost);
+		row.find('.price').attr('cost',fields.cost);
+		row.find('.price').attr('markup',fields.markup);
+		row.find('.price').attr('vat',fields.vat);
+
 		row.find('.price').val(fields.price);
+
 		row.find('.goods_name').focus();
 	}
 	sForm.closeForm();
@@ -239,6 +246,9 @@ function searchForm () {
 			            		value: item.name /*+ '    ('+item.rest+' шт)'*/,	// это поле вставится в <input>
 			            		label: '['+item.id+'] '+item.name + '    ('+item.rest+' шт по '+item.price+'р.)',		// это поле отобразится в выпадающем списке
 			            		price: item.price,
+					            cost: item.cost,
+					            markup: item.markup,
+					            vat: item.vat,
 			            		rest: item.rest
 			              	})
 			              //	alert(arr[arr.length]);
@@ -260,6 +270,9 @@ function searchForm () {
 					{
 						'id': $(this).attr('key'),
 						'name': sForm.arr[$(this).attr('key')].value,
+						'cost': sForm.arr[$(this).attr('key')].cost,
+						'markup':sForm.arr[$(this).attr('key')].markup,
+						'vat': sForm.arr[$(this).attr('key')].vat,
 						'price': sForm.arr[$(this).attr('key')].price,
 						'rest': sForm.arr[$(this).attr('key')].rest
 					}

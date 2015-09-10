@@ -15,9 +15,23 @@
  * @property Document[] $documents
  * @property Remains[] $remains
  * @property Rest[] $rests
+ *
  */
 class Store extends CActiveRecord
 {
+	public $fio;
+	public $phone;
+	public $account;
+	public $mfo;
+	public $bank;
+	public $fio_mpu;
+	public $unn;
+	public $okpo;
+	public $lic;
+	public $dov;
+	public $address;
+
+//	public $tmp;
     /**
      * @return string the associated database table name
      */
@@ -34,7 +48,7 @@ class Store extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name', 'required'),
+            array('name, fname, address, account', 'required'),
             array('name, fname', 'length', 'max'=>50),
             array('address', 'length', 'max'=>100),
             // The following rule is used by search().
@@ -66,9 +80,20 @@ class Store extends CActiveRecord
     {
         return array(
             'id' => 'ID',
-            'name' => 'Наименование',
+            'name' => 'Название',
             'fname' => 'Полное наименование',
-            'address' => 'Адрес',
+
+	        'fio'       =>'ФИО',
+	        'phone'     =>'Телефон',
+	        'account'   =>'Рассчётный счёт',
+	        'mfo'       =>'МФО',
+	        'bank'      =>'Банк',
+	        'fio_mpu'   =>'ФИО2',
+	        'unn'       =>'УНН',
+	        'okpo'      =>'ОКПО',
+	        'lic'       =>'Лицензия',
+	        'dov'       =>'Доверенность',
+	        'address'   =>'Адрес'
         );
     }
 
@@ -110,4 +135,58 @@ class Store extends CActiveRecord
     {
         return parent::model($className);
     }
+	protected function afterFind()
+	{
+		parent::afterFind();
+
+		$tmp = Storepassport::model()->find('id_store='.$this->id);
+//		$this->attributes = $tmp->attributes;
+		if ($tmp) {
+			$this->fio = $tmp->fio;
+			$this->phone = $tmp->phone;
+			$this->account = $tmp->account;
+			$this->mfo = $tmp->mfo;
+			$this->bank = $tmp->bank;
+			$this->fio_mpu = $tmp->fio_mpu;
+			$this->unn = $tmp->unn;
+			$this->okpo = $tmp->okpo;
+			$this->lic = $tmp->lic;
+			$this->dov = $tmp->dov;
+			$this->address = $tmp->address;
+		}
+	}
+	/*--------------------------------------------------------------------------------------*/
+	protected function afterSave()
+	{
+		parent::afterSave();
+		//             // если добавлена новая
+		if ($this->isNewRecord) {
+//			// сохранение дополнительных данных
+//			if ($this->payment_order) {
+//				$da = new Docaddition();
+//				$da->id_doc = $this->id;
+//				$da->payment_order = $this->payment_order;
+//				$da->save();
+//			}
+		} else {
+			$tmp = Storepassport::model()->find('id_store='.$this->id);
+
+			$tmp->fio       = $this->fio;
+			$tmp->phone     = $this->phone;
+			$tmp->account   = $this->account;
+			$tmp->mfo       = $this->mfo;
+			$tmp->bank      = $this->bank;
+			$tmp->fio_mpu   = $this->fio_mpu;
+			$tmp->unn       = $this->unn;
+			$tmp->okpo      = $this->okpo;
+			$tmp->lic       = $this->lic;
+			$tmp->dov       = $this->dov;
+			$tmp->address   = $this->address;
+
+			if ($tmp->save()) {
+//				echo 'sssave';
+				return true;
+			}
+		}
+	}
 }

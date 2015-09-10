@@ -1,0 +1,66 @@
+.p {
+	/*width: 200mm;*/
+}
+.cennik div {
+	font-family: "Liberation Serif";
+	/*border: 1px solid blue;*/
+}
+.cennik {
+	position: relative;
+	display: inline-block;
+	width: 371px;
+	/*width: 45%;*/
+	height: 342px;
+
+	float: left;
+	background: url("../../images/cennik.png") no-repeat;
+}
+.mag {
+	padding-top: 10px;
+	padding-left: 100px;
+	font-size: 19px;
+	text-align: center;
+}
+/*.line {*/
+	/*border-bottom: 1px solid #000;*/
+	/*padding-left: 150px;*/
+/*}*/
+.id_goods {
+	text-align: center;
+	padding-left: 100px;
+	height: 20px;
+	font-size: 10px;
+}
+.ttn {
+	padding-left: 100px;
+	text-align: center;
+	font-size: 14px;
+	height: 40px;
+}
+.name {
+	color: red;
+	font-size: 27px;
+	text-align: center;
+	display: table-cell;
+	height: 116px;
+	vertical-align: middle;
+	font-weight: bold;
+	padding: 0 10px;
+	width: 352px;
+}
+.price span {
+	font-size: 0.5em;
+}
+.price {
+	text-align: right;
+	position: absolute;
+	bottom: 21px;
+	right: 0px;
+	/* width: 100%; */
+	padding: 20px;
+	font-size: 52px;
+	/* float: right; */
+	color: #00f;
+	width: 290px;
+	text-align: center;
+}

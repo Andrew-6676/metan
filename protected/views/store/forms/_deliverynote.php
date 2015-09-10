@@ -7,7 +7,7 @@
  */
 
 //echo 'deliverynote form';
-$ttnForm = new f_ttnForm;
+$ttnForm = new form_ttn;
 $form = $this->beginWidget('CActiveForm', array(
 	'id' => 'quick-form',
 	'enableClientValidation' => true,
@@ -55,7 +55,7 @@ textField($form, $ttnForm, 'driver');
 ////	'options'=>array(
 ////		'showAnim'=>'fold',
 ////	),
-));
+//));
 
 
 echo '</div>';

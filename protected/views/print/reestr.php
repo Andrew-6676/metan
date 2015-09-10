@@ -1,5 +1,6 @@
 <?php
 	$this->addCSS('print/report.css');
+	$this->addCSS('print/cennik.css');
     $rec_doc = $data['doc'];
     $rec_doc_data = $data['details'];
      // print_r($data);
@@ -281,8 +282,6 @@
 			</div>
 		</div>
 	</div>
-
-
 <?php
 
 

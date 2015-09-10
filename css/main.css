@@ -189,7 +189,7 @@ body {
 }
 .back_menu, .back_menu2 {
 	height: 32px;
-	background-color: #FFFFF5;
+	/*background-color: #FFFFF5;*/
 	top: 90px;
 	border-bottom: 1px solid #D7D7D0;
 }
@@ -406,4 +406,35 @@ body {
 	border-right: 1px inset #E7E7E7;
 	border-left: 1px inset #CDCDCD;
 	border-top: 1px inset #CDCDCD;
+}
+
+/*-----------------------------------------------*/
+.r {
+	text-align: right;
+}
+.l {
+	text-align: right;
+}
+[type=submit], button {
+	cursor: pointer;
+}
+/*----------------------------*/
+
+h2 {
+	text-align: center;
+	padding: 4px;
+	margin-bottom: 30px;
+	background-color: #bebebe;
+}
+
+td {
+	cursor: default;
+}
+tr.sel {
+	background-color: #F04E4E !important;
+	color: #fff;
+}
+
+td.minus {
+	color: red;
 }

@@ -72,13 +72,20 @@ $this->addCSS('print/report.css');
 								Код ОКПО: <?php echo $data['rec_doc']->contact->okpo; ?>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								На основании договора <?php echo $data['rec_doc']->contact->agreement; ?>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>
 			<div>
+			<div style="font-size: 12px;">
 				ОПЛАТА В ТЕЧЕНИЕ 10 БАНКОВСКИХ ДНЕЙ
 				<br>
 				Счёт-фактура является протоколом согласования цен
+			</div>
 			</div>
 			<div class="report_title">
 				СЧЁТ-ФАКТУРА № <?php echo $data['rec_doc']->doc_num; ?>
@@ -138,16 +145,17 @@ $this->addCSS('print/report.css');
 				$tr .= number_format($row->markup, '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
-				$tr .= number_format($row->cost * (1 + $row->markup), '0', '.', ' ');
+				$tr .= number_format($row->cost * (1 + $row->markup/100), '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
 				$tr .= number_format($row->quantity * $row->cost * (1 + $row->markup / 100), '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
-				$tr .= number_format($row->vat, '0', '.', ' ');
+				$tr .= number_format($row->vat, '2', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
-				$tr .= number_format($row->vat / 100 * $row->quantity * $row->cost * (1 + $row->markup / 100), '0', '.', ' ');
+//				$tr .= number_format($row->vat / 100 * $row->quantity * $row->cost * (1 + $row->markup / 100), '0', '.', ' ');
+				$tr .= number_format($row->vat / 100 * $row->quantity * $row->price, '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
 				$tr .= number_format($row->price, '0', '.', ' ');
@@ -175,12 +183,12 @@ $this->addCSS('print/report.css');
 
 			$tr .= '</td>';
 			$tr .= '<td class="no_border r">';
-			$tr .= $data['rec_doc']->sum_vat;
+			$tr .=      number_format($data['rec_doc']->sum_vat, '0', '.', ' ');
 			$tr .= '</td>';
 			$tr .= '<td class="no_border">';
 			$tr .= '</td>';
 			$tr .= '<td class="no_border r">';
-			$tr .= number_format($data['rec_doc']->sum_price, '0', '.', ' ');
+			$tr .=      number_format($data['rec_doc']->sum_price, '0', '.', ' ');
 			$tr .= '</td>';
 			$tr .= '<td class="no_border">';
 			$tr .= '</td>';
@@ -212,7 +220,20 @@ $this->addCSS('print/report.css');
 			<br>
 			<br>
 			<br>
-			<span style="padding-left: 150px">М.П.</span>
+			<br>
+			<br>
+			<br>
+
+			<table width="100%" class="no_border">
+				<tr>
+					<td width="50%">
+						<span style="padding-left: 150px">М.П. продавца</span>
+					</td>
+					<td>
+						<span style="padding-left: 150px">М.П. покупателя</span>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>

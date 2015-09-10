@@ -115,6 +115,9 @@ $(document).ready(function () {
 								value: item.id,
 								label: '[' + item.id + '] ' + item.name + '  (' + item.rest + ' шт по ' + item.price + 'р.)',
 								name: item.name,
+								cost:   item.cost,
+								markup: item.markup,
+								vat:    item.vat,
 								price: item.price,
 								rest: item.rest
 							}
@@ -130,6 +133,11 @@ $(document).ready(function () {
 			//alert($(this).parent('td').parent('tr').attr('id').substr(4));
 			var row = $(this).parent('td').parent('tr').attr('id').substr(4);
 			$('#row_' + row + ' .goods_name').val(ui.item.name + '   (' + ui.item.rest + ' шт)');
+
+			$('#row_'+row+' .price').attr('cost', ui.item.cost);
+			$('#row_'+row+' .price').attr('markup', ui.item.markup);
+			$('#row_'+row+' .price').attr('vat', ui.item.vat);
+
 			$('#row_' + row + ' .quantity').focus();
 			// вставить цену товара в <input>
 			//alert(ui.item.price*1);
@@ -155,6 +163,9 @@ $(document).ready(function () {
 								id: item.id,    // это поле для вставки в соседний <input> (код товара)
 								value: item.name + '    (' + item.rest + ' шт)',    // это поле вставится в <input>
 								label: '[' + item.id + '] ' + item.name + '    (' + item.rest + ' шт по ' + item.price + 'р.)',       // это поле отобразится в выпадающем списке
+								cost:   item.cost,
+								markup: item.markup,
+								vat:    item.vat,
 								price: item.price,
 								rest: item.rest
 							}
@@ -171,6 +182,11 @@ $(document).ready(function () {
 			var row = $(this).parent('td').parent('tr').attr('id').substr(4);
 			// вставить код товара в <input>
 			$('#row_' + row + ' .id_goods').val(ui.item.id);
+
+			$('#row_'+row+' .price').attr('cost', ui.item.cost);
+			$('#row_'+row+' .price').attr('markup', ui.item.markup);
+			$('#row_'+row+' .price').attr('vat', ui.item.vat);
+
 			// вставить цену товара в <input>
 			$('#row_' + row + ' .price').val(ui.item.price);
 			// поставить курсор в <input> количество

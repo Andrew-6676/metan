@@ -5,7 +5,7 @@
  * Date: 27.07.15
  * Time: 11:58
  */
-class f_ttnForm extends CFormModel
+class form_ttn extends CFormModel
 {
 	public $addr1;
 	public $otpusk;

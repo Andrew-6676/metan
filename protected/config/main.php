@@ -65,7 +65,7 @@ return array(
 		),
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>false,
+			'allowAutoLogin'=>true,
 				//если не авторизован + фильтр на action - перенаправит сюда
 			'loginUrl'=>array('site/login'),
 			//'returnUrl'=>array('site/index'),
@@ -109,7 +109,7 @@ return array(
 	),
 
 	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
+	// using Yii::app()->params['rootFolder']
 	'params'=>array(
 		// this is used in contact page
 		'rootFolder' => '/metan_0.1',

@@ -13,6 +13,7 @@ class StoreController extends Controller
         return array(
 //	        'getForm'   => 'application.controllers.store.getFormAction',
             'index'     => 'application.controllers.store.indexAction',
+	        'store'     => 'application.controllers.store.storeAction',
 	        'kassa'     => 'application.controllers.store.kassaAction',
             'receipt'   => 'application.controllers.store.receiptAction',
             'expense_day'=> 'application.controllers.store.expense_dayAction',
@@ -23,6 +24,7 @@ class StoreController extends Controller
 	        'goodsCart' => 'application.controllers.store.goodsCartAction',
             'restClose' => 'application.controllers.store.restCloseAction',
             'invoice'   => 'application.controllers.store.invoiceAction',
+	        'revaluation'=>'application.controllers.store.revaluationAction',
             'print'     => 'application.controllers.store.printAction',
 	        'prepareGoodsreport' => 'application.controllers.store.prepareGoodsreportAction',
 	        'prepareDeliverynote' => 'application.controllers.store.prepareDeliverynoteAction',

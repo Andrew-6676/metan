@@ -38,3 +38,9 @@
 .errdetail, .errvar{
 	margin-left: 50px;
 }
+.center {
+	margin: auto;
+	margin-top: 90px;
+	/*width: 604px;*/
+	display: block;
+}
