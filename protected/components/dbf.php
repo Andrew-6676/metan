@@ -148,8 +148,13 @@ class dbf
 				$val = '$bool=(' . $row[$f] . $this->filter[1][$f] . $v . ');';
 			}
 //			echo $val;
+
+//			exit;
+
 			eval($val);
 //			var_dump($bool);
+//			exit;
+
 			if ($bool!==false) {
 				$accept = true;
 //					echo " ---> true ";
