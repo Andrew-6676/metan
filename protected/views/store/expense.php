@@ -29,7 +29,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 							window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_ttn, '_blank');
 						}",
 			'ТТН'=>"js:function(){
-							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=html&type=ttn&id='+_id_ttn, '_blank');
+							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_ttn, '_blank');
 						}",
 			'Отмена'=>'js:function(){$("#mydialog2").dialog("close")}',),
 	),

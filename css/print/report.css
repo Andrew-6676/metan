@@ -67,7 +67,7 @@ col.r {
 
 @media print {
 	.more {
-		page-break-after: always;
+		/*page-break-after: always;*/
 	}
 }
 
@@ -78,7 +78,7 @@ body {
 .page {
 	margin: auto;
 	background-color: #fff;
-	page-break-after: always;
+	/*page-break-after: always;*/
 }
 .page.l {
 	width: 290mm;
