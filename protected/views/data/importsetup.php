@@ -20,7 +20,7 @@ $import = iImport::model()->with('imptabl.table.fields')->find($criteria);
 
 ?>
 
-asdfasdfasdf
+
 <?php
 //exit;
 foreach ($import->imptabl as $imp) {
