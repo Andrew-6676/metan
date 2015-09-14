@@ -135,6 +135,14 @@
 				<?php echo number_format($day_sum[3],'0','.','`'); ?>
 			</td>
 		</tr>
+        <tr style="font-weight: bold;">
+            <td>
+                ВСЕГО:
+            </td>
+            <td>
+                <?php echo number_format($day_sum[3]+$day_sum[2]+$day_sum[1],'0','.','`'); ?>
+            </td>
+        </tr>
 	</table>
 </div>
 <table class="doc_data">

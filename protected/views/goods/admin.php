@@ -1,4 +1,4 @@
-http://yiiframework.ru/doc/guide/ru/topics.gii
+<!--http://yiiframework.ru/doc/guide/ru/topics.gii-->
 <?php
 /* @var $this GoodsController */
 /* @var $model Goods */
