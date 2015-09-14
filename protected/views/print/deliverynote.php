@@ -334,7 +334,7 @@ $this->addCSS('print/delivery.css');
 				$tr .= 'ВСЕГО';
 				$tr .= '</td>';
 				$tr .= '<td class="no_border">';
-				$tr .= 'kol';
+				$tr .= '';
 				$tr .= '</td>';
 				$tr .= '<td class="no_border">';
 				$tr .= '</td>';
