@@ -11,6 +11,10 @@
 $op = '';
 $dt = '';
 $dn = '';
+if (!$data) {
+	echo 'Не было движения по данному товару';
+	return;
+}
 foreach ($data as $doc) {
 	if ($op != $doc->id_operation) {
 		$op = $doc->id_operation;
@@ -21,11 +25,11 @@ foreach ($data as $doc) {
 //		echo '<br>' . $doc->doctype->name;
 //	}
 	if ($dn != $doc->doc_num) {
-		$dn = $doc->doc_num;
-		echo '<br>' . $doc->doc_num.'   '.Utils::format_date($doc->doc_date).'<br>';
+		$dn = trim($doc->doc_num);
+		echo '<br>[' . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date).'<br>';
 	}
 	foreach ($doc->documentdata as $row) {
-		echo $row->quantity.'  '.$row->price.'<br>';
+		echo $row->quantity.' * '. number_format($row->price,'0','.','`').'<br>';
 	}
 }
 ?>

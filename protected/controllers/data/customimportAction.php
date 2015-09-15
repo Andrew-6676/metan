@@ -39,6 +39,9 @@ class customimportAction extends CAction   /*DataController*/
 					case '56':
 //						store_56($row);
 						break;
+					case '54':
+						store_54($row);
+						break;
 					case '52':
 						store_52($row);
 						break;
@@ -287,7 +290,7 @@ function add_goods($row) {
 /*------------------------------------------------------------------------*/
 	// безнал
 function store_52($row) {
-	echo "Безнал: {$row['NTTN']} от {$row['DATA']} -- $row['DATA']\n";
+	echo "Безнал: {$row['NTTN']} от {$row['DATA']} -- {$row['DATA']}\n";
 
 		// не хватает информации для импорта
 //	$doc = new Document();
@@ -349,6 +352,8 @@ function store_51($row) {
 /*------------------------------------------------------------------------*/
 	// кредит
 function store_54($row) {
+	$nttn = mb_convert_encoding($row['NTTN'], 'UTF-8', 'cp866');
+	echo "Кредит: {$row['KM']} - $nttn\n";
 
 }
 /*------------------------------------------------------------------------*/
@@ -421,3 +426,4 @@ function store_00($row) {
 
 	}
 }
+/*------------------------------------------------------------------------*/

@@ -50,7 +50,10 @@ $this->addJS('store/rest.js');
 			),
 			array(
 				'name'=>'name',
-				'header'=>'Наименование'
+				'header'=>'Наименование',
+				'type'=>'raw',
+				'value'=> 'CHtml::link($data[\'name\'], array(\'store/goodsCart/\'.$data[\'id\']));'
+				//store/goodsCart/42876052
 			),
 			array(
 				'name'=>'price',
