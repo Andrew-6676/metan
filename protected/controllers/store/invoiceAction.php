@@ -300,6 +300,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			$nakl->attributes   = Document::model()->findByPK($data['doc_id'])->attributes;
 			$nakl->id_doctype   = 2;
 			$nakl->id_operation = 52; // $data['id_operation']
+//			$nakl->id_contact   = $data['']
 			$nakl->doc_num      = $data['nakl_num'];
 			$nakl->doc_num2     = $data['nakl_num'];
 			$nakl->date_insert  = date('Y-m-d H:i:s');

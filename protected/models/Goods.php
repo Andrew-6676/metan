@@ -37,7 +37,8 @@ class Goods extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, id_3torg, producer', 'required'),
+//			array('name, id_3torg, producer', 'required'),
+			array('name', 'required'),
 			array('id_unit, id_supplier, id_goodsgroup', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>200),
 			array('producer', 'length', 'max'=>150),

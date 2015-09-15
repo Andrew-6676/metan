@@ -6,8 +6,10 @@ var anim = false;
 var ajax_count = 0;
 
 $(document).ready( function(){
-
-
+/*----------------------------------*/
+	$('table.canhide caption').click(function () {
+		$(this).parent().find('tbody').toggleClass('hidden');
+	});
 /*----------------------------------*/
     $("#to_top").hide();
         // если документ не больше окна браузера

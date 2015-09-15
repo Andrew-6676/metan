@@ -9,14 +9,27 @@ class Document extends CActiveRecord
 	// // public $id_editor;
 	// // public $date_insert;
 	// // public $date_edit;
-	// public $id_goods;
-	// public $cost;
-	// public $markup;
-	// public $vat;
-	// public $quantity;
+	public $withDocdata = false;
+//	public $docdata = array(
+//		'id_goods'=>'',
+//		'cost'=>'',
+//		'markup'=>'',
+//		'$vat'=>'',
+//		'quantity'=>'',
+//		// public $packages;
+//		// public $gross;
+//		'price'=>'',
+//	);
+
+	public $id_goods;
+	public $cost;
+	public $markup;
+	public $o_markup;
+	public $vat;
+	public $quantity;
 	// public $packages;
 	// public $gross;
-	// public $price;
+	public $price;
 	/*--------------------------------*/
 
 	/**
@@ -38,7 +51,7 @@ class Document extends CActiveRecord
 			array('id_owner, id_editor, id_storage', 'required'),
 			array('id_store, id_owner, id_editor, doc_num2, id_contact, id_storage, id_operation', 'numerical', 'integerOnly' => true),
 			array('active', 'boolean'),
-			array('doc_num', 'length', 'max' => 7),
+			array('doc_num', 'length', 'max' => 15),
 			array('reason', 'length', 'max' => 50),
 			array('date_insert, date_edit, doc_date', 'safe'),
 			// The following rule is used by search().
@@ -146,6 +159,29 @@ class Document extends CActiveRecord
 				$da->id_doc = $this->id;
 				$da->payment_order = $this->payment_order;
 				$da->save();
+			}
+
+			// сохраняем documentdata
+			if ($this->withDocdata) {
+				$doc_data = new Documentdata;
+				$doc_data->id_doc       = $this->id;
+				$doc_data->id_owner     = $this->id_owner;
+				$doc_data->id_editor    = $this->id_editor;
+//				$doc_data->date_insert  = $this->date_insert;
+//				$doc_data->date_edit    = $this->date_edit;
+				$doc_data->id_goods     = $this->id_goods;
+				$doc_data->cost         = $this->cost;
+				$doc_data->markup       = $this->markup;
+				$doc_data->o_markup     = $this->o_markup;
+				$doc_data->vat          = $this->vat;
+				$doc_data->quantity     = $this->quantity;
+//				$doc_data->packages     = $this->packages;
+//				$doc_data->gross        = $this->gross;
+				$doc_data->price        = $this->price;
+
+				if (!$doc_data->save()) {
+					throw new  CDbException(print_r($doc_data->getErrors(),true));
+				}
 			}
 		} else {
 		//             $doc_data = new Documentdata;

@@ -10,11 +10,7 @@ $this->addCSS('store/importsetup.css');
 //$tables = iTables::model()->with('fields')->findAll();
 
 //Utils::print_r($tables[0]);
-$criteria = new CDbCriteria;
-$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
-$criteria->order ='sort';
 
-$import = iImport::model()->with('imptabl.table.fields')->find($criteria);
 
 //Utils::print_r($import);
 
@@ -23,9 +19,12 @@ $import = iImport::model()->with('imptabl.table.fields')->find($criteria);
 
 <?php
 //exit;
-foreach ($import->imptabl as $imp) {
-
-		$t  = '<table><caption>'.$imp->table->name.' ('.$imp->table->table_src.' > '.$imp->table->table_dst.')</caption>';
+foreach ($data->imptabl as $imp) {
+		$disabled = '';
+		if (!$imp->table->enabled) {
+			$disabled = ' disabled';
+		}
+		$t  = '<table class="std canhide'.$disabled.'"><caption>'.$imp->table->name.' ('.$imp->table->table_src.' > '.$imp->table->table_dst.')</caption><tbody class="hidden">';
 	foreach ($imp->table->fields as $field) {
 //		Utils::print_r($t);
 //		echo '<hr>';
@@ -40,7 +39,7 @@ foreach ($import->imptabl as $imp) {
 			$t .= '</tr>';
 	}
 
-	$t .= '</table>';
+	$t .= '</tbody></table>';
 	echo $t;
 }
 

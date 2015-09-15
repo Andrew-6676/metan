@@ -82,6 +82,12 @@
 .parent td.r {
 	text-align: right;
 }
+.parent td.l {
+	text-align: left;
+}
+.parent td.c {
+	text-align: center;
+}
 .parent_group td{
 	background: #fff;
 	border: none;

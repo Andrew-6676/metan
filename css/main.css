@@ -1,3 +1,6 @@
+.hidden {
+	display: none;
+}
 #workdate button, #store_info button {
 	vertical-align: top;
 	display: none;
@@ -437,4 +440,26 @@ tr.sel {
 
 td.minus {
 	color: red;
+}
+
+table.std caption {
+	font-weight: bold;
+	border: 1px solid rgb(179, 213, 240);
+	/*background: #00f;*/
+	background: rgb(179, 213, 240);
+	padding: 3px ;
+}
+table.std {
+	border-collapse: collapse;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+table.std td {
+	border: 1px solid #bcbcbc;
+	padding: 2px 5px;
+}
+
+/*------------------------------------------------*/
+table.canhide caption {
+	cursor: pointer;
 }
