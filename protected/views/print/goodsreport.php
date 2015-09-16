@@ -269,7 +269,7 @@ $total = $rr+$rk;         // для накопления остатка
 					<th>Касса</th>
 					<th>Банк</th>
 					<th>Возврат</th>
-					<th></th>
+					<th>Расход</th>
 				</tr>
 				</thead>
 				<?php
@@ -285,8 +285,8 @@ $total = $rr+$rk;         // для накопления остатка
 					$tr .=  '<td class="r">';
 					$tr .=      number_format($doc['kassa'], '0', '.', ' ');
 					$tr .=  '</td>';
-					$tr .=  '<td>';
-					$tr .=      ($r + $doc['sum'] - @$doc['return']);
+					$tr .=  '<td class="r">';
+					$tr .=      number_format(($r + $doc['sum'] - @$doc['return']), '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
 					$tr .=      @number_format($doc['return'], '0', '.', ' ');

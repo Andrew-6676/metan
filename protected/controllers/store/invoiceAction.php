@@ -38,7 +38,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 //				exit;
 
 
-//				$chk = Goods::model()->checkRest($goods);
+//				$chk = Rest::model()->checkRest($goods);
 //				if ($chk['status']=='ok') {
 					$this->writeoffInvoice($_POST['writeoff_invoice']);
 //				} else {
@@ -272,7 +272,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			$goods[ $row['id']] = $row['quantity'];
 		}
 
-		$chk = Goods::model()->checkRest($goods);
+		$chk = Rest::model()->checkRest($goods);
 		if ($chk['status']!='ok') {
 //			echo json_encode($chk);
 //			exit;

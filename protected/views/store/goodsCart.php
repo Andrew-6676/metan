@@ -7,15 +7,30 @@
  */
 
 //Utils::print_r($data);
+$this->addCSS('store/goodasCart.css');
 
 $op = '';
 $dt = '';
 $dn = '';
-if (!$data) {
-	echo 'Не было движения по данному товару';
+
+
+?>
+<div class="caption">
+	<?php echo $data['goods']->name;  ?>
+</div>
+<!--<table class="motion">-->
+<!--	<tr class="capt">-->
+<!--		<td colspan="4"></td>-->
+<!--	</tr>-->
+<?php
+
+echo 'Остаток на начало месяца: '.$data['goods']->rest0;
+
+if (!$data['m']) {
+	echo '<br><br>По данному товару движения не было';
 	return;
 }
-foreach ($data as $doc) {
+foreach ($data['m'] as $doc) {
 	if ($op != $doc->id_operation) {
 		$op = $doc->id_operation;
 		echo '<br>' . $doc->operation->name;
@@ -26,7 +41,7 @@ foreach ($data as $doc) {
 //	}
 	if ($dn != $doc->doc_num) {
 		$dn = trim($doc->doc_num);
-		echo '<br>[' . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date).'<br>';
+		echo '<br>[' . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date).' - ';
 	}
 	foreach ($doc->documentdata as $row) {
 		echo $row->quantity.' * '. number_format($row->price,'0','.','`').'<br>';
@@ -34,3 +49,4 @@ foreach ($data as $doc) {
 }
 ?>
 
+<!--</table>-->

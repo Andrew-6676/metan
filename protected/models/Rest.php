@@ -124,7 +124,8 @@ class Rest extends CActiveRecord
 	public static function getRestList($f, $term, $date, $store, $type='arr'){
 		$connection = Yii::app()->db;
 
-		$sql_rest = "select gid as id, gname as name, cost, markup, vat, price, sum(quantity)::real as rest
+		//$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
+		$sql_rest = "select gid as id, gname as name, max(cost), max(markup), max(vat), price, sum(quantity)::real as rest
 					 from (
 							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
 							from vgm_goods g
@@ -138,7 +139,8 @@ class Rest extends CActiveRecord
 								inner join vgm_rest r on g.id=r.id_goods
 							where r.rest_date::text like '".substr($date,0,7)."-01' and id_store=".$store."
 						 ) as motion
-					group by gid, gname, cost, markup, vat, price
+					--group by gid, gname, cost, markup, vat, price
+					group by gid, gname, price
 					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
 					order by ".$f.", 1, 2";
 
@@ -182,4 +184,69 @@ class Rest extends CActiveRecord
 			return -1;
 		}
 	}
+
+	/*--------------------------------------------------------------------*/
+
+	public function checkRest($ids=array()) {
+		$res = array('status'=>'ok', 'message'=>'не хвататет остатка');
+
+		$connection = Yii::app()->db;
+		// получаем остатки
+//		$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
+//					from (
+//							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, dd.quantity*o.operation as quantity, dd.price, 'd' as t
+//							from vgm_goods g
+//								inner join vgm_documentdata dd on g.id=dd.id_goods
+//								inner join vgm_document d on d.id=dd.id_doc
+//								inner join vgm_operation o on o.id=d.id_operation
+//								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
+//							where d.doc_date<='".Yii::app()->session['workdate']."' and d.doc_date>='".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
+//								union
+//							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, r.quantity, r.cost as price, 'r' as t
+//							from vgm_goods g
+//								inner join vgm_rest r on g.id=r.id_goods
+//								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
+//							where r.rest_date::text like '".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
+//						 ) as motion
+//					group by ggid, ggname, gid, gname, price
+//					having sum(quantity)!=0 and gid in (".implode(',', array_keys($ids)).")
+//					order by 4";
+
+		$date = Yii::app()->session['workdate'];
+		$store = Yii::app()->session['id_store'];
+		$sql_rest = "select gid as id, trim(gname) as name, price, sum(quantity)::real as rest
+					 from (
+							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
+							from vgm_goods g
+								inner join vgm_documentdata dd on g.id=dd.id_goods
+								inner join vgm_document d on d.id=dd.id_doc
+								inner join vgm_operation o on o.id=d.id_operation
+							where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
+								union
+							select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
+							from vgm_goods g
+								inner join vgm_rest r on g.id=r.id_goods
+							where r.rest_date::text like '".substr($date,0,7)."-01' and id_store=".$store."
+						 ) as motion
+					group by gid, gname, price
+					having sum(quantity)!=0 and gid in (".implode(',', array_keys($ids)).")
+					order by 4";
+
+
+		$rest = $connection->createCommand($sql_rest)->queryAll();
+
+		// смотрим, что берётся больше возможного
+		foreach ($rest as $r) {
+			if ($r['rest'] - $ids[$r['id']] < 0) {
+				$res['status'] = 'err';
+				$res['no_rest'][] = array('name'=>$r['name'], 'quantity'=>$r['rest']);
+			}
+		}
+
+		return $res;
+	}
+
+	/*-------------------------------------------------------*/
+
+
 }

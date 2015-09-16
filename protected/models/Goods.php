@@ -57,8 +57,10 @@ class Goods extends CActiveRecord
 	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
+		$date = substr(Yii::app()->session['workdate'],0,7).'-01';
 		return array(
 			'rests' => array(self::HAS_MANY, 'Rest', 'id_goods'),
+			'rest0' => array(self::STAT, 'Rest', 'id_goods', 'select'=>'sum(quantity)','condition'=>'rest_date=\''.$date.'\'', /*'order'=>'rest_date desc',*/ 'defaultValue'=>0),
 			'unit' => array(self::BELONGS_TO, 'Unit', 'id_unit'),
 			'torg3' => array(self::BELONGS_TO, 'Torg3', 'id_3torg'),
 			'supplier' => array(self::BELONGS_TO, 'Contact', 'id_supplier'),
@@ -153,45 +155,6 @@ class Goods extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function checkRest($ids=array()) {
-		$res = array('status'=>'ok', 'message'=>'не хвататет остатка');
-
-		$connection = Yii::app()->db;
-			// получаем остатки
-		$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
-					from (
-							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, dd.quantity*o.operation as quantity, dd.price, 'd' as t
-							from vgm_goods g
-								inner join vgm_documentdata dd on g.id=dd.id_goods
-								inner join vgm_document d on d.id=dd.id_doc
-								inner join vgm_operation o on o.id=d.id_operation
-								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
-							where d.doc_date<='".Yii::app()->session['workdate']."' and d.doc_date>='".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-								union
-							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, r.quantity, r.cost as price, 'r' as t
-							from vgm_goods g
-								inner join vgm_rest r on g.id=r.id_goods
-								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
-							where r.rest_date::text like '".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-						 ) as motion
-					group by ggid, ggname, gid, gname, price
-					having sum(quantity)!=0 and gid in (".implode(',', array_keys($ids)).")
-					order by 4";
-
-		$rest = $connection->createCommand($sql_rest)->queryAll();
-
-			// смотрим, что берётся больше возможного
-		foreach ($rest as $r) {
-			if ($r['rest'] - $ids[$r['id']] < 0) {
-				$res['status'] = 'err';
-				$res['no_rest'][] = array('name'=>$r['name'], 'quantity'=>$r['rest']);
-			}
-		}
-
-		return $res;
-	}
-
-	/*-------------------------------------------------------*/
 
 	public function getUnitname() {
 		if ($this->unit) {
@@ -223,6 +186,14 @@ class Goods extends CActiveRecord
 		}
 	}
 
+//	public function getRest() {
+//		if ($this->rests) {
+////			Yii::app()->session['workdate']
+//			return $this->rests;
+//		} else {
+//			return 0;
+//		}
+//	}
 //	public function getRest() {
 //		return 222;
 //	}

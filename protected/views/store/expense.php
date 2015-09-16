@@ -1,4 +1,5 @@
 <?php
+	$this->addCSS('store/invoice.css');
 	$this->addCSS('store/expence.css');
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
 	$this->addCSS('store/search_form.css');
@@ -94,6 +95,37 @@ print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
 			<label for="expence[doc_num]">№ документа:</label>
 			<input type="number" name="expence[doc_num]" placeholder="№ документа" value="<?php echo $doc_num ?>" required> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 		</div>	<!-- r3 -->
+		<div class="row r0">
+			<label for="invoice[contact]">Потребитель:</label>
+			<input type="text" id='contact_name' cid='' name="invoice[contact]" placeholder="Потребитель" required value="">
+			<button class='add_contact' title='Добавить нового потребителя'></button>
+			<button class='edit_contact' title='Редактировать потребителя'></button>
+			<div class='new_contact'>
+				<!--				<form id="new_contact_form">-->
+				<div class='caption'>Добавить нового потребителя</div>
+				<div id='close_form'></div>
+				<input name='new_contact[id]' class='s' placeholder='Код'>
+				<input name='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
+				<br>
+				<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
+				<br>
+				<input name='new_contact[address]' class='l' placeholder='Адрес'>
+				<br>
+				<input name='new_contact[unn]' class='s' placeholder='УНН'>
+				<input name='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
+				<input name='new_contact[mfo]' class='s' placeholder='МФО'>
+				<input name='new_contact[okpo]' class='s' placeholder='ОКПО'>
+				<br>
+				<input name='new_contact[bank]' class='l' placeholder='Банк'>
+				<input name='new_contact[agreement]' class='l' placeholder='Договор'>
+				<div class='buttons'>
+					<button id='add_new_contact'>Сохранить</button>
+					<button id='cancel_new_contact'>Отмена</button>
+				</div>
+				<!--				</form>-->
+			</div>
+			<!-- [+ новый потребитель] -->
+		</div>	<!-- r0 -->
 	</div>    <!-- <div class="doc_hat"> -->
 
 	<div id="new_table">

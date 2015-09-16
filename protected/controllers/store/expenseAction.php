@@ -16,7 +16,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 //					$goods[$id] = $row['quantity'];
 //				}
 //
-//				$chk = Goods::model()->checkRest($goods);
+//				$chk = Rest::model()->checkRest($goods);
 //				if ($chk['status']=='ok') {
 					$this->addExpense($_POST['new_expense']);
 //				} else {
@@ -84,7 +84,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			$goods[$id] = $row['quantity'];
 		}
 
-		$chk = Goods::model()->checkRest($goods);
+		$chk = Rest::model()->checkRest($goods);
 		if ($chk['status']!='ok') {
 //			echo json_encode($chk);
 //			exit;
@@ -120,7 +120,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			$document->doc_num = $doc['doc_num'];
 			$document->doc_num2 = intval($doc['doc_num']);
 			$document->doc_date = $doc['doc_date'];
-			$document->id_contact = 0;
+			$document->id_contact = $doc['id_contact'];;
 			$document->id_storage = 2;
 			$document->reason = '';
 			$document->id_operation = $doc['id_operation'];

@@ -27,7 +27,7 @@
 			<label for="getReport[doc_date]">по</label>
 			<input type="date" name="getReport[to_date]" placeholder="Дата документа" required value="<?php echo date('Y-m-d', mktime(0,0,0,$d[1],$d[2],$d[0])) ?>"> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 			<br>
-			<input type="checkbox" name="getReport[full]" checked>
+			<input type="checkbox" name="getReport[full]">
 			<label for="getReport[full]">Развёрнутый</label>
 		</div>	<!-- r2 -->
 
