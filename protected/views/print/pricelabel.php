@@ -28,8 +28,7 @@ $rec_doc_data = $data['details'];
 
 					<div class="cennik ">
 						<div class="mag">
-							ПУ «Витебскгаз»<br>
-							<u>магазин «Метан»</u>
+							ПУ «Метан»<br>
 						</div>
 						<div class="id_goods">
 							<?php echo $row->idGoods->id; ?>
