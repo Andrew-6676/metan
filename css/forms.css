@@ -59,6 +59,7 @@ form .error {
 }
 form .errorMessage {
 	padding-left: 204px;
+	color: #f00;
 }
 
 form .errorSummary {

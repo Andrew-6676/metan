@@ -303,11 +303,12 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 //			$nakl->id_contact   = $data['']
 			$nakl->doc_num      = $data['nakl_num'];
 			$nakl->doc_num2     = $data['nakl_num'];
+			$nakl->doc_date     = $data['nakl_date'];
 			$nakl->date_insert  = date('Y-m-d H:i:s');
 			$nakl->date_edit    = date('Y-m-d H:i:s');
 			$nakl->payment_order= $data['payment_order'];
 			// $nakl->doc_date = $data['date'];
-			$nakl->doc_date = Yii::app()->session['workdate'];
+//			$nakl->doc_date = Yii::app()->session['workdate'];
 
 
 			if ($nakl->save()) {
@@ -331,8 +332,8 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 					};
 				}
 	//			$res['docdata'] = print_r($docdata[0]->price,true);
-
-				$res['message'] = 'Накладная № ' . $data['nakl_num'] . ' от ' . date('d.m.Y') . ' создана. ('.$rc.' стр.)';
+				$d = Utils::format_date($data['nakl_date']);
+				$res['message'] = 'Накладная № ' . $data['nakl_num'] . ' от ' . $d . ' создана. ('.$rc.' стр.)';
 			}
 			$transaction->commit();
 			echo json_encode($res);

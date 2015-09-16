@@ -555,18 +555,18 @@ $(document).ready(function () {
 		}
 		if ($('.doc_title').text().indexOf('Расход') + 1) {
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
-			_id_ttn = id;
+			_id_doc = id;
 			// заполнить данными
-			$('#f_ttnForm_otpusk').val(_razreshil);
+			//$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
 			$('#ttn').click();
 		}
 
-	})
+	});
 
 	/*-------------------------------------------------------*/
 	set_autocomplete('#row_1');
-})		//$ end (document).ready( function(){
+});		//$ end (document).ready( function(){
 
 /*--------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------*/

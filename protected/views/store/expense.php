@@ -27,10 +27,10 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'position'=>array('50%',180),
 		'buttons'       => array(
 			'ТН'=>"js:function(){
-							window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_ttn, '_blank');
+							window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
 						}",
 			'ТТН'=>"js:function(){
-							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_ttn, '_blank');
+							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
 						}",
 			'Отмена'=>'js:function(){$("#mydialog2").dialog("close")}',),
 	),

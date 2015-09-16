@@ -2,18 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: andrew
- * Date: 20.07.15
- * Time: 8:05
+ * Date: 16.09.15
+ * Time: 15:37
  */
 
-class prepareDeliverynoteAction extends CAction   /*---- storeController ----*/
+class prepareWriteoffAction extends CAction   /*---- storeController ----*/
 {
 	public function run() {
 
 		if(Yii::app()->request->isAjaxRequest)
 		{
 
-			$this->controller->renderPartial('forms/_deliverynote',array(
+			$this->controller->renderPartial('forms/_form_writeoff',array(
 				'data'=>'$data',
 			));
 
@@ -21,7 +21,7 @@ class prepareDeliverynoteAction extends CAction   /*---- storeController ----*/
 		}		// // if(Yii::app()->request->isAjaxRequest)
 
 
-		$this->controller->render('forms/_deliverynote',array(
+		$this->controller->render('forms/_form_writeoff',array(
 			'data'=>'$data',
 		));
 	}

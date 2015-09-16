@@ -10,6 +10,7 @@
 	// echo '<pre>';
 	// print_r($oper);
 	// echo '</pre>';
+
 ?>
 
 <div id="form">
@@ -90,9 +91,9 @@
 					<th><div class="th t1">Код товара</div></th>
 					<th><div class="th t2">Наименование товара</div></th>
 					<th><div class="th t3">Количество</div></th>
-					<th><div class="th t4">Cost</div></th>
+					<th><div class="th t4">НДС, %</div></th>
 					<th class="hidden"><div class="th t4">Markup</div></th>
-					<th class="hidden"><div class="th t4">НДС, %</div></th>
+					<th class="hidden"><div class="th t4">Cost</div></th>
 					<th><div class="th t5">Цена</div></th>
 					<th><div class="th t6">Сумма</div></th>
 					<th></th>
@@ -207,3 +208,49 @@
 	));
 ?>
 </div>
+
+<?php
+
+// модальное окно
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id' => 'prepareWriteoff',
+	'options' => array(
+		'title'         => 'Формирование накладной',
+		'autoOpen'      => FALSE,
+		'modal'         => true,
+		'closeOnEscape' => 'true',
+		'width'         =>'700',
+		'top'           => '30',
+		'resizable'     => false,
+//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
+		'position'=>array('50%',180),
+		'buttons'       => array(
+			'Сформировать'=>"js:function(){
+							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
+//							alert(_id_doc);
+							writeoff(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val());
+						}",
+			'Отмена'=>'js:function(){$("#prepareWriteoff").dialog("close")}',),
+	),
+));
+
+?>
+
+<?php
+$this->renderPartial('forms/_form_writeoff',array(
+	'data'=>'$data',
+));
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareWriteoff").dialog("open"); return false;','id'=>'wr_off', 'style'=>'display:none'));
+
+//print CHtml::ajaxLink('Объекты', array('store/getForm','form'=>'deliverynote'),
+//print CHtml::ajaxLink('Списать', array('store/prepareWriteoff'),
+//	array('update' => '#regions_tree'),
+//	array('onclick' => '$("#prepareWriteoff").dialog("open");', 'id'=>'wr_off', 'style'=>'display:none')
+//);
+
+
+
+
+?>

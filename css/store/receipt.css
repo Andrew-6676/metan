@@ -15,3 +15,6 @@
 	font-size: 4em;
 	margin: 0 20px;
 }
+.cell.empty {
+	background: rgba(255, 0, 0, 0.36);
+}

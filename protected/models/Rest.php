@@ -125,7 +125,7 @@ class Rest extends CActiveRecord
 		$connection = Yii::app()->db;
 
 		//$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
-		$sql_rest = "select gid as id, gname as name, max(cost), max(markup), max(vat), price, sum(quantity)::real as rest
+		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
 					 from (
 							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
 							from vgm_goods g

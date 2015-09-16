@@ -30,10 +30,18 @@ if (!$data['m']) {
 	echo '<br><br>По данному товару движения не было';
 	return;
 }
+
+$links = array(
+	'1'  => '/store/invoice',
+	'2'  => '/store/return',
+	'33' => '/store/receipt',
+	'51,56' => '/store/expense_day',
+	'52' => '/store/expense',
+);
 foreach ($data['m'] as $doc) {
 	if ($op != $doc->id_operation) {
 		$op = $doc->id_operation;
-		echo '<br>' . $doc->operation->name;
+		echo '<br>' . CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation]);
 	}
 //	if ($dt != $doc->id_doctype) {
 //		$dt = $doc->id_doctype;

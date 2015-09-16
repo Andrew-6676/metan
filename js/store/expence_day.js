@@ -243,6 +243,7 @@ $(document).ready(function () {
 		arr['doc_date'] = $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] = $('[name = "expence[doc_num]"]').val();
 		arr['doc_for'] = $('[name = "for"]').val();
+		arr['id_contact'] = 0;
 		arr['payment_order'] = $('[name="expence[payment_order]"]').val();
 
 		//         // запихиваем два массива в один, который и отправится на сервер

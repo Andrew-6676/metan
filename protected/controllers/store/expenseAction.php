@@ -120,7 +120,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			$document->doc_num = $doc['doc_num'];
 			$document->doc_num2 = intval($doc['doc_num']);
 			$document->doc_date = $doc['doc_date'];
-			$document->id_contact = $doc['id_contact'];;
+			$document->id_contact = $doc['id_contact'];
 			$document->id_storage = 2;
 			$document->reason = '';
 			$document->id_operation = $doc['id_operation'];

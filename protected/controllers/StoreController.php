@@ -28,6 +28,7 @@ class StoreController extends Controller
             'print'     => 'application.controllers.store.printAction',
 	        'prepareGoodsreport' => 'application.controllers.store.prepareGoodsreportAction',
 	        'prepareDeliverynote' => 'application.controllers.store.prepareDeliverynoteAction',
+            'prepareWriteoff' => 'application.controllers.store.prepareWriteoffAction',
         );
     }
 /*--------------------------*/

@@ -185,65 +185,13 @@ $(document).ready(function () {
 		// списание в расход счёта фактуры
 	$('.write_off_doc_button').click(function (event) {
 		console.log('списать ');
-		var nakl_num = prompt('Введите номер накладной', '');
-		if (nakl_num==null) {
-			return false;
-		}
-		if (nakl_num=='') {
-			alert('Неправильный номер накладной');
-			return false;
-		}
-		var payment_order = prompt('Введите платёжное поручение', '');
-		if (payment_order==null) {
-			return false;
-		}
-		$.ajax({
-			url: 'http://' + document.location.host + rootFolder+"/store/invoice",
-			type: 'POST',
-			dataType: "json",
-			data: {writeoff_invoice: {'doc_id':$(this).parent().attr('doc_id'), 'nakl_num':nakl_num, 'payment_order': payment_order}},
-			// функция обработки ответа сервера
-			error: function (data) {
-				console.log(data);
-				//alert(JSON.stringify(data) + '###');
-				alert('Во время списания произошла ошибка. Напрягайте программиста!');
-				$('#overlay').hide();
-				$('#loadImg').hide();
-			},
-			success: function (data) {
-				console.log(data);
-				if (data.status == 'ok') {
-					//if (data.nakl_id < 0) {
-						alert(data.message);
-					//} else {
-					//	alert(data.message);
-					//}
-					if (data.no_rest) {
-						str = '';
-						$(data.no_rest.no_rest).each(function (i,e) {
-							//console.log(e);
-							str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
-						});
-						alert(data.message+"\n\n"+str);
-					}
-				} else {
-					if (data.no_rest) {
-						str = '';
-						$(data.no_rest).each(function (i,e) {
-							//console.log(e);
-							str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
-						});
-						alert(str);
+		var id = $(this).parent().attr('doc_id');
+		_id_doc = id;
 
-						//alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
-					} else {
-						alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
-					}
-				}
-				$('#overlay').hide();
-				$('#loadImg').hide();
-			}
-		});
+		$('#wr_off').click();
+		$('#form_writeoff_nttn').val($(this).parent().parent().find('.doc_num').text().trim());
+		console.log($('#form_writeoff_date_ttn').val());
+
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	})
 
@@ -255,3 +203,72 @@ $(document).ready(function () {
 	//	window.open(rootFolder+'/print/index?report=Invoice&id=' + id, '_blank')
 	//})
 })
+
+function writeoff(id, nttn, date_ttn, n_pl) {
+	console.log(arguments);
+
+	/* проверить содержимое переменных
+	var nakl_num = prompt('Введите номер накладной', '');
+	if (nakl_num==null) {
+		return false;
+	}
+	if (nakl_num=='') {
+		alert('Неправильный номер накладной');
+		return false;
+	}
+	var payment_order = prompt('Введите платёжное поручение', '');
+	if (payment_order==null) {
+		return false;
+	}*/
+
+	$.ajax({
+		url: 'http://' + document.location.host + rootFolder+"/store/invoice",
+		type: 'POST',
+		dataType: "json",
+		data: {writeoff_invoice: {'doc_id':id, 'nakl_num':nttn, 'nakl_date': date_ttn,'payment_order': n_pl}},
+		// функция обработки ответа сервера
+		error: function (data) {
+			console.log(data);
+			//alert(JSON.stringify(data) + '###');
+			alert('Во время списания произошла ошибка. Напрягайте программиста!');
+			$('#overlay').hide();
+			$('#loadImg').hide();
+		},
+		success: function (data) {
+			console.log(data);
+			if (data.status == 'ok') {
+				//if (data.nakl_id < 0) {
+				alert(data.message);
+				$("#prepareWriteoff").dialog("close");
+				//} else {
+				//	alert(data.message);
+				//}
+				if (data.no_rest) {
+					str = '';
+					$(data.no_rest.no_rest).each(function (i,e) {
+						//console.log(e);
+						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+					});
+					alert(data.message+"\n\n"+str);
+				}
+			} else {
+				if (data.no_rest) {
+					str = '';
+					$(data.no_rest).each(function (i,e) {
+						//console.log(e);
+						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+					});
+					alert(str);
+
+					//alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+				} else {
+					alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+				}
+			}
+			$('#overlay').hide();
+			$('#loadImg').hide();
+		}
+	});
+
+
+}
