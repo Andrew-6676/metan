@@ -12,6 +12,21 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 			// 	 exit;
    //      	}		// if(isset($_POST['new_expense']))
 
+				// изменить количество
+			if(isset($_POST['change_q'])) {
+				$res['status'] = 'ok';
+				$res['message'] = 'Сохранено';
+
+				$d = Documentdata::model()->findByPK($_POST['change_q']['id']);
+				$d->quantity = $_POST['change_q']['quantity'];
+				if (!$d->save()) {
+					$res['status'] = 'err';
+					$res['message'] = print_r($d->getErrors(),true);
+				}
+
+				echo json_encode($res);
+				exit;
+			}		// if(isset($_POST['del_receipt']))
         		// удалить расход
 			if(isset($_POST['del_receipt'])) {
 				$this->delReceipt($_POST['del_receipt']);

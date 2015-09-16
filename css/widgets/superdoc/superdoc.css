@@ -65,8 +65,7 @@
 }
 .parent {
 	width: 100%;
-
-	/*border-collapse: collapse;*/
+	border-collapse: collapse;
 }
 .parent tr {
 	height: 25px;
@@ -77,7 +76,8 @@
 	background-color: #99FF99;
 }
 .parent td {
-	border: 1px solid #efefef;
+	border: 1px solid #BEBEBE;
+	padding: 1px 5px;
 }
 .parent td.r {
 	text-align: right;

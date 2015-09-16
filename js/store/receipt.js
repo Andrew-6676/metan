@@ -50,9 +50,54 @@ $(document).ready(function () {
 		})
 
 	$('.cell.empty').dblclick(function (event) {
+		event.stopPropagation();
 		console.log('add id_3torg');
 		location.href = 'http://'+document.location.host+rootFolder+"/goods/update/"+$(this).parent().find('.cell.c2').text();
 	});
 
-	console.log($('.cell.empty').size());
+	$('[field="quantity"]').dblclick(function (event) {
+		var td = $(this);
+		event.stopPropagation();
+		console.log($(this).parent().attr('docdata_id'));
+		var quantity = prompt('Введите новое количество:', $(this).text());
+		if (quantity==null || quantity==$(this).text()) {
+			return false;
+		}
+
+		var arr =  {'id': '', 'quantity': ''};;
+		arr['id'] = $(this).parent().attr('docdata_id');
+		arr['quantity'] = quantity;
+		//console.log(arr);
+			// передаём данные на сервер
+		$.ajax({
+			url: 'http://' + document.location.host + rootFolder + "/store/receipt",
+			type: 'POST',
+			dataType: "json",
+			data: {change_q: arr},
+			// функция обработки ответа сервера
+			error: function (data) {
+				alert(JSON.stringify(data) + '###');
+				alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+				$('#overlay').hide();
+				$('#loadImg').hide();
+			},
+			success: function (data) {
+				console.log(data);
+				//alert(data.message);
+				if (data.status == 'ok') {
+						// вписываем новое кол-во в таблицу
+					console.log(td);
+					td.text(quantity);
+					td.css({"color":"red", "background-color":"#FCFF99"});
+					// @TODO надо обновить суммы... или страницу
+					//location.reload();
+				} else {
+					alert(data.message);
+				}
+
+			}
+		}); //end ajax
+	});
+
+	//console.log($('.cell.empty').size());
 });

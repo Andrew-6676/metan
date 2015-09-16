@@ -30,7 +30,7 @@ class SuperdocWidget extends CWidget
 	{
 		$style = '-';
 //		var_dump(strpos($type, 'character'));
-		if (trim($val)=='') {
+		if (trim($val)=='' || trim($val)=='0') {
 			return array('val' => $val, 'style' => 'empty');
 		}
 

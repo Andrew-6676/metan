@@ -62,7 +62,7 @@
 	                <td>
 		                <select name="for" class="for" id="for">
 			                <option value="1">Общий товарооборот</option>
-			                <option value="2" selected>Розничный товарооборот</option>
+			                <option selected="selected" value="2">Розничный товарооборот</option>
 			                <option value="3">Собственные нужды</option>
 		                </select>
 	                </td>

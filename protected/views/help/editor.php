@@ -1,4 +1,5 @@
 <?php
+//Utils::print_r($_GET);
 	/* HelpController->IndexAction->Index_view*/
 
 //		$this->addCSS('store/search_form.css');
@@ -16,7 +17,7 @@
 
 		echo	CHtml::ajaxButton(
 							'Сохранить',
-							Yii::app()->createURL('/editor/index'),
+							Yii::app()->createURL('help/editor'),
 							array(
 								'async' => 'false',
 						        'type' => 'POST',
@@ -24,30 +25,29 @@
 						        // 'data' => 'js:{"aj_page":"'.$page.'","text":$("#editor").val()}',
 						        'data' => 'js:{
 						        	"action": "save",
-
-						        	"descr":$("#help_edit_content").val(),
+						        	"id": '.$_GET['id'].',
+						        	"text":CKEDITOR.instances.help_edit_content.getData(),
 						        	"name":$("#help_edit_cap").val()
 						        }',
 						        //'beforeSend' => 'js:function(){console.log("before_aj");CKEupdate()}',
 						        'success'=>'js:function(data){
 						        		//alert("3");
-						        		//console.log("data")
-						        	$("#result").html(data);
-						        	$("#save_btn").attr("disabled", "disabled");
-						        	$("#name").attr("disabled", "disabled");
-						        	_modified = false;
-						        	if (data==1) {
-
+						        		console.log(data)
+//						        	$("#result").html(data);
+//						        	$("#save_btn").attr("disabled", "disabled");
+//						        	$("#name").attr("disabled", "disabled");
+//						        	_modified = false;
+						        	if (data=="ok") {
+										alert("Сохранено");
 						        	} else {
-						        		//alert("Ошибка сохранения! Программеру в бубен!");
-
+						        		alert("Ошибка сохранения! Программеру в бубен!");
 						        	}
 						        }',
 						        'error' => 'js:function(data){
 						        	alert(JSON.stringify(data));
 						        }',
 						    ),
-					        array('class'=>'button', 'id'=>'save_btn', 'disabled'=>'disabled')
+					        array('class'=>'button', 'id'=>'save_btn', /*'disabled'=>'disabled'*/)
 			        );
 ?>
 
