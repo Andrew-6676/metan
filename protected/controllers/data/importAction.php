@@ -111,7 +111,7 @@ class importAction extends CAction   /*DataController*/
 			exit;
 		}
 
-		echo 'Импорт новых товаров и накладных<br><br>';
+		echo '<pre>Импорт данных<br><br>';
 		DTimer::log('перед началом импорта');	// засекаем время выполнения
 
 		$connection = Yii::app()->db;
@@ -123,7 +123,7 @@ class importAction extends CAction   /*DataController*/
 			$path = $connection->createCommand($sql)->queryScalar();
 			echo 'Путь:  /var/www/metan_0.1/public'.$path.'<br>';
 
-			echo '<br>Импортируем следующее:<br>';
+//			echo '<br>Импортируем следующее:<br>';
 				// запрос для  получения списка ТАБЛИЦ для импорта
 			$sql = 'SELECT t.id, name, table_src, table_dst, mode, enabled, fk, filter, sql
 					FROM vgi_tables t
@@ -139,12 +139,13 @@ class importAction extends CAction   /*DataController*/
 				//цикл по импортируем ТАБЛИЦАМ для текущего магазина
 			foreach ($tables as $table)
 			{
-				echo '<br><br><hr><hr><br>';
-				echo $table['name'].': <b>'.$table['table_src'].' -> '.$table['table_dst'].'</b> --  ('.$table['mode'].') '.$table['enabled'].'<br>';
-
+				$new = 0;
+				echo '<br><hr><hr>';
+				// echo $table['name'].': <b>'.$table['table_src'].' -> '.$table['table_dst'].'</b> --  ('.$table['mode'].') '.$table['enabled'].'<br>';
+				echo '<b>'.$table['name'].'</b> ('.$table['table_src'].') ';
 					// если иморт текущей таблицы выключен - пропускаем её
 				if ($table['enabled']!=1) {
-					echo '<i>continue</i>';
+					echo '<i>Пропускаем</i>';
 					continue;
 				}
 
@@ -166,9 +167,10 @@ class importAction extends CAction   /*DataController*/
 					// print_r($dbf->getRows('dist#[DATA]=20140401,[ND]=195702'));
 					// echo '</pre>';
 					// exit;
-					echo '<br><br> Открыт DBF-файл: <b>'.$dbf_path.'</b><br>';
-					echo 'mode: <b>'.$table['mode'].'</b><br>';
-					echo 'reccount: <b>'.$dbf->count().'</b><br>';
+
+//					echo '<br><br> Открыт DBF-файл: <b>'.$dbf_path.'</b><br>';
+//					echo 'mode: <b>'.$table['mode'].'</b><br>';
+					echo '(<b>'.$dbf->count().'</b>)';
 
 						// выбираем поля для импорта из настроек для текущей таблицы ($table[])
 					$sql = 'SELECT *
@@ -200,7 +202,7 @@ class importAction extends CAction   /*DataController*/
 							$fp[$p] = $valf['field_src'].'_'.$p;	// массив имён парамеров запроса
 							$ftp[$fp[$p]] = $valf['type'];
 							$fp_fs[$valf['field_src'].'_'.$p] = $valf['field_src'];
-							echo '&nbsp&nbsp&nbsp&nbsp&nbsp'.$valf['field_src'].' -> '.$valf['field_dst'].'  -----  '.$ft[$valf['field_dst']].' ('.$fp[$p].')<br>';
+							//echo '&nbsp&nbsp&nbsp&nbsp&nbsp'.$valf['field_src'].' -> '.$valf['field_dst'].'  -----  '.$ft[$valf['field_dst']].' ('.$fp[$p].')<br>';
 						}
 							// ключевые поля (для определения повторных записей)
 						if ($valf['key']) {
@@ -222,7 +224,7 @@ class importAction extends CAction   /*DataController*/
 
 					//echo '<pre>';
 							// если есть внешний ключ
-			 			echo '<pre>';
+//			 			echo '<pre>';
 			 			//echo '<hr>';
 			 			if ($table['fk']!='<none>') {
 			 				// подготовка запроса на выборку из основной БД, для проверки наличия повторной записи
@@ -253,7 +255,7 @@ class importAction extends CAction   /*DataController*/
 							$sql_check = 'SELECT count(*) FROM '.$table['table_dst'].' WHERE '.$str;
 								// формируем запрос на вставку записи в основную БД
 							$sql_i = 'INSERT INTO '.$table['table_dst'].' ('.implode(', ',$fd).') values (:'.implode(', :',$fp).')';
-							echo '<br>';
+//							echo '<br>';
 
 			 			}	// if fk=<none>
 
@@ -281,18 +283,18 @@ class importAction extends CAction   /*DataController*/
 				 			$sql_u = 'UPDATE '.$table['table_dst'].' SET '.implode(',',$set).' WHERE id=:id';
 				 			$update_id = true;
 				 			$command_u = $connection->createCommand($sql_u);	// запрос для обновления
-				 			echo $sql_u;
-							echo "<br>";
+//				 			echo $sql_u;
+//							echo "<br>";
 						}
 						/*------------------------------------*/
 
 						$command_ch = $connection->createCommand($sql_check);	// запрос на выборку
 						$command_i  = $connection->createCommand($sql_i);		// запрос для вставки
 
-						echo $sql_check;
-						echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp';
-						echo $sql_i;
-						echo "<br>";
+//						echo $sql_check;
+//						echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp';
+//						echo $sql_i;
+//						echo "<br>";
 
 						// echo 'table=';
 						// print_r($table);
@@ -331,7 +333,7 @@ class importAction extends CAction   /*DataController*/
 
 //						continue;
 
-			 		 	echo '<br><b>select  --- </b>';
+			 		 	//echo '<br><b>select  --- </b>';
 			 			// echo '$fk='; print_r($fk);
 			 			// echo '$fd='; print_r($fd);
 			 			// echo '$fs='; print_r($fs);
@@ -346,7 +348,7 @@ class importAction extends CAction   /*DataController*/
 					  	{
 					  	//	echo $src.'-'.$dst.' --- ';
 					  		$data_f = $fs[array_search($dst, $fd)];
-				  			echo ":$src = ".$this->check_type(mb_convert_encoding($row[$data_f],'UTF-8','cp866'),$ftp[$src]).";  --  ";
+				  			//echo ":$src = ".$this->check_type(mb_convert_encoding($row[$data_f],'UTF-8','cp866'),$ftp[$src]).";  --  ";
 				 			$command_ch->bindValue($src, $this->check_type(mb_convert_encoding($row[$data_f], "UTF-8", "cp866"),$ftp[$src]));
 					  	}
 					  	//exit;
@@ -365,7 +367,7 @@ class importAction extends CAction   /*DataController*/
 						  	foreach ($FK_arr[1] as $src => $dst)	// цикл по полям, определяющим внешний ключ
 						  	{
 						  		//$param = $src.'_'.($p-count($FK_arr[1])+$fi++);
-						  		echo '::'.$src.' = '.$this->check_type(mb_convert_encoding($row[$src],'UTF-8','cp866'),$FK_arr[3][$src]).";  --  ";
+						  		//echo '::'.$src.' = '.$this->check_type(mb_convert_encoding($row[$src],'UTF-8','cp866'),$FK_arr[3][$src]).";  --  ";
 						 		$command_ch->bindValue($src, $this->check_type(mb_convert_encoding($row[$src], "UTF-8", "cp866"),$FK_arr[3][$src]));
 						 		//$command_ch->bindParam($param, $this->check_type(mb_convert_encoding($row[$src], "UTF-8", 'cp866'),$FK_arr[3][$src]));
 						 		//$command_ch->bindParam($src, $this->check_type($row[$src],$ft[$src]));
@@ -375,11 +377,11 @@ class importAction extends CAction   /*DataController*/
 						  	//exit;
 						$c = $command_ch->queryScalar();
 			 			//$c = -1;
-			 			echo ' ---- (count='.$c.')';
+			 			//echo ' ---- (count='.$c.')';
 			 			//continue;
 						if ($c > 0) 	// если добавляемая запись уже есть в целевой таблице
 						{
-							echo ' --- Запись <b>'./*$this->check_type(mb_convert_encoding($row[$src], "UTF-8", "cp866"),$ft[$src])*/''.'</b> уже существует.';
+							//echo ' --- Запись <b>'./*$this->check_type(mb_convert_encoding($row[$src], "UTF-8", "cp866"),$ft[$src])*/''.'</b> уже существует.';
 						}
 						else 	// если запись всталвять нужно
 						{
@@ -392,7 +394,9 @@ class importAction extends CAction   /*DataController*/
 							 //  echo '<br>$fp_fs='; print_r($fp_fs);
 							 // echo '<br>$row='; print_r($row);
 
-							echo "<br> <b>insert  --#- </b> ";
+//							echo "<br> <b>insert  --#- </b> ";
+							echo "<br> <b>Новая запись: </b>";
+							$new++;
 							foreach ($fp as $key => $val)	// цикл по параметрам - присвоение параметрам запроса значений
 						  	{
 						  		//echo "$key - $val<br>";
@@ -450,6 +454,7 @@ class importAction extends CAction   /*DataController*/
 				}
 
 				DTimer::log($table['name']);
+				echo "<br><br><span style='color:#00f;'>Новых: <b>".$new.'</b> стр.</span>';
 			}	//цикл по импортируем таблицам  foreach ($tables as $val)
 
 			//$command->execute();
