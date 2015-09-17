@@ -17,11 +17,11 @@ class customimportAction extends CAction   /*DataController*/
 		echo "<pre>";
 //		echo "<pre> \nТовары:\n";
 //
-//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd/f160115.dbf';
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd2/f160115.dbf';
 //		$dbf2 = new dbf($dbf_path );
 //
 //		if ($dbf2) {
-//			while ($row = $dbf2->readRec()) {    готово
+//			while ($row = $dbf2->readRec()) {   // готово
 //				add_goods($row);
 //			}
 //		}
@@ -30,29 +30,35 @@ class customimportAction extends CAction   /*DataController*/
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd2/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 				switch ($row['KO']) {
 					case '56':
-//						store_56($row);
+							//карта
+						store_56($row);
 						break;
 					case '54':
-						store_54($row);
+							//кредит
+//						store_54($row);
 						break;
 					case '52':
-						store_52($row);
+							// безнал
+//						store_52($row);
 						break;
 					case '51':
-//						store_51($row); готово
+							// наличка
+						store_51($row); //готово
 						break;
 					case '00':
-//						store_00($row); готово
+							// остатки
+						store_00($row); //готово
 						break;
 					case '02':
-//						$this->store_02($row); готово
+							// возврат
+						$this->store_02($row); //готово
 						break;
 					default:
 						break;
@@ -238,7 +244,12 @@ function add_goods($row) {
 
 	$gch = Goods::model()->findByPK($row['KM']);
 	if ($gch) {
-		echo "\nТакой товар уже есть!\n";
+		if (trim($gch->id_3torg)=='0') {
+			echo "\nТакой товар уже есть!\n";
+			$gch->id_3torg=trim($row['GR']);
+			//$gch->save();
+			echo $row['KM']." -- ".$gch->id_3torg."---".$row['GR']."\n";
+		}
 		return;
 	}
 
@@ -280,12 +291,12 @@ function add_goods($row) {
 	$g->id_3torg  = implode('.',$arr);
 
 
-	if (!$g->save()) {
-		print_r($g->getErrors());
-		print_r($row);
-	} else {
+	//if (!$g->save()) {
+//		print_r($g->getErrors());
+//		print_r($row);
+	//} else {
 		echo " -- ok\n";
-	}
+//	}
 }
 /*------------------------------------------------------------------------*/
 	// безнал
@@ -374,6 +385,7 @@ function store_56($row) {
 		$doc->id_editor = Yii::app()->session['id_user'];
 		$doc->id_operation = $row['KO'];
 		$doc->for = 2;
+		$doc->payment_order = $row['ADR'];
 
 		$doc->withDocdata = true;
 		$doc->id_goods = $row['KM'];

@@ -449,7 +449,7 @@ class importAction extends CAction   /*DataController*/
 
 					// выполнить запрос для всей таблицы, если есть в настройках
 				if (trim($table['sql'])!='') {
-					echo '<br>	after-INSERT: <b><i>'.$table['sql'].'</i></b><br>';
+//					echo '<br>	after-INSERT: <b><i>'.$table['sql'].'</i></b><br>';
 					$connection->createCommand($table['sql'])->execute();
 				}
 
