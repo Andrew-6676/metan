@@ -96,7 +96,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
-
+		$gr = array();
 		foreach ($q_model as $document) {
 			$sum = $document->documentdata[0]->price*$document->documentdata[0]->quantity;
 			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
