@@ -203,7 +203,7 @@
 	text-align: center;
 }
 .doc_data td.buttons {
-
+	white-space: nowrap; 
 }
 .doc_data td, .doc_data th {
 	border: 1px solid #7E7E7E;
