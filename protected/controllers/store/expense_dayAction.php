@@ -96,8 +96,22 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
+
 		foreach ($q_model as $document) {
+			$sum = $document->documentdata[0]->price*$document->documentdata[0]->quantity;
 			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
+
+			if (!isset($gr[$document->id_operation])) {
+				$gr[$document->id_operation] = array(0=>$sum);
+				$gr[$document->id_operation][$document->for] = $sum;
+			} else {
+				$gr[$document->id_operation][0] += $sum;
+				if (!isset($gr[$document->id_operation][$document->for])) {
+					$gr[$document->id_operation][$document->for] = $sum;
+				} else {
+					$gr[$document->id_operation][$document->for] += $sum;
+				}
+			}
 		}
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
@@ -108,6 +122,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 									'data'=>$q_model,
 									'day_sum'=>$day_sum,
 									'oper'=>$oper,
+									'tmp'=>$gr,
 									// 'doc_num'=>$doc_num
 								 ));
 	}	// end run

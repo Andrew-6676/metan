@@ -442,12 +442,15 @@ td.minus {
 	color: red;
 }
 
-table.std caption {
+table.std caption, table.std th {
 	font-weight: bold;
 	border: 1px solid rgb(179, 213, 240);
 	/*background: #00f;*/
 	background: rgb(179, 213, 240);
 	padding: 3px ;
+}
+table.std th {
+	border-color: #000;
 }
 table.std {
 	border-collapse: collapse;
@@ -457,8 +460,12 @@ table.std {
 table.std td {
 	border: 1px solid #bcbcbc;
 	padding: 2px 5px;
+	text-align: right;
 }
 
+table.std td.no_border {
+	border: none;
+}
 /*------------------------------------------------*/
 table.canhide caption {
 	cursor: pointer;

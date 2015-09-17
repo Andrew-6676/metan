@@ -86,7 +86,7 @@ $(document).ready(function () {
 	});		// end contact_name.autocomplete
 
 
-	$('#contact_name').focus();
+	//$('#contact_name').focus();
 	$('#contact_name').keyup(function (event) {
 		if (event.keyCode == 118) {
 			// alert('Поиск');

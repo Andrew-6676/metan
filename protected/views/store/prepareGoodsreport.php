@@ -6,6 +6,7 @@
  * Time: 8:10
  */
 	$this->addCSS('store/prepareGoodsreport.css');
+//	$this->addCSS('forms.css');
 	$this->addJS('store/prepareGoodsreport.js');
 ?>
 
