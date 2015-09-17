@@ -35,7 +35,8 @@ $links = array(
 	'1'  => '/store/invoice',
 	'2'  => '/store/return',
 	'33' => '/store/receipt',
-	'51,56' => '/store/expense_day',
+	'51' => '/store/expense_day',
+	'56' => '/store/expense_day',
 	'52' => '/store/expense',
 );
 foreach ($data['m'] as $doc) {
