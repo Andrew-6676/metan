@@ -125,7 +125,7 @@ class Rest extends CActiveRecord
 		$connection = Yii::app()->db;
 
 		//$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
-		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
+	/*	$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
 					 from (
 							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
 							from vgm_goods g
@@ -143,6 +143,28 @@ class Rest extends CActiveRecord
 					group by gid, gname, price
 					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
 					order by ".$f.", 1, 2";
+	*/
+			// в предыдущем запросе выпадали повторяющиеся строки - как результат - неправильные остатки
+		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
+					from (
+						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
+						from vgm_goods g
+						  inner join vgm_documentdata dd on g.id=dd.id_goods
+						  inner join vgm_document d on d.id=dd.id_doc
+						  inner join vgm_operation o on o.id=d.id_operation
+						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
+						group by gid, gname, cost, price
+
+							union
+
+						select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
+						from vgm_goods g
+						  inner join vgm_rest r on g.id=r.id_goods
+						where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
+					) as motion
+					group by gid, gname, price
+					having sum(quantity)!=0
+					order by 1, 2";
 
 		$rest = $connection->createCommand($sql_rest)->queryAll();
 
@@ -160,17 +182,20 @@ class Rest extends CActiveRecord
 
 		$sql_rest = "select sum(quantity*price) as rest
 					from (
-							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
+							select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
 							from vgm_goods g
 								inner join vgm_documentdata dd on g.id=dd.id_goods
 								inner join vgm_document d on d.id=dd.id_doc
 								inner join vgm_operation o on o.id=d.id_operation
 							where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
+							group by gid, gname, cost, price
+
 								union
+
 							select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
 							from vgm_goods g
 								inner join vgm_rest r on g.id=r.id_goods
-							where r.rest_date::text like '".substr($date,0,7)."-01' and id_store=".$store."
+							where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
 						 ) as motion
 					--group by gid, gname, cost, markup, vat, price";
 

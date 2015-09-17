@@ -6,7 +6,7 @@ class goodsCartAction extends CAction   /*---- StoreController ----*/
 		$criteria = new CDbCriteria;
 
 			// получаем движение товара
-		$criteria->order ='id_doctype, doc_date, doc_num';
+		$criteria->order ='id_doctype, id_operation, doc_date, doc_num';
 		$criteria->addCondition('documentdata.id_goods='.$id);
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');

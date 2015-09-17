@@ -16,7 +16,10 @@ $dn = '';
 
 ?>
 <div class="caption">
-	<?php echo $data['goods']->name;  ?>
+	<?php
+		echo $data['goods']->name;
+		echo ' ('.$data['goods']->id.')';
+	?>
 </div>
 <!--<table class="motion">-->
 <!--	<tr class="capt">-->
@@ -39,23 +42,27 @@ $links = array(
 	'56' => '/store/expense_day',
 	'52' => '/store/expense',
 );
+$rest = $data['goods']->rest0;
+
 foreach ($data['m'] as $doc) {
 	if ($op != $doc->id_operation) {
 		$op = $doc->id_operation;
-		echo '<br>' . CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation]);
+		echo '<br><br>' . CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation]);
 	}
 //	if ($dt != $doc->id_doctype) {
 //		$dt = $doc->id_doctype;
 //		echo '<br>' . $doc->doctype->name;
 //	}
-	if ($dn != $doc->doc_num) {
-		$dn = trim($doc->doc_num);
-		echo '<br>[' . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date).' - ';
+	if ($dn != trim($doc->doc_num).$doc->doc_date) {
+		$dn = trim($doc->doc_num).$doc->doc_date;
+		echo "<br>[" . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date);
 	}
 	foreach ($doc->documentdata as $row) {
-		echo $row->quantity.' * '. number_format($row->price,'0','.','`').'<br>';
+		echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp'.$row->quantity.' * '. number_format($row->price,'0','.','`').'';
+		$rest += $row->quantity*$doc->operation->operation;
 	}
 }
+echo '<br><br>Остаток на '.Utils::format_date(Yii::app()->session['workdate']).': '.$rest;
 ?>
 
 <!--</table>-->

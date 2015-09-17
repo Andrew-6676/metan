@@ -16,12 +16,14 @@ $(document).ready( function(){
           			// функция обработки ответа сервера
           		error: function(data) {
           			// alert('Во время обработки произошла ошибка. Дайте в бубен программеру!!!');
+		            console.log(data);
       				$('#res_span').removeClass();
     				$('#res_span').addClass('no');
 	        		$('#res_span').html('ошибка');
           			alert(JSON.stringify(data));
           		},
 		        success: function(data){
+			        console.log(data);
 		        	// alert(JSON.stringify(data));
 		        	// $('#res_div').html('<pre>'+JSON.stringify(data)+'</pre>');
 		        	// alert(data.status);

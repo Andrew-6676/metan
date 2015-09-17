@@ -7,7 +7,7 @@
  */
 
 //Utils::print_r($data);
-
+//exit;
 $this->addCSS('print/report.css');
 
 $df = Utils::format_date($_GET['from_date']);
@@ -16,6 +16,7 @@ $dt = Utils::format_date($_GET['to_date']);
 //Utils::print_r($_GET);
 //exit;
 //return;
+	// извлекаем расход
 $expence = array_shift($data);
 
 $rr = Rest::get_Rest($_GET['from_date'], $_GET['id_store']);
@@ -58,7 +59,11 @@ $total = $rr+$rk;         // для накопления остатка
 			<!-- Приход ------------------------------------------------------------------------------ -->
 
 			<?php
-
+			if (!$data) {
+//				echo 'Нету ничего кроме "расхода за день"!';
+				goto exp;
+//				exit;
+			}
 			$docs = array_shift($data);
 			$key = array_keys($docs);
 			?>
@@ -252,7 +257,7 @@ $total = $rr+$rk;         // для накопления остатка
 <!-- ----------------------------------- Продажа наличными --------------------------------------------------------- -->
 
 			<?php
-
+exp:
 			$docs = $expence['day'];
 			//	Utils::print_r($docs);
 			//	exit;
