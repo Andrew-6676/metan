@@ -252,3 +252,25 @@ function OnResizeElement(element, handler, time){
     };
     _constructor();
 };
+
+String.prototype.pad = function(l, s, t)
+{
+	if ((l -= this.length) > 0)
+	{
+		if (!s) s = " ";//по умолчанию строка заполнитель - пробел
+		if (t==null) t = 1;//по умолчанию тип заполнения справа
+
+		s = s.repeat(Math.ceil(l / s.length));
+		var i = t==0 ? l : (t == 1? 0 : Math.floor(l / 2));
+		s= s.substr(0, i) + this + s.substr(0, l - i);
+
+		return s;
+	}
+	else return this;
+}
+
+//повторить заданную строку n раз
+String.prototype.repeat = function(n)
+{
+	return new Array( n + 1 ).join(this);
+}

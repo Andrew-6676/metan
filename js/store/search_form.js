@@ -227,7 +227,13 @@ function searchForm () {
 					        var minus = '';
 					        for (val of sForm.fields) {
 						        var tmp = 'item.'+val;
-						        row += '<td class="">' + eval(tmp) + '</td>';
+						        var cl = '';
+						        if (typeof(eval(tmp))=='number') {
+							        cl = 'r';
+							        tmp = 'String('+tmp+').'+"replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`')";
+						        }
+
+						        row += '<td class="'+cl+'">' + eval(tmp) + '</td>';
 						        if (eval(tmp)<0) {
 							        //console.log(eval(tmp));
 							        minus = 'minus';

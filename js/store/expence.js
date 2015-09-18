@@ -633,10 +633,11 @@ function set_autocomplete(id) {
 					// формируем массив из найденых в БД строк
 					response(
 						$.map(data, function (item) {	// пробегаем по каждой строке результата
+							//console.log('>'+item.name.pad(40)+'<');
 							return { 	// формируем массив нужной структуры
 								id: item.id,	// это поле для вставки в соседний <input> (код товара)
-								value: item.name + '    (' + item.rest + ' шт)',	// это поле вставится в <input>
-								label: '[' + item.id + '] ' + item.name + '    (' + item.rest + ' шт по ' + item.price + 'р.)',		// это поле отобразится в выпадающем списке
+								value: item.name + '   (' + item.rest + ' шт)',	// это поле вставится в <input>
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ' + item.rest.pad(6,' ',0) + ' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
 								cost: item.cost,
 								markup: item.markup,
 								vat: item.vat,

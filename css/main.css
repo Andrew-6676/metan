@@ -474,3 +474,11 @@ table.canhide caption {
 .ui-dialog {
 	display: none;
 }
+
+.ui-menu .ui-menu-item a {
+	white-space: pre !important;
+	font-family: monospace !important;
+}
+.ui-widget-content {
+	background: #FFFFDF !important;
+}
