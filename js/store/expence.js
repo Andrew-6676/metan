@@ -361,7 +361,7 @@ $(document).ready(function () {
 
 		$('#cancel_expence').show();
 		$('#contact_name').removeClass('err');
-		$(document).scrollTop(70)
+		$(document).scrollTop(70);
 		event.stopPropagation();
 	})
 	/*---------------------------------------------------------------------------------------*/

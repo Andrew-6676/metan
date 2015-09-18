@@ -369,6 +369,7 @@ $(document).ready(function () {
 		$('.action').text('[редактирование]');
 		$('#cancel_expence').show();
 		$('#add_expence').text('Сохранить');
+		$(document).scrollTop(70);
 	})
 
 	$('#cancel_expence').click(function () {
