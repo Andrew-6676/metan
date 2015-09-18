@@ -15,6 +15,7 @@ $this->addJS('store/rest.js');
 <br>
 <br>
 <button class="selected_goods">Выбрать</button>
+<button class="unselect_goods">Снять выделение</button>
 <div class="" style="float: right; ">
 	Всего: <?php echo number_format($total, 0, '.', ' '); ?>
 </div>

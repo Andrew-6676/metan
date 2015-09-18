@@ -163,8 +163,8 @@ class Rest extends CActiveRecord
 						where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
 					) as motion
 					group by gid, gname, price
-					having sum(quantity)!=0
-					order by 1, 2";
+					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
+					order by ".$f.", 1, 2";
 
 		$rest = $connection->createCommand($sql_rest)->queryAll();
 

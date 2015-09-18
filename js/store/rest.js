@@ -8,7 +8,11 @@ $(document).ready(function () {
 	$('tr').click(function () {
 		$(this).toggleClass('sel');
 	});
-
+	
+	$('.unselect_goods').click(function () {
+		$('tr.sel').removeClass('sel');
+	});
+	
 	$('.selected_goods').click(function () {
 		var goods = $("tr.sel").map(function(indx, element){
 			return $(element).find('.gid').text();
@@ -20,6 +24,8 @@ $(document).ready(function () {
 			var params = '?id='+goods.join(',');
 			// открыть выборку на новой вкладке
 			window.open(rootFolder + '/goods/selection' + params, '_blank')
+		} else {
+			alert("Не выбрано ни одной записи.");
 		}
 	})
 

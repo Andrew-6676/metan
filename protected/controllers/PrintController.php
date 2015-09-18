@@ -47,6 +47,7 @@ class PrintController extends Controller {
 /* --------------------- список всех действий контроллера ---------------*/
 	public function actions() {
 		return array(
+			'printKredit' => 'application.controllers.print.printKreditAction',
 			'printRest' => 'application.controllers.print.printRestAction',
 			'printReceipt' => 'application.controllers.print.printReceiptAction',
 			'printPricelabel' => 'application.controllers.print.printPricelabelAction',
