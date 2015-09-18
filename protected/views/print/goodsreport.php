@@ -291,7 +291,7 @@ exp:
 					$tr .=      number_format($doc['kassa'], '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format(($r + $doc['sum'] - @$doc['return']), '0', '.', ' ');
+					$tr .=      number_format(($r + $doc['sum'] - @$doc['return']-$doc['kassa']), '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
 					$tr .=      @number_format($doc['return'], '0', '.', ' ');
