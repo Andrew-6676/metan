@@ -463,6 +463,12 @@ table.std td {
 	text-align: right;
 }
 
+table.std td.l {
+	text-align: left;
+}
+table.std td.c {
+	text-align: center;
+}
 table.std td.no_border {
 	border: none;
 }
