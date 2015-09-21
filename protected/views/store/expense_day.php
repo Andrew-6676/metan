@@ -301,7 +301,7 @@ $this->addJS('jquery-ui.js');
 		<tr doc_id="<?php echo $document->id; ?>">
 			<td class="npp"><?php echo ++$i; ?></td>
 			<td class="id"><?php echo $document->documentdata[0]->id_goods; ?></td>
-			<td class="name"><?php echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods)); ?></td>
+			<td class="name"><?php echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods), array('target'=>'_blank') ); ?></td>
 			<td class="quantity"><?php echo $document->documentdata[0]->quantity; ?></td>
 			<td class="price"><?php echo number_format($document->documentdata[0]->price, '0', '.', '`'); ?></td>
 			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '`'); ?></td>
