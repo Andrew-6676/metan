@@ -13,6 +13,7 @@
 
 ?>
 
+
 <div id="form">
 	<div class="form_caption"></div>
 	<div class="new_doc_hat">

@@ -13,42 +13,6 @@
 	// echo '</pre>';
 
 
-$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-	'id' => 'mydialog2',
-	'options' => array(
-		'title'         => 'Реквизиты ТТН/ТН',
-		'autoOpen'      => FALSE,
-		'modal'         => true,
-		'closeOnEscape' => 'true',
-		'width'         =>'700',
-		'top'           => '30',
-		'resizable'     => false,
-//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
-		'position'=>array('50%',180),
-		'buttons'       => array(
-			'ТН'=>"js:function(){
-							window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
-						}",
-			'ТТН'=>"js:function(){
-							window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
-						}",
-			'Отмена'=>'js:function(){$("#mydialog2").dialog("close")}',),
-	),
-));
-
-?>
-
-<div id="regions_tree"></div>
-
-<?php
-$this->endWidget('zii.widgets.jui.CJuiDialog');
-
-
-//print CHtml::ajaxLink('Объекты', array('store/getForm','form'=>'deliverynote'),
-print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
-	array('update' => '#regions_tree'),
-	array('onclick' => '$("#mydialog2").dialog("open");', 'title' => 'Реквизиты ТТН/ТН', 'id'=>'ttn', 'style'=>'display:none')
-);
 
 ?>
 
@@ -237,3 +201,61 @@ print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
 
 ?>
 </div>
+
+<?php
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id' => 'prepareTTN',
+	'options' => array(
+		'title'         => 'Реквизиты ТТН/ТН',
+		'autoOpen'      => FALSE,
+		'modal'         => true,
+		'closeOnEscape' => 'true',
+		'width'         =>'700',
+		'top'           => '30',
+		'resizable'     => false,
+//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
+		'position'=>array('50%',180),
+		'buttons'       => array(
+			'ТН'=>"js:function(){
+							form.find('input').map(function(i,e){
+							n = $(e).attr('name');
+							v = $(e).val();
+							return {name : n, val: v };
+							})
+							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
+							print_ttn(
+
+//									_id_doc,
+//									$('#form_writeoff_nttn').val(),
+//									$('#form_writeoff_date_ttn').val(),
+//									$('#form_writeoff_n_pl').val(),
+//									$('#form_writeoff_for').val()
+								);
+						}",
+			'ТТН'=>"js:function(){
+							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
+							print_ttn(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val(), $('#form_writeoff_for').val());
+						}",
+			'Отмена'=>'js:function(){$("#prepareTTN").dialog("close")}',),
+	),
+));
+
+?>
+
+	<div id="regions_tree"></div>
+
+<?php
+$this->renderPartial('forms/_deliverynote',array(
+	'data'=>'$data',
+));
+
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareTTN").dialog("open"); return false;','id'=>'ttn', 'style'=>'display:none'));
+//print CHtml::ajaxLink('Объекты', array('store/getForm','form'=>'deliverynote'),
+//print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
+//	array('update' => '#regions_tree'),
+//	array('onclick' => '$("#prepareTTN").dialog("open");', 'title' => 'Реквизиты ТТН/ТН', 'id'=>'ttn', 'style'=>'display:none')
+//);
+
+?>

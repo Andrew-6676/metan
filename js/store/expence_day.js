@@ -404,6 +404,7 @@ $(document).ready(function () {
 /*--------------------------------------------------------------------------------------------------*/
 /*---------------------------- Проверка и загрузка новых строк с сервера ---------------------------*/
 function checkNewData() {
+	//return false;
 	// console.log('start check data');
 	// var lastId = $('.doc_data tr').last().attr('doc_id');
 	// console.log(lastId);
@@ -476,7 +477,8 @@ function checkNewData() {
 		//}
 	})
 
-	timeout_id = window.setTimeout(checkNewData, 60000);
+		// запуск проверки новых документов на сервере
+	//timeout_id = window.setTimeout(checkNewData, 60000);
 }
 
 // $(".newRow").animate({

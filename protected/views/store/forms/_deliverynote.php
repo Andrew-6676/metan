@@ -9,7 +9,7 @@
 //echo 'deliverynote form';
 $ttnForm = new form_ttn;
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'quick-form',
+	'id' => 'prepare-ttn-form',
 	'enableClientValidation' => true,
 	'clientOptions' => array(
 		'validateOnSubmit' => true,
