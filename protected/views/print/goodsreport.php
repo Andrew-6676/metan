@@ -14,7 +14,6 @@ $df = Utils::format_date($_GET['from_date']);
 $dt = Utils::format_date($_GET['to_date']);
 ksort($data['expence']['day']['data']);
 
-//Utils::print_r($_GET['from_date']);
 //Utils::print_r($data);
 //Utils::print_r($_GET);
 //exit;

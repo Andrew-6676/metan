@@ -100,10 +100,13 @@ class Kassa extends CActiveRecord
 
 	/*----------------------------------------------*/
 	public static function getRest($date=0, $store=0, $x=0 ){
+		$criteria = new CDbCriteria;
 		if ($date == 0) $date = Yii::app()->session['workdate'];
 		if ($store == 0) $store = Yii::app()->session['id_store'];
+
 			// если $x!=0 то берём предыдущий остаток
 		if ($x < 0) {
+
 //			$connection = Yii::app()->db;
 //			$sql_rest = 'select "sum"
 //						 where id_store='.$store.' and '.' kassa_date < \''.$date.'\'
@@ -111,12 +114,11 @@ class Kassa extends CActiveRecord
 //						 limit 1';
 //			$rest = $connection->createCommand($sql_rest)->queryAll();
 
-			$criteria = new CDbCriteria;
 			$criteria->addCondition("kassa_date<'" . $date . "'");
 			$criteria->addCondition("id_store=" . $store);
 			$criteria->order = 'kassa_date desc';
 
-			$r = Kassa::model()->limit(1)->find($criteria);
+			$r = Kassa::model()->find($criteria)->limit(1);
 			if ($r) {
 				return $r->getAttribute('sum');
 			} else {
@@ -125,7 +127,6 @@ class Kassa extends CActiveRecord
 
 		} else {
 
-			$criteria = new CDbCriteria;
 			$criteria->addCondition("kassa_date='" . $date . "'");
 			$criteria->addCondition("id_store=" . $store);
 
