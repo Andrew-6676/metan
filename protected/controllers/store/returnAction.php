@@ -75,8 +75,8 @@ class returnAction extends CAction   /*---- StoreController ----*/
 	    	$document->id_store 	= Yii::app()->session['id_store'];
 	    	$document->id_owner	 	= Yii::app()->user->id;
 	    	$document->id_editor	= Yii::app()->user->id;
-	    	$document->date_insert 	= date('Y-m-d');
-	    	$document->date_edit	= date('Y-m-d');
+//	    	$document->date_insert 	= date('Y-m-d');
+//	    	$document->date_edit	= date('Y-m-d');
 	    	$document->doc_num		= $doc['doc_num'];
 	    	$document->doc_num2		= intval($doc['doc_num']);
 			$document->doc_date		= $doc['doc_date'];
@@ -107,8 +107,8 @@ class returnAction extends CAction   /*---- StoreController ----*/
 	                $documentdata->id_doc       = $document->id;
 	                $documentdata->id_owner     = Yii::app()->user->id;
 	                $documentdata->id_editor    = Yii::app()->user->id;
-	                $documentdata->date_insert  = date('Y-m-d');
-	                $documentdata->date_edit    = date('Y-m-d');
+//	                $documentdata->date_insert  = date('Y-m-d');
+//	                $documentdata->date_edit    = date('Y-m-d');
 	                $documentdata->id_goods     = $id;
 	                $documentdata->cost         = 0;
 	                $documentdata->markup       = 0;

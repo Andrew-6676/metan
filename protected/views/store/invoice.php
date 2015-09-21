@@ -228,7 +228,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 			'Сформировать'=>"js:function(){
 							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
 //							alert(_id_doc);
-							writeoff(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val());
+							writeoff(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val(), $('#form_writeoff_for').val());
 						}",
 			'Отмена'=>'js:function(){$("#prepareWriteoff").dialog("close")}',),
 	),

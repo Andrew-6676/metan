@@ -204,7 +204,7 @@ $(document).ready(function () {
 	//})
 })
 
-function writeoff(id, nttn, date_ttn, n_pl) {
+function writeoff(id, nttn, date_ttn, n_pl, for_) {
 	console.log(arguments);
 
 	/* проверить содержимое переменных
@@ -225,7 +225,7 @@ function writeoff(id, nttn, date_ttn, n_pl) {
 		url: 'http://' + document.location.host + rootFolder+"/store/invoice",
 		type: 'POST',
 		dataType: "json",
-		data: {writeoff_invoice: {'doc_id':id, 'nakl_num':nttn, 'nakl_date': date_ttn,'payment_order': n_pl}},
+		data: {writeoff_invoice: {'doc_id':id, 'nakl_num':nttn, 'nakl_date': date_ttn,'payment_order': n_pl, 'for_': for_}},
 		// функция обработки ответа сервера
 		error: function (data) {
 			console.log(data);
