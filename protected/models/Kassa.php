@@ -99,18 +99,42 @@ class Kassa extends CActiveRecord
 	}
 
 	/*----------------------------------------------*/
-	public static function getRest($date=0, $store=0){
-		if ($date == 0 ) $date=Yii::app()->session['workdate'];
-		if ($store == 0 ) $store=Yii::app()->session['id_store'];
-		$criteria = new CDbCriteria;
-		$criteria->addCondition("kassa_date='".$date."'");
-		$criteria->addCondition("id_store=".$store);
+	public static function getRest($date=0, $store=0, $x=0 ){
+		if ($date == 0) $date = Yii::app()->session['workdate'];
+		if ($store == 0) $store = Yii::app()->session['id_store'];
+			// если $x!=0 то берём предыдущий остаток
+		if ($x < 0) {
+//			$connection = Yii::app()->db;
+//			$sql_rest = 'select "sum"
+//						 where id_store='.$store.' and '.' kassa_date < \''.$date.'\'
+//						 order by kassa_date desc
+//						 limit 1';
+//			$rest = $connection->createCommand($sql_rest)->queryAll();
 
-		$r = Kassa::model()->find($criteria);
-		if ($r) {
-			return $r->getAttribute('sum');
+			$criteria = new CDbCriteria;
+			$criteria->addCondition("kassa_date<'" . $date . "'");
+			$criteria->addCondition("id_store=" . $store);
+			$criteria->order = 'kassa_date desc';
+
+			$r = Kassa::model()->limit(1)->find($criteria);
+			if ($r) {
+				return $r->getAttribute('sum');
+			} else {
+				return -1;
+			}
+
 		} else {
-			return -1;
+
+			$criteria = new CDbCriteria;
+			$criteria->addCondition("kassa_date='" . $date . "'");
+			$criteria->addCondition("id_store=" . $store);
+
+			$r = Kassa::model()->find($criteria);
+			if ($r) {
+				return $r->getAttribute('sum');
+			} else {
+				return -1;
+			}
 		}
 	}
 }

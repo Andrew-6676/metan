@@ -13,16 +13,17 @@ $this->addCSS('print/report.css');
 $df = Utils::format_date($_GET['from_date']);
 $dt = Utils::format_date($_GET['to_date']);
 ksort($data['expence']['day']['data']);
-Utils::print_r($_GET['from_date']-1);
+
+//Utils::print_r($_GET['from_date']);
 //Utils::print_r($data);
 //Utils::print_r($_GET);
-exit;
+//exit;
 //return;
 // извлекаем расход
 $expence = array_shift($data);
 
 $rr = Rest::get_Rest($_GET['from_date'], $_GET['id_store']);
-$rk = Kassa::getRest($_GET['from_date'], $_GET['id_store']);
+$rk = Kassa::getRest($_GET['from_date'], $_GET['id_store'], -1);
 //Utils::print_r();
 $total = $rr+$rk;         // для накопления остатка
 ?>
