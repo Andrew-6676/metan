@@ -118,7 +118,7 @@ class Kassa extends CActiveRecord
 			$criteria->addCondition("id_store=" . $store);
 			$criteria->order = 'kassa_date desc';
 
-			$r = Kassa::model()->find($criteria)->limit(1);
+			$r = Kassa::model()->find($criteria);
 			if ($r) {
 				return $r->getAttribute('sum');
 			} else {
