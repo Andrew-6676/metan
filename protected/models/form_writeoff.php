@@ -11,7 +11,7 @@ class form_writeoff extends CFormModel
 	public $nttn;
 	public $date_ttn;
 	public $n_pl;
-
+	public $for;
 
 	public function rules()
 	{
@@ -27,6 +27,7 @@ class form_writeoff extends CFormModel
 			'nttn'=>'Номер ТН/ТТН',
 			'date_ttn'=>'Дата ТН/ТТН',
 			'n_pl'=>'Номер платёжного поручения',
+			'for'=>'Товарооборот',
 		);
 	}
 }

@@ -13,7 +13,7 @@ $form = $this->beginWidget('CActiveForm', array(
 ));
 
 $form->errorSummary($wrForm);
-
+$for = array('-1' => '-', '1' => 'Общий товарооборот', '2' => 'Розничный товарооборот', '3' => 'Собственные нужды');
 $arr = array(
 	'nttn',
 	'date_ttn',
@@ -34,6 +34,13 @@ $wrForm->n_pl = '0';
 	</div>
 	<div class="row">
 		<?php textField($form, $wrForm, 'n_pl'); ?>
+	</div>
+
+	<div class="row">
+		<?php
+			echo $form->labelEx($wrForm, 'for');
+			echo $form->dropDownList($wrForm,'for', $for);
+		?>
 	</div>
 
 	<?php

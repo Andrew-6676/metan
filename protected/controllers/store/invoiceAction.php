@@ -304,9 +304,11 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			$nakl->doc_num      = $data['nakl_num'];
 			$nakl->doc_num2     = $data['nakl_num'];
 			$nakl->doc_date     = $data['nakl_date'];
-			$nakl->date_insert  = date('Y-m-d H:i:s');
-			$nakl->date_edit    = date('Y-m-d H:i:s');
+			$nakl->for          = $data['for_'];
+//			$nakl->date_insert  = date('Y-m-d H:i:s');
+//			$nakl->date_edit    = date('Y-m-d H:i:s');
 			$nakl->payment_order= $data['payment_order'];
+
 			// $nakl->doc_date = $data['date'];
 //			$nakl->doc_date = Yii::app()->session['workdate'];
 
@@ -342,7 +344,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 		{
 			$transaction->rollback();
 			$res['status'] = 'error';
-			$res['message'] = 'error catch';
+			$res['message'] = $e;
 			echo json_encode($res);
 		}
 	}   // end eriteoffInvoice
