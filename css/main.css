@@ -441,7 +441,7 @@ tr.sel {
 td.minus {
 	color: red;
 }
-
+/*-------------------------------------------------*/
 table.std caption, table.std th {
 	font-weight: bold;
 	border: 1px solid rgb(179, 213, 240);
@@ -456,6 +456,9 @@ table.std {
 	border-collapse: collapse;
 	margin-bottom: 10px;
 	margin-top: 10px;
+}
+table.std tr:hover {
+	background-color: #ECFBD4;
 }
 table.std td {
 	border: 1px solid #bcbcbc;

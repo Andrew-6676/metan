@@ -88,63 +88,25 @@ class MainAjaxController extends CController
 
 		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
 		echo $rest;
+	}
+/*------------------------------------------------------------------------*/
+	public function ActionGetGoodsNameFromAll($term, $f) {
 
-//		exit;
-//
-//		$connection = Yii::app()->db;
-//
-//		$sql_rest = "select gid as id, gname as name, cost, markup, vat, price, sum(quantity)::real as rest
-//					from (
-//							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
-//							from vgm_goods g
-//								inner join vgm_documentdata dd on g.id=dd.id_goods
-//								inner join vgm_document d on d.id=dd.id_doc
-//								inner join vgm_operation o on o.id=d.id_operation
-//							where d.doc_date<='".Yii::app()->session['workdate']."' and d.doc_date>='".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-//								union
-//							select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
-//							from vgm_goods g
-//								inner join vgm_rest r on g.id=r.id_goods
-//							where r.rest_date::text like '".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-//						 ) as motion
-//					group by gid, gname, cost, markup, vat, price
-//					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
-//					order by ".$f.", 1, 2";
-//
-////		$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
-////					from (
-////							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, dd.quantity*o.operation as quantity, dd.price, 'd' as t
-////							from vgm_goods g
-////								inner join vgm_documentdata dd on g.id=dd.id_goods
-////								inner join vgm_document d on d.id=dd.id_doc
-////								inner join vgm_operation o on o.id=d.id_operation
-////								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
-////							where d.doc_date<='".Yii::app()->session['workdate']."' and d.doc_date>='".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-////								union
-////							select gg.id as ggid, gg.name as ggname, g.id as gid, g.name as gname, r.quantity, r.cost as price, 'r' as t
-////							from vgm_goods g
-////								inner join vgm_rest r on g.id=r.id_goods
-////								left join vgm_goodsgroup gg on gg.id=g.id_goodsgroup
-////							where r.rest_date::text like '".substr(Yii::app()->session['workdate'],0,7)."-01' and id_store=".Yii::app()->session['id_store']."
-////						 ) as motion
-////					group by ggid, ggname, gid, gname, price
-////					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
-////					order by ".$f.", 1, 2";
-//		// echo '<pre>'.$sql_rest.'</pre>';
-//		$rest = $connection->createCommand($sql_rest)->queryAll();
-//
-////		Utils::print_r($rest);
-//
-//		$res = json_encode($rest);
-//		echo $res;
+//		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
+		$connection = Yii::app()->db;
+		$sql_goods = "select id, ".$f."
+					  from {{goods}}
+					  where upper(".$f."::text) like upper('".$term."%')";
+		$res = $connection->createCommand($sql_goods)->queryAll();
 
-
+//		Utils::print_r($res);
+		echo json_encode($res);
 	}
 /*--------------------------------------------------------------------------------------------------------------------*/
 	public function ActionGetContactName($term, $f) {
 		$connection = Yii::app()->db;
 
-		$sql = "select id, trim(name) as name, trim(fname) as fname
+		$sql = "select id, trim(name) as name, trim(fname) as fname, trim(unn) as unn
 				from {{contact}}
 				where upper(".$f."::text) like upper('".$term."%') and parent=2
 				order by 2";

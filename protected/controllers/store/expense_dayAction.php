@@ -87,17 +87,16 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		// $doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
 
 		$criteria = new CDbCriteria;
-		$criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
-		$criteria->order ='doc_date desc, doc_num desc';
-		$criteria->addCondition('id_doctype = 2');
+//		$criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date=\''.Yii::app()->session['workdate'].'\'');
-		$criteria->addCondition('doc_num2 = 0');
 
-		$q_model = Document::model()->with('documentdata')->findAll($criteria);
+		/* сводная таблица по расходу за день */
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
 		$gr = array();
-		foreach ($q_model as $document) {
+		$criteria->order ='doc_date desc, doc_num desc';
+		$s_model = Document::model()->with('documentdata')->findAll($criteria);
+		foreach ($s_model as $document) {
 			$sum = $document->documentdata[0]->price*$document->documentdata[0]->quantity;
 			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
 
@@ -113,6 +112,12 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 				}
 			}
 		}
+		/* end сводная по расходу*/
+		$criteria->addCondition('id_doctype = 2');
+		$criteria->addCondition('doc_num2 = 0');
+		$criteria->order ='t.date_insert';
+		$q_model = Document::model()->with('documentdata')->findAll($criteria);
+
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
 												  'order'=>'name'));

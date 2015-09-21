@@ -93,7 +93,7 @@ $(document).ready(function () {
 			search_data1 = {
 				capt: "Поиск клиента",
 				action: "GetContactName",
-				fields: ["name"],
+				fields: ["name", "unn"],
 				field: 'name',
 				key: "id",
 				width: 800,
@@ -418,6 +418,13 @@ $(document).ready(function () {
 		//alert('сохранить расход');
 		//alert(document.location.host);
 		//alert($('[name = "expence[id_operation]"]').val());
+
+		if ($('#contact_name').attr('cid') == '') {
+			alert('Не указан потребитель!');
+			$('#contact_name').focus();
+			err = true;
+			return false;
+		}
 
 		// собираем данные в массив
 		var arr = {};

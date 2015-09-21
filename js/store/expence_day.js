@@ -11,6 +11,15 @@ var search_data = {
 };
 /*--------------------------------------------------*/
 $(document).ready(function () {
+	$('#kassa_rest').blur(function () {
+		$(this).attr('rest', $(this).val().replace(/`/g, ""));
+		$(this).val($(this).attr('rest').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`'));
+	});
+
+	$('#kassa_rest').focus(function () {
+		$(this).val($(this).attr('rest'));
+	});
+
 	$('#for').val($('td.for').attr('id_for'));
 
 	$('#expence_id_operation').focus();

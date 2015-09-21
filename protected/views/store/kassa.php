@@ -8,12 +8,10 @@
 
 $this->pageTitle = 'Касса на начало дня';
 
-$d = explode('-', Yii::app()->session['workdate']);
-$d = $d[2].'.'.$d[1].'.'.$d[0];
 ?>
 
 <div class="form">
-	<h2>Остаток на <?php echo $d; ?></h2>
+	<h2>Остаток на <?php echo Utils::format_date(Yii::app()->session['workdate']); ?></h2>
 	<?php echo CHtml::textField('mess',$sum); ?>
 	<br>
 	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
@@ -79,7 +77,7 @@ $d = $d[2].'.'.$d[1].'.'.$d[0];
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$model,
-	'enablePagination' => true,
+	'enablePagination' => false,
 	'columns'=>array(
 		array(
 			'name'=>'kassa_date',

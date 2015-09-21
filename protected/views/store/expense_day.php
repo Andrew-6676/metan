@@ -133,15 +133,59 @@ $this->addJS('jquery-ui.js');
 
 <div class="delemiter"></div>
 
+<div class="form">
+	Касса на начало дня:
+	<?php echo CHtml::textField('kassa_rest', number_format(Kassa::getRest(), '0', '.', '`'), array('id'=>'kassa_rest', 'rest'=>Kassa::getRest())); ?>
+	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
+	<script type="text/javascript">
+
+		function send()
+		{
+
+			var text = $("#kassa_rest").attr('rest');
+
+			if (text=='') {
+				alert('Введите сумму!');
+				return false;
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '<?php echo Yii::app()->createAbsoluteUrl("store/kassa"); ?>',
+				dataType:'json',
+				data: {mess : text},
+				success:function(data){
+					console.log(data);
+					if (data.status=='ok') {
+
+					} else {
+						alert('Ошибка сохранения!');
+					}
+//				alert(data.message);
+//					location.reload();
+				},
+
+				error: function(data) { // if error occured
+					console.log(data);
+					alert(data.message);
+				}
+			});
+
+		}
+
+	</script>
+</div><!-- form -->
 <!-- ----------------------------------------------------------------------- -->
 <div class="day_sum">
 	<table class="std" style="margin: auto; margin-bottom: 20px;">
 		<thead>
 		<tr>
-			<td class="no_border"></td>
+<!--			<td class="no_border"></td>-->
+			<th></th>
 			<th>Общий<br>товарооборот</th>
 			<th>Розничный<br>товарооборот</th>
 			<th>Собственные<br>нужды</th>
+			<th></th>
 		</tr>
 		</thead>
 		<?php
@@ -247,18 +291,24 @@ $this->addJS('jquery-ui.js');
 	</thead>
 	<tbody>
 	<?php
+	$src = array(
+		51=>'nal_30.png',
+		56=>'karta_30.png'
+	);
 	$for = array('-1' => '-', '1' => 'Общий товарооборот', '2' => 'Розничный товарооборот', '3' => 'Собственные нужды');
 	$i = 0;
 	foreach ($data as $document) : ?>
 		<tr doc_id="<?php echo $document->id; ?>">
 			<td class="npp"><?php echo ++$i; ?></td>
 			<td class="id"><?php echo $document->documentdata[0]->id_goods; ?></td>
-			<td class="name"><?php echo $document->documentdata[0]->idGoods->name; ?></td>
+			<td class="name"><?php echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods)); ?></td>
 			<td class="quantity"><?php echo $document->documentdata[0]->quantity; ?></td>
 			<td class="price"><?php echo number_format($document->documentdata[0]->price, '0', '.', '`'); ?></td>
 			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '`'); ?></td>
 			<td class="operation" id_operation="<?php echo $document->idOperation->id; ?>"
-			    kart_num="<?php echo @$document->docaddition->payment_order; ?>"><?php echo $document->idOperation->name; ?></td>
+			    kart_num="<?php echo @$document->docaddition->payment_order; ?>">
+				<?php echo CHtml::image(Yii::app()->request->baseUrl.'/images/'.$src[$document->idOperation->id],'', array('alt'=>$document->idOperation->name, 'title'=>$document->idOperation->name)); ?>
+			</td>
 			<td class="for" id_for="<?php echo $document->for; ?>"><?php echo $for[$document->for]; ?></td>
 			<td class="buttons">
 				<button class='del'></button>

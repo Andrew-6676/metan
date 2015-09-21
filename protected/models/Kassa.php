@@ -99,7 +99,9 @@ class Kassa extends CActiveRecord
 	}
 
 	/*----------------------------------------------*/
-	public static function getRest($date, $store){
+	public static function getRest($date=0, $store=0){
+		if ($date == 0 ) $date=Yii::app()->session['workdate'];
+		if ($store == 0 ) $store=Yii::app()->session['id_store'];
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("kassa_date='".$date."'");
 		$criteria->addCondition("id_store=".$store);

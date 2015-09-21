@@ -76,7 +76,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 					$json['expence']['including'][$row_d->for] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 				}
 					// "расход за день" отдельно счиатем
-				if ($row_d->doc_num == 0) {
+				if (trim($row_d->doc_num) == '0') {
 						//
 					if ($d == '') {$d = $row_d->doc_date;}
 					if ($d != $row_d->doc_date) {

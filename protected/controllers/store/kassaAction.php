@@ -31,6 +31,7 @@ class kassaAction extends CAction   /*SiteController*/
 
 		$dataProvider = new CActiveDataProvider('Kassa', array(
 			'criteria' => $criteria2,
+			'pagination'=>false,
 		));
 
 
@@ -57,7 +58,7 @@ class kassaAction extends CAction   /*SiteController*/
 					$res['status'] = 'ok';
 					$res['message'] = 'Сохранено';
 				} else {
-					$res['status'] = 'ok';
+					$res['status'] = 'err';
 					$res['message'] = 'Ошибка! ';
 				}
 
