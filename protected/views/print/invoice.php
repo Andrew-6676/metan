@@ -151,7 +151,7 @@ $this->addCSS('print/report.css');
 				$tr .= number_format($row->quantity * $row->cost * (1 + $row->markup / 100), '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
-				$tr .= number_format($row->vat, '2', '.', ' ');
+				$tr .= number_format($row->vat, '', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td>';
 //				$tr .= number_format($row->vat / 100 * $row->quantity * $row->cost * (1 + $row->markup / 100), '0', '.', ' ');

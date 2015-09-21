@@ -73,7 +73,7 @@ $dn = '';
 			$tr .=         CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation]);
 			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
-			$tr .=         $row->quantity*$doc->operation->operation;
+			$tr .=         $row->quantity;
 			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         number_format($row->price*$row->quantity,'0','.','`');
