@@ -21,7 +21,7 @@ ksort($data['expence']['day']['data']);
 $expence = array_shift($data);
 
 $rr = Rest::get_Rest($_GET['from_date'], $_GET['id_store']);
-$rk = Kassa::getRest($_GET['from_date'], $_GET['id_store']);
+$rk = Kassa::getRest($_GET['from_date']-1, $_GET['id_store']);
 //Utils::print_r();
 $total = $rr+$rk;         // для накопления остатка
 ?>
