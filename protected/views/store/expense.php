@@ -1,12 +1,16 @@
 <?php
-	$this->addCSS('store/invoice.css');
+//	$this->addCSS('store/invoice.css');
 	$this->addCSS('store/expence.css');
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
 	$this->addCSS('store/search_form.css');
+	$this->addCSS('forms.css');
 
   	$this->addJS('store/search_form.js');
+
 	$this->addJS('store/expence.js');
+	$this->addJS('store/document.js');
 	$this->addJS('jquery-ui.js');
+
 
 	// echo '<pre>';
 	// print_r($oper);
@@ -99,6 +103,9 @@
 					<th><div class="th t1">Код товара</div></th>
 					<th><div class="th t2">Наименование товара</div></th>
 					<th><div class="th t3">Количество</div></th>
+					<th><div class="th t4">НДС, %</div></th>
+					<th class="hidden"><div class="th t4">Markup</div></th>
+					<th class="hidden"><div class="th t4">Cost</div></th>
 					<th><div class="th t4">Цена</div></th>
 					<th><div class="th t5">Сумма</div></th>
 					<th></th>
@@ -114,6 +121,15 @@
 					</td>
 					<td>
 						<input type="number" name="quantity" class="quantity" placeholder="Количество" required pattern="[0-9]">
+					</td>
+					<td class="hidden">
+						<input type="number" name="cost" class="cost" placeholder="Cost" required pattern="[0-9]">
+					</td>
+					<td class="hidden">
+						<input type="number" name="markup" class="markup" placeholder="Markup" required pattern="[0-9]">
+					</td>
+					<td>
+						<input type="number" name="vat" class="vat" placeholder="НДС, %" required pattern="[0-9]">
 					</td>
 					<td>
 						<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
@@ -182,18 +198,20 @@
 			'doc_date'=>'Дата',
 			'contact.name'=>'Покупатель',
 			'operation.name'=>'Вид расхода',
-//			'for'=>'',
+			'for'=>'Товарооборот',
 //			'sum_vat'=>'Сумма НДС',
 //			'sum_cost'=>'Сумма',
 			'sum_price'=>'Сумма',
 //			'paymentorder'=>''
 		),
 		'columns'=> array(
-			'id_goods'=>'Код',
+			'id_goods'  =>'Код',
 			'goods.name'=>'Наименование товара',
-			'quantity'=>'Количество',
-//			'vat'=>'НДС',
-			'price'=>'Розничная цена',
+			'quantity'  =>'Количество',
+			'cost'      =>'Покупная цена',
+			'markup'    =>'Наценка',
+			'vat'       =>'НДС',
+			'price'     =>'Розничная цена',
 			'=quantity*price'=>'Сумма розница'
 		),
 		'buttons'=>array('print','del','edit'),
@@ -217,24 +235,19 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'position'=>array('50%',180),
 		'buttons'       => array(
 			'ТН'=>"js:function(){
-							form.find('input').map(function(i,e){
-							n = $(e).attr('name');
-							v = $(e).val();
-							return {name : n, val: v };
-							})
-							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
 							print_ttn(
-
-//									_id_doc,
-//									$('#form_writeoff_nttn').val(),
-//									$('#form_writeoff_date_ttn').val(),
-//									$('#form_writeoff_n_pl').val(),
-//									$('#form_writeoff_for').val()
-								);
+								_id_doc,
+								'tn',
+								$('#prepare-ttn-form').serialize()
+							);
 						}",
 			'ТТН'=>"js:function(){
 							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
-							print_ttn(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val(), $('#form_writeoff_for').val());
+							print_ttn(
+								_id_doc,
+								'ttn',
+								$('#prepare-ttn-form').serialize()
+							);
 						}",
 			'Отмена'=>'js:function(){$("#prepareTTN").dialog("close")}',),
 	),

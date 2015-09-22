@@ -26,10 +26,10 @@ class expenseAction extends CAction   /*---- StoreController ----*/
         	}		// if(isset($_POST['new_expense']))
 
         		// удалить расход
-			if(isset($_POST['del_expense'])) {
-				$this->delExpense($_POST['del_expense']);
-				exit;
-        	}		// if(isset($_POST['del_expense']))
+//			if(isset($_POST['del_expense'])) {
+//				$this->delExpense($_POST['del_expense']);
+//				exit;
+//        	}		// if(isset($_POST['del_expense']))
 
         	echo 'Неправильный запроc';
         	exit;
@@ -112,26 +112,26 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		try {
 			$doc = $data['doc'];
 			// атрибуты родительской таблицы
-			$document->id_store = Yii::app()->session['id_store'];
-			$document->id_owner = Yii::app()->user->id;
-			$document->id_editor = Yii::app()->user->id;
 //			$document->date_insert = date('Y-m-d');
 //			$document->date_edit = date('Y-m-d');
-			$document->doc_num = $doc['doc_num'];
-			$document->doc_num2 = intval($doc['doc_num']);
-			$document->doc_date = $doc['doc_date'];
-			$document->id_contact = $doc['id_contact'];
-			$document->id_storage = 2;
-			$document->reason = '';
+//            $document->id_editor    = 8;
+			$document->doc_num      = $doc['doc_num'];
+			$document->doc_num2     = intval($doc['doc_num']);
+			$document->doc_date     = $doc['doc_date'];
+			$document->id_contact   = $doc['id_contact'];
+			$document->id_storage   = 2;
+			$document->reason       = '';
 			$document->id_operation = $doc['id_operation'];
-			$document->id_doctype = 2;
-			//$document->active = '1::boolean';
+			$document->id_doctype   = 2;
+
 			if (isset($doc['doc_for']) && $doc['doc_for']) {
 				$document->for = $doc['doc_for'];
 			}
 			if (isset($doc['payment_order'])) {
 				$document->payment_order = $doc['payment_order'];
 			}
+
+
 	    	//print_r($document);
 			if($document->save()) {
 					// если удачное сохранение - получаем ID новой записи
@@ -151,10 +151,8 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 				   		// атрибуты дочерней таблицы
 	                $documentdata->id_doc       = $document->id;
-	                $documentdata->id_owner     = Yii::app()->user->id;
-	                $documentdata->id_editor    = Yii::app()->user->id;
-//	                $documentdata->date_insert  = date('Y-m-d');
-//	                $documentdata->date_edit    = date('Y-m-d');
+//	                $documentdata->id_owner     = Yii::app()->user->id;
+//	                $documentdata->id_editor    = Yii::app()->user->id;
 	                $documentdata->id_goods     = $id;
 	                $documentdata->cost         = 0;
 	                $documentdata->markup       = 0;
@@ -181,7 +179,10 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 			} else {
 				// если данные не сохранены
-
+				$res['message'] = $document->getErrors();
+				$transaction->rollback();
+				echo json_encode($res);
+				return;
 			}		// end if($model->save())
 
 
@@ -206,24 +207,25 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		{
 			$transaction->rollback();
 			$res['status'] = 'error';
+			$res['message'] = $e;
 			echo json_encode($res);
 		}
 		// Yii::app()->db->emulatePrepare = true;
 	}	// end addExpense
 
 /*----------------------- Удалить расход --------------------------------------------------*/
-	private function delExpense($id) {
-		$sql = 'delete from vgm_document where id='.$id;
-	 	try {
-		 	// $r = Yii::app()->db->createCommand($sql)->exeute();
-			Document::model()->deleteByPk($id);
-			$res = array('status'=>'ok', 'id'=>$id);
-		}catch(Exception $e) {
-			$res = array('status'=>'error', 'id'=>$id);
-		}
-
-		echo json_encode($res);
-	}	// end delExpense
+//	private function delExpense($id) {
+////		$sql = 'delete from vgm_document where id='.$id;
+//	 	try {
+//		 	// $r = Yii::app()->db->createCommand($sql)->exeute();
+//			Document::model()->deleteByPk($id);
+//			$res = array('status'=>'ok', 'id'=>$id);
+//		}catch(Exception $e) {
+//			$res = array('status'=>'error', 'id'=>$id);
+//		}
+//
+//		echo json_encode($res);
+//	}	// end delExpense
 /*-----------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------*/
 }	// end expenseAction

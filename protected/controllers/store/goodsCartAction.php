@@ -9,6 +9,7 @@ class goodsCartAction extends CAction   /*---- StoreController ----*/
 //		$criteria->order ='id_doctype, id_operation, doc_date, doc_num';
 		$criteria->order = 'doc_date, id_operation';
 		$criteria->addCondition('documentdata.id_goods='.$id);
+		$criteria->addCondition('id_doctype<>3');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
 		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');

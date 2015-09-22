@@ -416,7 +416,7 @@ body {
 	text-align: right;
 }
 .l {
-	text-align: right;
+	text-align: left;
 }
 [type=submit], button {
 	cursor: pointer;
@@ -488,6 +488,9 @@ table.canhide caption {
 	white-space: pre !important;
 	font-family: monospace !important;
 }
-.ui-widget-content {
-	background: #FFFFDF !important;
+.ui-autocomplete {
+	/*background: #FFFFDF !important;*/
+}
+.ui-menu .ui-menu-item {
+	border-bottom: 1px dotted black;
 }

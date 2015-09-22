@@ -1,111 +1,12 @@
-#form {
-    font-family: serif;
-    font-size: 16px;
-    /*text-align: center;*/
-}
-.r0 {
-    /*height: 25px;*/
-}
-#contact_name {
-    width: 360px;
-    /*height: 24px;*/
-}
-input.err {
-	border: 2px solid #F71414;
-}
 
-/*----------------------------------------------------------------------*/
-.edit_contact {
-    position: relative;
-    top: 9px;
-    cursor: pointer;
-    border: none;
-    width: 25px;
-    height: 25px;
-    background: url(../../images/edit_r.png);
-}
-.edit_contact:hover {
-    background-position: 100% 0%
-}
-/*---*/
-.add_contact {
-    position: relative;
-    top: 9px;
-    cursor: pointer;
-    border: none;
-    width: 25px;
-    height: 25px;
-    background: url(../../images/add.png);
-}
-.add_contact:hover {
-    background-position: 100% 0%
-}
-.new_contact {
-    display: none;
-    position: absolute;
-    border-radius: 5px;
-    box-shadow: 0px 50px 60px -30px;
-    background: #dfdfdf;
-    width: 640px;
-    left: 165px;
-    top: 240px;
-    padding: 40px 20px;
-    /*padding-bottom: 40px;*/
-    /*border-top: 25px solid #55f;*/
-    z-index: 999;
-}
-.new_contact .caption {
-    border-radius: 5px 5px 0 0;
-    cursor:  auto;
-}
-.new_contact .s {
-    width: 145px;
-}
-.new_contact .l {
-    width: 629px;
-}
-.new_contact .buttons {
-    background: none;
-    border: none;
-    padding: 0;
-}
-.new_contact .buttons {
-    position: relative;
-    top: 35px;
-    right: 0px;
-}
-.new_contact .buttons button{
-    padding: 0 5px 0 30px;
-    position: relative;
-    font-size: 1.2em;
-}
-.new_contact #add_new_contact:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    width: 21px;
-    height: 21px;
-    background: url(../../images/save.png) no-repeat 0% 0%;
-}
-.new_contact #cancel_new_contact:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    width: 21px;
-    height: 21px;
-    background: url(../../images/del_krest.png) no-repeat 0% 0%;
-}
-/*-------------------------------------------------------------------------*/
-.new_doc_hat {
-    /*margin: auto;*/
-    /*width: 97%;*/
-    background: #cfcfcf;
-    border-radius: 5px;
-    padding: 5px;
-    margin-bottom: 1px;
-}
+/*.new_doc_hat {*/
+    /*/!*margin: auto;*!/*/
+    /*/!*width: 97%;*!/*/
+    /*background: #cfcfcf;*/
+    /*border-radius: 5px;*/
+    /*padding: 5px;*/
+    /*margin-bottom: 1px;*/
+/*}*/
 .row {
     margin: 5px;
 }
@@ -117,82 +18,82 @@ label {
 }
 /*------------------------------------------------------------*/
 /*-----------Таблица для новых товаров------------------------*/
-#new_table {
-    padding: 20px 20px 20px 5px;
-    border-radius: 5px;
-    background: #efefef;
-    border: 1px solid #cfcfcf;
-}
-/*------------------------------------------------------------*/
-#new_goods_table th {
-    padding: 2px;
-    /*background: ;*/
-}
-#new_goods_table .th {
-    background: #D0D0D0;
-    /*margin-left: 2px;*/
-    /*display: table-cell;*/
-    line-height: 25px;
-    vertical-align: middle;
+/*#new_table {*/
+    /*padding: 20px 20px 20px 5px;*/
     /*border-radius: 5px;*/
-    border: 1px solid #afafaf;
-    /*height: 25px;*/
-}
-#new_goods_table .th.t1 {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-#new_goods_table .th.t5 {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
+    /*background: #efefef;*/
+    /*border: 1px solid #cfcfcf;*/
+/*}*/
+/*------------------------------------------------------------*/
+/*#new_goods_table th {*/
+    /*padding: 2px;*/
+    /*/!*background: ;*!/*/
+/*}*/
+/*#new_goods_table .th {*/
+    /*background: #D0D0D0;*/
+    /*/!*margin-left: 2px;*!/*/
+    /*/!*display: table-cell;*!/*/
+    /*line-height: 25px;*/
+    /*vertical-align: middle;*/
+    /*/!*border-radius: 5px;*!/*/
+    /*border: 1px solid #afafaf;*/
+    /*/!*height: 25px;*!/*/
+/*}*/
+/*#new_goods_table .th.t1 {*/
+    /*border-top-left-radius: 5px;*/
+    /*border-bottom-left-radius: 5px;*/
+/*}*/
+/*#new_goods_table .th.t5 {*/
+    /*border-top-right-radius: 5px;*/
+    /*border-bottom-right-radius: 5px;*/
+/*}*/
 #new_goods_table .th.t5 {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
 }
-#new_goods_table .th.t4 {
-    border-radius: 0px;
-}
+/*#new_goods_table .th.t4 {*/
+    /*border-radius: 0px;*/
+/*}*/
 #new_goods_table .th.t6 {
     border-radius: 5px;
 }
 /*-------------------*/
-#new_goods_table {
-	border-collapse: collapse;
-	font-family: monospace;
-}
-#new_goods_table input{
-    border: 1px solid #848484;
-    outline:0;
-    height:24px;
-}
+/*#new_goods_table {*/
+	/*border-collapse: collapse;*/
+	/*font-family: monospace;*/
+/*}*/
+/*#new_goods_table input{*/
+    /*border: 1px solid #848484;*/
+    /*outline:0;*/
+    /*height:24px;*/
+/*}*/
 .new_goods_row td {
 	/*background-color: #cfc;*/
 	/*padding: 2px;*/
 }
 
 /*--------------------*/
-.id_goods {
-    width: 90px;
-}
-.vat {
-    text-align: right;
-	width: 70px;
-    padding-right:5px;
-    padding-left: 5px;
-}
-.goods_name {
-    width: 480px;
-}
-.summ {
-    width: 100px;
-}
+/*.id_goods {*/
+    /*width: 90px;*/
+/*}*/
+/*.vat {*/
+    /*text-align: right;*/
+	/*width: 70px;*/
+    /*padding-right:5px;*/
+    /*padding-left: 5px;*/
+/*}*/
+/*.goods_name {*/
+    /*width: 480px;*/
+/*}*/
+/*.summ {*/
+    /*width: 100px;*/
+/*}*/
 /*-------------------------------------------*/
 
 /*----------------------------------------*/
-.itog_summ {
-    padding-right: 5px;
-}
+/*.itog_summ {*/
+    /*padding-right: 5px;*/
+/*}*/
 /*---------------------------------------------------*/
 #add_invoice, #cancel_invoice, #add_new_row {
 	padding: 5px;

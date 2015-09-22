@@ -35,10 +35,17 @@ form input, form select{
 
 	/*height: 20px;*/
 	width: 620px;
-	padding: 5px 8px;
+	padding: 3px 5px;
 }
 form select{
 	width: 636px;
+}
+form input[type=checkbox], form input[type=date]{
+	width: auto;
+}
+form label{
+	width: 100%;
+	text-align: left;
 }
 form input:focus {
 	/* background: #fff url(images/valid.png) no-repeat 98% center; */

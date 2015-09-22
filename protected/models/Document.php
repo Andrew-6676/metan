@@ -4,21 +4,18 @@ class Document extends CActiveRecord
 {
 	/* для вставки в подчинённую атблицу*/
 	public $payment_order;
-	// public $id_doc;
-	// // public $id_owner;
-	// // public $id_editor;
-	// // public $date_insert;
-	// // public $date_edit;
+
 	public $withDocdata = false;
+	public $docdata = array();
 //	public $docdata = array(
-//		'id_goods'=>'',
-//		'cost'=>'',
-//		'markup'=>'',
-//		'$vat'=>'',
-//		'quantity'=>'',
-//		// public $packages;
-//		// public $gross;
-//		'price'=>'',
+//		'id_goods'  => '',
+//		'cost'      => '',
+//		'markup'    => '',
+//		'vat'       => '',
+//		'quantity'  => '',
+//		'packages'  => 0,
+//		'gross'     => 0,
+//		'price'     => '',
 //	);
 
 	public $id_goods;
@@ -27,8 +24,8 @@ class Document extends CActiveRecord
 	public $o_markup;
 	public $vat;
 	public $quantity;
-	// public $packages;
-	// public $gross;
+	public $packages=0;
+	public $gross=0;
 	public $price;
 	/*--------------------------------*/
 
@@ -81,6 +78,7 @@ class Document extends CActiveRecord
 			'sum_cost'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*cost)'),
 			'sum_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((quantity*cost*(markup/100)))'),
 			'sum_vat'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*cost*(1+markup/100)))'),
+			'sum_vat2'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*price))'),
 			'sum_price'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*price)'),
 			'sum_with_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((markup/100+1)*cost*quantity)'),
 		);
@@ -145,8 +143,24 @@ class Document extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
 	/*--------------------------------------------------------------------------------------------*/
+	public function init() {
+		$this->id_store  = Yii::app()->session['id_store'];
+		if ($this->isNewRecord) {
+			$this->id_owner  = Yii::app()->user->id;
+		} else {
+				// не срабатывает
+			$this->date_edit = date('Y-m-d H:i:00');
+		}
+		$this->id_editor = Yii::app()->user->id;
+	}
+	/*--------------------------------------------------------------------------------------------*/
+//	protected function beforeSave() {
+//		parent::beforeSave();
+//		$this->id_store     = Yii::app()->session['id_store'];
+//		$this->id_owner     = Yii::app()->user->id;
+//		$this->id_editor    = Yii::app()->user->id;
+//	}
 	/* после добавления в родительскую таблицу, добавляем в дочернюю*/
 	protected function afterSave()
 	{

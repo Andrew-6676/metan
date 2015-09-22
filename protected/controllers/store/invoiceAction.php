@@ -16,10 +16,10 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
         	}		// end if(isset($_POST['new_expense']))
 
         		// удалить счёт-фактуру--------------------------------------------------------------------------------
-			if(isset($_POST['del_invoice'])) {
-				$this->delInvoice($_POST['del_invoice']);
-				exit;
-        	}		// end if(isset($_POST['del_expense']))
+//			if(isset($_POST['del_invoice'])) {
+//				$this->delInvoice($_POST['del_invoice']);
+//				exit;
+//        	}		// end if(isset($_POST['del_expense']))
 				// занести счёт-фактуру в расход-----------------------------------------------------------------------
 			if (isset($_POST['writeoff_invoice'])) {
 
@@ -114,15 +114,19 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
-		$document = new Document();
+//		$document = new Document();
 		$new_doc = false;
 
-		if ($data['doc']['doc_id']<0) {
-
+		if ($data['doc']['doc_id']>0) {
+			$document = Document::model()->findByPK($data['doc']['doc_id']);
+			if (!$document) {
+				$new_doc = true;
+				$document = new Document();
+			}
 		} else {
 			$new_doc = true;
 			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
-			//$document = new Document();
+			$document = new Document();
 			//exit;
 				// наверно надо добавит документ как новый и в случае успеха удалить старый документ.
 		}
@@ -134,11 +138,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 		{
 			$doc = $data['doc'];
 				// атрибуты родительской таблицы
-	    	$document->id_store 	= Yii::app()->session['id_store'];
-	    	$document->id_owner	 	= Yii::app()->user->id;
-	    	$document->id_editor	= Yii::app()->user->id;
-	    	$document->date_insert 	= date('Y-m-d');
-	    	$document->date_edit	= date('Y-m-d');
+			$document->date_edit    = date('Y-m-d H:i:00');
 	    	$document->doc_num		= $doc['doc_num'];
 	    	$document->doc_num2		= intval($doc['doc_num']);
 			$document->doc_date		= $doc['doc_date'];
@@ -158,6 +158,10 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 				// 	// и добавляем данные в дочернюю таблицу
 
 
+				if (!$new_doc) {
+					// удалить старый док
+					Documentdata::model()->deleteAll('id_doc='.$data['doc']['doc_id']);
+				}
 				$doc_data = $data['doc_data'];
 				$res['goods'] = array();
 					// цикл по товарам
@@ -167,10 +171,6 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 
 				   		// атрибуты дочерней таблицы
 	                $documentdata->id_doc       = $document->id;
-	                $documentdata->id_owner     = Yii::app()->user->id;
-	                $documentdata->id_editor    = Yii::app()->user->id;
-	                $documentdata->date_insert  = date('Y-m-d');
-	                $documentdata->date_edit    = date('Y-m-d');
 	                $documentdata->id_goods     = $id;
 	                $documentdata->cost         = $row['cost'];
 	                $documentdata->markup       = $row['markup'];
@@ -192,10 +192,11 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 
 	        	// тут все данные уже сохранены.
 	        	// Если это редактирование - удаляем старые документы
-	        	if ($new_doc) {
+	        	if (!$new_doc) {
+
 	        		// удалить старый док
 	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
-	        		Document::model()->deleteByPK($data['doc']['doc_id']);
+	        		//Document::model()->deleteByPK($data['doc']['doc_id']);
 	        	}
 			} else {
 				// если данные не сохранены
@@ -230,18 +231,18 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 	}	// end addExpense
 
 /*----------------------- Удалить расход --------------------------------------------------*/
-	private function delInvoice($id) {
-		$sql = 'delete from vgm_document where id='.$id;
-	 	try {
-		 	// $r = Yii::app()->db->createCommand($sql)->exeute();
-			Document::model()->deleteByPk($id);
-			$res = array('status'=>'ok', 'id'=>$id);
-		}catch(Exception $e) {
-			$res = array('status'=>'error', 'id'=>$id);
-		}
-
-		echo json_encode($res);
-	}	// end delExpense
+//	private function delInvoice($id) {
+//		$sql = 'delete from vgm_document where id='.$id;
+//	 	try {
+//		 	// $r = Yii::app()->db->createCommand($sql)->exeute();
+//			Document::model()->deleteByPk($id);
+//			$res = array('status'=>'ok', 'id'=>$id);
+//		}catch(Exception $e) {
+//			$res = array('status'=>'error', 'id'=>$id);
+//		}
+//
+//		echo json_encode($res);
+//	}	// end delExpense
 /*-----------------------------------------------------------------------------------------*/
 	private function writeoffInvoice($data) {
 		/*
@@ -250,7 +251,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			вернуть id нового документа
 
 			?? в шапку счёта-фактуры добавить ссылку на накладную инаоборот
-			?? как связать накладную и счёт-фактуру - это лишнее
+			?? как связать накладную и счёт-фактуру
 
 		 */
 		$res = array(
@@ -260,7 +261,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 //			'nakl_num'=>$data['nakl_num'],
 		);
 
-
+			// проверка остатков
 		$goods = array();
 		$connection = Yii::app()->db;
 		$sql = "select id_goods as id, quantity from {{documentdata}} where id_doc=".$data['doc_id'];
@@ -277,18 +278,17 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 //			echo json_encode($chk);
 //			exit;
 			$res['no_rest'] = $chk;
-		}
+		}   // end проверка остатков
 
+			// проверка существования документа с указанным номером
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("doc_num = '".$data['nakl_num']."'");
 		$criteria->addCondition("id_doctype = 2");
-//		$criteria->addCondition("id_doctype = 2");
 		$n = Document::model()->find($criteria);
 
-		if ($n) {
+		if ($n) {   // такой документ уже есть
 			$res['status']  = 'ok';
 			$res['message'] = 'Накладная с номером '.$data['nakl_num'].' уже существует! (от '.$n->doc_date.', '.$n->idStore->name.')';
-
 			echo json_encode($res);
 			return;
 		}
@@ -305,8 +305,8 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 			$nakl->doc_num2     = $data['nakl_num'];
 			$nakl->doc_date     = $data['nakl_date'];
 			$nakl->for          = $data['for_'];
-//			$nakl->date_insert  = date('Y-m-d H:i:s');
-//			$nakl->date_edit    = date('Y-m-d H:i:s');
+			$nakl->date_insert  = date('Y-m-d H:i:s');
+			$nakl->date_edit    = date('Y-m-d H:i:s');
 			$nakl->payment_order= $data['payment_order'];
 
 			// $nakl->doc_date = $data['date'];
@@ -321,11 +321,17 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 				$criteria = new CDbCriteria;
 				$criteria->addCondition("id_doc = '".$data['doc_id']."'");
 				$docdata = Documentdata::model()->findAll($criteria);
+
 				$rc = 0;
 				foreach ($docdata as $row_data) {
 					$new_doc_data = new Documentdata();
+					$res['d'][] = $row_data->attributes;
 					$new_doc_data->attributes = $row_data->attributes;
+					$new_doc_data->vat = $row_data->vat;
+					$new_doc_data->markup = $row_data->markup;
 					$new_doc_data->id_doc = $nakl->id;
+					$new_doc_data->date_insert = date('Y-m-d H:i:00');
+					$new_doc_data->date_edit   = date('Y-m-d H:i:00');
 					if ($new_doc_data->save()) {
 						$rc++;
 					} else {

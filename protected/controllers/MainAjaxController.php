@@ -4,7 +4,78 @@ class MainAjaxController extends CController
 {
 /* ---------------------------------------------------------------------- */
 	public function Actiontest() {
-		echo $_POST['var'];
+//		echo $_POST['var'];
+//		$g = Goods::model()->findAll('id>42569999');
+//		Utils::print_r($g[0]->cost);
+////		Utils::print_r($g);
+//		foreach ($g as$gg ) {
+//			echo '<br>'.$gg->id.' --- '.$gg->cost;
+//		}
+
+//		$this->widget('CAutoComplete',
+//			array(
+//				'model'=>'Inputcache',
+//				'name'=>'str',
+//				'url'=>array('MainAjax/autocomplete'),
+//				'minChars'=>2,
+//			)
+//		);
+//
+//		$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+//			'name'=>'test1',
+//			'value'=>'test21',
+//			'source'=>$this->createUrl('MainAjax/autocomplete'),
+//			// additional javascript options for the autocomplete plugin
+//		//	'options'=>array(
+//		//		'showAnim'=>'fold',
+//		//	),
+//		));
+
+
+		$this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+		    'name'=>'normal',
+		    'source'=>array('ac1','ac2','ac3'),
+		    // additional javascript options for the autocomplete plugin
+		    'options'=>array(
+		        'minLength'=>'2',
+		    ),
+		    'htmlOptions'=>array(
+		        'style'=>'height:20px;',
+		    ),
+		));
+
+
+//		$model = Inputcache::model();
+//		$autocompleteConfig = array(
+//			'model'=>$model, // модель
+//			'attribute'=>'str', // атрибут модели
+//			// "источник" данных для выборки
+//			// может быть url, который возвращает JSON, массив
+//			// или функция JS('js: alert("Hello!");')
+//			'source' =>Yii::app()->createUrl('MainAjax/autocomplete'),
+//			// параметры, подробнее можно посмотреть на сайте
+//			// http://jqueryui.com/demos/autocomplete/
+//			'options'=>array(
+//				// минимальное кол-во символов, после которого начнется поиск
+//				'minLength'=>'2',
+//				'showAnim'=>'fold',
+//				// обработчик события, выбор пункта из списка
+//				'select' =>'js: function(event, ui) {
+//					            // действие по умолчанию, значение текстового поля
+//					            // устанавливается в значение выбранного пункта
+//					            this.value = ui.item.label;
+//					            // устанавливаем значения скрытого поля
+//					            $("#Order_customer_id").val(ui.item.id);
+//					            return false;
+//					        }',
+//			),
+//			'htmlOptions' => array(
+//				'maxlength'=>50,
+//			),
+//		);
+//
+//
+//		$this->widget('zii.widgets.jui.CJuiAutoComplete', $autocompleteConfig);
 	}
 /* ---------------------------------------------------------------------- */
 	public function ActionupdateRest() {
@@ -296,37 +367,28 @@ class MainAjaxController extends CController
 //	}
 	/*------------------------------------------------------------------------------*/
 	public function ActionAutocomplete() {
-		$res =array();
+		$term = Yii::app()->getRequest()->getParam('term');
+		$input = Yii::app()->getRequest()->getParam('input');
 
-		if (isset($_GET['term'])) {
-			// http://www.yiiframework.com/doc/guide/database.dao
-			$qtxt ="SELECT str FROM vg_inputcache WHERE str LIKE :username";
-			$command =Yii::app()->db->createCommand($qtxt);
-			$command->bindValue(":username", '%'.$_GET['term'].'%', PDO::PARAM_STR);
-			$res =$command->queryColumn();
-		}
-
-		echo CJSON::encode($res);
-		//Yii::app()->end();
-//		if (isset($_GET['q'])) {
-//
-//			$criteria = new CDbCriteria;
-//			$criteria->condition = 'str LIKE :param';
-//			$criteria->params = array(':param'=>$_GET['q'].'%');
-//
-//			if (isset($_GET['limit']) && is_numeric($_GET['limit'])) {
-//				$criteria->limit = $_GET['limit'];
-//			}
-//
-//			$inputcache= Inputcache::model()->findAll($criteria);
-//
-//			$resStr = '';
-//			foreach ($inputcache as $ic) {
-//				$resStr .= $ic->str."\n";
-//			}
-//			echo $resStr;
-//		}
-	}
+//		if(Yii::app()->request->isAjaxRequest && $term) {
+			$criteria = new CDbCriteria;
+			// формируем критерий поиска
+//			$criteria->addSearchCondition('str', $term);
+			if ($input) {
+				$criteria->addCondition('input = \''.$input.'\'');
+			}
+			$criteria->addCondition('upper(str) like upper(\''.$term.'%\')');
+            $inp = Inputcache::model()->findAll($criteria);
+            // обрабатываем результат
+            $result = array();
+            foreach($inp as $i) {
+	            $lable = $i['str'];
+	            $result[] = array('id'=>$i['id'], 'label'=>$lable, 'value'=>$lable);
+            }
+            echo CJSON::encode($result);
+            Yii::app()->end();
+        }
+//	}
 	/*------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------*/

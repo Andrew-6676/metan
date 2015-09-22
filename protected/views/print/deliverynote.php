@@ -9,6 +9,8 @@
 $this->addCSS('print/report.css');
 $this->addCSS('print/delivery.css');
 //echo $_GET['type'];
+$inp_data = $_GET['form_ttn'];
+//Utils::print_r($inp_data );
 //exit;
 ?>
 
@@ -54,7 +56,9 @@ $this->addCSS('print/delivery.css');
 					<tr>
 						<td colspan=11 height="15">Автомобиль</td>
 						<td></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=38 align="center"><br></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=38 align="center">
+							<?php echo $inp_data['car']; ?>
+						</td>
 						<td></td>
 						<td colspan=7>Прицеп</td>
 						<td></td>
@@ -79,12 +83,16 @@ $this->addCSS('print/delivery.css');
 					</tr>
 					<tr>
 						<td colspan=14 height="15">Владелец автомобиля</td>
-						<td><br></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center"><br></td>
+						<td></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center">
+							<?php echo $data['rec_doc']->contact->fname; ?>,
+						</td>
 						<td><br></td>
 						<td colspan=9>Водитель</td>
-						<td><br></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=85 align="center"><br></td>
+						<td></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=85 align="center">
+							<?php echo $inp_data['driver']; ?>
+						</td>
 					</tr>
 					<tr>
 						<td height="15" colspan="15"><br></td>
@@ -108,7 +116,10 @@ $this->addCSS('print/delivery.css');
 					<tr>
 						<td colspan=28 height="15">Заказчик автомобильной перевозки (плательщик)</td>
 						<td><br></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=117 align="center"><br></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=117 align="center">
+							<?php echo $data['rec_doc']->contact->fname; ?>,
+							<?php echo $data['rec_doc']->contact->address; ?>
+						</td>
 					</tr>
 					<tr>
 						<td height="15" colspan="29"><br></td>
@@ -151,8 +162,10 @@ $this->addCSS('print/delivery.css');
 					</tr>
 					<tr>
 						<td colspan=10 height="15">Основание отпуска</td>
-						<td><br></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=43 align="center"><br></td>
+						<td></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=43 align="center">
+							<?php echo $inp_data['osnovanie']; ?>
+						</td>
 						<td><br></td>
 						<td colspan=10>Пункт погрузки</td>
 						<td><br></td>
@@ -316,7 +329,7 @@ $this->addCSS('print/delivery.css');
 					$tr .= number_format($row->quantity * $row->price * ($row->vat / 100), '0', '.', ' ');
 					$tr .= '</td>';
 					$tr .= '<td>';
-					$tr .= number_format($row->quantity * $row->price * (1 + $row->vat / 100), '0', '.', ' ');
+					$tr .= number_format($row->quantity * $row->price, '0', '.', ' ');
 					$tr .= '</td>';
 					$tr .= '<td>';
 					$tr .= '</td>';
@@ -339,12 +352,12 @@ $this->addCSS('print/delivery.css');
 				$tr .= '<td class="no_border">';
 				$tr .= '</td>';
 				$tr .= '<td class="no_border r">';
-				$tr .= number_format($data['rec_doc']->sum_cost, '0', '.', ' ');
+				$tr .= number_format($data['rec_doc']->sum_price, '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td class="no_border">';
 				$tr .= '</td>';
 				$tr .= '<td class="no_border r">';
-				$tr .= $data['rec_doc']->sum_vat;
+				$tr .= number_format($data['rec_doc']->sum_vat2, '0', '.', ' ');
 				$tr .= '</td>';
 				$tr .= '<td class="no_border">';
 				$tr .= number_format($data['rec_doc']->sum_price, '0', '.', ' ');
@@ -480,7 +493,7 @@ $this->addCSS('print/delivery.css');
 					<td colspan="16" height="15">Всего сумма НДС</td>
 					<td></td>
 					<td style="border-bottom: 1px solid #1f1c1b" colspan="129" align="center">
-						<?php echo Utils::num2str($data['rec_doc']->sum_vat); ?>
+						<?php echo Utils::num2str($data['rec_doc']->sum_vat2); ?>
 					</td>
 				</tr>
 				<tr>
@@ -597,8 +610,10 @@ $this->addCSS('print/delivery.css');
 				</tr>
 				<tr>
 					<td colspan="16" height="15">Отпуск разрешил</td>
-					<td><br></td>
-					<td style="border-bottom: 1px solid #1f1c1b" colspan="56" align="center"><br></td>
+					<td></td>
+					<td style="border-bottom: 1px solid #1f1c1b" colspan="56" align="center">
+						<?php echo $inp_data['otpusk']; ?>
+					</td>
 					<td style="border-right: 1px solid #1f1c1b" align="center" valign="top"><i><font
 								size="1"><br></font></i></td>
 					<td align="center" valign="top"><i><font size="1"><br></font></i></td>
@@ -659,13 +674,17 @@ $this->addCSS('print/delivery.css');
 				<tr>
 					<td colspan="20" height="15">Сдал грузоотправитель</td>
 					<td align="center" valign="top"><i><font size="1"><br></font></i></td>
-					<td style="border-bottom: 1px solid #1f1c1b" colspan="52" align="center"><br></td>
+					<td style="border-bottom: 1px solid #1f1c1b" colspan="52" align="center">
+						<?php echo $inp_data['sdal']; ?>
+					</td>
 					<td style="border-right: 1px solid #1f1c1b" align="center" valign="top"><i><font
 								size="1"><br></font></i></td>
 					<td><br></td>
 					<td colspan="15">по доверенности</td>
-					<td><br></td>
-					<td style="border-bottom: 1px solid #1f1c1b" colspan="17" align="center"><br></td>
+					<td></td>
+					<td style="border-bottom: 1px solid #1f1c1b" colspan="17" align="center">
+						<?php echo $inp_data['dover']; ?>
+					</td>
 					<td>,</td>
 					<td colspan="9">выданной</td>
 					<td><br></td>

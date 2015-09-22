@@ -323,7 +323,7 @@ $(document).ready(function () {
 		} else if (confirm("Точно хотите безвозвратно удалить строку \n " + row.find('td.name').text() + "?")) {
 			// alert('delte');
 			$.ajax({
-				url: 'http://' + document.location.host + rootFolder + "/store/expense",
+				url: 'http://' + document.location.host + rootFolder + "/document/delete",
 				type: 'POST',
 				dataType: "json",
 				data: {del_expense: id},

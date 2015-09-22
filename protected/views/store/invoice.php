@@ -4,6 +4,7 @@
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
 	$this->addCSS('store/search_form.css');
 	$this->addJS('store/search_form.js');
+	$this->addJS('store/document.js');
 	$this->addJS('store/expence.js');
 	$this->addJS('store/invoice.js');
 	$this->addJS('jquery-ui.js');

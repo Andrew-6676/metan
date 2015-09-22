@@ -259,39 +259,7 @@ $(document).ready(function () {
 	//		}
 	//	}
 	//})
-	/*-------------------удаление документа----------------------------------------------*/
-	$('.del_doc_button').click(function (event) {
-		// получаем ID удаляемого документа
-		var id = $(this).parent().attr('doc_id');
-		//alert('del '+ id);
-		if (confirm("Точно хотите безвозвратно удалить \n документ №" + $('#doc_hat_' + id + ' .doc_num').text().trim() + " от " + $('#doc_hat_' + id + ' .doc_date').text().trim() + "?")) {
-			// alert('delte');
-			$.ajax({
-				url: 'http://' + document.location.host + rootFolder + "/store/expense",
-				type: 'POST',
-				dataType: "json",
-				data: {del_expense: id},
-				// функция обработки ответа сервера
-				error: function (data) {
-					alert('Во время удаления произошла ошибка. Проверьте данные!');
-					//alert(data);
-				},
-				success: function (data) {
-					// alert(data);
-					//alert(data.status);
-					//alert(typeof data);
-					// удалить строку из таблицы на странице в случае удачного удаления
-					if (data.status == 'ok') {
-						//location.reload();
-						$('#' + id + ', #ch_' + id).remove();
-					}
 
-
-				}
-			});
-		}
-		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
-	})
 	/*-------------------  редактирование документа-----------------------------------------------*/
 	$('.edit_doc_button').click(function (event) {
 		//alert('edit');
@@ -492,6 +460,7 @@ $(document).ready(function () {
 				$('#loadImg').hide();
 			},
 			success: function (data) {
+				console.log(data);
 				if (data.status == 'ok') {
 					if (data.no_rest) {
 						str = '';
@@ -792,9 +761,9 @@ function set_autocomplete(id) {
 }		// end set_autocomplete
 
 
-function print_ttn(id, nttn, date_ttn, n_pl, for_) {
+function print_ttn(id, type, params) {
 	console.log(arguments);
-return false;
+//return false;
 	/* проверить содержимое переменных
 	 var nakl_num = prompt('Введите номер накладной', '');
 	 if (nakl_num==null) {
@@ -807,13 +776,17 @@ return false;
 	 var payment_order = prompt('Введите платёжное поручение', '');
 	 if (payment_order==null) {
 	 return false;
-	 }*/
 
+
+	 }*/
+	window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type='+type+'&id='+_id_doc+'&'+params, '_blank');
+
+	return false;
 	$.ajax({
-		url: 'http://' + document.location.host + rootFolder+"/store/invoice",
+		url: 'http://' + document.location.host + rootFolder+"/print/printDeliverynote",
 		type: 'POST',
 		dataType: "json",
-		data: {writeoff_invoice: {'doc_id':id, 'nakl_num':nttn, 'nakl_date': date_ttn,'payment_order': n_pl, 'for_': for_}},
+		data: {data: {'doc_id':id, 'type':type, 'params':params}},
 		// функция обработки ответа сервера
 		error: function (data) {
 			console.log(data);
@@ -824,6 +797,7 @@ return false;
 		},
 		success: function (data) {
 			console.log(data);
+return false;
 			if (data.status == 'ok') {
 				//if (data.nakl_id < 0) {
 				alert(data.message);

@@ -106,4 +106,17 @@ class Documentdata extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function init() {
+		if ($this->isNewRecord) {
+			$this->id_owner  = Yii::app()->user->id;
+			$this->date_insert = date('Y-m-d H:i:00');
+			$this->date_edit   = date('Y-m-d H:i:00');
+		} else {
+			$this->date_edit = date('Y-m-d H:i:00');
+		}
+		$this->id_editor = Yii::app()->user->id;
+	}
+
+
 }

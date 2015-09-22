@@ -1,3 +1,107 @@
+/*----------------------------------------------------------------------*/
+#form {
+	font-family: serif;
+	font-size: 16px;
+	/*text-align: center;*/
+}
+.r0 {
+	/*height: 25px;*/
+}
+#contact_name {
+	width: 360px;
+	/*height: 24px;*/
+}
+input.err {
+	border: 2px solid #F71414;
+}
+
+.edit_contact {
+	position: relative;
+	top: 9px;
+	cursor: pointer;
+	border: none;
+	width: 25px;
+	height: 25px;
+	background: url(../../images/edit_r.png);
+}
+.edit_contact:hover {
+	background-position: 100% 0%
+}
+/*---*/
+.add_contact {
+	position: relative;
+	top: 9px;
+	cursor: pointer;
+	border: none;
+	width: 25px;
+	height: 25px;
+	background: url(../../images/add.png);
+}
+.add_contact:hover {
+	background-position: 100% 0%
+}
+.new_contact {
+	display: none;
+	position: absolute;
+	border-radius: 5px;
+	box-shadow: 0px 50px 60px -30px;
+	background: #dfdfdf;
+	width: 640px;
+	left: 165px;
+	top: 240px;
+	padding: 35px 15px;
+	/*padding-bottom: 40px;*/
+	/*border-top: 25px solid #55f;*/
+	z-index: 999;
+}
+.new_contact .caption {
+	border-radius: 5px 5px 0 0;
+	cursor:  auto;
+}
+.new_contact .s {
+	width: 146px;
+}
+.new_contact .l {
+	width: 629px;
+}
+.new_contact .buttons {
+	background: none;
+	border: none;
+	padding: 0;
+}
+.new_contact .buttons {
+	position: relative;
+	top: 20px;
+	right: 0px;
+	text-align: right;
+}
+.new_contact .buttons button{
+	padding: 0 5px 0 30px;
+	position: relative;
+	font-size: 1.2em;
+	width: auto;
+	border: inherit;
+}
+.new_contact #add_new_contact:before {
+	content: ' ';
+	display: block;
+	position: absolute;
+	left: 0;
+	width: 21px;
+	height: 21px;
+	background: url(../../images/save.png) no-repeat 0% 0%;
+}
+.new_contact #cancel_new_contact:before {
+	content: ' ';
+	display: block;
+	position: absolute;
+	left: 0;
+	width: 21px;
+	height: 21px;
+	background: url(../../images/del_krest.png) no-repeat 0% 0%;
+}
+/*-------------------------------------------------------------------------*/
+
 .doc_title {
 	float: right;
 	color: #969696;
@@ -39,7 +143,7 @@
 .new_doc_hat input {
 	border-radius: 5px;
 	border: 1px solid #acacac;
-	padding: 2px 5px;
+	padding: 3px 4px;
 	height: 20px;
 	width: 192px;
 }
@@ -87,8 +191,8 @@ label {
 }
 
 #new_goods_table .th.t4 {
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
+	/*border-top-right-radius: 5px;*/
+	/*border-bottom-right-radius: 5px;*/
 }
 
 #new_goods_table .th.t5 {
@@ -134,7 +238,7 @@ label {
 }
 
 .goods_name {
-	width: 500px;
+	width: 480px;
 	padding-right: 5px;
 	padding-left: 5px;
 }
@@ -144,7 +248,12 @@ label {
 	width: 100px;
 	padding-right: 5px;
 }
-
+.vat {
+	text-align: right;
+	width: 70px;
+	padding-right:5px;
+	padding-left: 5px;
+}
 .price {
 	text-align: right;
 	width: 90px;
@@ -165,7 +274,7 @@ label {
 	padding-right: 5px;
 	line-height: 25px;
 	height: 25px;
-	width: 110px;
+	width: 100px;
 	border-radius: 5px;
 	border: 1px solid #848484;
 }
@@ -217,7 +326,7 @@ label {
 /*----------------------------------------*/
 .itog_summ {
 	text-align: right;
-	padding-right: 70px;
+	/*padding-right: 70px;*/
 }
 
 .itog_summ:before {
@@ -306,7 +415,5 @@ details label {
 	overflow: visible;
 }
 
-.ui-dialog label {
-	width: 180px;
-}
+
 

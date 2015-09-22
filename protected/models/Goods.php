@@ -185,6 +185,32 @@ class Goods extends CActiveRecord
 			return '';
 		}
 	}
+/*---------------------------------------------------------------------*/
+	public function getPrice() {
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("id_goods=" . $this->id);
+
+		$r = Documentdata::model()->find($criteria);
+		if ($r) {
+			return $r->price; //->getAttribute('price');
+		} else {
+			return -1;
+		}
+	}
+	/*---------------------------------------------------------------------*/
+	public function getCost() {
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("id_goods=" . $this->id);
+
+		$r = Documentdata::model()->find($criteria);
+		if ($r) {
+			return $r->cost; //->getAttribute('price');
+		} else {
+			return -1;
+		}
+	}
 
 //	public function getRest() {
 //		if ($this->rests) {

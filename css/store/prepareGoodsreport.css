@@ -11,4 +11,6 @@
 	margin-top: 10px;
 	border: 1px solid #bcbcbc;
 }
-
+.inline {
+	display: inline;
+}
