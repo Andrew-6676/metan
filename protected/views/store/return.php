@@ -138,7 +138,7 @@
 			'price'=>'Розничная цена',
 				'=quantity*price'=>'Сумма розница'
 		),
-		'buttons'=>array(/*'write_off','print',*/'del','edit'),
+		'buttons'=>array(/*'write_off','print',*/'del'=>'Удалить возврат','edit'=>'Изменить возврат'),
 	));
 
 ?>

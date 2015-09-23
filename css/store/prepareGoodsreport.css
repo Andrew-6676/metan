@@ -14,3 +14,6 @@
 .inline {
 	display: inline;
 }
+input[name="getReport[doc_num]"] {
+	width: 90px;
+}

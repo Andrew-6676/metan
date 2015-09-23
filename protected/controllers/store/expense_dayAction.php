@@ -73,25 +73,12 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 			Yii::app()->end();
 		 }       // // if(Yii::app()->request->isAjaxRequest)
 
-		// $res = Document::model()->with('documentdata')->findAll(array(
-		// 												//'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
-		// 												//'condition'=>'{{operation}}.operation<0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
-		// 												'condition'=>'id_doctype=2 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
-		// 												'order'=>'doc_date desc, doc_num desc')
-		// 												);
-		// 	// список операций
-		// $oper = Operation::model()->findAll(array('condition'=>'operation<0',
-		// 										  'order'=>'name'));
-		// 	// следующий номер документа
-		// $sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=2 and id_store='.Yii::app()->session['id_store'];
-		// $doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
-
 		$criteria = new CDbCriteria;
-//		$criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
+
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date=\''.Yii::app()->session['workdate'].'\'');
-
-		/* сводная таблица по расходу за день */
+		$criteria->addCondition('id_doctype <> 3');
+			/* сводная таблица по расходу за день */
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
 		$gr = array();
 		$criteria->order ='doc_date desc, doc_num desc';
@@ -115,7 +102,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		/* end сводная по расходу*/
 		$criteria->addCondition('id_doctype = 2');
 		$criteria->addCondition('doc_num2 = 0');
-		$criteria->order ='t.date_insert';
+		$criteria->order ='t.date_insert asc, t.id';
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
 
 			// список операций

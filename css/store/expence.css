@@ -391,8 +391,9 @@ details label {
 }
 
 .ui-dialog .ui-dialog-titlebar {
-	padding: 0 !important;
+	/*padding: 0 !important;*/
 	text-align: center;
+	padding: 5px 5px !important;
 }
 
 .ui-dialog .ui-dialog-title {

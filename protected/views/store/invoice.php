@@ -206,7 +206,7 @@
 			'price'     =>'Розничная цена',
 			'=quantity*price'=>'Сумма розница'
 		),
-		'buttons'=>array('write_off','print','del','edit'),
+		'buttons'=>array('write_off'=>'Создать накладную','ttn'=>'Печать накладной','print'=>'Печать счёта-фактуры','del'=>'Удалить счёт-фактуру','edit'=>'Изменить счёт-фактуру'),
 	));
 ?>
 </div>
@@ -252,7 +252,53 @@ echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareWriteoff"
 //	array('onclick' => '$("#prepareWriteoff").dialog("open");', 'id'=>'wr_off', 'style'=>'display:none')
 //);
 
+?>
 
+<?php
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id' => 'prepareTTN',
+	'options' => array(
+		'title'         => 'Реквизиты ТТН/ТН',
+		'autoOpen'      => FALSE,
+		'modal'         => true,
+		'closeOnEscape' => 'true',
+		'width'         =>'700',
+		'top'           => '30',
+		'resizable'     => false,
+//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
+		'position'=>array('50%',180),
+		'buttons'       => array(
+			'ТН'=>"js:function(){
+							print_ttn(
+								_id_doc,
+								'tn',
+								$('#prepare-ttn-form').serialize()
+							);
+						}",
+			'ТТН'=>"js:function(){
+							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
+							print_ttn(
+								_id_doc,
+								'ttn',
+								$('#prepare-ttn-form').serialize()
+							);
+						}",
+			'Отмена'=>'js:function(){$("#prepareTTN").dialog("close")}',),
+	),
+));
+
+?>
+
+<div id="regions_tree"></div>
+
+<?php
+$this->renderPartial('forms/_deliverynote',array(
+	'data'=>'$data',
+));
+
+$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareTTN").dialog("open"); return false;','id'=>'ttn', 'style'=>'display:none'));
 
 
 ?>

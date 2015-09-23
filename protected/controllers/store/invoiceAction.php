@@ -343,6 +343,12 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 				$d = Utils::format_date($data['nakl_date']);
 				$res['message'] = 'Накладная № ' . $data['nakl_num'] . ' от ' . $d . ' создана. ('.$rc.' стр.)';
 			}
+
+				// добавить link к счёту-фактуре
+			$inv = Document::model()->findByPK($data['doc_id']);
+			$inv->link = $res['nakl_id'];
+			$inv->save();
+
 			$transaction->commit();
 			echo json_encode($res);
 		}

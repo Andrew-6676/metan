@@ -182,6 +182,19 @@ $(document).ready(function () {
 	// 	event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 	// })
 
+		// вывод на печать накладной (если есть)
+	$('.ttn_doc_button').click(function (event) {
+		var id = $(this).attr('link');
+		_id_doc = id;
+		console.log("печать ттн из счёта фактуры: "+id);
+		$('#ttn').click();
+		//$('#wr_off').click();
+		//$('#form_writeoff_nttn').val($(this).parent().parent().find('.doc_num').text().trim());
+		//console.log($('#form_writeoff_date_ttn').val());
+
+		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+	})
+
 		// списание в расход счёта фактуры
 	$('.write_off_doc_button').click(function (event) {
 		console.log('списать ');
@@ -239,10 +252,6 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 			if (data.status == 'ok') {
 				//if (data.nakl_id < 0) {
 				alert(data.message);
-				$("#prepareWriteoff").dialog("close");
-				//} else {
-				//	alert(data.message);
-				//}
 				if (data.no_rest) {
 					str = '';
 					$(data.no_rest.no_rest).each(function (i,e) {
@@ -251,6 +260,35 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 					});
 					alert(data.message+"\n\n"+str);
 				}
+				if (data.nakl_id<0) {
+					//  накладная не была создана
+				} else {
+					$("#prepareWriteoff").dialog("close");
+						// если нету - добавить кнопку ttn_doc_button
+					if ($('[doc_id="'+id+'"]').find('.ttn_doc_button').size() == 0) {
+						$btn = $('<button class="ttn_doc_button" link="'+data.nakl_id+'"></button>').insertAfter($('[doc_id="'+id+'"] .write_off_doc_button'))
+						$btn.click(function (event) {
+							var id = $(this).attr('link');
+							_id_doc = id;
+							console.log(id);
+							$('#ttn').click();
+							event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+						})
+					}
+						// присвоить кнопке arrt(link)
+					console.log(id);
+					$('[doc_id="'+id+'"]').find('.ttn_doc_button').attr('link', data.nakl_id);
+						// запросить печать накладной
+					if (confirm("Печатать накладную?")) {
+						console.log('печать накладной '+data.nakl_id);
+						_id_doc = data.nakl_id;
+						$('#ttn').click();
+					}
+				}
+				//} else {
+				//	alert(data.message);
+				//}
+
 			} else {
 				if (data.no_rest) {
 					str = '';

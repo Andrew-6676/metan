@@ -70,7 +70,7 @@ $dn = '';
 			$tr .=         Utils::format_date($doc->doc_date);
 			$tr .=     '</td>';
 			$tr .=     '<td class="c">';
-			$tr .=         CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation]);
+			$tr .=         CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation], array('title'=>'Документ № '.$doc->doc_num));
 			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $row->quantity;

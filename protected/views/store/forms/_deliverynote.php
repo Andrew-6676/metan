@@ -29,7 +29,7 @@ foreach ($ttnForm->fields as $key) {
 	?>
 
 	<div class="row">
-		<?php textField($form, $ttnForm, $key, $this); ?>
+		<?php textField_($form, $ttnForm, $key, $this); ?>
 	</div>
 
 	<?php
@@ -42,7 +42,7 @@ echo '</div>';
 
 $this->endWidget();
 
-function textField($form, $fo, $fi, $controller) {
+function textField_($form, $fo, $fi, $controller) {
 	echo $form->labelEx($fo, $fi);
 	if ($fi=='sdal' || $fi=='car') {
 		$controller->widget('zii.widgets.jui.CJuiAutoComplete', array(

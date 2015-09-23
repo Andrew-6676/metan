@@ -76,7 +76,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 /*---------------------- Добавление нового расхода в БД -----------------------------*/
 	private function addExpense($data) {
 		$res = array();
-
+		$new_doc = false;
 
 		$goods = array();
 			// цикл по товарам
@@ -94,13 +94,27 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 			// тут надо проверить $data['doc']['doc_id']
 			// если меньше 0 - новый документ, иначе - редактирование существующего
-		$document = new Document();
-		$new_doc = false;
-		if ($data['doc']['doc_id']<0) {
-			$new_doc = true;
+//		$document = new Document();
+//		$new_doc = false;
+//		if ($data['doc']['doc_id']<0) {
+//			$new_doc = true;
+//		} else {
+//			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
+//			// exit;
+//		}
+
+		if ($data['doc']['doc_id']>0) {
+			$document = Document::model()->findByPK($data['doc']['doc_id']);
+			if (!$document) {
+				$new_doc = true;
+				$document = new Document();
+			}
 		} else {
+			$new_doc = true;
 			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
-			// exit;
+			$document = new Document();
+			//exit;
+			// наверно надо добавит документ как новый и в случае успеха удалить старый документ.
 		}
 
 
@@ -113,8 +127,9 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			$doc = $data['doc'];
 			// атрибуты родительской таблицы
 //			$document->date_insert = date('Y-m-d');
-//			$document->date_edit = date('Y-m-d');
+			$document->date_edit    = date('Y-m-d H:i:00');
 //            $document->id_editor    = 8;
+
 			$document->doc_num      = $doc['doc_num'];
 			$document->doc_num2     = intval($doc['doc_num']);
 			$document->doc_date     = $doc['doc_date'];
@@ -139,6 +154,11 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 				//echo 'new ID='.$document->id."\n";
 				$res['new_id'] = $document->id;
 
+
+				if (!$new_doc) {
+					// удалить старый док
+					Documentdata::model()->deleteAll('id_doc='.$data['doc']['doc_id']);
+				}
 				// 	// и добавляем данные в дочернюю таблицу
 
 
@@ -171,11 +191,11 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 					}
 
 	        	}
-	        	if (!$new_doc) {
-	        		// удалить старый док
-	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
-	        		Document::model()->deleteByPK($data['doc']['doc_id']);
-	        	}
+//	        	if (!$new_doc) {
+//	        		// удалить старый док
+//	        		// $death_doc = Document::model()->findByPK($data['doc']['doc_id']);
+//	        		Document::model()->deleteByPK($data['doc']['doc_id']);
+//	        	}
 
 			} else {
 				// если данные не сохранены

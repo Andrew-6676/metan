@@ -779,58 +779,59 @@ function print_ttn(id, type, params) {
 
 
 	 }*/
-	window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type='+type+'&id='+_id_doc+'&'+params, '_blank');
+	var orient = {'ttn':'L', 'tn':'P'};
+	window.open(rootFolder + '/print/index?report=Deliverynote&orient='+orient[type]+'&format=pdf&type='+type+'&id='+_id_doc+'&'+params, '_blank');
 
 	return false;
-	$.ajax({
-		url: 'http://' + document.location.host + rootFolder+"/print/printDeliverynote",
-		type: 'POST',
-		dataType: "json",
-		data: {data: {'doc_id':id, 'type':type, 'params':params}},
-		// функция обработки ответа сервера
-		error: function (data) {
-			console.log(data);
-			//alert(JSON.stringify(data) + '###');
-			alert('Во время списания произошла ошибка. Напрягайте программиста!');
-			$('#overlay').hide();
-			$('#loadImg').hide();
-		},
-		success: function (data) {
-			console.log(data);
-return false;
-			if (data.status == 'ok') {
-				//if (data.nakl_id < 0) {
-				alert(data.message);
-				$("#prepareWriteoff").dialog("close");
-				//} else {
-				//	alert(data.message);
-				//}
-				if (data.no_rest) {
-					str = '';
-					$(data.no_rest.no_rest).each(function (i,e) {
-						//console.log(e);
-						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
-					});
-					alert(data.message+"\n\n"+str);
-				}
-			} else {
-				if (data.no_rest) {
-					str = '';
-					$(data.no_rest).each(function (i,e) {
-						//console.log(e);
-						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
-					});
-					alert(str);
-
-					//alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
-				} else {
-					alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
-				}
-			}
-			$('#overlay').hide();
-			$('#loadImg').hide();
-		}
-	});
+//	$.ajax({
+//		url: 'http://' + document.location.host + rootFolder+"/print/printDeliverynote",
+//		type: 'POST',
+//		dataType: "json",
+//		data: {data: {'doc_id':id, 'type':type, 'params':params}},
+//		// функция обработки ответа сервера
+//		error: function (data) {
+//			console.log(data);
+//			//alert(JSON.stringify(data) + '###');
+//			alert('Во время списания произошла ошибка. Напрягайте программиста!');
+//			$('#overlay').hide();
+//			$('#loadImg').hide();
+//		},
+//		success: function (data) {
+//			console.log(data);
+//return false;
+//			if (data.status == 'ok') {
+//				//if (data.nakl_id < 0) {
+//				alert(data.message);
+//				$("#prepareWriteoff").dialog("close");
+//				//} else {
+//				//	alert(data.message);
+//				//}
+//				if (data.no_rest) {
+//					str = '';
+//					$(data.no_rest.no_rest).each(function (i,e) {
+//						//console.log(e);
+//						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+//					});
+//					alert(data.message+"\n\n"+str);
+//				}
+//			} else {
+//				if (data.no_rest) {
+//					str = '';
+//					$(data.no_rest).each(function (i,e) {
+//						//console.log(e);
+//						str += '"'+e.name +'" в остатке только  ' + e.quantity + ' шт.'+"\n";
+//					});
+//					alert(str);
+//
+//					//alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+//				} else {
+//					alert('Во время сохранения произошла ошибка. Напрягайте программиста!\n\r');
+//				}
+//			}
+//			$('#overlay').hide();
+//			$('#loadImg').hide();
+//		}
+//	});
 
 
 }

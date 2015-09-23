@@ -214,7 +214,7 @@
 			'price'     =>'Розничная цена',
 			'=quantity*price'=>'Сумма розница'
 		),
-		'buttons'=>array('print','del','edit'),
+		'buttons'=>array('print'=>'Печать накладной','del'=>'Удалить накладную','edit'=>'Изменить накладную'),
 	));
 
 ?>
@@ -265,10 +265,6 @@ $this->renderPartial('forms/_deliverynote',array(
 $this->endWidget('zii.widgets.jui.CJuiDialog');
 
 echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareTTN").dialog("open"); return false;','id'=>'ttn', 'style'=>'display:none'));
-//print CHtml::ajaxLink('Объекты', array('store/getForm','form'=>'deliverynote'),
-//print CHtml::ajaxLink('Объекты', array('store/prepareDeliverynote'),
-//	array('update' => '#regions_tree'),
-//	array('onclick' => '$("#prepareTTN").dialog("open");', 'title' => 'Реквизиты ТТН/ТН', 'id'=>'ttn', 'style'=>'display:none')
-//);
+
 
 ?>

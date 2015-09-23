@@ -65,21 +65,23 @@ class Document extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documentdata' => array(self::HAS_MANY, 'Documentdata', 'id_doc'),
-			'idContact' => array(self::BELONGS_TO, 'Contact', 'id_contact'),
-			'contact' => array(self::BELONGS_TO, 'Contact', 'id_contact'),
-			'idStore' => array(self::BELONGS_TO, 'Store', 'id_store'),
-			'idEditor' => array(self::BELONGS_TO, 'User', 'id_editor'),
-			'idOwner' => array(self::BELONGS_TO, 'User', 'id_owner'),
-			'idOperation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
-			'operation' => array(self::BELONGS_TO, 'Operation', 'id_operation'),
-			'doctype' => array(self::BELONGS_TO, 'Doctype', 'id_doctype'),
-			'docaddition' => array(self::BELONGS_TO, 'Docaddition', 'id'),
-			'sum_cost'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*cost)'),
-			'sum_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((quantity*cost*(markup/100)))'),
-			'sum_vat'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*cost*(1+markup/100)))'),
-			'sum_vat2'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*price))'),
-			'sum_price'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*price)'),
+			'documentdata'  => array(self::HAS_MANY, 'Documentdata', 'id_doc'),
+			'doclink'       => array(self::BELONGS_TO, 'Document', 'link'),
+			'idContact'     => array(self::BELONGS_TO, 'Contact', 'id_contact'),
+			'contact'       => array(self::BELONGS_TO, 'Contact', 'id_contact'),
+			'idStore'       => array(self::BELONGS_TO, 'Store', 'id_store'),
+			'idEditor'      => array(self::BELONGS_TO, 'User', 'id_editor'),
+			'idOwner'       => array(self::BELONGS_TO, 'User', 'id_owner'),
+			'idOperation'   => array(self::BELONGS_TO, 'Operation', 'id_operation'),
+			'operation'     => array(self::BELONGS_TO, 'Operation', 'id_operation'),
+			'doctype'       => array(self::BELONGS_TO, 'Doctype', 'id_doctype'),
+			'docaddition'   => array(self::BELONGS_TO, 'Docaddition', 'id'),
+
+			'sum_cost'      => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*cost)'),
+			'sum_markup'    => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((quantity*cost*(markup/100)))'),
+			'sum_vat'       => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*cost*(1+markup/100)))'),
+			'sum_vat2'      => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((vat/100)*(quantity*price))'),
+			'sum_price'     => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(quantity*price)'),
 			'sum_with_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM((markup/100+1)*cost*quantity)'),
 		);
 	}

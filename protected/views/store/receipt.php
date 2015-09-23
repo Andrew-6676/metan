@@ -53,7 +53,7 @@
 			'=quantity*cost'=>'Сумма опт',
 			'=quantity*price'=>'Сумма розница'
 		),
-		'buttons'=>array('print','cennic','del'),
+		'buttons'=>array('print'=>'Печать реестра','cennic'=>'Печать ценников','del'=>'Удалить приход'),
 	));
 ?>
 </div>
