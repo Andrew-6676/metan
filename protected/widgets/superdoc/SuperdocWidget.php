@@ -180,7 +180,7 @@ class SuperdocWidget extends CWidget
 					$type = 'character';
 				}
 				if ($col=='doc_num') {
-					if ($doc->doclink) {
+					if ($doc->link>0) {
 						$val = $doc->doc_num . ' <small>(' . $doc->doclink->doc_num . ')</small>';
 						$type = 'character';
 					}
