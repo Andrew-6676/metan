@@ -212,6 +212,49 @@ class Goods extends CActiveRecord
 		}
 	}
 
+	public function getSamegoods() {
+		$n = $this->name;
+			// разбиваем наименование на слова
+//		$n = explode(' ', $n);
+//		$n = preg_split("/[\s,]+/", $n);
+		$n = preg_split("/[\s,-\.]+/", $n);
+			// делаем пустую модель
+		$res = Goods::model()->findAll('id<0');
+		$arr = array();
+
+		$criteria = new CDbCriteria;
+
+		if (count($n) == 1) {
+			$str = implode(' ', $n);
+			$criteria->distinct=array('id_3torg');
+			$criteria->select = "id_3torg";
+			$criteria->addCondition('name like \''.$str.'%\'');
+			$criteria->addCondition('id_3torg<>\'0\' and id_3torg<>\'\' ');
+			$res = Goods::model()->findAll($criteria);
+		} else {
+			while (!$res && count($n)>1) {
+				array_pop($n);
+				// TODO склеивать строку пробелами - неправильно!
+				$str = implode(' ', $n);
+				$criteria->condition = '';
+				$criteria->distinct=array('id_3torg');
+				$criteria->select = "id_3torg";
+				$criteria->addCondition('name like \''.$str.'%\'');
+				$criteria->addCondition('id_3torg<>\'0\' and id_3torg<>\'\' ');
+				$res = Goods::model()->findAll($criteria);
+			}
+		}
+
+
+			// формируем массив из модели
+
+		foreach ($res as $r) {
+			$arr[] = '['.$r->id_3torg.'] ' . Torg3::model()->findByPK($r->id_3torg)['name'];
+		}
+
+		return array('count' => count($arr), 'data' => '<ul gid="'.$this->id.'" class="lst"><li>'.implode('</li><li>',$arr).'</li></ul>');
+	}
+
 //	public function getRest() {
 //		if ($this->rests) {
 ////			Yii::app()->session['workdate']
