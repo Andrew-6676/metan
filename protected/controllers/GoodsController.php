@@ -197,7 +197,11 @@ class GoodsController extends Controller
 			'data'=>$data
 		));
 	}
-
+	public function actionSet_gr($gid, $tid)
+	{
+		//Utils::print_r($_GET);
+		Goods::model()->updateByPK($gid, array('id_3torg'=>$tid));
+	}
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

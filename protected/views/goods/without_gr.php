@@ -26,12 +26,18 @@
 //");
 ?>
 
-<h1>Товары без групп</h1>
-
+<h2>Товары без групп</h2>
 <!--<p>-->
 <!--You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>-->
 <!--or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.-->
 <!--</p>-->
+
+<button id="btn_hide">
+	Спрятать/показать строки с одним вариантом
+</button>
+<button id="btn_auto">
+	Автоматически занести строки с одним вариантом
+</button>
 
 <?php
 //Utils::print_r($data);
@@ -80,13 +86,14 @@ DTimer::log('старт');	// засекаем время выполнения
 				'header'=>'3-торг',
 				'type'=>'raw',
 				'value'=>'',
-//				'htmlOptions'=>array('class'=>'r'),
+				'htmlOptions'=>array('class'=>'gr'),
 			),
 			array(
 				'name'=>'samegoods',
-				'header'=>'samegoods',
+				'header'=>'Предположительная группа',
 				'type'=>'raw',
-				'value'=>'$data->samegoods["data"]'
+				'value'=>'$data->samegoods["data"]',
+				'htmlOptions'=>array('class'=>'t'),
 			),
 		)
 	));
@@ -94,6 +101,10 @@ DTimer::log('конец');
 DTimer::show();
 ?>
 	<style>
+		button {
+			padding: 2px 3px;
+
+		}
 		table.items{
 			font-size: 0.9em;
 		}
@@ -122,11 +133,32 @@ DTimer::show();
 	<script>
 		$(document).ready(function () {
 			$('.lst li').click(function (event) {
-
+				var tid = $(this).attr('tid');
+				var gid = $(this).parent().attr('gid');
+				var tr  = $(this).parent().parent().parent();
+				set_group(tid, gid, tr);
 				event.stopPropagation();
+			});
+
+			$('#btn_hide').text($('#btn_hide').text() +'(' + $('.tr_ok').size() + ')');
+			$('#btn_auto').text($('#btn_auto').text() +'(' + $('.tr_ok').size() + ')');
+
+			$('#btn_hide').click(function (event) {
+				$('.tr_ok').toggleClass('hidden');
+			});
+
+			$('#btn_auto').click(function (event) {
+				$('.tr_ok').each(function (i, e) {
+					$(e).find('.gr').text( $(e).find('li').attr('tid'))
+				});
 			});
 		});
 
+		function set_group(tid, gid, tr) {
+			console.log('добавить к '+gid+' группу '+tid);
+//			console.log(tr);
+			tr.find('.gr').text(tid);
+		}
 	</script>
 
 <?php

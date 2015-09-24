@@ -217,25 +217,28 @@ class Goods extends CActiveRecord
 			// разбиваем наименование на слова
 //		$n = explode(' ', $n);
 //		$n = preg_split("/[\s,]+/", $n);
-		$n = preg_split("/[\s,-\.]+/", $n);
+		$n = preg_split("/([\s,-\.\/])+/", $n, -1, PREG_SPLIT_DELIM_CAPTURE);
 			// делаем пустую модель
 		$res = Goods::model()->findAll('id<0');
 		$arr = array();
 
 		$criteria = new CDbCriteria;
 
-		if (count($n) == 1) {
-			$str = implode(' ', $n);
+		//if (count($n) == 1)
+		{
+			$str = implode('', $n);
+//			$arr[] = $str;
 			$criteria->distinct=array('id_3torg');
 			$criteria->select = "id_3torg";
 			$criteria->addCondition('name like \''.$str.'%\'');
 			$criteria->addCondition('id_3torg<>\'0\' and id_3torg<>\'\' ');
 			$res = Goods::model()->findAll($criteria);
-		} else {
+		} /*else*/ {
 			while (!$res && count($n)>1) {
 				array_pop($n);
+				array_pop($n);
 				// TODO склеивать строку пробелами - неправильно!
-				$str = implode(' ', $n);
+				$str = implode('', $n);
 				$criteria->condition = '';
 				$criteria->distinct=array('id_3torg');
 				$criteria->select = "id_3torg";
@@ -247,12 +250,11 @@ class Goods extends CActiveRecord
 
 
 			// формируем массив из модели
-
 		foreach ($res as $r) {
-			$arr[] = '['.$r->id_3torg.'] ' . Torg3::model()->findByPK($r->id_3torg)['name'];
+			$torg = Torg3::model()->findByPK($r->id_3torg);
+			$arr[] = '<li tid="'.$r->id_3torg.'" title="'.$torg['descr'].'">['.$r->id_3torg.'] ' .$torg['name'].'</li>';
 		}
-
-		return array('count' => count($arr), 'data' => '<ul gid="'.$this->id.'" class="lst"><li>'.implode('</li><li>',$arr).'</li></ul>');
+		return array('count' => count($arr), 'data' => '<ul gid="'.$this->id.'" class="lst">'.implode('',$arr).'</ul>');
 	}
 
 //	public function getRest() {
