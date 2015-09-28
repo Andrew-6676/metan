@@ -148,16 +148,72 @@ DTimer::show();
 			});
 
 			$('#btn_auto').click(function (event) {
+				var arr = {};
+
 				$('.tr_ok').each(function (i, e) {
-					$(e).find('.gr').text( $(e).find('li').attr('tid'))
+					$(e).find('.gr').text( $(e).find('li').attr('tid'));
+					arr[$(e).find('ul').attr('gid')] = $(e).find('li').attr('tid');
 				});
+
+				$.ajax({
+					url: 'http://' + document.location.host + rootFolder + "/goods/set_gr",
+					type: 'POST',
+					dataType: "json",
+					data: {data: arr},
+					// функция обработки ответа сервера
+					error: function (data) {
+						alert(JSON.stringify(data) + '###');
+						alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+						$('#overlay').hide();
+						$('#loadImg').hide();
+					},
+					success: function (data) {
+						console.log(data);
+						if (data.status == 'ok') {
+							//tr.find('.gr').text(tid);
+						} else {
+							$('#overlay').hide();
+							$('#loadImg').hide();
+							alert(data.message);
+						}
+					}
+				});
+
 			});
 		});
 
 		function set_group(tid, gid, tr) {
 			console.log('добавить к '+gid+' группу '+tid);
 //			console.log(tr);
-			tr.find('.gr').text(tid);
+
+			var arr = {};
+			arr[gid] = tid;
+			$.ajax({
+				url: 'http://' + document.location.host + rootFolder + "/goods/set_gr",
+				type: 'POST',
+				dataType: "json",
+				data: {data: arr},
+				// функция обработки ответа сервера
+				error: function (data) {
+					alert(JSON.stringify(data) + '###');
+					alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+					$('#overlay').hide();
+					$('#loadImg').hide();
+				},
+				success: function (data) {
+					console.log(data);
+					if (data.status == 'ok') {
+						tr.find('.gr').text(tid);
+					} else {
+						$('#overlay').hide();
+						$('#loadImg').hide();
+						alert(data.message);
+					}
+				}
+			});
+
+
+			//tr.find('.gr').text(tid);
 		}
 	</script>
 

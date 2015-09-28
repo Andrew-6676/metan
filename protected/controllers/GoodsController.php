@@ -197,10 +197,23 @@ class GoodsController extends Controller
 			'data'=>$data
 		));
 	}
-	public function actionSet_gr($gid, $tid)
+	public function actionSet_gr()
 	{
+		//echo json_encode(print_r($_POST['data'],true));
+		//exit;
+		$res = array('status'=>'err', 'message'=>'Ошибка!');
+
 		//Utils::print_r($_GET);
-		Goods::model()->updateByPK($gid, array('id_3torg'=>$tid));
+		$c = 0;
+		foreach ($_POST['data'] as $gid=>$tid) {
+			if (Goods::model()->updateByPK($gid, array('id_3torg'=>$tid)) > 0) {
+				$res['status'] = 'ok';
+
+				$c++;
+			};
+		}
+		$res['message'] = 'Обновлено '.$c.' стр.';
+		echo json_encode($res);
 	}
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

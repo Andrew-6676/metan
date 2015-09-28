@@ -109,4 +109,20 @@ class Inputcache extends CActiveRecord
 //		return $list[0]->getAttribute('str');
 		return $list;
 	}
+
+
+	/*--------------------------------------------------------------------------------------------*/
+	public function init() {
+		$this->id_store  = Yii::app()->session['id_store'];
+	}
+
+	/*--------------------------------------------------------------------------------------------*/
+	public static function addstr($arr) {
+
+		// перебираем массив $arr и если нету соотв. записи в таблице - заносим
+
+//		foreach
+
+		return true;
+	}
 }

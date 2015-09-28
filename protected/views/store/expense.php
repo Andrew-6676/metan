@@ -7,7 +7,7 @@
 
   	$this->addJS('store/search_form.js');
 
-	$this->addJS('store/expence.js');
+	$this->addJS('store/expense.js');
 	$this->addJS('store/document.js');
 	$this->addJS('jquery-ui.js');
 
@@ -235,6 +235,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'position'=>array('50%',180),
 		'buttons'       => array(
 			'ТН'=>"js:function(){
+							saveInputcache($('#prepare-ttn-form').serialize());
 							print_ttn(
 								_id_doc,
 								'tn',
@@ -242,6 +243,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 							);
 						}",
 			'ТТН'=>"js:function(){
+							saveInputcache($('#prepare-ttn-form').serialize());
 							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
 							print_ttn(
 								_id_doc,

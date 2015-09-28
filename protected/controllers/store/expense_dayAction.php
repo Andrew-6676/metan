@@ -79,7 +79,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('doc_date=\''.Yii::app()->session['workdate'].'\'');
 		$criteria->addCondition('id_doctype <> 3');
 		$criteria->addCondition('id_doctype <> 1');
-		
+
 			/* сводная таблица по расходу за день */
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
 		$gr = array();

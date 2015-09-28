@@ -44,7 +44,7 @@ $this->endWidget();
 
 function textField_($form, $fo, $fi, $controller) {
 	echo $form->labelEx($fo, $fi);
-	if ($fi=='sdal' || $fi=='car') {
+	if ($fi != 'dover' /*$fi=='sdal' || $fi=='car'*/ ) {
 		$controller->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model'=>$fo,
 			'attribute'=>$fi,

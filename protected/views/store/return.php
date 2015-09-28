@@ -5,7 +5,7 @@
 	$this->addCSS('store/search_form.css');
 
   	$this->addJS('store/search_form.js');
-  	$this->addJS('store/expence.js');
+  	$this->addJS('store/expense.js');
 	$this->addJS('store/return.js');
 	$this->addJS('jquery-ui.js');
 	// echo '<pre>';

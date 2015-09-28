@@ -390,6 +390,36 @@ class MainAjaxController extends CController
         }
 //	}
 	/*------------------------------------------------------------------------------*/
+	public function ActionSaveinputcache(){
+		$res = array('status'=>'ok', 'message'=>'ok; ');
+//		$res['message'] = $_GET['form_ttn'];
+			// сохранить ы базу f_ttnForm_sdal (input) => bla-bla (str)
+
+		foreach ($_GET['form_ttn'] as $input => $str) {
+//			$res['message'] .= $input.' => '.$str;
+			if (trim($str) != '') {
+				$c = Inputcache::model()->count('input=\'f_ttnForm_' . $input . '\' and str=trim(\'' . $str . '\')');
+				if ($c == 0) {
+					$res['message'] .= $input . ' => ' . $str . '; ';
+					$ic = new Inputcache();
+					$ic->input = 'f_ttnForm_' . $input;
+					$ic->str = trim($str);
+					if (!$ic->save()) {
+						$res['status'] = 'err';
+					};
+				}
+			}
+		}
+
+//		if (Inputcache::addstr($_GET['form_ttn']) ) {
+//
+////			$res['message'] = '';
+//		} else {
+//			$res['status'] = 'err';
+//		};
+
+		echo json_encode($res);
+	}
 	/*------------------------------------------------------------------------------*/
 	/*------------------------------------------------------------------------------*/
 }
