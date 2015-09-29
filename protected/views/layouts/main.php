@@ -190,18 +190,60 @@ if (Yii::app()->user->isGuest) {
 
 	?>
 </div>
-	<?php
-			// миниистория посещений в сесии, для возврата на прошлую страницу
-		if (!isset( Yii::app()->session['history'])) {
-			Yii::app()->session['history'] = array(0=>'-', 1=>'-', 2=>'-');
-		}
 
-		$_SESSION['history'][2] = $_SESSION['history'][1];
-		$_SESSION['history'][1] = $_SESSION['history'][0];
-		$_SESSION['history'][0] = /*Yii::app()->request->getBaseUrl().'/'.*/$this->uniqueId.'/'.$this->action->id;;
+
+<?php
+	// модальное окно
+	$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+		'id' => 'mainDialog',
+		'options' => array(
+			'title'         => '',
+			'autoOpen'      => FALSE,
+			'modal'         => true,
+			'closeOnEscape' => 'true',
+			'width'         =>'700',
+			'top'           => '30',
+			'resizable'     => true,
+	//		'position'=> '{ my: "left top", at: "left bottom", of: button }',
+			'position'=>array('50%',180),
+			'buttons'       => array(
+//				'Сформировать'=>"js:function(){
+//								//window.open(rootFolder + '/print/index?report=Deliverynote&orient=P&format=html&type=tn&id='+_id_doc, '_blank');
+//	//							alert(_id_doc);
+//								writeoff(_id_doc, $('#form_writeoff_nttn').val(), $('#form_writeoff_date_ttn').val(), $('#form_writeoff_n_pl').val(), $('#form_writeoff_for').val());
+//							}",
+				'Закрыть'=>'js:function(){$("#mainDialog").dialog("close")}',),
+		),
+	));
+
+	?>
+		<div id="mainDialogArea"></div>
+	<?php
+	$this->endWidget('zii.widgets.jui.CJuiDialog');
+
+
+//	print CHtml::ajaxLink(
+//		'reewrt',
+//		array('store/goodsCart/42930901'),
+//		array('update' => '#mainDialogArea'),
+//		array('onclick' => '$("#mainDialog").dialog("open");', 'id'=>'w', 'style'=>'display:nne')
+//	);
+?>
+
+
+<?php
+
+		// миниистория посещений в сесии, для возврата на прошлую страницу
+	if (!isset( Yii::app()->session['history'])) {
+		Yii::app()->session['history'] = array(0=>'-', 1=>'-', 2=>'-');
+	}
+
+	$_SESSION['history'][2] = $_SESSION['history'][1];
+	$_SESSION['history'][1] = $_SESSION['history'][0];
+	$_SESSION['history'][0] = /*Yii::app()->request->getBaseUrl().'/'.*/$this->uniqueId.'/'.$this->action->id;;
 
 //		Utils::print_r(Yii::app()->session['history']);
-	?>
+?>
 
 <a id="to_bottom" href='#footer'>
 	<div>

@@ -15,24 +15,30 @@ $dn = '';
 
 
 ?>
-<div class="caption">
+<h3 class="capt">
 	<?php
 		echo $data['goods']->name;
 		echo ' ('.$data['goods']->id.')';
 	?>
-</div>
+</h3>
 <!--<table class="motion">-->
 <!--	<tr class="capt">-->
 <!--		<td colspan="4"></td>-->
 <!--	</tr>-->
 <?php
 	echo 'Остаток на '. Utils::format_date(substr(Yii::app()->session['workdate'],0,7).'-01').': <b>'.$data['goods']->rest0.'</b>';
+
+	if (count($data['m']) == 0) {
+		echo "<div class='message'>Нет движения</div>";
+		return;
+	}
 ?>
 
 <table class="std cart">
 	<thead>
 		<tr>
 			<th>Дата</th>
+			<th>№ док-та</th>
 			<th>Операция</th>
 			<th>Кол-во</th>
 			<th>Сумма</th>
@@ -58,25 +64,45 @@ $dn = '';
 		'52' => '/store/expense',
 	);
 	$rest = $data['goods']->rest0;
+	$po = -1;
 	foreach ($data['m'] as $doc) {
 		foreach ($doc->documentdata as $row) {
 			$m='';
 			if ($doc->operation->operation < 0 ) {
 				$m = 'minus';
 			}
-			$rest += $row->quantity*$doc->operation->operation;
-			$tr = '<tr>';
+
+			if ($row->partof > 0 ) {
+				$rq = 0;
+				$po = $row->partof;
+				$class = ' class="partof" ';
+				$pr = number_format($row->price*$row->quantity,'0','.','`').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','`').')</small>';
+			} else {
+				$pr = number_format($row->price*$row->quantity,'0','.','`');
+				$rq = $row->quantity;
+				$class = '';
+				$rest += $row->quantity*$doc->operation->operation;
+			}
+
+			if ($doc->id == $po) {
+				$pr = number_format($row->price*$row->quantity,'0','.','`').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','`').')</small>';
+			}
+
+			$tr = '<tr '.$class.'>';
 			$tr .=     '<td>';
 			$tr .=         Utils::format_date($doc->doc_date);
+			$tr .=     '</td>';
+			$tr .=     '<td>';
+			$tr .=         $doc->doc_num==0?'':$doc->doc_num;
 			$tr .=     '</td>';
 			$tr .=     '<td class="c">';
 			$tr .=         CHtml::link($doc->operation->name, Yii::app()->params['rootFolder'].$links[$doc->id_operation], array('title'=>'Документ № '.$doc->doc_num));
 			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
-			$tr .=         $row->quantity;
+			$tr .=         $rq;
 			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
-			$tr .=         number_format($row->price*$row->quantity,'0','.','`');
+			$tr .=         $pr;
 			$tr .=     '</td>';
 			$tr .=     '<td>';
 			$tr .=         $rest;

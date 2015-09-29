@@ -2,6 +2,7 @@
 .*
 *__
 ~*
+/index.php
 assets
 assets/*
 public/*

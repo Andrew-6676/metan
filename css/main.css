@@ -352,6 +352,9 @@ body {
 }
 
 /*-------------------------------------------------------------------*/
+#to_top, #to_bottom {
+	display: none;
+}
 #to_top div, #to_bottom div {
 	position: fixed;
 	right: 20px;
@@ -369,7 +372,8 @@ body {
 
 /*------------*/
 #to_top div {
-	top: 20px;
+	/*top: 20px;*/
+	top: 41%;
 	background: url(../images/arrows.png) 0% 0% no-repeat #000;
 }
 
@@ -379,7 +383,8 @@ body {
 
 /*-----*/
 #to_bottom div {
-	bottom: 20px;
+	/*bottom: 20px;*/
+	top: 46%;
 	background: url(../images/arrows.png) 0% 100% no-repeat #000;
 }
 
@@ -435,6 +440,7 @@ td {
 }
 tr.minus, td.minus {
 	color: red;
+	background-color: #FDFDAC !important;
 }
 tr.sel {
 	background-color: #F04E4E !important;
@@ -494,4 +500,15 @@ table.canhide caption {
 }
 .ui-menu .ui-menu-item {
 	border-bottom: 1px dotted black;
+}
+
+button.reload {
+	background: url(../images/reload_32x64.png);
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-size: 200%;
+}
+button.reload:hover {
+	background-position: 100% 100%;
 }

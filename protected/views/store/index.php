@@ -1,5 +1,12 @@
 <?php
 	$this->addCss('store/index.css');
+
+
+//Yii::app()->user->setFlash('success', 'Файл  был успешно загружен!');
+//if (Yii::app()->user->hasFlash('success')) {
+//	Utils::print_r(Yii::app()->user->getFlash('success'));
+//
+//}
 ?>
 <div class="store_index">
 	<div class="date">

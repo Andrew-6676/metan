@@ -18,7 +18,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 				// 				));
 
 				$connection = Yii::app()->db;
-				$sql = "select array_to_string(array(select id from {{document}} "." where doc_num2=0 and doc_date='".Yii::app()->session['workdate']."' and id_store=".Yii::app()->session['id_store']."), ',') as data";
+				$sql = "select array_to_string(array(select id from {{document}} "." where doc_num2=0 and id_doctype=2 and doc_date='".Yii::app()->session['workdate']."' and id_store=".Yii::app()->session['id_store']."), ',') as data";
 				$rowsData = $connection->createCommand($sql)->queryAll();
 
 				$dbData = explode(',', $rowsData[0]['data']);
@@ -79,32 +79,10 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('doc_date=\''.Yii::app()->session['workdate'].'\'');
 		$criteria->addCondition('id_doctype <> 3');
 		$criteria->addCondition('id_doctype <> 1');
-
-			/* сводная таблица по расходу за день */
-		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
-		$gr = array();
-		$criteria->order ='doc_date desc, doc_num desc';
-		$s_model = Document::model()->with('documentdata')->findAll($criteria);
-		foreach ($s_model as $document) {
-			$sum = $document->documentdata[0]->price*$document->documentdata[0]->quantity;
-			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
-
-			if (!isset($gr[$document->id_operation])) {
-				$gr[$document->id_operation] = array(0=>$sum);
-				$gr[$document->id_operation][$document->for] = $sum;
-			} else {
-				$gr[$document->id_operation][0] += $sum;
-				if (!isset($gr[$document->id_operation][$document->for])) {
-					$gr[$document->id_operation][$document->for] = $sum;
-				} else {
-					$gr[$document->id_operation][$document->for] += $sum;
-				}
-			}
-		}
-		/* end сводная по расходу*/
 		$criteria->addCondition('id_doctype = 2');
 		$criteria->addCondition('doc_num2 = 0');
 		$criteria->order ='t.date_insert asc, t.id';
+
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
 
 			// список операций
@@ -114,9 +92,9 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$this->controller->pageTitle = 'Расход за день';
 		$this->controller->render('expense_day', array(
 									'data'=>$q_model,
-									'day_sum'=>$day_sum,
+//									'day_sum'=>$day_sum,
 									'oper'=>$oper,
-									'tmp'=>$gr,
+//									'tmp'=>$gr,
 									// 'doc_num'=>$doc_num
 								 ));
 	}	// end run

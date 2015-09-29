@@ -366,29 +366,46 @@ class MainAjaxController extends CController
 //		Utils::print_r($json);
 //	}
 	/*------------------------------------------------------------------------------*/
-	public function ActionAutocomplete() {
+	public function ActionAutocomplete()
+	{
 		$term = Yii::app()->getRequest()->getParam('term');
 		$input = Yii::app()->getRequest()->getParam('input');
 
-//		if(Yii::app()->request->isAjaxRequest && $term) {
-			$criteria = new CDbCriteria;
+		$result = array();
+		$criteria = new CDbCriteria;
+
+		if (strpos($input,'f_ttnForm_') !== false) {
+
+	//		if(Yii::app()->request->isAjaxRequest && $term) {
+
 			// формируем критерий поиска
-//			$criteria->addSearchCondition('str', $term);
+	//			$criteria->addSearchCondition('str', $term);
 			if ($input) {
-				$criteria->addCondition('input = \''.$input.'\'');
+				$criteria->addCondition('input = \'' . $input . '\'');
 			}
-			$criteria->addCondition('upper(str) like upper(\''.$term.'%\')');
-            $inp = Inputcache::model()->findAll($criteria);
-            // обрабатываем результат
-            $result = array();
-            foreach($inp as $i) {
-	            $lable = $i['str'];
-	            $result[] = array('id'=>$i['id'], 'label'=>$lable, 'value'=>$lable);
-            }
-            echo CJSON::encode($result);
-            Yii::app()->end();
-        }
-//	}
+			$criteria->addCondition('upper(str) like upper(\'' . $term . '%\')');
+			$inp = Inputcache::model()->findAll($criteria);
+				// обрабатываем результат
+			foreach ($inp as $i) {
+				$lable = $i['str'];
+				$result[] = array('id' => $i['id'], 'label' => $lable, 'value' => $lable);
+			}
+		}
+
+		if (strpos($input,'part_of') !== false) {
+			$criteria->addCondition('doc_num like \'' . $term . '%\'');
+			$criteria->addCondition('id_doctype <> 3');
+			$docs = Document::model()->findAll($criteria);
+
+			foreach ($docs as $d) {
+				$lable = $d['doc_num'].' от '.Utils::format_date($d['doc_date']);
+				$result[] = array('id' => $d['id'], 'label' => $lable, 'value' => $lable);
+			}
+		}
+
+		echo CJSON::encode($result);
+		Yii::app()->end();
+	}
 	/*------------------------------------------------------------------------------*/
 	public function ActionSaveinputcache(){
 		$res = array('status'=>'ok', 'message'=>'ok; ');

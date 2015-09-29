@@ -42,7 +42,7 @@
 <?php
 //Utils::print_r($data);
 
-DTimer::log('старт');	// засекаем время выполнения
+//DTimer::log('старт');	// засекаем время выполнения
 
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'rowCssClassExpression' => function($row, $data) {
@@ -97,8 +97,8 @@ DTimer::log('старт');	// засекаем время выполнения
 			),
 		)
 	));
-DTimer::log('конец');
-DTimer::show();
+//DTimer::log('конец');
+//DTimer::show();
 ?>
 	<style>
 		button {

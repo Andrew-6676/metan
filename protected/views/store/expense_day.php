@@ -109,7 +109,7 @@ $this->addJS('jquery-ui.js');
 		</table>
 
 		<details class="additional_data">
-			<summary>Дополнительные данные:</summary>
+			<summary>Дополнительные данные</summary>
 			<div class="docadditional">
 				<div class="row">
 					<label for="expence[payment_order]">Номер карты:</label>
@@ -119,6 +119,41 @@ $this->addJS('jquery-ui.js');
 				<div class="row">
 					<label for="expence[descr]">Примечание:</label>
 					<input class="dop_data d2" name="expence[descr]" placeholder="">
+					<!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+				</div>
+				<div class="row">
+					<label for="expence[descr]">Оплата части товара:</label>
+					<input type="checkbox" name="expence[part_of_c]">
+					<?php
+					$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+						'name'=>'Document',
+//					'model'=>$fo,
+//					'attribute'=>$fi,
+					//			'name'=>'test1',
+					//			'value'=>'',
+						'source'=>$this->createUrl('MainAjax/autocomplete'.'/input/part_of'),
+						'options'=>array(
+							'showAnim'=>'fold',
+							// обработчик события, выбор пункта из списка
+							'select' =>'js: function(event, ui) {
+					            // действие по умолчанию, значение текстового поля
+					            // устанавливается в значение выбранного пункта
+					            this.value = ui.item.label;
+					            // устанавливаем значения скрытого поля
+					            $("[name=\'expence[part_of_i]\']").val(ui.item.id);
+					            $("[name=\'expence[part_of_c]\']").prop("checked", true);
+					            return false;
+					        }',
+						),
+						'htmlOptions' => array(
+							'maxlength'=>50,
+							'name'=>'expence[part_of_n]',
+							'placeholder'=>'номер документа'
+						),
+					));
+
+					?>
+					<input class="dop_data d2" name="expence[part_of_i]" placeholder="id документа">
 					<!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 				</div>
 			</div>
@@ -176,102 +211,10 @@ $this->addJS('jquery-ui.js');
 	</script>
 </div><!-- form -->
 <!-- ----------------------------------------------------------------------- -->
-<div class="day_sum">
-	<table class="std" style="margin: auto; margin-bottom: 20px;">
-		<thead>
-		<tr>
-<!--			<td class="no_border"></td>-->
-			<th></th>
-			<th>Общий<br>товарооборот</th>
-			<th>Розничный<br>товарооборот</th>
-			<th>Собственные<br>нужды</th>
-			<th></th>
-		</tr>
-		</thead>
-		<?php
-		$s = array(0=>0,1=>0,2=>0,3=>0);
-		foreach ($tmp as $id_op=>$op) {
-			$tr = '<tr>';
-			$tr .=   '<th>';
-			$tr .=       '<b>'.Operation::model()->findByPK($id_op)->name.'</b>';
-			$tr .=   '</th>';
-			$tr .=   '<td>';
-			$tr .=       number_format(@$op[1], '0', '.', '`');
-			$tr .=   '</td>';
-			$tr .=   '<td>';
-			$tr .=       number_format(@$op[2], '0', '.', '`');
-			$tr .=   '</td>';
-			$tr .=   '<td>';
-			$tr .=       number_format(@$op[3], '0', '.', '`');
-			$tr .=   '</td>';
-			$tr .=   '<td>';
-			$tr .=       '<b>'.number_format(@$op[0], '0', '.', '`').'<b>';
-			$tr .=   '</td>';
-			$tr .= '</tr>';
+<div id="svodday">
 
-			for($i=0; $i<4; $i++) {
-				$s[$i] += @$op[$i];
-			}
-
-			echo $tr;
-		}
-		$tr = '<tr>';
-		$tr .=   '<th>';
-		$tr .=       '<b>Всего</b>';
-		$tr .=   '</th>';
-		$tr .=   '<td>';
-		$tr .=       '<b>'.number_format($s[1], '0', '.', '`').'<b>';
-		$tr .=   '</td>';
-		$tr .=   '<td>';
-		$tr .=       '<b>'.number_format($s[2], '0', '.', '`').'<b>';
-		$tr .=   '</td>';
-		$tr .=   '<td>';
-		$tr .=       '<b>'.number_format($s[3], '0', '.', '`').'<b>';
-		$tr .=   '</td>';
-		$tr .=   '<td><b>';
-		$tr .=       number_format($s[0], '0', '.', '`');
-		$tr .=   '</td></b>';
-		$tr .= '</tr>';
-		echo $tr;
-
-		?>
-	</table>
-
-	<!-- table>
-		<tr>
-			<td>
-				Общий товарооборот:
-			</td>
-			<td>
-				<?php echo number_format($day_sum[1], '0', '.', '`'); ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Розничный товарооборот:
-			</td>
-			<td>
-				<?php echo number_format($day_sum[2], '0', '.', '`'); ?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Собственные нужды:
-			</td>
-			<td>
-				<?php echo number_format($day_sum[3], '0', '.', '`'); ?>
-			</td>
-		</tr>
-		<tr style="font-weight: bold;">
-			<td>
-				ВСЕГО:
-			</td>
-			<td>
-				<?php echo number_format($day_sum[3] + $day_sum[2] + $day_sum[1], '0', '.', '`'); ?>
-			</td>
-		</tr>
-	</table -->
 </div>
+<!-- ----------------------------------------------------------------------- -->
 <table class="doc_data">
 	<caption></caption>
 	<thead>
@@ -298,10 +241,28 @@ $this->addJS('jquery-ui.js');
 	$for = array('-1' => '-', '1' => 'Общий товарооборот', '2' => 'Розничный товарооборот', '3' => 'Собственные нужды');
 	$i = 0;
 	foreach ($data as $document) : ?>
-		<tr doc_id="<?php echo $document->id; ?>">
+		<tr doc_id="<?php echo $document->id; ?>"
+			<?php
+				if ($document->documentdata[0]->partof > 0) {
+					$d = Document::model()->findByPK($document->documentdata[0]->partof);
+					echo 'partof_num="' . $d->getAttribute('doc_num').' от '.Utils::format_date($d->getAttribute('doc_date')).'"';
+					echo 'partof_id="' . $document->documentdata[0]->partof . '"';
+					echo 'class="part"';
+				}
+			?>>
 			<td class="npp"><?php echo ++$i; ?></td>
 			<td class="id"><?php echo $document->documentdata[0]->id_goods; ?></td>
-			<td class="name"><?php echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods), array('target'=>'_blank') ); ?></td>
+			<td class="name">
+				<?php
+					//echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods), array('target'=>'_blank') );
+					echo CHtml::ajaxLink(
+									$document->documentdata[0]->idGoods->name,
+									array('store/goodsCart/'.$document->documentdata[0]->id_goods),
+									array('update' => '#mainDialogArea'),
+									array('onclick' => '$("#mainDialog").dialog("open");', 'id'=>'w')
+						);
+				?>
+			</td>
 			<td class="quantity"><?php echo $document->documentdata[0]->quantity; ?></td>
 			<td class="price"><?php echo number_format($document->documentdata[0]->price, '0', '.', '`'); ?></td>
 			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '`'); ?></td>

@@ -4,11 +4,13 @@
 	$this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
 	$this->addCSS('store/search_form.css');
 
-  	$this->addJS('store/search_form.js');
-  	$this->addJS('store/expense.js');
-	$this->addJS('store/return.js');
 	$this->addJS('jquery-ui.js');
-	// echo '<pre>';
+  	$this->addJS('store/search_form.js');
+	$this->addJS('store/document.js');
+	$this->addJS('store/expense.js');
+	$this->addJS('store/return.js');
+
+// echo '<pre>';
 	// print_r($oper);
 	// echo '</pre>';
 ?>
@@ -25,9 +27,6 @@
 			<?php
 				$list = CHtml::listData($oper,
 			                'id', 'name');
-				// echo '<pre>';
-				// print_r($list);
-				// echo '</pre>';
 				echo CHtml::dropDownList('return_doc[id_operation]',
 									  	  '2',
 					              		  $list,

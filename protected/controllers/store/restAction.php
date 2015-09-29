@@ -54,6 +54,7 @@ class restAction extends CAction   /*---- StoreController ----*/
 		$total = 0;
 		foreach ($rest as $r) {
 			$total += $r['price']*$r['rest'];
+//			$total += $r['rest']*Goods::model()->findByPK($r['id'])->price;
 		}
 
 

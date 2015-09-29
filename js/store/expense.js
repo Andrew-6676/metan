@@ -53,64 +53,65 @@ $(document).ready(function () {
 	});
 
 	/*-------------------  Потребитель -----------------------------------------------*/
-
-	$('#contact_name').autocomplete({
-		source: function (request, response) {
-			//response функция для обработки ответа
-			//alert(request.term); // - строка поиска;
-			$.ajax({
-				url: 'http://' + document.location.host + rootFolder+"/MainAjax/GetContactName",
-				type: 'GET',
-				dataType: "json",
-				data: 'term=' + request.term + '&f=name',
-				success: function (data) {
-					//alert((data));
-					response(
-						$.map(data, function (item) {
-							return {
-								value: item.name,
-								label: '[' + item.id + '] ' + item.name,
-								id: item.id
-							}
-						})
-					);
-				}
-			});
-		},
-		minLength: 4,
-		select: function (event, ui) {
-			//     // вставить id в тег cid
-			$('#contact_name').attr('cid', (ui.item.id * 1));
-			$('#contact_name').removeClass('err');
-		}
-	});		// end contact_name.autocomplete
-
+	if ($('#contact_name').size() !=0 ) {
+		$('#contact_name').autocomplete({
+			source: function (request, response) {
+				//response функция для обработки ответа
+				//alert(request.term); // - строка поиска;
+				$.ajax({
+					url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetContactName",
+					type: 'GET',
+					dataType: "json",
+					data: 'term=' + request.term + '&f=name',
+					success: function (data) {
+						//alert((data));
+						response(
+							$.map(data, function (item) {
+								return {
+									value: item.name,
+									label: '[' + item.id + '] ' + item.name,
+									id: item.id
+								}
+							})
+						);
+					}
+				});
+			},
+			minLength: 4,
+			select: function (event, ui) {
+				//     // вставить id в тег cid
+				$('#contact_name').attr('cid', (ui.item.id * 1));
+				$('#contact_name').removeClass('err');
+			}
+		});		// end contact_name.autocomplete
+	}
 
 	//$('#contact_name').focus();
-	$('#contact_name').keyup(function (event) {
-		if (event.keyCode == 118) {
-			// alert('Поиск');
-			search_data1 = {
-				capt: "Поиск клиента",
-				action: "GetContactName",
-				fields: ["name", "unn"],
-				field: 'name',
-				key: "id",
-				width: 800,
-				sender: 'contact_name',
-			};
-			sForm = new searchForm();
-			// search_data1.sender = $(this).parent().parent().attr('id');
-			sForm.create(search_data1);
+	if ($('#contact_name').size() !=0 ) {
+		$('#contact_name').keyup(function (event) {
+			if (event.keyCode == 118) {
+				// alert('Поиск');
+				search_data1 = {
+					capt: "Поиск клиента",
+					action: "GetContactName",
+					fields: ["name", "unn"],
+					field: 'name',
+					key: "id",
+					width: 800,
+					sender: 'contact_name',
+				};
+				sForm = new searchForm();
+				// search_data1.sender = $(this).parent().parent().attr('id');
+				sForm.create(search_data1);
 
-		}
-		//if (event.keyCode==13) {
-		//    //console.log('enter');
-		//    // поставить курсор в таблицу
-		//    $('.id_goods').first().focus();
-		//}
-	});
-
+			}
+			//if (event.keyCode==13) {
+			//    //console.log('enter');
+			//    // поставить курсор в таблицу
+			//    $('.id_goods').first().focus();
+			//}
+		});
+	}
 	/*--------------------------------------------------------------------*/
 	$('#add_new_contact').click(function () {
 		// сбор данных для передачи

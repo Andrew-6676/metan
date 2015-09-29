@@ -171,8 +171,6 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 				   		// атрибуты дочерней таблицы
 	                $documentdata->id_doc       = $document->id;
-//	                $documentdata->id_owner     = Yii::app()->user->id;
-//	                $documentdata->id_editor    = Yii::app()->user->id;
 	                $documentdata->id_goods     = $id;
 	                $documentdata->cost         = 0;
 	                $documentdata->markup       = 0;
@@ -181,6 +179,12 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 	                $documentdata->packages     = 0;
 	                $documentdata->gross        = 0;
 	                $documentdata->price        = $row['price'];
+					if (isset($doc['partof'])) {
+						if (trim($doc['partof'])=='') {
+							$doc['partof'] = -1;
+						}
+						$documentdata->partof   = $doc['partof'];
+					}
 
 	                	// если запись сохранилась, получаем новые ID
 					if($documentdata->save()) {

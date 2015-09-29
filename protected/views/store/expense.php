@@ -7,16 +7,9 @@
 
   	$this->addJS('store/search_form.js');
 
+	$this->addJS('jquery-ui.js');
 	$this->addJS('store/expense.js');
 	$this->addJS('store/document.js');
-	$this->addJS('jquery-ui.js');
-
-
-	// echo '<pre>';
-	// print_r($oper);
-	// echo '</pre>';
-
-
 
 ?>
 

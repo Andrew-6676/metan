@@ -7,7 +7,7 @@ class goodsCartAction extends CAction   /*---- StoreController ----*/
 
 			// получаем движение товара
 //		$criteria->order ='id_doctype, id_operation, doc_date, doc_num';
-		$criteria->order = 'doc_date, id_operation';
+		$criteria->order = 'doc_date, t.id';
 		$criteria->addCondition('documentdata.id_goods='.$id);
 		$criteria->addCondition('id_doctype<>3');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
@@ -19,6 +19,12 @@ class goodsCartAction extends CAction   /*---- StoreController ----*/
 		$data['goods'] = Goods::model()->findByPK($id);
 
 		$this->controller->pageTitle = 'Каточка товара';
-		$this->controller->render('goodsCart', array('data'=>$data));
+
+		if(Yii::app()->request->isAjaxRequest) {
+			$this->controller->renderPartial('goodsCart', array('data'=>$data));
+		} else {
+			$this->controller->render('goodsCart', array('data'=>$data));
+		}
+
 	}
 }

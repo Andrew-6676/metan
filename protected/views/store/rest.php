@@ -86,6 +86,13 @@ $this->addJS('store/rest.js');
 				'header'=>'Цена',
 				'htmlOptions'=>array('class'=>'r'),
 			),
+//			array(
+//				'name'=>'price',
+//				'type'=>'raw',
+//				'value'=>'number_format(Goods::model()->findByPK($data["id"])->price,"0", ".", " ")',
+//				'header'=>'Цена',
+//				'htmlOptions'=>array('class'=>'r'),
+//			),
 			array(
 				'name'=>'rest',
 				'header'=>'Остаток',

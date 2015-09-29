@@ -10,7 +10,11 @@ var search_data = {
 	sender: null
 };
 /*--------------------------------------------------*/
+
+/*--------------------------------------------------*/
 $(document).ready(function () {
+	loadDaySvod('#svodday');
+
 	$('#kassa_rest').blur(function () {
 		$(this).attr('rest', $(this).val().replace(/`/g, ""));
 		$(this).val($(this).attr('rest').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`'));
@@ -254,6 +258,10 @@ $(document).ready(function () {
 		arr['doc_for'] = $('[name = "for"]').val();
 		arr['id_contact'] = 0;
 		arr['payment_order'] = $('[name="expence[payment_order]"]').val();
+			// если часть товара оплачена безналом, а эта часть за наличку
+		if ( $('[name="expence[part_of_c]"]').prop("checked") ) {
+			arr['partof'] = $('[name="expence[part_of_i]"]').val();
+		}
 
 		//         // запихиваем два массива в один, который и отправится на сервер
 		exp['doc'] = arr;
@@ -340,6 +348,7 @@ $(document).ready(function () {
 					if (data.status == 'ok') {
 						//location.reload();
 						row.remove();
+						loadDaySvod('#svodday');
 					}
 
 
@@ -370,6 +379,14 @@ $(document).ready(function () {
 		$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
 			// номер карты
 		$('[name="expence[payment_order]"]').val(td_src.eq(6).attr('kart_num'));
+
+		if (td_src.parent().attr('partof_id')) {
+			$('[name="expence[part_of_i]"]').val(td_src.parent().attr('partof_id'));
+			$('[name="expence[part_of_n]"]').val(td_src.parent().attr('partof_num'));
+			$('[name="expence[part_of_c]"]').prop('checked', true);
+			$('.additional_data').attr('open','');
+
+		}
 		// пересчитываем сумму
 		$('.quantity, .price').change();
 
@@ -429,6 +446,7 @@ function checkNewData() {
 		},
 		// в случае "положительного"" ответа обрабатываем данные
 		success: function (data) {
+			loadDaySvod('#svodday');
 			// alert(JSON.stringify(data));
 			// alert(JSON.stringify(data.delRows));
 			// alert(JSON.stringify(data.newRows));

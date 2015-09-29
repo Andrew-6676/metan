@@ -219,6 +219,10 @@
 .doc_data td.for {
 	font-size: 0.7em;
 }
+.doc_data tr.part {
+	color: #000000;
+	background: bisque;
+}
 /*-----------------------------------------------------------------*/
 .newRow {
    /*background-color: #D1FCD1;*/

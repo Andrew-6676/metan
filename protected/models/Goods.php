@@ -191,11 +191,16 @@ class Goods extends CActiveRecord
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("id_goods=" . $this->id);
 
-		$r = Documentdata::model()->find($criteria);
+		$r = Rest::model()->find($criteria);
 		if ($r) {
 			return $r->price; //->getAttribute('price');
 		} else {
-			return -1;
+			$r = Documentdata::model()->find($criteria);
+			if ($r) {
+				return $r->price;
+			} else {
+				return 0;
+			}
 		}
 	}
 	/*---------------------------------------------------------------------*/
@@ -219,7 +224,7 @@ class Goods extends CActiveRecord
 //		$n = preg_split("/[\s,]+/", $n);
 		$n = preg_split("/([\s,-\.\/])+/", $n, -1, PREG_SPLIT_DELIM_CAPTURE);
 			// делаем пустую модель
-		$res = Goods::model()->findAll('id<0');
+//		$res = Goods::model()->findAll('id<0');
 		$arr = array();
 
 		$criteria = new CDbCriteria;
@@ -237,7 +242,7 @@ class Goods extends CActiveRecord
 			while (!$res && count($n)>1) {
 				array_pop($n);
 				array_pop($n);
-				// TODO склеивать строку пробелами - неправильно!
+				//  склеивать строку пробелами - неправильно!
 				$str = implode('', $n);
 				$criteria->condition = '';
 				$criteria->distinct=array('id_3torg');

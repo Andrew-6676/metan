@@ -27,11 +27,11 @@ return array(
 
 		'application.components.*',
 		'application.models.*',
-		'application.widgets.superdoc.*',					// для рисования таблиц документов
-		'application.widgets.doc.*',					// для рисования таблиц документов
-		'application.widgets.invoice.*',				// для рисования таблиц счёт-фактур
-		'application.widgets.expence.*',				// для рисования таблиц расхода
-		'application.widgets.return.*',					// для рисования таблиц возврата
+		'application.widgets.superdoc.*',				// для рисования таблиц документов
+//		'application.widgets.doc.*',					// для рисования таблиц документов
+//		'application.widgets.invoice.*',				// для рисования таблиц счёт-фактур
+//		'application.widgets.expence.*',				// для рисования таблиц расхода
+//		'application.widgets.return.*',					// для рисования таблиц возврата
 		'application.widgets.editTable.*',				// для рисования редактируемых таблиц
 		'application.extensions.pdf.mpdf60.mpdf',  	    //для печати в PDF
 	),
@@ -52,16 +52,21 @@ return array(
 				'bootstrap.gii',
 			),
 		),
-
 	 ),
-
+	'preload' => array(
+		'debug',
+	),
 	// application components -------------------------------------------------------------
 	'components'=>array(
 		// 'CHttpCookie'=>array(
 		// 	'domain'=>'.xxxxx.com'
 		// ),
-		'bootstrap'=>array(
-			'class'=>'bootstrap.components.Bootstrap',
+		//'bootstrap'=>array(
+		//	'class'=>'bootstrap.components.Bootstrap',
+		//),
+		'debug' => array(
+			'class' => 'ext.yii2-debug.Yii2Debug',
+			'enabled' => false,
 		),
 		'user'=>array(
 			// enable cookie-based authentication
@@ -100,9 +105,9 @@ return array(
 				),
 				// uncomment the following to show log messages on web pages
 
-				array(
-					'class'=>'CWebLogRoute',
-				),
+//				array(
+//					'class'=>'CWebLogRoute',
+//				),
 
 			),
 		),

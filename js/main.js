@@ -114,7 +114,7 @@ $(document).ready( function(){
 				id: $('#id_store').val()
 			},
 			onSetStoreId  // функция приёма сообщений от сервера
-		)
+		);
 
 		$('#store_info button').hide();
 
@@ -147,10 +147,14 @@ $(document).ready( function(){
 		$('#workdate button').hide();
 		$('#workdate input').val(workdate);
 	});
-	$('#workdate input').keyup(function(event){
+	$('#workdate input').keypress(function(event){
 		if (event.keyCode==27) {
 			$('#workdate button').hide();
 			$('#workdate input').val(workdate);
+		}
+		if (event.keyCode==13) {
+			event.stopPropagation();
+			$('#refresh_workdate').focus();
 		}
 	})
 	/*-------------------------*/
@@ -158,6 +162,8 @@ $(document).ready( function(){
 			// запросить подтверждение изменения даты и перезагрузки страницы
 			//alert($('#workdate input').val());
 			// переприсвоить workdate в сессии
+		$('#overlay').show();
+		$('#loadImg').show();
 		$.get(
 			rootFolder+'/MainAjax/setWorkDate',
 			{	// список параметров
@@ -273,4 +279,15 @@ String.prototype.pad = function(l, s, t)
 String.prototype.repeat = function(n)
 {
 	return new Array( n + 1 ).join(this);
+}
+
+function loadDaySvod (box) {
+	$(box).load(
+		rootFolder+"/store/svodDay"
+		//{
+		//	param1: "param1",
+		//	param2: 2
+		//},
+		//function(){alert("Получен ответ от сервера.")}
+	);
 }

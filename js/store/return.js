@@ -5,7 +5,7 @@ var search_data = {
 		field: 'name',
 		key: "id",
 		width: 800,
-		sender: null,
+		sender: null
 };
 /*----------------------------------------------------*/
 
@@ -15,7 +15,7 @@ $(document).ready(function(){
 	$('#return_doc_id_operation').click(function(event){
 		$('[name*=doc_date]').focus();
 		event.stopPropagation();
-	})
+	});
 
 
 	// $('.search').keyup(function(event){
@@ -267,7 +267,7 @@ function set_autocomplete(id) {
 			event.stopPropagation();
 			//alert('Ctrl+enter');
 		}
-	})
+	});
 	/*---------------------------------------------------------*/
 	$(id + ' .del_row').click(function () {
 		if ($('#new_goods_table tbody tr').size() > 1) {
@@ -280,13 +280,13 @@ function set_autocomplete(id) {
 		} else {
 			alert('Нельзя удалить единственную строку!');
 		}
-	})
+	});
 
 	$(id + ' .clr_row').click(function () {
 		var row = $(this).parent('div').parent('td').parent('tr').attr('id').substr(4);
 		//alert('clear '+row);
 		$(this).parent().parent().parent().find(':input').val('');
-	})
+	});
 
 	/*-------------Пересчёт сумм при изменении количества---*/
 	$(id + ' .quantity, ' + id + '  .price').change(function () {
@@ -308,7 +308,7 @@ function set_autocomplete(id) {
 			itog_summ += $(e).text().replace(/\s+/g, '') * 1;
 		})
 		$('.itog_summ').text(formatNum(itog_summ));
-	})
+	});
 
 	/*-------------Поиск по F7------------------------------*/
 	$(id + ' .search.goods_name').keyup(function (event) {
