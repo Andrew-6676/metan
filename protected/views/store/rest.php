@@ -77,7 +77,13 @@ $this->addJS('store/rest.js');
 				'name'=>'name',
 				'header'=>'Наименование',
 				'type'=>'raw',
-				'value'=> 'CHtml::link($data[\'name\'], array(\'store/goodsCart/\'.$data[\'id\']));'
+				//'value'=> 'CHtml::link($data[\'name\'], array(\'store/goodsCart/\'.$data[\'id\']));'
+				'value'=>'CHtml::ajaxLink(
+									$data[\'name\'],
+									array("store/goodsCart/".$data[\'id\']),
+									array("update" => "#mainDialogArea"),
+									array("onclick" => "$(\'#mainDialog\').dialog(\'open\');")
+						);'
 				//store/goodsCart/42876052
 			),
 			array(

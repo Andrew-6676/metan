@@ -259,7 +259,7 @@ $this->addJS('jquery-ui.js');
 									$document->documentdata[0]->idGoods->name,
 									array('store/goodsCart/'.$document->documentdata[0]->id_goods),
 									array('update' => '#mainDialogArea'),
-									array('onclick' => '$("#mainDialog").dialog("open");', 'id'=>'w')
+									array('onclick' => '$("#mainDialog").dialog("open");')
 						);
 				?>
 			</td>
