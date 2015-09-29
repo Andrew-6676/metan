@@ -34,9 +34,33 @@ $this->addJS('store/rest.js');
 
 
 	$this->widget('zii.widgets.grid.CGridView', array(
+		'rowCssClassExpression' => function($row, $data) {
+//			// $row - номер строки начиная с 0
+//			// $data - ваша моделька
+			$class = '';
+			if ($data['rest'] < 0) { // выделяем вторую! строку
+				$class = 'minus';
+			}
+			if ($row%2 == 0) {
+				$class .= ' odd';
+			} else {
+				$class .= ' even';
+			}
+			return $class;
+		},
 		'id' => 'restGrid',
 		'dataProvider' => $data,
 		'enablePagination' => false,
+		//'pager'=> array(
+		//	'header' => '',
+			//'prevPageLabel' => '&laquo; назад',
+			//'nextPageLabel' => 'далее &raquo;',
+			//'maxButtonCount' => 10,
+			//'cssFile' => Yii::app()->theme->baseUrl . '/css/pager.css',
+		//	'htmlOptions' => array(
+		//		'class' => 'paginator'
+		//	),
+		//),
 		'columns' => array(
 //			array(
 //				'name'=>'check',
