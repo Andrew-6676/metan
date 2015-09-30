@@ -165,7 +165,7 @@ class MainAjaxController extends CController
 
 //		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
 		$connection = Yii::app()->db;
-		$sql_goods = "select id, ".$f."
+		$sql_goods = "select id, name
 					  from {{goods}}
 					  where upper(".$f."::text) like upper('".$term."%')";
 		$res = $connection->createCommand($sql_goods)->queryAll();

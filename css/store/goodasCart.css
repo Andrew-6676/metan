@@ -10,3 +10,7 @@ table.cart {
 .message {
 	margin: 20px;
 }
+
+table.cart tr:hover td {
+	background: #79FF76 !important;
+}

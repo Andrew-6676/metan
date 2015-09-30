@@ -2,8 +2,10 @@
 $this->addCSS('store/expence_day.css');
 $this->addCSS('store/search_form.css');
 $this->addCSS('smoothness/jquery-ui-1.10.4.custom.css');
+$this->addCSS('store/goodasCart.css');
 
 $this->addJS('store/search_form.js');
+//$this->addJS('store/expense.js');
 $this->addJS('store/expence_day.js');
 $this->addJS('jquery-ui.js');
 

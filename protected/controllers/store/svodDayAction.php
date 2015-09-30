@@ -42,7 +42,7 @@ class svodDayAction extends CAction   /*---- StoreController ----*/
 			}
 		}
 
-		$this->controller->renderPartial('_svod_day', array(
+		$this->controller->renderPartial('svodDay', array(
 			'data' => $gr,
 		));
 

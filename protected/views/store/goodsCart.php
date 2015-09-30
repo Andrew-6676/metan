@@ -30,6 +30,11 @@ $dn = '';
 
 	if (count($data['m']) == 0) {
 		echo "<div class='message'>Нет движения</div>";
+
+		echo "<script>
+				$('.ui-dialog-title').text($('h3.capt').text());
+				$('h3.capt').hide();
+			</script>";
 		return;
 	}
 ?>
@@ -104,7 +109,7 @@ $dn = '';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $pr;
 			$tr .=     '</td>';
-			$tr .=     '<td>';
+			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $rest;
 			$tr .=     '</td>';
 			$tr .= '</tr>';
@@ -155,3 +160,4 @@ echo 'Остаток на '.Utils::format_date(Yii::app()->session['workdate']).
 ?>
 
 <!--</table>-->
+

@@ -565,7 +565,8 @@ function set_autocomplete(id) {
 						$.map(data, function (item) {
 							return {
 								value: item.id,
-								label: '[' + item.id + '] ' + item.name + '  (' + item.rest + ' шт по ' + item.price + 'р.)',
+								//label: '[' + item.id + '] ' + item.name.pad(50) + '  (' + item.rest + ' шт по ' + item.price + 'р.)',
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ' + item.rest.pad(6,' ',0) + ' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
 								name: item.name,
 								cost: item.cost,
 								markup: item.markup,

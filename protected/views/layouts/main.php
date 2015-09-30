@@ -221,13 +221,6 @@ if (Yii::app()->user->isGuest) {
 	<?php
 	$this->endWidget('zii.widgets.jui.CJuiDialog');
 
-
-//	print CHtml::ajaxLink(
-//		'reewrt',
-//		array('store/goodsCart/42930901'),
-//		array('update' => '#mainDialogArea'),
-//		array('onclick' => '$("#mainDialog").dialog("open");', 'id'=>'w', 'style'=>'display:nne')
-//	);
 ?>
 
 

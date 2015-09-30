@@ -385,36 +385,7 @@ details label {
 	padding: 5px;
 }
 
-/*----------------------------------------------------------------------------------------------*/
-.ui-dialog {
-	padding: 0 !important;
-}
 
-.ui-dialog .ui-dialog-titlebar {
-	/*padding: 0 !important;*/
-	text-align: center;
-	padding: 5px 5px !important;
-}
-
-.ui-dialog .ui-dialog-title {
-	float: none !important;
-	/*margin: .1em 16px .1em 0;*/
-}
-
-.ui-dialog .ui-dialog-buttonpane {
-	padding: 0 !important;
-}
-
-.ui-button {
-	display: inline-block;
-	position: relative;
-	padding: 0;
-	margin-right: .1em;
-	cursor: pointer;
-	text-align: center;
-	zoom: .8 !important;
-	overflow: visible;
-}
 
 
 

@@ -135,7 +135,7 @@ function set_autocomplete(id) {
 						$.map(data, function (item) {
 							return {
 								value: item.id,
-								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ',		// это поле отобразится в выпадающем списке
+								label: '' + String(item.id).pad(10) + ' ' + item.name + ' ',		// это поле отобразится в выпадающем списке
 								name: item.name,
 							}
 						})

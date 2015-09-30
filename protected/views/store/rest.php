@@ -1,8 +1,9 @@
 <?php
 
 //$this->addCSS('store/rest.css');
-
+$this->addCSS('store/goodasCart.css');
 $this->addJS('store/rest.js');
+$this->addJS('jquery-ui.js');
 
 
 ?>
