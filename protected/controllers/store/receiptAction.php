@@ -47,7 +47,7 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 																//'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
 //																'condition'=>'id_doctype=1 and {{operation}}.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 																'condition'=>'id_doctype=1 and operation.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
-																'order'=>'doc_date desc')
+																'order'=>'doc_date desc, doc_num desc')
 																);
 		// echo '<pre>';
 		// print_r($res[0]);

@@ -187,7 +187,8 @@ $(document).ready(function () {
 		var id = $(this).attr('link');
 		_id_doc = id;
 		console.log("печать ттн из счёта фактуры: "+id);
-		$('#ttn').click();
+		$("#prepareTTN").dialog("open");
+		//$('#ttn').click();
 		//$('#wr_off').click();
 		//$('#form_writeoff_nttn').val($(this).parent().parent().find('.doc_num').text().trim());
 		//console.log($('#form_writeoff_date_ttn').val());

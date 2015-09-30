@@ -300,7 +300,7 @@ $this->renderPartial('forms/_deliverynote',array(
 
 $this->endWidget('zii.widgets.jui.CJuiDialog');
 
-echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareTTN").dialog("open"); return false;','id'=>'ttn', 'style'=>'display:none'));
+//echo CHtml::link('Списать', '#', array('onclick' => '$("#prepareTTN").dialog("open"); return false;','id'=>'ttn', 'style'=>'display:none'));
 
 
 ?>

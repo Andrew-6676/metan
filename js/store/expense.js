@@ -536,7 +536,8 @@ $(document).ready(function () {
 			// заполнить данными
 			//$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
-			$('#ttn').click();
+			//$('#ttn').click();
+			$("#prepareTTN").dialog("open")
 		}
 
 	});
