@@ -6,6 +6,7 @@ class ErrorController extends Controller
 			'400' => 'Плохой запрос',
 			'403' => 'Доступ к этой странице пользователю <span class="uname"><user></span> ЗАПРЕЩЁН!',
 			'404' => 'Такой страницы не существует!',
+			'500' => 'Внутренняя ошибка сервера',
 		);
 
 	public function actionError() {
