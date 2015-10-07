@@ -4,6 +4,37 @@ class MainAjaxController extends CController
 {
 /* ---------------------------------------------------------------------- */
 	public function Actiontest() {
+
+//		$mPDF1=Yii::app()->ePdf->mpdf();
+		//$model=$this->loadModel($id);
+
+		$efaultParams     = array(
+			'mode'            => '', //  Этот параметр определяет режим нового документа
+			'format'          => 'A4', // форматы A4, A5, ...
+			'default_font_size' => 0, // Устанавливает default размер шрифта в точках (PT)
+			'default_font'    => '', // Устанавливает default font-family для документа.
+			'mgl'             => 15, // margin_left. Устанавливает отступы.
+			'mgr'             => 15, // margin_right
+			'mgt'             => 16, // margin_top
+			'mgb'             => 16, // margin_bottom
+			'mgh'             => 9, // margin_header
+			'mgf'             => 9, // margin_footer
+			'orientation'     => 'P', // книжная и альбомная ориентация
+		);
+
+			$mPDF1=Yii::app()->ePdf->mPDF();
+			$mPDF1->WriteHTML('dsdfsdfsf');
+//			$stylesheet = file_get_contents(Yii::getpathOfAlias('webroot').Yii::app()->params['cssPDF']);
+//			$mPDF1->WriteHTML($stylesheet, 1);
+//			# renderPartial (только представление текущего контроллера)
+//			$mPDF1->WriteHTML($this->renderPartial('/store/index', array('data'=>$model), true));
+		//application.views.vegetable.view
+//		}
+		# Вывод готового PDF
+		$mPDF1->Output();
+
+
+
 //		echo $_POST['var'];
 //		$g = Goods::model()->findAll('id>42569999');
 //		Utils::print_r($g[0]->cost);
@@ -32,17 +63,17 @@ class MainAjaxController extends CController
 //		));
 
 
-		$this->widget('zii.widgets.jui.CJuiAutoComplete',array(
-		    'name'=>'normal',
-		    'source'=>array('ac1','ac2','ac3'),
-		    // additional javascript options for the autocomplete plugin
-		    'options'=>array(
-		        'minLength'=>'2',
-		    ),
-		    'htmlOptions'=>array(
-		        'style'=>'height:20px;',
-		    ),
-		));
+//		$this->widget('zii.widgets.jui.CJuiAutoComplete',array(
+//		    'name'=>'normal',
+//		    'source'=>array('ac1','ac2','ac3'),
+//		    // additional javascript options for the autocomplete plugin
+//		    'options'=>array(
+//		        'minLength'=>'2',
+//		    ),
+//		    'htmlOptions'=>array(
+//		        'style'=>'height:20px;',
+//		    ),
+//		));
 
 
 //		$model = Inputcache::model();

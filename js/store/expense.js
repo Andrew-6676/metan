@@ -798,7 +798,7 @@ function print_ttn(id, type, params) {
 	console.log(arguments);
 
 	var orient = {'ttn':'L', 'tn':'P'};
-	window.open(rootFolder + '/print/index?report=Deliverynote&orient='+orient[type]+'&format=pdf&type='+type+'&id='+_id_doc+'&'+params, '_blank');
+	window.open(rootFolder + '/print/index?report=Deliverynote&orient='+orient[type]+'&format=pdf&type='+type+'&id='+_id_doc+'&'+params+'&m[]=20&m[]=15&m[]=5&m[]=5&m[]=0&m[]=0', '_blank');
 
 	return false;
 }

@@ -4,10 +4,24 @@
         public $mpdf=null;
         public $outputPath=null;
     /*----------------------------------------------------------------------------------------------------------------*/
-        function __construct($size='A4',$orient='P', $double=false)
+        function __construct($size='A4',$orient='P', $m = array(10,5,5,5,5,5), $double=false)
         {
             $this->outputPath = Yii::getPathOfAlias('webroot.public');
-	        $this->mpdf = new mpdf('utf-8', $size, '5', 'dejavusans', 10, 10, 5, 5); /*задаем формат, отступы и.т.д.*/
+            //mpdf('','', 0, '', 15, 15, 16, 16, 9, 9, 'L');
+	        //$efaultParams    = array( // More info: http://mpdf1.com/manual/index.php?tid=184
+//                        'mode'              => '', //  This parameter specifies the mode of the new document.
+//                        'format'            => 'A4', // format A4, A5, ...
+//                        'default_font_size' => 0, // Sets the default document font size in points (pt)
+//                        'default_font'      => '', // Sets the default font-family for the new document.
+//                        'mgl'               => 15, // margin_left. Sets the page margins for the new document.
+//                        'mgr'               => 15, // margin_right
+//                        'mgt'               => 16, // margin_top
+//                        'mgb'               => 16, // margin_bottom
+//                        'mgh'               => 9, // margin_header
+//                        'mgf'               => 9, // margin_footer
+//                        'orientation'       => 'L', // landscape or portrait orientation
+//                    );
+	        $this->mpdf = new mpdf('utf-8', $size, '8', 'dejavusans', $m[0], $m[1], $m[2], $m[3], $m[4], $m[5], ''); /*задаем формат, отступы и.т.д.*/
 
 //        $this->mpdf->autoPageBreak = false;
 

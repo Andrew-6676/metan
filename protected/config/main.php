@@ -66,7 +66,7 @@ return array(
 		//),
 		'debug' => array(
 			'class' => 'ext.yii2-debug.Yii2Debug',
-			'enabled' => false,
+			'enabled' => true,
 		),
 		'user'=>array(
 			// enable cookie-based authentication
@@ -111,6 +111,34 @@ return array(
 
 			),
 		),
+
+		/*------------------------*
+		'ePdf' => array(
+			'class'   => 'ext.yii-pdf.EYiiPdf',
+			'params'  => array(
+				'mpdf' => array(
+					'librarySourcePath' => 'application.extensions.pdf.mpdf60.mpdf',
+					'constants'         => array(
+						'_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
+					),
+					//'class' => 'mpdf',
+//					'defaultParams'     => array(
+//						'mode'            => '', //  Этот параметр определяет режим нового документа
+//						'format'          => 'A4', // форматы A4, A5, ...
+//						'default_font_size' => 0, // Устанавливает default размер шрифта в точках (PT)
+//						'default_font'    => '', // Устанавливает default font-family для документа.
+//						'mgl'             => 15, // margin_left. Устанавливает отступы.
+//						'mgr'             => 15, // margin_right
+//						'mgt'             => 16, // margin_top
+//						'mgb'             => 16, // margin_bottom
+//						'mgh'             => 9, // margin_header
+//						'mgf'             => 9, // margin_footer
+//						'orientation'     => 'P', // книжная и альбомная ориентация
+//					)
+				),
+			),
+		),
+		/*------------------------*/
 	),
 
 	// application-level parameters that can be accessed
@@ -123,3 +151,6 @@ return array(
 		'adminFIO' => 'Шавнёв А.Л.',
 	),
 );
+
+
+

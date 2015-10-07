@@ -17,7 +17,11 @@ $inp_data = $_GET['form_ttn'];
 
 	<div class="rep_wrapper">
 		<div class="page p1 more deliverynote">
-			<br><br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<div>
 				<table class="no_border" align="center" style="width:200px">
 					<tr class="c">
@@ -44,6 +48,11 @@ $inp_data = $_GET['form_ttn'];
 			</div>
 
 			<div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 				<table class="no_border spec" width="100%">
 					<tr>
 						<td colspan="146">
@@ -389,6 +398,10 @@ $inp_data = $_GET['form_ttn'];
 		<!--	<pagebreak class="more"/>-->
 		<!--	<p style="page-break-after:always">...</p>-->
 		<div class="page p2 deliverynote">
+			<br>
+			<br>
+			<br>
+			<br>
 			<table width="100%" class="no_border spec2" style="font-size: 10px;">
 				<colgroup span="146" width="7"></colgroup>
 				<tbody>

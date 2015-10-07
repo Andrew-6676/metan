@@ -9,7 +9,15 @@ class PrintController extends Controller {
 
 /* --------------------- инициализация печати------------ ---------------*/
 	public function actionIndex($report, $orient='L', $format='pdf') {
-		$printer = new PrintPDF('A4', $orient);
+//		if ($report=='Deliverynote') {
+//			 $m = array(20,15,5,5,0,0);
+//		}
+		if (isset($_GET['m'])) {
+			$m = $_GET['m'];
+		} else {
+			$m = array(10,5,5,5,0,0);
+		}
+		$printer = new PrintPDF('A4', $orient, $m);
 		// echo $report;
 		// Utils::print_r($_GET);
 		// echo http_build_query($_GET);
@@ -18,7 +26,7 @@ class PrintController extends Controller {
 			// вызываем нужный Action и передаём ему параметры
 		switch ($format) {
 			case 'pdf':
-				echo $printer->printFromURL('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate'], 'http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/css/print/rest.css');
+				echo $printer->printFromURL('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
 				break;
 			case 'html':
 				$this->redirect('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
