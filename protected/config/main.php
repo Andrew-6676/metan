@@ -66,7 +66,7 @@ return array(
 		//),
 		'debug' => array(
 			'class' => 'ext.yii2-debug.Yii2Debug',
-			'enabled' => true,
+			'enabled' => false,
 		),
 		'user'=>array(
 			// enable cookie-based authentication
