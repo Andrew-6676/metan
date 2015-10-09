@@ -149,6 +149,7 @@
 }
 .child td, .child th {
 	border: 1px solid gray;
+	padding: 2px 4px!important;
 }
 
 .child {
@@ -188,3 +189,12 @@
 .cell.c2 {
 	text-align: left;
 }
+
+tr.empty td {
+	background: none !important;
+	padding: 1px !important;
+}
+tr.empty {
+	font-size: 0.7em;
+	color: #bcbcbc;
+}7

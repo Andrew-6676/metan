@@ -250,7 +250,11 @@ class SuperdocWidget extends CWidget
 			$i = 0;
 			// табличная часть (строки документа, данные)
 			foreach ($doc['documentdata'] as $docdata_row) {
-				echo '<tr docdata_id="' . $docdata_row['id'] . '">';
+				$empty = '';
+				if ($docdata_row['quantity']==0) {
+					$empty = ' class="empty" ';
+				}
+				echo '<tr '.$empty.'docdata_id="' . $docdata_row['id'] . '">';
 				$c = 0;
 				echo '<td class="cell c' . ++$c . '">' . (++$i) . ' </td>';
 				foreach ($this->columns as $dcol => $title) {

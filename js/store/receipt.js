@@ -49,15 +49,15 @@ $(document).ready(function () {
 			event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 		})
 
-	$('.cell.empty').dblclick(function (event) {
+	$('td.cell.empty[field="goods.id_3torg"]').dblclick(function (event) {
 		event.stopPropagation();
 		console.log('add id_3torg');
 		location.href = 'http://'+document.location.host+rootFolder+"/goods/update/"+$(this).parent().find('.cell.c2').text();
 	});
 
 	$('[field="quantity"]').dblclick(function (event) {
-		var td = $(this);
 		event.stopPropagation();
+		var td = $(this);
 		console.log($(this).parent().attr('docdata_id'));
 		var quantity = prompt('Введите новое количество:', $(this).text());
 		if (quantity==null || quantity==$(this).text()) {

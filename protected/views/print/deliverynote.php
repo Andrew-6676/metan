@@ -803,7 +803,9 @@ $inp_data = $_GET['form_ttn'];
 					<td><br></td>
 					<td colspan="22">Принял грузополучатель</td>
 					<td><br></td>
-					<td style="border-bottom: 1px solid #1f1c1b" colspan="48" align="center"><br></td>
+					<td style="border-bottom: 1px solid #1f1c1b" colspan="48" align="center">
+						<?php echo $inp_data['prinyal']; ?>
+					</td>
 				</tr>
 				<tr>
 					<td height="15"><br></td>
@@ -1362,9 +1364,9 @@ $inp_data = $_GET['form_ttn'];
 					    colspan="10" height="17" align="center">Погрузка
 					</td>
 					<td style="border-top: 1px solid #1f1c1b; border-bottom: 1px solid #1f1c1b; border-left: 1px solid #1f1c1b; border-right: 1px solid #1f1c1b"
-					    colspan="16"><br></td>
+					    colspan="16"><br><?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name; ?></td>
 					<td style="border-top: 1px solid #1f1c1b; border-bottom: 1px solid #1f1c1b; border-left: 1px solid #1f1c1b; border-right: 1px solid #1f1c1b"
-					    colspan="13" align="center"><br></td>
+					    colspan="13" align="center">ручной</td>
 					<td style="border-top: 1px solid #1f1c1b; border-bottom: 1px solid #1f1c1b; border-left: 1px solid #1f1c1b; border-right: 1px solid #1f1c1b"
 					    colspan="7" align="center"><br></td>
 					<td style="border-top: 1px solid #1f1c1b; border-bottom: 1px solid #1f1c1b; border-left: 1px solid #1f1c1b; border-right: 1px solid #1f1c1b"

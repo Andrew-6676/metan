@@ -13,6 +13,7 @@ class form_ttn extends CFormModel
 	public $car;
 	public $driver;
 	public $dover;
+	public $prinyal;
 	public $osnovanie;
 	public $p_razgruz;
 	public $vladelec;
@@ -25,6 +26,7 @@ class form_ttn extends CFormModel
 		'car',
 		'driver',
 		'dover',
+		'prinyal',
 		'osnovanie',
 		'p_razgruz',
 		'vladelec',
@@ -48,6 +50,7 @@ class form_ttn extends CFormModel
 			'car'       =>'Автомобиль',
 			'driver'    =>'Водитель',
 			'dover'     =>'Доверенность',
+			'prinyal'   =>'Принял грузополучатель',
 			'osnovanie' =>'Основание для отпуска',
 			'p_razgruz' =>'Пункт разгрузки',
 			'vladelec'  =>'Владелец транспрорта',

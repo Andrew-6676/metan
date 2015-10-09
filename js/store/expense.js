@@ -533,11 +533,25 @@ $(document).ready(function () {
 		if ($('.doc_title').text().indexOf('Расход') + 1) {
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
 			_id_doc = id;
-			// заполнить данными
+
+
+			// TODO заполнить данными форму
+			// 1. адрес загрузки
+			$('#form_ttn_addr1').val('1');
+			// 2. Пункт разгрузки
+			$('#form_ttn_p_razgruz').val('2');
+			// 3. Влделец транспорта
+			$('#form_ttn_vladelec').val('3');
+			// 4. Заказчик перевозки
+			$('#form_ttn_zakazchik').val('4');
+
 			//$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
 			//$('#ttn').click();
-			$("#prepareTTN").dialog("open")
+
+
+
+			$("#prepareTTN").dialog("open");
 		}
 
 	});
