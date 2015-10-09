@@ -135,15 +135,26 @@ class MainAjaxController extends CController
 	public function ActionsetWorkDate($date)
 	{
 		// $connection=Yii::app()->db;
-		if(Yii::app()->request->isAjaxRequest) {
-			//echo $_POST['sql'];
-			// return $connection->createCommand($_POST['sql'])->execute();
-			// exit;
-			// переприсвоить переменную Yii::app()->session['workdate']
-			Yii::app()->session['workdate'] = $date;
-			echo Yii::app()->session['workdate'];
-		} else {
-			echo 'error - no data';
+		//if(Yii::app()->request->isAjaxRequest)
+		if ($date=='') {
+			echo 'err';
+			return;
+		}
+		{
+			$d = explode('-',$date);
+			if (checkdate($d[1], $d[2], $d[0])) {
+				//echo $_POST['sql'];
+				// return $connection->createCommand($_POST['sql'])->execute();
+				// exit;
+				// переприсвоить переменную Yii::app()->session['workdate']
+				Yii::app()->session['workdate'] = $date;
+				echo 'ok';
+			} else {
+				echo 'err';
+			}
+
+//		} else {
+//			echo 'error - no data';
 		}
 	}
 /* ---------------------------------------------------------------------- */

@@ -212,7 +212,15 @@ function onSetWorkDate(data) {
 	//alert(data);
 	//location="http://annet.dn.ua"
 		// если вызвалась эта функция, то дата на сервере поменялась - перезагружаем страницу
-	location.reload();
+	console.log(data);
+	if (data=='ok') {
+		location.reload();
+	} else {
+		$('#overlay').hide();
+		$('#loadImg').hide();
+		alert('Неправильная дата!');
+		//$('#workdate_page').val(workdate);
+	}
 }
 /* --------------------------------- */
 
