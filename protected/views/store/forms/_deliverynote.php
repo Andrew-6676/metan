@@ -22,7 +22,8 @@ $form = $this->beginWidget(
 
 /*  заполняем форму жанными*/
 $ttnForm->otpusk = Store::model()->findByPk(Yii::app()->session['id_store'])->storepassports[0]->fio;
-
+$ttnForm->vladelec = 'b';
+$ttnForm->zakazchik = 'b';
 $form->errorSummary($ttnForm);
 
 foreach ($ttnForm->fields as $key) {
@@ -44,7 +45,10 @@ $this->endWidget();
 
 function textField_($form, $fo, $fi, $controller) {
 	echo $form->labelEx($fo, $fi);
-	if ($fi != 'dover' /*$fi=='sdal' || $fi=='car'*/ ) {
+	if ($fi=='vladelec' || $fi=='zakazchik') {
+
+		echo $form->dropDownList($fo, $fi, array('b' => 'Покупатель', 's' => 'Продавец'));
+	} elseif ($fi != 'dover' && $fi!='vladelec' && $fi!='zakazchik' && $fi!='p_razgruz' && $fi!='addr1' && $fi!='put_list'/*$fi=='sdal' || $fi=='car'*/ ) {
 		$controller->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model'=>$fo,
 			'attribute'=>$fi,

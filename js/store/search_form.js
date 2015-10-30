@@ -93,7 +93,7 @@ function searchForm () {
 		//$('#overlay').css({opacity: 0.5}); // Делаем затемняющий фон кроссбраузерным
 		setPosition($('#search_window'), param.width); // Позиционируем всплывающее окно по центру
 
-		$('.counter').text($('.search_item').size());
+		$('#f_content .counter').text($('.search_item').size());
 
 			// фильтруем список по мере набора текста
 		$('.search_filter').keyup(function(event) {
@@ -102,7 +102,7 @@ function searchForm () {
 					// проскролить до выделенного пункта
 				$(".selector").scrollTop($('.selected').prevAll('.visible').size()*$('.selected').height())
 			}
-		})
+		});
 
 			// обработчик нажатия стрелок на клавиатуре
 		$('.search_filter').keydown(function(event) {
@@ -286,7 +286,7 @@ function searchForm () {
 
 			})
 				// показываем кол-во найденных строк
-			$('.counter').text($('.search_item').size());
+			$('#f_content .counter').text($('.search_item').size());
 
 
 	    	// показываем окно

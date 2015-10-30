@@ -228,7 +228,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'position'=>array('50%',180),
 		'buttons'       => array(
 			'ТН'=>"js:function(){
-							saveInputcache($('#prepare-ttn-form').serialize());
+							saveInputcache($('#prepare-ttn-form .ui-autocomplete-input').serialize());
 							print_ttn(
 								_id_doc,
 								'tn',
@@ -236,7 +236,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 							);
 						}",
 			'ТТН'=>"js:function(){
-							saveInputcache($('#prepare-ttn-form').serialize());
+							saveInputcache($('#prepare-ttn-form .ui-autocomplete-input').serialize());
 							//window.open(rootFolder + '/print/index?report=Deliverynote&orient=L&format=pdf&type=ttn&id='+_id_doc, '_blank');
 							print_ttn(
 								_id_doc,

@@ -7,10 +7,12 @@
  */
 class form_ttn extends CFormModel
 {
-	public $addr1;
+//	public $addr1;
 	public $otpusk;
 	public $sdal;
 	public $car;
+	public $pricep;
+	public $put_list;
 	public $driver;
 	public $dover;
 	public $prinyal;
@@ -20,10 +22,12 @@ class form_ttn extends CFormModel
 	public $zakazchik;
 
 	public $fields = array(
-		'addr1',
+//		'addr1',
 		'otpusk',
 		'sdal',
 		'car',
+		'pricep',
+		'put_list',
 		'driver',
 		'dover',
 		'prinyal',
@@ -48,6 +52,8 @@ class form_ttn extends CFormModel
 			'otpusk'    =>'Отпуск разрешил',
 			'sdal'      =>'Сдал',
 			'car'       =>'Автомобиль',
+			'pricep'    =>'Прицеп',
+			'put_list'  =>'К путевому листу',
 			'driver'    =>'Водитель',
 			'dover'     =>'Доверенность',
 			'prinyal'   =>'Принял грузополучатель',

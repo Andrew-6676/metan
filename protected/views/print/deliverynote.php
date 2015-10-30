@@ -71,11 +71,15 @@ $inp_data = $_GET['form_ttn'];
 						<td></td>
 						<td colspan=7>Прицеп</td>
 						<td></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=38 align="center"><br></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=38 align="center">
+							<?php  echo $inp_data['pricep']; ?>
+						</td>
 						<td></td>
 						<td colspan=12>К путевому листу №</td>
 						<td></td>
-						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center"><br></td>
+						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center">
+							<?php  echo $inp_data['put_list']; ?>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="12"></td>
@@ -94,7 +98,13 @@ $inp_data = $_GET['form_ttn'];
 						<td colspan=14 height="15">Владелец автомобиля</td>
 						<td></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center">
-							<?php echo $data['rec_doc']->contact->fname; ?>,
+							<?php
+								if ($inp_data['vladelec']=='b') {
+									echo $data['rec_doc']->contact->fname;
+								} else {
+									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
+								}
+							?>
 						</td>
 						<td><br></td>
 						<td colspan=9>Водитель</td>
@@ -126,8 +136,13 @@ $inp_data = $_GET['form_ttn'];
 						<td colspan=28 height="15">Заказчик автомобильной перевозки (плательщик)</td>
 						<td><br></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=117 align="center">
-							<?php echo $data['rec_doc']->contact->fname; ?>,
-							<?php echo $data['rec_doc']->contact->address; ?>
+							<?php
+								if ($inp_data['zakazchik']=='b') {
+									echo $data['rec_doc']->contact->fname . ', ' . $data['rec_doc']->contact->address;
+								} else {
+									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
+								}
+							?>
 						</td>
 					</tr>
 					<tr>
@@ -141,8 +156,7 @@ $inp_data = $_GET['form_ttn'];
 						<td colspan=12 height="15">Грузоотправитель</td>
 						<td align="center"><b><i><br></i></b></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=133 align="center">
-							<?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name; ?>,
-							<?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->address; ?>
+							<?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name.', '.Store::model()->findByPk($_GET['id_store'])->storepassports[0]->address; ?>
 						</td>
 					</tr>
 					<tr>
@@ -185,7 +199,10 @@ $inp_data = $_GET['form_ttn'];
 						<td colspan=10>Пункт разгрузки</td>
 						<td><br></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=34 align="center">
-							<?php echo $data['rec_doc']->contact->address; ?>
+							<?php
+								echo $inp_data['p_razgruz'];
+								//echo $data['rec_doc']->contact->address;
+							?>
 						</td>
 					</tr>
 					<tr>

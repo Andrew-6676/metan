@@ -527,6 +527,7 @@ $(document).ready(function () {
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
 		var id = $(this).parent().attr('doc_id');
+		var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
 		if ($('.doc_title').text().indexOf('Счёт-фактура') + 1) {
 			window.open(rootFolder + '/print/index?report=Invoice&id=' + id, '_blank')
 		}
@@ -536,14 +537,15 @@ $(document).ready(function () {
 
 
 			// TODO заполнить данными форму
-			// 1. адрес загрузки
-			$('#form_ttn_addr1').val('1');
+			cont = getContactData(id_contact);
+			// 1. адрес загрузки - взять из справочника contact по id покупателя
+			//$('#form_ttn_addr1').val(cont.addr);
 			// 2. Пункт разгрузки
-			$('#form_ttn_p_razgruz').val('2');
-			// 3. Влделец транспорта
-			$('#form_ttn_vladelec').val('3');
-			// 4. Заказчик перевозки
-			$('#form_ttn_zakazchik').val('4');
+			$('#form_ttn_p_razgruz').val(cont.addr);
+			// 3. Влделец транспорта - наименование покупателя
+			$('#form_ttn_vladelec').val(cont.name);
+			// 4. Заказчик перевозки - наименование покупателя
+			$('#form_ttn_zakazchik').val(cont.name);
 
 			//$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
@@ -815,4 +817,28 @@ function print_ttn(id, type, params) {
 	window.open(rootFolder + '/print/index?report=Deliverynote&orient='+orient[type]+'&format=pdf&type='+type+'&id='+_id_doc+'&'+params+'&m[]=20&m[]=15&m[]=5&m[]=5&m[]=0&m[]=0', '_blank');
 
 	return false;
+}
+
+function getContactData(id) {
+	var res=null;
+	$.ajax({
+		url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetContact",
+		type: 'GET',
+		async: false,
+		dataType: "json",
+		data: 'id='+id,
+		// функция обработки ответа сервера
+		error: function (data) {
+			console.log('err:'+data);
+		},
+		success: function (data) {
+			console.log(data);
+			res={
+				"addr": data.address,
+				"name":data.name
+			}
+		}
+	});
+
+	return res;
 }
