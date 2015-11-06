@@ -172,9 +172,12 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 				   		// атрибуты дочерней таблицы
 	                $documentdata->id_doc       = $document->id;
 	                $documentdata->id_goods     = $id;
-	                $documentdata->cost         = 0;
-	                $documentdata->markup       = 0;
-	                $documentdata->vat          = 0;
+//	                $documentdata->cost         = 0;
+//	                $documentdata->markup       = 0;
+//	                $documentdata->vat          = 0;
+					$documentdata->cost         = $row['cost'];
+					$documentdata->markup       = $row['markup'];
+					$documentdata->vat          = $row['vat'];
 	                $documentdata->quantity     = $row['quantity'];
 	                $documentdata->packages     = 0;
 	                $documentdata->gross        = 0;

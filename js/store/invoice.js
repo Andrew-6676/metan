@@ -52,9 +52,9 @@ $(document).ready(function () {
 			case 0:
 				console.log('0');
 				break;
-			case 0:
-				console.log('0');
-				break;
+			//case 0:
+			//	console.log('0');
+			//	break;
 			default:
 				console.log('keyUp: ' + event.keyCode);
 		}
