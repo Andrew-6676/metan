@@ -15,51 +15,59 @@ class customimportAction extends CAction   /*DataController*/
 	{
 
 		echo "<pre>";
-//		echo "<pre> \nТовары:\n";
-//
-//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd2/f160115.dbf';
-//		$dbf2 = new dbf($dbf_path );
-//
-//		if ($dbf2) {
-//			while ($row = $dbf2->readRec()) {   // готово
-//				add_goods($row);
-//			}
-//		}
-//
-//		exit;
+		echo "\nТовары:\n";
+
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd3/f160115.dbf';
+		$dbf2 = new dbf($dbf_path );
+
+		if ($dbf2) {
+			while ($row = $dbf2->readRec()) {   // готово
+				if ($row['KM'] =='41930577') {
+					add_goods($row);
+				}
+			}
+		}
+
+		//exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd2/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd3/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
+
+				if ($row['DATA'] != '20151101') {
+					//echo "({$row['DATA']})";
+					continue;
+				}
+
 				switch ($row['KO']) {
-					case '56':
-							//карта
-						store_56($row);
-						break;
-					case '54':
-							//кредит
-//						store_54($row);
-						break;
-					case '52':
-							// безнал
-//						store_52($row);
-						break;
-					case '51':
-							// наличка
-						store_51($row); //готово
-						break;
+//					case '56':
+//							//карта
+//						store_56($row);
+//						break;
+//					case '54':
+//							//кредит
+////						store_54($row);
+//						break;
+//					case '52':
+//							// безнал
+////						store_52($row);
+//						break;
+//					case '51':
+//							// наличка
+//						store_51($row); //готово
+//						break;
 					case '00':
 							// остатки
 						store_00($row); //готово
 						break;
-					case '02':
-							// возврат
-						$this->store_02($row); //готово
-						break;
+//					case '02':
+//							// возврат
+//						$this->store_02($row); //готово
+//						break;
 					default:
 						break;
 				}
@@ -291,12 +299,12 @@ function add_goods($row) {
 	$g->id_3torg  = implode('.',$arr);
 
 
-	//if (!$g->save()) {
-//		print_r($g->getErrors());
-//		print_r($row);
-	//} else {
+	if (!$g->save()) {
+		print_r($g->getErrors());
+		print_r($row);
+	} else {
 		echo " -- ok\n";
-//	}
+	}
 }
 /*------------------------------------------------------------------------*/
 	// безнал
@@ -412,7 +420,7 @@ function store_56($row) {
 /*------------------------------------------------------------------------*/
 	//остаток
 function store_00($row) {
-	echo "Остаток: {$row['KM']}";
+	echo "Остаток: {$row['KM']} - ".$row['DATA'];
 	$doc = new Rest();
 	try {
 
