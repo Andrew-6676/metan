@@ -274,6 +274,15 @@ class SuperdocWidget extends CWidget
 						eval($tstr);
 							// костыль - вывести код товара как строку, а не число
 						if ($dcol=='id_goods') {$type = 'character';}
+						if ($dcol=='goods.name') {
+							$val =
+							 CHtml::ajaxLink(
+								$val,
+								array('store/goodsCart/'.$docdata_row->id_goods),
+								array('update' => '#mainDialogArea'),
+								array('onclick' => '$("#mainDialog").dialog("open");')
+							);
+						}
 						$tmp = $this->format_type($val, $type);
 //				                echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
 					}

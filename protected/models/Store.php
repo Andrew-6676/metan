@@ -30,6 +30,7 @@ class Store extends CActiveRecord
 	public $lic;
 	public $dov;
 	public $address;
+	public $pname;
 
 //	public $tmp;
     /**
@@ -93,7 +94,8 @@ class Store extends CActiveRecord
 	        'okpo'      =>'ОКПО',
 	        'lic'       =>'Лицензия',
 	        'dov'       =>'Доверенность',
-	        'address'   =>'Адрес'
+	        'address'   =>'Адрес',
+	        'pname'     =>'Полное наим',
         );
     }
 
@@ -153,6 +155,7 @@ class Store extends CActiveRecord
 			$this->lic = $tmp->lic;
 			$this->dov = $tmp->dov;
 			$this->address = $tmp->address;
+			$this->pname = $tmp->name;
 		}
 	}
 	/*--------------------------------------------------------------------------------------*/
@@ -182,6 +185,7 @@ class Store extends CActiveRecord
 			$tmp->lic       = $this->lic;
 			$tmp->dov       = $this->dov;
 			$tmp->address   = $this->address;
+			$tmp->name      = $this->pname;
 
 			if ($tmp->save()) {
 //				echo 'sssave';

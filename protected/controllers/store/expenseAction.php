@@ -64,7 +64,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
 		if (!$doc_num) {$doc_num = 1;}
 
-		$this->controller->pageTitle = 'Расход';
+		$this->controller->pageTitle = 'Накладные,<br>кредиты';
 		$this->controller->render('expense', array(
 									'data'=>$res,
 									'oper'=>$oper,

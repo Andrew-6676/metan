@@ -266,7 +266,7 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'top'           => '30',
 		'resizable'     => false,
 //		'position'=> '{ my: "left top", at: "left bottom", of: button }',
-		'position'=>array('50%',180),
+		'position'=>array('50%',80),
 		'buttons'       => array(
 			'ТН'=>"js:function(){
 							saveInputcache($('#prepare-ttn-form').serialize());

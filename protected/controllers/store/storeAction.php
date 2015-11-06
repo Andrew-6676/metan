@@ -13,7 +13,7 @@ class storeAction extends CAction   /*---- StoreController ----*/
 
 //			$model->attributes=$_POST['Store'];
 			$model->name     = $_POST['Store']['name'];
-			$model->fname    = $_POST['Store']['fname'];
+			//$model->fname    = $_POST['Store']['fname'];
 			$model->address  = $_POST['Store']['address'];
 
 
@@ -28,11 +28,11 @@ class storeAction extends CAction   /*---- StoreController ----*/
 			$model->lic      = $_POST['Store']['lic'];
 			$model->dov      = $_POST['Store']['dov'];
 			$model->address  = $_POST['Store']['address'];
-
+			$model->pname    = $_POST['Store']['pname'];
 
 			if ($model->save()){
-
-				$this->controller->redirect(array('store/store?saved'));
+				Yii::app()->user->setFlash('ok', "Сохранено!");
+				$this->controller->redirect(array('store/store'));
 			}
 
 

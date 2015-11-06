@@ -524,14 +524,14 @@ $(document).ready(function () {
 	/*-------------------------------------------------------*/
 // печать накладной
 	$('.print_doc_button').click(function (event) {
-		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
-		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
 		var id = $(this).parent().attr('doc_id');
+		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
+		//alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
 		var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
 		if ($('.doc_title').text().indexOf('Счёт-фактура') + 1) {
 			window.open(rootFolder + '/print/index?report=Invoice&id=' + id, '_blank')
 		}
-		if ($('.doc_title').text().indexOf('Расход') + 1) {
+		if ($('.doc_title').text().indexOf('Накладные') + 1) {
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
 			_id_doc = id;
 

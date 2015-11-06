@@ -170,9 +170,10 @@ class importAction extends CAction   /*DataController*/
 
 //					echo '<br><br> Открыт DBF-файл: <b>'.$dbf_path.'</b><br>';
 //					echo 'mode: <b>'.$table['mode'].'</b><br>';
-					echo '(<b>'.$dbf->count().'</b>)';
+					echo '(<b>'.date('H:i</b> d.m.Y',filemtime($dbf_path));
+					echo ', <b>'.$dbf->count().' стр.</b>)';
 
-						// выбираем поля для импорта из настроек для текущей таблицы ($table[])
+					// выбираем поля для импорта из настроек для текущей таблицы ($table[])
 					$sql = 'SELECT *
 							FROM vgi_fields f
 							where id_table = '.$table['id'].' and (type!='."'var' and type!='const' or key)";

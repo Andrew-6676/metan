@@ -362,7 +362,12 @@ $inp_data = $_GET['form_ttn'];
 					$tr .= '<td>';
 					$tr .= '</td>';
 					$tr .= '<td class="l">';
-					$tr .= $row->goods->producer;
+
+					$nac = '';
+					if ($row->goods->markup > 0) {
+						$nac = ', <small>наценка '.$row->goods->markup.'%</small>';
+					}
+					$tr .= $row->goods->producer.$nac;
 					$tr .= '</td>';
 					$tr .= '</tr>';
 					echo $tr;

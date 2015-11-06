@@ -216,7 +216,19 @@ class Goods extends CActiveRecord
 			return -1;
 		}
 	}
+	/*---------------------------------------------------------------------*/
+	public function getMarkup() {
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("id_goods=" . $this->id);
 
+		$r = Documentdata::model()->find($criteria);
+		if ($r) {
+			return $r->markup; //->getAttribute('price');
+		} else {
+			return -1;
+		}
+	}
+	/*--------------------------------------------------------------------*/
 	public function getSamegoods() {
 		$n = $this->name;
 			// разбиваем наименование на слова

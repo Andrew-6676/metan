@@ -35,7 +35,7 @@ $form = $this->beginWidget('CActiveForm', array(
 $form->errorSummary($model);
 
 $arr = array('name',
-			'fname',
+			'pname',
 			'fio',
 			'phone',
 			'account',
