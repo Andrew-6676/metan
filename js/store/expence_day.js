@@ -223,6 +223,10 @@ $(document).ready(function () {
 		var id = $('.id_goods');   // массив инпутов с кодами товаров
 		var quantity = $('.quantity');   // массив с количествами товаров
 		var price = $('.price');      // массив с ценами
+		var cost = $('.cost');
+		var markup = $('.markup');
+		var vat = $('.vat'); 		// массив с НДС
+
 		// цикл по кодам товара
 		var err = false;
 		id.each(function (index, element) {
@@ -234,7 +238,10 @@ $(document).ready(function () {
 			if ($(id).eq(index).val() != '' && $(quantity).eq(index).val() != '' && $(price).eq(index).val() != '') {
 				goods_arr[$(element).val()] = {
 					'quantity': $(quantity).eq(index).val(),
-					'price': $(price).eq(index).val()
+					'price': $(price).eq(index).val(),
+					'cost':$(price).eq(index).attr('cost'),
+					'markup':$(price).eq(index).attr('markup'),
+					'vat': 0
 				};
 			} else {
 				alert('не все поля заполнены!');
