@@ -122,14 +122,20 @@ $(document).ready(function(){
 		pr.removeClass('hidden');
 	})
 	/*  ---------------------------------------------------------  */
+	$('.child tbody tr a').click(function() {
+		//event.stopPropagation();
+		$(this).parent().parent().toggleClass('selected');
+	});
+	/*  ---------------------------------------------------------  */
 	$('.child tbody tr').click(function() {
-		if ($(this).hasClass('selected')) {
-			$(this).removeClass('selected');
-		} else {
-			$(this).addClass('selected');
-		}
-
-	})
+		//event.stopPropagation();
+		//if ($(this).hasClass('selected')) {
+		//	$(this).removeClass('selected');
+		//} else {
+		//	$(this).addClass('selected');
+		//}
+		$(this).toggleClass('selected');
+	});
 	/*  ---------------------------------------------------------  */
 	/*  ---------------------------------------------------------  */
 	/*  ---------------------------------------------------------  */

@@ -19,13 +19,13 @@ class Documentdata extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_doc, id_owner, id_editor, id_goods', 'required'),
-			array('id_doc, id_owner, id_editor, id_goods, cost, packages, gross, price', 'numerical', 'integerOnly' => true),
-			array('quantity', 'numerical'),
+			array('id_doc, id_owner, id_editor, id_goods,  packages, gross', 'numerical', 'integerOnly' => true),
+//			array('cost,quantity,price', 'numerical'),
 //            array('markup, vat', 'length', 'max'=>2),
 			array('date_insert, date_edit', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('cost, quantity, price', 'safe', 'on' => 'search'),
+			//array('cost, quantity, price', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -87,9 +87,9 @@ class Documentdata extends CActiveRecord
 
 		$criteria = new CDbCriteria;
 
-		$criteria->compare('cost', $this->cost);
-		$criteria->compare('quantity', $this->quantity);
-		$criteria->compare('price', $this->price);
+		//$criteria->compare('cost', $this->cost);
+		//$criteria->compare('quantity', $this->quantity);
+		//$criteria->compare('price', $this->price);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -110,10 +110,10 @@ class Documentdata extends CActiveRecord
 	public function init() {
 		if ($this->isNewRecord) {
 			$this->id_owner  = Yii::app()->user->id;
-			$this->date_insert = date('Y-m-d H:i:00');
-			$this->date_edit   = date('Y-m-d H:i:00');
+			$this->date_insert = date('Y-m-d H:i:s');
+			$this->date_edit   = date('Y-m-d H:i:s');
 		} else {
-			$this->date_edit = date('Y-m-d H:i:00');
+			$this->date_edit = date('Y-m-d H:i:s');
 		}
 		$this->id_editor = Yii::app()->user->id;
 	}

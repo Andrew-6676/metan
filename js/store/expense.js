@@ -13,7 +13,7 @@ var search_data = {
 };
 /*--------------------------------------------------*/
 $(document).ready(function () {
-
+	$('#new_goods_table tbody tr:last .vat').val(_vat);
 	$('#expence_id_operation').focus();
 	$('#expence_id_operation').click(function (event) {
 		$('#for').focus();

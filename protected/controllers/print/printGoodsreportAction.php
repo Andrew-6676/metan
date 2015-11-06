@@ -26,8 +26,11 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$data = $this->getData($_GET);
 //		$data = $_GET;
 //		$data = array_merge($_GET, $params);
-
-		$this->controller->render('goodsreport', array('data'=>$data, 'full'=>$full));
+		if (isset($_GET['forma']) && $_GET['forma']=='f058') {
+			$this->controller->render('goodsreport2', array('data' => $data, 'full' => $full));
+		} else {
+			$this->controller->render('goodsreport', array('data' => $data, 'full' => $full));
+		}
 	}
 
 
@@ -169,6 +172,25 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 				}
 			}
 		}
+
+		return $json;
+	}
+
+	/*---------------------------------------------------------------------------------------*/
+	private function getData2($params) {
+		$json = array();
+
+		$json['expence']['day']['sum'] = 0;
+		$json['expence']['day']['data'] = array();
+		$json['expence']['karta']['sum'] = 0;
+		$json['expence']['kredit']['sum'] = 0;
+		$json['expence']['including'][-1] = 0;
+		$json['expence']['including'][1] = 0;
+		$json['expence']['including'][2] = 0;
+		$json['expence']['including'][3] = 0;
+
+		$json['receipt'] = array();
+
 
 		return $json;
 	}

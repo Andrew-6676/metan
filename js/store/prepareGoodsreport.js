@@ -6,6 +6,9 @@ $(document).ready(function () {
 	$('#printButton').click(function (){
 		window.open(rootFolder+'/print/index?report=Goodsreport&orient=P&from_date=' + $('[name*=from_date]').val() + '&to_date=' + $('[name*=to_date]').val()+'&full='+$('[name*=full]').prop("checked"), '_blank')
 	});
+	$('#printButton2').click(function (){
+		window.open(rootFolder+'/print/index?report=Goodsreport&orient=P&from_date=' + $('[name*=from_date]').val() + '&to_date=' + $('[name*=to_date]').val()+'&full='+$('[name*=full]').prop("checked")+'&forma=f058', '_blank')
+	});
 		// запрос отчёта
 	$('#getreportButton').click(function () {
 		console.log('getReport');

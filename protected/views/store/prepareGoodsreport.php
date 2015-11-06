@@ -33,7 +33,7 @@
 			<br>
 			<br>
 			<input type="checkbox" name="getReport[full]">
-			<label class="inline" for="getReport[full]">Развёрнутый</label>
+			<label class="inline" for="getReport[full]">Подробный</label>
 		</div>	<!-- r2 -->
 
 	</div>    <!-- <div class="doc_hat"> -->
@@ -43,6 +43,7 @@
 <!--	<button id="getreportButton">Сформировать</button>-->
 <!--	<button id="printButton">Печать</button>-->
 	<input type="submit" onclick="return false" value="Печать" id="printButton">
+	<input type="submit" onclick="return false" value="Печать (типовая форма)" id="printButton2">
 </div>
 
 </form>

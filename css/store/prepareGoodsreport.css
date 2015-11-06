@@ -17,3 +17,6 @@
 input[name="getReport[doc_num]"] {
 	width: 90px;
 }
+input[type="submit"] {
+	width: auto !important;
+}

@@ -29,7 +29,7 @@ $total = $rr+$rk;         // для накопления остатка
 
 	<div class="rep_wrapper">
 		<div class="page p">
-			<div class="report_title">Товарно-денежный отчёт за период с <?php echo $df; ?> по <?php echo $dt; ?></div>
+			<div class="report_title">Товарно-денежный отчёт2 запериод с <?php echo $df; ?> по <?php echo $dt; ?></div>
 			<hr>
 			<table class="rest_begin no_border" style="width: 250px" >
 				<tr>

@@ -35,7 +35,7 @@ class SuperdocWidget extends CWidget
 		}
 
 		if (strpos($type, 'numeric') !== false) {
-			$val = number_format($val, '0', '.', '`');
+			$val = number_format($val, '2', '.', '`');
 			$style = 'r';
 		}
 		if (strpos($type, 'integer') !== false) {

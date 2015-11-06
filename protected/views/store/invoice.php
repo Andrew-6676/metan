@@ -122,7 +122,7 @@
 						<input type="number" name="vat" class="vat" placeholder="НДС, %" required pattern="[0-9]">
 					</td>
 					<td>
-						<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9]">
+						<input type="number" name="price" class="price" placeholder="Цена" required pattern="[0-9,]">
 					</td>
 					<td>
 						<div class='summ'></div>
