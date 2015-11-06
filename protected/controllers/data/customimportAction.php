@@ -13,7 +13,7 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-
+exit;
 		echo "<pre>";
 		echo "\nТовары:\n";
 
