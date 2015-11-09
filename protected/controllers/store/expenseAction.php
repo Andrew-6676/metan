@@ -175,8 +175,16 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 //	                $documentdata->cost         = 0;
 //	                $documentdata->markup       = 0;
 //	                $documentdata->vat          = 0;
-					$documentdata->cost         = $row['cost'];
-					$documentdata->markup       = $row['markup'];
+					if (isset($row['cost'])) {
+						$documentdata->cost         = $row['cost'];
+					} else {
+						$documentdata->cost         = 0;
+					}
+					if (isset($row['markup'])) {
+						$documentdata->markup   = $row['markup'];
+					} else {
+						$documentdata->markup   = 0;
+					}
 					$documentdata->vat          = $row['vat'];
 	                $documentdata->quantity     = $row['quantity'];
 	                $documentdata->packages     = 0;

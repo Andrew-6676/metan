@@ -84,7 +84,7 @@ $this->addJS('jquery-ui.js');
 				<td>
 					<select name="for" class="for" id="for">
 						<option value="1">Общий товарооборот</option>
-						<option selected="selected" value="2">Розничный товарооборот</option>
+						<option value="2" selected="selected">Розничный товарооборот</option>
 						<option value="3">Собственные нужды</option>
 					</select>
 				</td>
@@ -238,8 +238,11 @@ $this->addJS('jquery-ui.js');
 	<?php
 	$src = array(
 		51=>'nal_30.png',
+		52=>'',
+		53=>'',
+		54=>'kredit_30.png',
+		55=>'',
 		56=>'karta_30.png',
-		54=>'kredit_30.png'
 	);
 	$for = array('-1' => '-', '1' => 'Общий товарооборот', '2' => 'Розничный товарооборот', '3' => 'Собственные нужды');
 	$i = 0;

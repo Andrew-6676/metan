@@ -24,7 +24,9 @@ $(document).ready(function () {
 		$(this).val($(this).attr('rest'));
 	});
 
-	$('#for').val($('td.for').attr('id_for'));
+	if ($('td.for').attr('id_for')) {
+		$('#for').val($('td.for').attr('id_for'))
+	}
 
 	$('#expence_id_operation').focus();
 	/*-----------------------------------------------------*/
@@ -379,8 +381,8 @@ $(document).ready(function () {
 			// переносим нужные данные
 		td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
 		td_dst.eq(1).find('[name=for]').val(td_src.eq(7).attr('id_for'));
-		td_dst.eq(2).find('input').val(td_src.eq(1).text());
-		td_dst.eq(3).find('input').val(td_src.eq(2).text());
+		td_dst.eq(2).find('input').val(td_src.eq(1).text().trim());
+		td_dst.eq(3).find('input').val(td_src.eq(2).text().trim());
 		td_dst.eq(4).find('input').val(td_src.eq(3).text().trim().replace(/`/g, ""));
 		td_dst.eq(5).find('input').val(td_src.eq(4).text().trim().replace(/`/g, ""));
 			// id документа
