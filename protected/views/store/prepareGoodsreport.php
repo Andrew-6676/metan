@@ -43,7 +43,7 @@
 <!--	<button id="getreportButton">Сформировать</button>-->
 <!--	<button id="printButton">Печать</button>-->
 	<input type="submit" onclick="return false" value="Печать" id="printButton">
-	<input type="submit" onclick="return false" value="Печать (типовая форма)" id="printButton2">
+<!--	<input type="submit" onclick="return false" value="Печать (типовая форма)" id="printButton2">-->
 </div>
 
 </form>

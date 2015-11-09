@@ -99,7 +99,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 						case 54: // кредит
 							$json['expence']['kredit']['data'][] = array(
 								'date' => $row_d->doc_date,
-								'contact' => $row_d->contact->name,
+								'contact' => ($row_d->docaddition ? $row_d->docaddition->payment_order : 0).$row_d->contact->name,
 								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 							);
 							$json['expence']['kredit']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;

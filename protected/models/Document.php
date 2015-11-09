@@ -200,6 +200,14 @@ class Document extends CActiveRecord
 				}
 			}
 		} else {
+
+			if ($this->payment_order) {
+				Docaddition::model()->deleteAll('id_doc='.$this->id);
+				$da = new Docaddition();
+				$da->id_doc = $this->id;
+				$da->payment_order = $this->payment_order;
+				$da->save();
+			}
 		//             $doc_data = new Documentdata;
 
 		//             $doc_data->id_doc       = $this->id;

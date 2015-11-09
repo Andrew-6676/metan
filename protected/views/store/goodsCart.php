@@ -65,8 +65,9 @@ $dn = '';
 		'2'  => '/store/return',
 		'33' => '/store/receipt',
 		'51' => '/store/expense_day',
-		'56' => '/store/expense_day',
 		'52' => '/store/expense',
+		'54' => '/store/expense',
+		'56' => '/store/expense_day',
 	);
 	$rest = $data['goods']->rest0;
 	$po = -1;

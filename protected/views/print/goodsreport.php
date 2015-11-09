@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-Utils::print_r($data);
+//Utils::print_r($data);
 //exit;
 $this->addCSS('print/report.css');
 
@@ -459,7 +459,7 @@ exp:
 						////			$tr .=      $doc['kart_num'];
 						//			$tr .=   '</td>';
 						$tr .= '<td>';
-						$tr .= $doc['contact'];
+						$tr .=      $doc['contact'];
 						$tr .= '</td>';
 						$tr .= '<td class="r">';
 						$tr .= number_format($doc['sum'], '0', '.', ' ');
