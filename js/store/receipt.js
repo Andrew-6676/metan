@@ -64,9 +64,10 @@ $(document).ready(function () {
 			return false;
 		}
 
-		var arr =  {'id': '', 'quantity': ''};;
+		var arr =  {'id': '', 'quantity': ''};
 		arr['id'] = $(this).parent().attr('docdata_id');
 		arr['quantity'] = quantity;
+		arr['old_quantity'] = $(this).text();
 		//console.log(arr);
 			// передаём данные на сервер
 		$.ajax({
@@ -86,11 +87,37 @@ $(document).ready(function () {
 				//alert(data.message);
 				if (data.status == 'ok') {
 						// вписываем новое кол-во в таблицу
-					console.log(td);
+					//console.log(td.closest('.child').find('.doc_hat .sum_price').text());
+					console.log(parseFloat(td.prev().text().replace(/[\s`]/g,'')));
+					// TODO надо обновить суммы... или страницу
+
+					// изменение суммы
+					var sum = parseFloat(td.closest('.child').find('.doc_hat .sum_price').text().replace(/[\s`]/g,''))
+						+ (
+							(parseFloat(arr['quantity'])-parseFloat(arr['old_quantity']))
+							*
+							(parseFloat(td.prev().text().replace(/[\s`]/g,'')))
+						);
+					td.closest('.child').find('.doc_hat .sum_price').text(String(sum).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0));
+
+						var sum2 = parseFloat(td.closest('.child').find('.doc_hat .sum_vat').text().replace(/[\s`]/g,''))
+						+ (
+							(parseFloat(arr['quantity'])-parseFloat(arr['old_quantity']))
+							*
+							(parseFloat(td.parent().find('[field="cost"]').text().replace(/[\s`]/g,''))) *(1+parseFloat(td.prev().prev().prev().text())/100)* parseFloat(td.prev().prev().text())/100
+						);
+					td.closest('.child').find('.doc_hat .sum_vat').text(String(sum2).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0));
+
+					td.next().text(
+						String(td.parent().find('[field="cost"]').text().replace(/[\s`]/g,'') * parseFloat(arr['quantity'])).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0)
+					);
+					td.next().next().text(
+						String(td.prev().text().replace(/[\s`]/g,'') * parseFloat(arr['quantity'])).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0)
+					);
+
+					//location.reload();
 					td.text(quantity);
 					td.css({"color":"red", "background-color":"#FCFF99"});
-					// @TODO надо обновить суммы... или страницу
-					//location.reload();
 				} else {
 					alert(data.message);
 				}

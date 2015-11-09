@@ -3,8 +3,8 @@
 	$this->addJS('store/restEdit.js');
 
 ?>
-	<div class="" style="float: right; margin-right: 60px">
-		Всего: <?php echo number_format($sum, 0, '.', ' '); ?>
+	<div class="vsego" style="float: right; margin-right: 60px">
+		Всего: <span><?php echo number_format($sum, 0, '.', ' '); ?></span>
 	</div>
 <?php
 	$this->widget('editTableWidget',

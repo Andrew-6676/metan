@@ -112,7 +112,17 @@ $(document).ready(function() {
 
 /*----------------ОТПРАВИТЬ ДАННЫЕ В БД ---------------------------------------------*/
 function save_row (row) {
-	var record = {id: $(row).attr('id').substr(2), f_vals: {'quantity': $(row).find('[fname=quantity]').html(), 'cost': $(row).find('[fname=cost]').html()}};
+	var record = {
+		id: $(row).attr('id').substr(2),
+		f_vals: {
+			'quantity': $(row).find('[fname=quantity]').html(),
+			'cost': $(row).find('[fname=cost]').html()
+		}
+	};
+
+
+
+
 	//alert($(row).find('[fname=quantity]').html());
 	$.ajax({
 		url: rootFolder+'/MainAjax/updateRest',
@@ -124,6 +134,17 @@ function save_row (row) {
 		},
 		success: function(data) {
 	 	   	//alert(data);
+
+			// изменение суммы
+			var sum = parseFloat($('.vsego span').text().replace(/[\s`]/g,''))
+				+ (
+					(parseFloat($(row).find('[fname=quantity]').text())-parseFloat($(row).find('[fname=quantity]').attr('val')))
+					*
+					(parseFloat($(row).find('[fname=price]').attr('val')))
+				);
+			$('.vsego span').text(String(sum).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0));
+			//console.log(($(row).find('[fname=price]').text()));
+
 	 	   	// записать новые значения в тег val
 	 	 	$(row).find('[fname=quantity]').attr('val', $(row).find('[fname=quantity]').html());
 	 	 	$(row).find('[fname=cost]').attr('val', $(row).find('[fname=cost]').html());
