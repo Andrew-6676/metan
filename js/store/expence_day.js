@@ -31,7 +31,7 @@ $(document).ready(function () {
 		$('#for').val($('td.for').attr('id_for'))
 	}
 
-	$('#expence_id_operation').focus();
+	$('.goods_name').focus();
 	/*-----------------------------------------------------*/
 	$('#expence_id_operation').click(function (event) {
 		$('#for').focus();
