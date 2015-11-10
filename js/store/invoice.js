@@ -190,6 +190,20 @@ $(document).ready(function () {
 		var id = $(this).attr('link');
 		_id_doc = id;
 		console.log("печать ттн из счёта фактуры: "+id);
+		
+		var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
+		cont = getContactData(id_contact);
+		// 0. Основание
+		$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
+		// 1. адрес загрузки - взять из справочника contact по id покупателя
+		//$('#form_ttn_addr1').val(cont.addr);
+		// 2. Пункт разгрузки
+		$('#form_ttn_p_razgruz').val(cont.addr);
+		// 3. Влделец транспорта - наименование покупателя
+		$('#form_ttn_vladelec').val(cont.name);
+		// 4. Заказчик перевозки - наименование покупателя
+		$('#form_ttn_zakazchik').val(cont.name);
+
 		$("#prepareTTN").dialog("open");
 		//$('#ttn').click();
 		//$('#wr_off').click();
