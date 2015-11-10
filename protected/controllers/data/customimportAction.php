@@ -13,7 +13,7 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-//exit;
+exit;
 		echo "<pre>";
 //		echo "\nТовары:\n";
 //
@@ -77,20 +77,20 @@ class customimportAction extends CAction   /*DataController*/
 		}
 
 
-		echo "\nСчёт-фактуры:\n";
-
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd4/F300107.DBF';
-		$dbf3 = new dbf($dbf_path );
-
-		if ($dbf3) {
-			while ($row = $dbf3->readRec()) {
-				if (strstr($row['DATA'],'201510')==false) {
-					//echo "({$row['DATA']})";
-					continue;
-				}
-				$this->addInvoice($row);
-			}
-		}
+//		echo "\nСчёт-фактуры:\n";
+//
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd4/F300107.DBF';
+//		$dbf3 = new dbf($dbf_path );
+//
+//		if ($dbf3) {
+//			while ($row = $dbf3->readRec()) {
+//				if (strstr($row['DATA'],'201510')==false) {
+//					//echo "({$row['DATA']})";
+//					continue;
+//				}
+//				$this->addInvoice($row);
+//			}
+//		}
 
 
 		echo '</pre>';
