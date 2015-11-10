@@ -8,7 +8,13 @@ class printReceiptAction extends CAction   /*---- PrintController ----*/
         //echo "receipt doc";
 
         $rec_doc = Document::model()->findByPK($_GET["id"]);
-        $rec_doc_data = Documentdata::model()->with('idGoods')->findAll('id_doc=:id_doc', array(':id_doc'=>$_GET["id"]));
+        //$rec_doc_data = Documentdata::model()->with('idGoods')->findAll('id_doc=:id_doc', array(':id_doc'=>$_GET["id"]));
+        $rec_doc_data = Documentdata::model()->with('idGoods')->findAll(
+	        array(
+		        'condition'=>'id_doc='.$_GET["id"],
+	            'order'=>'documentdata.id'
+	        ));
+
         $data['doc'] = $rec_doc;
         $data['details'] = $rec_doc_data;
      //  Utils::print_r($rec_doc_data );
