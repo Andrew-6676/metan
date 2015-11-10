@@ -272,7 +272,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 							var id = $(this).attr('link');
 							_id_doc = id;
 							console.log(id);
-							$('#ttn_doc_button').click();
+							$('.ttn_doc_button').click();
 							event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 						})
 					}
