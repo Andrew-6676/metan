@@ -267,7 +267,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 					$("#prepareWriteoff").dialog("close");
 						// если нету - добавить кнопку ttn_doc_button
 					if ($('[doc_id="'+id+'"]').find('.ttn_doc_button').size() == 0) {
-						$btn = $('<button class="ttn_doc_button" link="'+data.nakl_id+'"></button>').insertAfter($('[doc_id="'+id+'"] .write_off_doc_button'))
+						$btn = $('<button class="ttn_doc_button" title="Напечатать накладную" link="'+data.nakl_id+'"></button>').insertAfter($('[doc_id="'+id+'"] .write_off_doc_button'))
 						$btn.click(function (event) {
 							var id = $(this).attr('link');
 							_id_doc = id;
@@ -283,11 +283,11 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 					$('[doc_id="'+id+'"]').find('.ttn_doc_button').attr('link', data.nakl_id);
 
 							// запросить печать накладной
-					//if (confirm("Печатать накладную?")) {
-					//	console.log('печать накладной '+data.nakl_id);
-					//	_id_doc = data.nakl_id;
-					//	$('.ttn_doc_button').click();
-					//}
+					if (confirm("Печатать накладную?")) {
+						console.log('печать накладной '+data.nakl_id);
+						_id_doc = data.nakl_id;
+						$('[link="'+data.nakl_id+'"]').click();
+					}
 				}
 				//} else {
 				//	alert(data.message);
