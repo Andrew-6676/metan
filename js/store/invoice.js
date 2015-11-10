@@ -271,20 +271,22 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 						$btn.click(function (event) {
 							var id = $(this).attr('link');
 							_id_doc = id;
-							console.log(id);
-							$('.ttn_doc_button').click();
+							console.log(id+'--');
+							//$('.ttn_doc_button').click();
 							event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 						})
 					}
 						// присвоить кнопке arrt(link)
 					console.log(id);
+
 					$('[doc_id="'+id+'"]').find('.ttn_doc_button').attr('link', data.nakl_id);
-						// запросить печать накладной
-					if (confirm("Печатать накладную?")) {
-						console.log('печать накладной '+data.nakl_id);
-						_id_doc = data.nakl_id;
-						$('.ttn_doc_button').click();
-					}
+
+							// запросить печать накладной
+					//if (confirm("Печатать накладную?")) {
+					//	console.log('печать накладной '+data.nakl_id);
+					//	_id_doc = data.nakl_id;
+					//	$('.ttn_doc_button').click();
+					//}
 				}
 				//} else {
 				//	alert(data.message);
