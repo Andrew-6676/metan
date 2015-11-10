@@ -190,10 +190,11 @@ $(document).ready(function () {
 		var id = $(this).attr('link');
 		_id_doc = id;
 		console.log("печать ттн из счёта фактуры: "+id);
-		
+
 		var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
 		cont = getContactData(id_contact);
 		// 0. Основание
+		//TODO от куда взять paymentorder?
 		$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
 		// 1. адрес загрузки - взять из справочника contact по id покупателя
 		//$('#form_ttn_addr1').val(cont.addr);
