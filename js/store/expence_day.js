@@ -25,7 +25,7 @@ $(document).ready(function () {
 	});
 
 	if ($('td.operation').last().attr('id_operation')) {
-		$('expence_id_operation').val($('td.operation').last().attr('id_operation'))
+		$('#expence_id_operation').val($('td.operation').last().attr('id_operation'))
 	}
 	if ($('td.for').last().attr('id_for')) {
 		$('#for').val($('td.for').attr('id_for'))
