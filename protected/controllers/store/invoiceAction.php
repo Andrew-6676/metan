@@ -327,11 +327,12 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 					$new_doc_data = new Documentdata();
 					$res['d'][] = $row_data->attributes;
 					$new_doc_data->attributes = $row_data->attributes;
+					$new_doc_data->quantity = $row_data->quantity;
 					$new_doc_data->vat = $row_data->vat;
 					$new_doc_data->markup = $row_data->markup;
 					$new_doc_data->id_doc = $nakl->id;
-					$new_doc_data->date_insert = date('Y-m-d H:i:00');
-					$new_doc_data->date_edit   = date('Y-m-d H:i:00');
+					$new_doc_data->date_insert = date('Y-m-d H:i:s');
+					$new_doc_data->date_edit   = date('Y-m-d H:i:s');
 					if ($new_doc_data->save()) {
 						$rc++;
 					} else {

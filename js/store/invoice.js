@@ -272,7 +272,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 							var id = $(this).attr('link');
 							_id_doc = id;
 							console.log(id);
-							$('#ttn').click();
+							$('#ttn_doc_button').click();
 							event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 						})
 					}
@@ -283,7 +283,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 					if (confirm("Печатать накладную?")) {
 						console.log('печать накладной '+data.nakl_id);
 						_id_doc = data.nakl_id;
-						$('#ttn').click();
+						$('.ttn_doc_button').click();
 					}
 				}
 				//} else {
