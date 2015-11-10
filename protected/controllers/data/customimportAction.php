@@ -13,41 +13,41 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
-		echo "\nТовары:\n";
-
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd3/f160115.dbf';
-		$dbf2 = new dbf($dbf_path );
-
-		if ($dbf2) {
-			while ($row = $dbf2->readRec()) {   // готово
-				if ($row['KM'] =='41930577') {
-					add_goods($row);
-				}
-			}
-		}
-
+//		echo "\nТовары:\n";
+//
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd3/f160115.dbf';
+//		$dbf2 = new dbf($dbf_path );
+//
+//		if ($dbf2) {
+//			while ($row = $dbf2->readRec()) {   // готово
+//				if ($row['KM'] =='41930577') {
+//					add_goods($row);
+//				}
+//			}
+//		}
+//
 		//exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd3/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd4/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] != '20151101') {
+				if ($row['DATA'] != '20151109') {
 					//echo "({$row['DATA']})";
 					continue;
 				}
 
 				switch ($row['KO']) {
-//					case '56':
-//							//карта
-//						store_56($row);
-//						break;
+					case '56':
+							//карта
+						store_56($row);
+						break;
 //					case '54':
 //							//кредит
 ////						store_54($row);
@@ -56,18 +56,18 @@ exit;
 //							// безнал
 ////						store_52($row);
 //						break;
-//					case '51':
+					case '51':
 //							// наличка
-//						store_51($row); //готово
-//						break;
-					case '00':
-							// остатки
-						store_00($row); //готово
+						store_51($row); //готово
 						break;
-//					case '02':
-//							// возврат
-//						$this->store_02($row); //готово
+//					case '00':
+							// остатки
+//						store_00($row); //готово
 //						break;
+					case '02':
+							// возврат
+						$this->store_02($row); //готово
+						break;
 					default:
 						break;
 				}
