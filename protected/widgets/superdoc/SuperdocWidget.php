@@ -90,6 +90,7 @@ class SuperdocWidget extends CWidget
 		$data_row->attributes[] = 'sum_cost';
 		$data_row->attributes[] = 'sum_vat';
 		$data_row->attributes[] = 'sum_price';
+		$data_row->attributes[] = 'paymentorder';
 
 		$data_arr = array();
 		$type_arr = array();
@@ -102,6 +103,7 @@ class SuperdocWidget extends CWidget
 			$type_arr['sum_cost'] = 'integer';
 			$type_arr['sum_vat'] = 'integer';
 			$type_arr['sum_price'] = 'integer';
+			$type_arr['paymentorder'] = 'character';
 
 			$data_arr[$data_row->id]['contact'] = $data_row->contact->attributes;
 			// типы плей в отдельный массив
@@ -187,7 +189,7 @@ class SuperdocWidget extends CWidget
 				}
 
 				$tmp = $this->format_type($val, $type);
-				echo '<td class="'.$tmp['style'].'">' . $tmp['val'] . '</td>';
+				echo '<td class="'.$col.' '.$tmp['style'].'">' . $tmp['val'] . '</td>';
 			}
 			echo '</tr>';
 

@@ -231,7 +231,7 @@ class MainAjaxController extends CController
 	}
 /*--------------------------------------------------------*/
 	public function ActionGetContact($id) {
-		$res = Contact::model()->findByPK($id);
+		$res = Contact::model()->with()->findByPK($id);
 		echo json_encode($res->attributes);
 	}
 

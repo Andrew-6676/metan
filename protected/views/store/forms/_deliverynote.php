@@ -45,10 +45,10 @@ $this->endWidget();
 
 function textField_($form, $fo, $fi, $controller) {
 	echo $form->labelEx($fo, $fi);
-	if ($fi=='vladelec' || $fi=='zakazchik') {
-
-		echo $form->dropDownList($fo, $fi, array('b' => 'Покупатель', 's' => 'Продавец'));
-	} elseif ($fi != 'dover' && $fi!='vladelec' && $fi!='zakazchik' && $fi!='p_razgruz' && $fi!='addr1' && $fi!='put_list'/*$fi=='sdal' || $fi=='car'*/ ) {
+//	if ($fi=='vladelec' || $fi=='zakazchik') {
+//		echo $form->dropDownList($fo, $fi, array('b' => 'Покупатель', 's' => 'Продавец'));
+//	} else
+		if ($fi != 'dover' && $fi!='vladelec' && $fi!='zakazchik' && $fi!='p_razgruz' && $fi!='addr1' && $fi!='put_list' && $fi!='osnovanie'/*$fi=='sdal' || $fi=='car'*/ ) {
 		$controller->widget('zii.widgets.jui.CJuiAutoComplete', array(
 			'model'=>$fo,
 			'attribute'=>$fi,

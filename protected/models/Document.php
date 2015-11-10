@@ -256,13 +256,13 @@ public function del($id)
 	//return ;
 }
 //
-// public function getPaymentorder() {
-//	  if ($this->docaddition) {
-//			 return (string)$this->docaddition->payment_order;
-//		 } else {
-//			 return '';
-//		 }
-//	 }
+ public function getPaymentorder() {
+	  if ($this->docaddition) {
+			 return (string)$this->docaddition->payment_order;
+		 } else {
+			 return '';
+		 }
+	 }
 }
 
 // documentdata

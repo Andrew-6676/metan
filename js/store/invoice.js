@@ -13,6 +13,8 @@ var search_data = {
 $(document).ready(function () {
 
 	$('.vat').val(_vat);
+
+
 	//$(".new_contact").draggable({
 	//		    cursor: "move",
 	//		    // distance: 10,
@@ -30,6 +32,7 @@ $(document).ready(function () {
 	//
 	//});
 
+	$('#contact_name').focus();
 		// не заполнен потребитель
 	$('#contact_name').blur(function () {
 		if ($(this).attr('cid')=='') {

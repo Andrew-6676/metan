@@ -512,7 +512,7 @@ $(document).ready(function () {
 		$('#new_goods_table tbody tr:last :input').val('');
 		$('#new_goods_table tbody tr:last .summ').text('');
 		$('#new_goods_table tbody tr:last .vat').val(_vat);
-		$('#new_goods_table tbody tr:last .id_goods').focus();
+		$('#new_goods_table tbody tr:last .goods_name').focus();
 		// назначаем обработку событий новой строке
 		set_autocomplete('#' + id);
 	})
@@ -545,6 +545,8 @@ $(document).ready(function () {
 
 			// TODO заполнить данными форму
 			cont = getContactData(id_contact);
+			// 0. Основание
+			$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
 			// 1. адрес загрузки - взять из справочника contact по id покупателя
 			//$('#form_ttn_addr1').val(cont.addr);
 			// 2. Пункт разгрузки
@@ -842,7 +844,8 @@ function getContactData(id) {
 			console.log(data);
 			res={
 				"addr": data.address,
-				"name":data.name
+				"name":data.name,
+				"agreement":data.agreement
 			}
 		}
 	});

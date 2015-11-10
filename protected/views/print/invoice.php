@@ -60,6 +60,7 @@ $this->addCSS('print/report.css');
 							<td>
 								P/c <?php echo $data['rec_doc']->contact->rs; ?>
 								<?php echo $data['rec_doc']->contact->bank; ?>
+								, МФО <?php echo $data['rec_doc']->contact->mfo; ?>
 							</td>
 						</tr>
 						<tr>

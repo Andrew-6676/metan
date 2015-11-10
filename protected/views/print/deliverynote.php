@@ -137,11 +137,11 @@ $inp_data = $_GET['form_ttn'];
 						<td><br></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=117 align="center">
 							<?php
-								if ($inp_data['zakazchik']=='b') {
-									echo $data['rec_doc']->contact->fname . ', ' . $data['rec_doc']->contact->address;
-								} else {
-									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
-								}
+//								if ($inp_data['zakazchik']=='b') {
+//									echo $data['rec_doc']->contact->fname . ', ' . $data['rec_doc']->contact->address;
+//								} else {
+//									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
+//								}
 							?>
 						</td>
 					</tr>

@@ -195,7 +195,7 @@
 //			'sum_vat'=>'Сумма НДС',
 //			'sum_cost'=>'Сумма',
 			'sum_price'=>'Сумма',
-//			'paymentorder'=>''
+			'paymentorder'=>'Платёжное поручение',
 		),
 		'columns'=> array(
 			'id_goods'  =>'Код',
