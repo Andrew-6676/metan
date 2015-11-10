@@ -89,6 +89,7 @@
 
                 $this->mpdf->WriteHTML($page); /*формируем pdf*/
 //	            $this->mpdf->autoPageBreak = false;
+                $this->mpdf->SetJS('print();');
                 $this->mpdf->Output(/*'mpdf.pdf', 'I'*/);  //  - выдать на экран без сохранения
                // $this->mpdf->Output($this->outputPath.'/test.pdf', 'F');   // - сохранить в указанное место
 

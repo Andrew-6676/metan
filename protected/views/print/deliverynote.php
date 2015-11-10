@@ -40,9 +40,7 @@ $inp_data = $_GET['form_ttn'];
 
 			<div class="empty">
 				<br>
-				<br>
-				<br>
-				<br>
+
 				<br>
 				<br>
 			</div>

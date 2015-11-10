@@ -26,7 +26,7 @@ class PrintController extends Controller {
 			// вызываем нужный Action и передаём ему параметры
 		switch ($format) {
 			case 'pdf':
-				echo $printer->printFromURL('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);
+				echo $printer->printFromURL('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']. '&u=' . Yii::app()->session['id_user']);
 				break;
 			case 'html':
 				$this->redirect('http://'.Yii::app()->request->ServerName.Yii::app()->params['rootFolder'].'/print/print' . $report . '?' . http_build_query($_GET) . '&id_store=' . Yii::app()->session['id_store'] . '&workdate=' . Yii::app()->session['workdate']);

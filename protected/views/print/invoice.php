@@ -28,6 +28,7 @@ $this->addCSS('print/report.css');
 							<td>
 								P/c <?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->account; ?>
 								<?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->bank; ?>
+								, МФО <?php echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->mfo; ?>
 							</td>
 						</tr>
 						<tr>
@@ -227,8 +228,17 @@ $this->addCSS('print/report.css');
 
 			<table width="100%" class="no_border">
 				<tr>
-					<td width="50%">
+					<td width="20%">
 						<span style="padding-left: 150px">М.П. продавца</span>
+					</td>
+					<td width="40%">
+						<span style="padding-left: 150px">
+							<?php
+							echo User::model()->findByPk($_GET['u'])->post;
+							echo ', ';
+							echo User::model()->findByPk($_GET['u'])->fname;
+							?>
+						</span>
 					</td>
 					<td>
 						<span style="padding-left: 150px">М.П. покупателя</span>
@@ -237,6 +247,7 @@ $this->addCSS('print/report.css');
 			</table>
 		</div>
 	</div>
+
 </div>
 <?php
 
