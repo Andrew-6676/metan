@@ -38,7 +38,7 @@ class customimportAction extends CAction   /*DataController*/
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] != '20151109') {
+				if ($row['DATA'] != '20151106') {
 					//echo "({$row['DATA']})";
 					continue;
 				}
