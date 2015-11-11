@@ -26,7 +26,11 @@ $(document).ready(function () {
 
 	if ($('td.operation').last().attr('id_operation')) {
 		$('#expence_id_operation').val($('td.operation').last().attr('id_operation'))
+		if ($('#expence_id_operation').val()==56 || $('#expence_id_operation').val()==54) {
+			$('.additional_data').attr('open','');
+		}
 	}
+
 	if ($('td.for').last().attr('id_for')) {
 		$('#for').val($('td.for').attr('id_for'))
 	}
@@ -35,8 +39,15 @@ $(document).ready(function () {
 	/*-----------------------------------------------------*/
 	$('#expence_id_operation').click(function (event) {
 		$('#for').focus();
-		if ($('#expence_id_operation').val()==56) {
+		var io = $('#expence_id_operation').val();
+		if (io==56 || io==54) {
 			$('.additional_data').attr('open','');
+			if (io==54) {
+				$('[for="expence[payment_order]"]').text('ФИО');
+			}
+			if (io==56) {
+				$('[for="expence[payment_order]"]').text('Номер карты');
+			}
 		}
 		event.stopPropagation();
 	});
@@ -271,6 +282,7 @@ $(document).ready(function () {
 		arr['doc_for'] = $('[name = "for"]').val();
 		arr['id_contact'] = 0;
 		arr['payment_order'] = $('[name="expence[payment_order]"]').val();
+		arr['descr'] = $('[name="expence[descr]"]').val();
 			// если часть товара оплачена безналом, а эта часть за наличку
 		if ( $('[name="expence[part_of_c]"]').prop("checked") ) {
 			arr['partof'] = $('[name="expence[part_of_i]"]').val();
@@ -392,6 +404,7 @@ $(document).ready(function () {
 		$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
 			// номер карты
 		$('[name="expence[payment_order]"]').val(td_src.eq(6).attr('kart_num'));
+		$('[name="expence[descr]"]').val(td_src.eq(6).attr('prim'));
 
 		if (td_src.parent().attr('partof_id')) {
 			$('[name="expence[part_of_i]"]').val(td_src.parent().attr('partof_id'));

@@ -48,6 +48,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		// $criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
 		$criteria->order ='doc_date desc, doc_num desc';
 		$criteria->addCondition('id_doctype = 2');
+		$criteria->addCondition('id_operation <> 54');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
 		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
@@ -57,18 +58,23 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 		//doc_num2>0 and
 			// список операций
-		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
-												  'order'=>'name'));
+		$oper = Operation::model()->findAll(
+			array(
+				'condition'=>'operation<0',
+				'order'=>'name'
+			)
+		);
 			// следующий номер документа
 		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=2 and id_store='.Yii::app()->session['id_store'].' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,4).'%\'';
 		$doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
 		if (!$doc_num) {$doc_num = 1;}
 
-		$this->controller->pageTitle = 'Накладные,<br>кредиты';
+		$this->controller->pageTitle = 'Накладные';
 		$this->controller->render('expense', array(
 									'data'=>$res,
 									'oper'=>$oper,
-									'doc_num'=>$doc_num
+									'doc_num'=>$doc_num,
+									'mode' => 'expence',
 								 ));
 	}	// end run
 
@@ -102,21 +108,18 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 //			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
 //			// exit;
 //		}
-
+			// если редактируется документ
 		if ($data['doc']['doc_id']>0) {
 			$document = Document::model()->findByPK($data['doc']['doc_id']);
 			if (!$document) {
 				$new_doc = true;
 				$document = new Document();
 			}
-		} else {
+		} else {    // если новый документ
 			$new_doc = true;
 			// echo 'Редактирование документа id='.$data['doc']['doc_id'];
 			$document = new Document();
-			//exit;
-			// наверно надо добавит документ как новый и в случае успеха удалить старый документ.
 		}
-
 
 //		echo json_encode($data);
 //		exit;
@@ -124,11 +127,10 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$transaction=$document->dbConnection->beginTransaction();
 		// Yii::app()->db->emulatePrepare = false;
 		try {
-			$doc = $data['doc'];
+			$doc = $data['doc'];    // шапка документа
 			// атрибуты родительской таблицы
 //			$document->date_insert = date('Y-m-d');
-			$document->date_edit    = date('Y-m-d H:i:00');
-//            $document->id_editor    = 8;
+			$document->date_edit    = date('Y-m-d H:i:s');
 
 			$document->doc_num      = $doc['doc_num'];
 			$document->doc_num2     = intval($doc['doc_num']);
@@ -145,7 +147,9 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			if (isset($doc['payment_order'])) {
 				$document->payment_order = $doc['payment_order'];
 			}
-
+			if (isset($doc['descr'])) {
+				$document->descr = $doc['descr'];
+			}
 
 	    	//print_r($document);
 			if($document->save()) {
@@ -156,13 +160,13 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 
 				if (!$new_doc) {
-					// удалить старый док
+					// удалить старый док, если редактирование
 					Documentdata::model()->deleteAll('id_doc='.$data['doc']['doc_id']);
 				}
-				// 	// и добавляем данные в дочернюю таблицу
-
-
+				 	// и добавляем данные в дочернюю таблицу
+					// строки документа
 				$doc_data = $data['doc_data'];
+
 				$res['goods'] = array();
 					// цикл по товарам
 				foreach ($doc_data as $id => $row) {
@@ -190,6 +194,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 	                $documentdata->packages     = 0;
 	                $documentdata->gross        = 0;
 	                $documentdata->price        = $row['price'];
+						// если оплата части товара наличными, а остальное безналом
 					if (isset($doc['partof'])) {
 						if (trim($doc['partof'])=='') {
 							$doc['partof'] = -1;

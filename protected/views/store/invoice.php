@@ -144,11 +144,11 @@
 			<div class="docadditional">
 				<div class="row">
 					<label for="expence[payment_order]">Платёжное поручение:</label>
-					<input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+					<input  name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 				</div>
 				<div class="row">
 					<label for="expence[descr]">Примечание:</label>
-					<input type="number" name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+					<input  name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 				</div>
 			</div>
 		</details>
@@ -188,7 +188,6 @@
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
 		'limit'=>20,
-		//'mode'=>'one_to_many',
 		'head'=>array(
 			'doc_num'     =>'Документ №',
 			'doc_date'    =>'Дата',

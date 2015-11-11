@@ -31,23 +31,23 @@ class SuperdocWidget extends CWidget
 		$style = '-';
 //		var_dump(strpos($type, 'character'));
 		if (trim($val)=='' || trim($val)=='0') {
-			return array('val' => $val, 'style' => 'empty');
+			return array('val' => $val, 'style' => 'r empty');
 		}
 
 		if (strpos($type, 'numeric') !== false) {
-			$val = number_format($val, '2', '.', '`');
+			$val = number_format($val, '2', '.', '&nbsp;');
 			$style = 'r';
 		}
 		if (strpos($type, 'integer') !== false) {
-			$val = number_format($val, '0', '.', '`');
+			$val = number_format($val, '0', '.', '&nbsp;');
 			$style = 'r';
 		}
 		if (strpos($type, 'character') !== false) {
-//			$val = number_format($val,'0','.','`');
+//			$val = number_format($val,'0','.','&nbsp;');
 			$style = 'l';
 		}
 		if (strpos($type, 'real') !== false) {
-//			$val = number_format($val,'0','.','`');
+//			$val = number_format($val,'0','.','&nbsp;');
 			$style = 'r';
 		}
 		if (strpos($type, 'date') !== false) {
@@ -91,6 +91,7 @@ class SuperdocWidget extends CWidget
 		$data_row->attributes[] = 'sum_vat';
 		$data_row->attributes[] = 'sum_price';
 		$data_row->attributes[] = 'paymentorder';
+		$data_row->attributes[] = 'prim';
 
 		$data_arr = array();
 		$type_arr = array();
@@ -104,6 +105,7 @@ class SuperdocWidget extends CWidget
 			$type_arr['sum_vat'] = 'integer';
 			$type_arr['sum_price'] = 'integer';
 			$type_arr['paymentorder'] = 'character';
+			$type_arr['prim'] = 'character';
 
 			$data_arr[$data_row->id]['contact'] = $data_row->contact->attributes;
 			// типы плей в отдельный массив
@@ -198,7 +200,11 @@ class SuperdocWidget extends CWidget
 			echo '<td colspan="' . count($this->head) . '">';
 			echo '<table class="child"><thead>';
 			// подшапка
-			echo '<tr id="doc_hat_' . $doc->id . '" class="doc_hat">';
+			$po = '';
+			if ($doc->link>0) {
+				$po = @Docaddition::model()->find('id_doc='.$doc->link)->payment_order;
+			}
+			echo '<tr id="doc_hat_' . $doc->id . '" class="doc_hat" payment_order="'.$doc->paymentorder.'" descr="'.$doc->prim.'" link_porder="'.$po.'">';
 			echo '<td colspan="' . (count($this->columns) + 1) . '">';
 			$capt = Array();
 			foreach ($this->head as $col => $title) {
@@ -253,9 +259,9 @@ class SuperdocWidget extends CWidget
 			// табличная часть (строки документа, данные)
 			foreach ($doc['documentdata'] as $docdata_row) {
 				$empty = '';
-				if ($docdata_row['quantity']==0) {
-					$empty = ' class="empty" ';
-				}
+//				if ($docdata_row['quantity']==0) {
+//					$empty = ' class="empty" ';
+//				}
 				echo '<tr '.$empty.'docdata_id="' . $docdata_row['id'] . '">';
 				$c = 0;
 				echo '<td class="cell c' . ++$c . '">' . (++$i) . ' </td>';
@@ -287,6 +293,10 @@ class SuperdocWidget extends CWidget
 						}
 						$tmp = $this->format_type($val, $type);
 //				                echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
+					}
+						// костыль
+					if (in_array($dcol, array('markup', 'vat'))) {
+						$tmp['style'] = 'r';
 					}
 					echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '" field="'.$dcol.'">' . $tmp['val'] . '</td>';
 				}

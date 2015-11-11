@@ -273,7 +273,8 @@ $this->addJS('jquery-ui.js');
 			<td class="price"><?php echo number_format($document->documentdata[0]->price, '0', '.', '`'); ?></td>
 			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '`'); ?></td>
 			<td class="operation" id_operation="<?php echo $document->idOperation->id; ?>"
-			    kart_num="<?php echo @$document->docaddition->payment_order; ?>">
+			    kart_num="<?php echo @$document->docaddition->payment_order; ?>"
+				prim="<?php echo @$document->docaddition->descr; ?>">
 				<?php echo CHtml::image(Yii::app()->request->baseUrl.'/images/'.$src[$document->idOperation->id],'', array('alt'=>$document->idOperation->name, 'title'=>$document->idOperation->name)); ?>
 			</td>
 			<td class="for" id_for="<?php echo $document->for; ?>"><?php echo $for[$document->for]; ?></td>

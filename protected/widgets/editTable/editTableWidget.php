@@ -47,15 +47,25 @@ class editTableWidget extends CWidget
                         // формируем строку типа 'row->subtable[->subtable2....]->field', для колонок из связанных моделей
                     foreach ($this->columns as $col) {
                         if (is_array($col)) {   // если колонка задана массивом
-                            $f = 'echo $row';
-                            foreach ($col as $key => $ff) {
-                                $f .= '->$col['.$key.']';
-                            }
-                            // echo "{$row->$col[0]->$col[1]}";
-                            // if ($row->model()->tableSchema->getColumn($col)->dbType=='integer' || $row->model()->tableSchema->getColumn($col)->dbType == 'real') {
-                                    echo '<td>';
-                            // }
-                            eval($f.';'); // вывод значения в ячейку таблицы
+	                        echo '<td>';
+	                        if (in_array('name', $col)) {
+		                        echo CHtml::ajaxLink(
+			                        $row->Goods->name,
+			                        array('store/goodsCart/'.$row->id_goods),
+			                        array('update' => '#mainDialogArea'),
+			                        array('onclick' => '$("#mainDialog").dialog("open");')
+		                        );
+	                        } else {
+		                        $f = 'echo $row';
+		                        foreach ($col as $key => $ff) {
+			                        $f .= '->$col[' . $key . ']';
+		                        }
+		                        // echo "{$row->$col[0]->$col[1]}";
+		                        // if ($row->model()->tableSchema->getColumn($col)->dbType=='integer' || $row->model()->tableSchema->getColumn($col)->dbType == 'real') {
+
+		                        // }
+		                        eval($f . ';'); // вывод значения в ячейку таблицы
+	                        }
                         } else {
                             echo '<td class=';
                                 //если число в поле - выравнивание по правому краю
@@ -72,12 +82,18 @@ class editTableWidget extends CWidget
                                 echo '"true" ';
                             }
                             echo 'val="'."{$row->$col}".'" fname="'.$col.'">';
-	                            //ссылка на справочник
-	                        if ($col=='id_goods') {
-		                        echo "<a href='".Yii::app()->getBaseUrl()."/goods/update/".$row->$col."'>{$row->$col}</a>"; // вывод значения в ячейку таблицы
-	                        } else {
-		                        echo "{$row->$col}"; // вывод значения в ячейку таблицы
-	                        }
+                            switch($col) {
+                                case 'id_goods':
+	                                echo "<a href='".Yii::app()->getBaseUrl()."/goods/update/".$row->$col."'>{$row->$col}</a>"; // ссылка на редактирование
+                                    break;
+                                case 'price':
+                                    echo number_format($row->$col, '0', '.', '&nbsp;');
+                                    break;
+                                default:
+                                    echo "{$row->$col}"; // вывод значения в ячейку таблицы
+                                    break;
+                            }
+
                             // echo ' ('.$row->model()->tableSchema->getColumn($col)->dbType.')';
                         }
                         echo '</td>';

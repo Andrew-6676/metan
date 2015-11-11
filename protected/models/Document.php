@@ -4,6 +4,7 @@ class Document extends CActiveRecord
 {
 	/* для вставки в подчинённую атблицу*/
 	public $payment_order;
+	public $descr;
 
 	public $withDocdata = false;
 	public $docdata = array();
@@ -174,6 +175,9 @@ class Document extends CActiveRecord
 				$da = new Docaddition();
 				$da->id_doc = $this->id;
 				$da->payment_order = $this->payment_order;
+				if ($this->descr) {
+					$da->descr = $this->descr;
+				}
 				$da->save();
 			}
 
@@ -206,6 +210,9 @@ class Document extends CActiveRecord
 				$da = new Docaddition();
 				$da->id_doc = $this->id;
 				$da->payment_order = $this->payment_order;
+				if ($this->descr) {
+					$da->descr = $this->descr;
+				}
 				$da->save();
 			}
 		//             $doc_data = new Documentdata;
@@ -263,6 +270,14 @@ public function del($id)
 			 return '';
 		 }
 	 }
+
+public function getPrim() {
+	if ($this->docaddition) {
+		return (string)$this->docaddition->descr;
+	} else {
+		return '';
+	}
+}
 }
 
 // documentdata

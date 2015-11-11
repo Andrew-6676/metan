@@ -195,7 +195,7 @@ $(document).ready(function () {
 		cont = getContactData(id_contact);
 		// 0. Основание
 		//TODO от куда взять paymentorder?
-		$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
+		$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').attr('link_porder')+', '+cont.agreement);
 		// 1. адрес загрузки - взять из справочника contact по id покупателя
 		//$('#form_ttn_addr1').val(cont.addr);
 		// 2. Пункт разгрузки
@@ -295,7 +295,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 							var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
 							cont = getContactData(id_contact);
 							cont = getContactData(id_contact);
-							$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
+							$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').attr('link_porder')+', '+cont.agreement);
 							// 1. адрес загрузки - взять из справочника contact по id покупателя
 							//$('#form_ttn_addr1').val(cont.addr);
 							// 2. Пункт разгрузки

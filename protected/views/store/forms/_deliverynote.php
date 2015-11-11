@@ -21,7 +21,10 @@ $form = $this->beginWidget(
 );
 
 /*  заполняем форму жанными*/
-$ttnForm->otpusk = Store::model()->findByPk(Yii::app()->session['id_store'])->storepassports[0]->fio;
+//$ttnForm->otpusk = Store::model()->findByPk(Yii::app()->session['id_store'])->storepassports[0]->fio;
+$usr = User::model()->findByPk(Yii::app()->user->id);
+$ttnForm->otpusk = $usr->post.', '.$usr->name;
+
 $ttnForm->vladelec = 'b';
 $ttnForm->zakazchik = 'b';
 $form->errorSummary($ttnForm);

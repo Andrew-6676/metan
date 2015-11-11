@@ -89,7 +89,7 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$oper = Operation::model()->findAll(array('condition'=>'operation<0',
 												  'order'=>'name'));
 
-		$this->controller->pageTitle = 'Расход за день';
+		$this->controller->pageTitle = 'Расход за день ('.date('d.m', strtotime(Yii::app()->session['workdate'])).')';
 		$this->controller->render('expense_day', array(
 									'data'=>$q_model,
 //									'day_sum'=>$day_sum,

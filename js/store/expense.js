@@ -29,15 +29,36 @@ $(document).ready(function () {
 			event.stopPropagation();
 		}
 	})
-	$('.new_doc_hat input').keypress(function (event) {
+	$('input').keypress(function (event) {
 		if (event.keyCode == 13) {
 			console.log('next input');
 			//console.log($('input:visible').index(this));
-			$('input:visible').eq($('input:visible').index(this) + 1).focus();
+			if ( $('input:visible').eq($('input:visible').index(this) + 1).attr('name') == 'id_goods') {
+				$('input:visible').eq($('input:visible').index(this) + 2).focus();
+			} else {
+				if ($('input:visible').size() > $('input:visible').index(this) + 1) {
+					$('input:visible').eq($('input:visible').index(this) + 1).focus();
+				} else {
+					//$('input:visible, button:visible').eq($('input:visible, button:visible').index(this) + 1).focus();
+					$('.ui-dialog-buttonpane button').eq(1).focus();
+				}
+			}
+
+
+
 			event.stopPropagation();
 		}
 
 	});
+
+
+	//$(document).keydown(function (event) {
+	//	if (event.ctrlKey && event.keyCode==80) {
+	//		console.log('print');
+	//		event.stopPropagation();
+	//		return false;
+	//	}
+	//});
 
 	$('button').keydown(function (event) {
 		if (event.keyCode == 39) {
@@ -284,17 +305,17 @@ $(document).ready(function () {
 			cells_src.each(function (i, el) {
 				if (i != 0 && i < cells_src.size() - 1) {
 					if($(el).attr('field')=='cost' || $(el).attr('field')=='markup') {
-						td_dst.find('.price').attr($(el).attr('field'), $(el).text().trim().replace(/`/g, ""));
+						td_dst.find('.price').attr($(el).attr('field'), $(el).text().trim().replace(/[\s`]/g, ""));
 					}
 
 					if (i == cells_src.size() - 2) {
 						// console.log($(el).text().trim().replace(/`/g,""));
 						// console.log(td_dst.eq(i));
 						// удаляем лишние символы из цены
-						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/`/g, ""));
+						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/[\s`]/g, ""));
 					} else {
 						//console.log($(el).text());
-						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/`/g, ""));
+						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/[\s`]/g, ""));
 					}
 				}
 			})// end each cells
@@ -327,6 +348,13 @@ $(document).ready(function () {
 		// id контакта и его наименование
 		$('#contact_name').attr('cid', tbl_src.find('thead [id_contact]').attr('id_contact'));
 		$('#contact_name').val(tbl_src.find('thead [id_contact]').text());
+		// платёжное поручение
+		var hat = $(this).closest('.doc_hat');
+		if (hat.attr('payment_order')!='') {
+			$('.additional_data').attr('open','');
+		}
+		$('[name="expence[payment_order]"]').val(hat.attr('payment_order'));
+		$('[name="expence[descr]"]').val(hat.attr('descr'));
 
 		$('#cancel_expence').show();
 		$('#contact_name').removeClass('err');
@@ -445,6 +473,8 @@ $(document).ready(function () {
 		arr['doc_date'] = $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] = $('[name = "expence[doc_num]"]').val();
 		arr['doc_for'] = $('[name = "for"]').val();
+		arr['payment_order'] = $('[name="expence[payment_order]"]').val();
+		arr['descr'] = $('[name="expence[descr]"]').val();
 		//arr['payment_order']= false;
 		// запихиваем два массива в один, который и отправится на сервер
 		exp['doc'] = arr;
@@ -538,15 +568,18 @@ $(document).ready(function () {
 		if ($('.doc_title').text().indexOf('Счёт-фактура') + 1) {
 			window.open(rootFolder + '/print/index?report=Invoice&id=' + id, '_blank')
 		}
+		if ($('.doc_title').text().indexOf('Кредит') + 1) {
+			console.log('print kredit');
+		}
 		if ($('.doc_title').text().indexOf('Накладные') + 1) {
 			//window.open(rootFolder + '/print/index?report=Deliverynote&id=' + id, '_blank')
 			_id_doc = id;
 
 
-			// TODO заполнить данными форму
+			// заполнить данными форму
 			cont = getContactData(id_contact);
 			// 0. Основание
-			$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').find('.paymentorder').text()+', '+cont.agreement);
+			$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').attr('payment_order')+', '+cont.agreement);
 			// 1. адрес загрузки - взять из справочника contact по id покупателя
 			//$('#form_ttn_addr1').val(cont.addr);
 			// 2. Пункт разгрузки
@@ -741,7 +774,7 @@ function set_autocomplete(id) {
 			$('#' + row).remove();
 			// пересчитать сумму
 			$('.quantity').eq(0).change();
-			console.log('www');
+			//console.log('www');
 		} else {
 			alert('Нельзя удалить единственную строку!');
 		}
@@ -842,10 +875,14 @@ function getContactData(id) {
 		},
 		success: function (data) {
 			console.log(data);
+			var tmp = '';
+			if (data.agreement != null) {
+				tmp = data.agreement;
+			}
 			res={
 				"addr": data.address,
 				"name":data.name,
-				"agreement":data.agreement
+				"agreement":tmp
 			}
 		}
 	});

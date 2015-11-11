@@ -29,7 +29,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		if (isset($_GET['forma']) && $_GET['forma']=='f058') {
 			$this->controller->render('goodsreport2', array('data' => $data, 'full' => $full));
 		} else {
-			$this->controller->render('goodsreport', array('data' => $data, 'full' => $full));
+			$this->controller->render('goodsreport_new', array('data' => $data, 'full' => $full));
 		}
 	}
 
@@ -147,29 +147,39 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 
 //						}
 					}   // end если возврат
-
-						// шапка документа
-					$json[$row_d->doctype->name][$row_d->operation->name][]['head'] = array(
-						'date' => $row_d->doc_date,
-						'num' => $row_d->doc_num,
-						'contact' => $row_d->contact->name,
-						'sum_cost' => $row_d->sum_cost,
-						'sum_vat' => $row_d->sum_vat,
-						'sum_price' => $row_d->sum_price,
-					);
-					$c = count($json[$row_d->doctype->name][$row_d->operation->name]) - 1;
-					$s = 0;
-
-						// строки документа
-					foreach ($row_d->documentdata as $row_dd) {
-						$json[$row_d->doctype->name][$row_d->operation->name][$c]['data'][] = array(
-							'quantity' => $row_dd->quantity,
-							'cost' => $row_dd->cost,
-							'price' => $row_dd->price
+					if ($row_d->id_operation == 54): // кредит
+						$json['expence']['kredit']['data'][] = array(
+							'date' => $row_d->doc_date,
+							'contact' => $row_d->contact->name,
+							'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 						);
-						$s += $row_dd->quantity * $row_dd->price;
-					}
-				}
+						$json['expence']['kredit']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+						//break;
+					else:
+
+							// шапка документа
+						$json[$row_d->doctype->name][$row_d->operation->name][]['head'] = array(
+							'date' => $row_d->doc_date,
+							'num' => $row_d->doc_num,
+							'contact' => $row_d->contact->name,
+							'sum_cost' => $row_d->sum_cost,
+							'sum_vat' => $row_d->sum_vat,
+							'sum_price' => $row_d->sum_price,
+						);
+						$c = count($json[$row_d->doctype->name][$row_d->operation->name]) - 1;
+						$s = 0;
+
+							// строки документа
+						foreach ($row_d->documentdata as $row_dd) {
+							$json[$row_d->doctype->name][$row_d->operation->name][$c]['data'][] = array(
+								'quantity' => $row_dd->quantity,
+								'cost' => $row_dd->cost,
+								'price' => $row_dd->price
+							);
+							$s += $row_dd->quantity * $row_dd->price;
+						}
+					endif;
+				}   // если не расход за день
 			}
 		}
 
@@ -178,19 +188,56 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 
 	/*---------------------------------------------------------------------------------------*/
 	private function getData2($params) {
+
+//
+
 		$json = array();
 
-		$json['expence']['day']['sum'] = 0;
-		$json['expence']['day']['data'] = array();
-		$json['expence']['karta']['sum'] = 0;
-		$json['expence']['kredit']['sum'] = 0;
-		$json['expence']['including'][-1] = 0;
-		$json['expence']['including'][1] = 0;
-		$json['expence']['including'][2] = 0;
-		$json['expence']['including'][3] = 0;
+//		$json['expence']['day']['sum'] = 0;
+//		$json['expence']['day']['data'] = array();
+//		$json['expence']['karta']['sum'] = 0;
+//		$json['expence']['kredit']['sum'] = 0;
+//		$json['expence']['including'][-1] = 0;
+//		$json['expence']['including'][1] = 0;
+//		$json['expence']['including'][2] = 0;
+//		$json['expence']['including'][3] = 0;
+//
+//		$json['receipt'] = array();
 
-		$json['receipt'] = array();
+		$op = Operation::model()->findAll(array('condition' => 'operation<>0', 'order'=>'operation desc, id'));
+		$op = CHtml::listData($op,
+			'id', 'name', 'operation');
+		$op[1] = array_reverse($op[1], true);
+			// в таком порядке операций будут выводится документы
+		$json['operations'] = $op;
 
+
+		$criteria = new CDbCriteria;
+		// Документы с номером 0 - отдельно (это расход за день)
+
+// ПРИХОД ------------------------------------------------------------------------------------------------------
+
+		foreach ($op[1] as $id_op => $name_op) {
+			$criteria->condition = '';
+
+			$criteria->addCondition('id_operation = '.$id_op); // не счёт-фактура
+			$criteria->addCondition('id_store=' .$params['id_store']);
+			$criteria->addCondition('doc_date>=\'' . $params['from_date'] . '\'');
+			$criteria->addCondition('doc_date<=\'' . $params['to_date'] . '\'');
+			$criteria->order = 'operation.operation desc, id_doctype, operation.id desc, doc_date, doc_num';
+
+			Utils::print_r($criteria->condition);
+
+			$data = Document::model()->with('documentdata', 'documentdata.idGoods', 'doctype', 'operation')->findAll($criteria);
+//			Utils::print_r($data);
+			foreach ($data as $row) {
+				echo $row->doc_date;
+//				$json[$id_op]
+			}
+		}
+
+
+// РАСХОД ------------------------------------------------------------------------------------------------------
 
 		return $json;
 	}

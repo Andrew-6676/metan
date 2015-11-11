@@ -37,10 +37,16 @@
 
 			?>
 			<select name="for" class="for" id="for">
-				<option value="-1">-</option>
-				<option value="1">Общий товарооборот</option>
-				<option value="2">Розничный товарооборот</option>
+<!--				<option value="-1">-</option>-->
+				<?php if ($mode=='kredit'): ?>
+					<option value="2">Розничный товарооборот</option>
+					<option value="1">Общий товарооборот</option>
+				<?php else: ?>
+					<option value="1">Общий товарооборот</option>
+					<option value="2">Розничный товарооборот</option>
+				<?php endif ?>
 				<option value="3">Собственные нужды</option>
+
 			</select>
 		</div> <!-- r1 -->
 
@@ -147,11 +153,11 @@
 			<div class="docadditional">
 				<div class="row">
 					<label for="expence[payment_order]">Платёжное поручение:</label>
-					<input type="number" name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+					<input name="expence[payment_order]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 				</div>
 				<div class="row">
 					<label for="expence[descr]">Примечание:</label>
-					<input type="number" name="expence[descr]" placeholder="Платёжное поручение" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
+					<input name="expence[descr]" placeholder="Примечание" value="" > <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 				</div>
 			</div>
 		</details>
@@ -183,6 +189,7 @@
 //	 						'data'=>$data,
 //	 		                ));
 
+if ($mode == 'expence'){
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
 		//'mode'=>'one_to_many',
@@ -195,7 +202,7 @@
 //			'sum_vat'=>'Сумма НДС',
 //			'sum_cost'=>'Сумма',
 			'sum_price'=>'Сумма',
-			'paymentorder'=>'Платёжное поручение',
+//			'prim'=>'Платёжное поручение',
 		),
 		'columns'=> array(
 			'id_goods'  =>'Код',
@@ -209,6 +216,34 @@
 		),
 		'buttons'=>array('print'=>'Печать накладной','del'=>'Удалить накладную','edit'=>'Изменить накладную'),
 	));
+} else {
+	$this->widget('SuperdocWidget',array(
+		'data'=>$data,
+		//'mode'=>'one_to_many',
+		'head'=>array(
+			'doc_num'=>'Документ №',
+			'doc_date'=>'Дата',
+			'contact.name'=>'Покупатель',
+			'operation.name'=>'Вид расхода',
+			'for'=>'Товарооборот',
+//			'sum_vat'=>'Сумма НДС',
+//			'sum_cost'=>'Сумма',
+			'sum_price'=>'Сумма',
+			//'paymentorder'=>'Платёжное поручение',
+		),
+		'columns'=> array(
+			'id_goods'  =>'Код',
+			'goods.name'=>'Наименование товара',
+			'quantity'  =>'Количество',
+			'cost'      =>'Покупная цена',
+			'markup'    =>'Наценка',
+			'vat'       =>'НДС',
+			'price'     =>'Розничная цена',
+			'=quantity*price'=>'Сумма розница'
+		),
+		'buttons'=>array('print'=>'Печать накладной','del'=>'Удалить накладную','edit'=>'Изменить накладную'),
+	));
+}
 
 ?>
 </div>
