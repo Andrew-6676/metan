@@ -122,17 +122,29 @@
 }
 /*----------------------------------------------------------------------------------*/
 .doc_hat td {
-	position: relative;
-	background-color: #ccffff;
 	/*position: relative;*/
+	/*background-color: #ccffff;*/
+	/*/!*position: relative;*!/*/
+	/*border: 1px solid black;*/
+
+	position: relative;
+	background-color: #FBFBFB;
 	border: 1px solid black;
+	color: #8A0707;
 }
 .doc_hat .capt { /*span */
+	/*display: inline-block;*/
+	/*width: 100px;*/
+	/*text-align: right;*/
+	/*font-weight: bold;*/
+	/*margin-right: 10px;*/
+
 	display: inline-block;
-	width: 100px;
+	width: 125px;
 	text-align: right;
 	font-weight: bold;
 	margin-right: 10px;
+	color: #611616;
 }
 .child th {
 	background-color: #cfcfcf;
