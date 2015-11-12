@@ -125,7 +125,7 @@ function set_autocomplete(id) {
 			//response функция для обработки ответа
 			//alert(request.term); // - строка поиска;
 			$.ajax({
-				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameFromAll",
+				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameForReturn",
 				type: 'GET',
 				dataType: "json",
 				data: 'term=' + request.term + '&f=id',
@@ -135,8 +135,14 @@ function set_autocomplete(id) {
 						$.map(data, function (item) {
 							return {
 								value: item.id,
-								label: '' + String(item.id).pad(10) + ' ' + item.name + ' ',		// это поле отобразится в выпадающем списке
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
+								id: item.id,
 								name: item.name,
+								cost: 0,
+								markup: 0,
+								vat: 0,
+								price: item.price,
+								rest: '--'
 							}
 						})
 					);
@@ -149,7 +155,7 @@ function set_autocomplete(id) {
 			//alert(ui.item.name);
 			//alert($(this).parent('td').parent('tr').attr('id').substr(4));
 			var row = $(this).parent('td').parent('tr').attr('id').substr(4);
-			$('#row_' + row + ' .goods_name').val(ui.item.name + '   (' + ui.item.rest + ' шт)');
+			$('#row_' + row + ' .goods_name').val(ui.item.name);
 			$('#row_' + row + ' .price').attr('cost', ui.item.cost);
 			$('#row_' + row + ' .price').attr('markup', ui.item.markup);
 			$('#row_' + row + ' .price').attr('vat', ui.item.vat);
@@ -166,7 +172,7 @@ function set_autocomplete(id) {
 			//response функция для обработки ответа
 			//request.term - строка поиска;
 			$.ajax({
-				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameFromAll",
+				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameForReturn",
 				type: 'GET',
 				dataType: "json",
 				data: 'term=' + request.term + '&f=name', /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
@@ -179,7 +185,14 @@ function set_autocomplete(id) {
 							return { 	// формируем массив нужной структуры
 								id: item.id,	// это поле для вставки в соседний <input> (код товара)
 								value: item.name,	// это поле вставится в <input>
-								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ',		// это поле отобразится в выпадающем списке
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
+								id: item.id,
+								name: item.name,
+								cost: 0,
+								markup: 0,
+								vat: 0,
+								price: item.price,
+								rest: '--'
 							}
 						})
 					);
@@ -204,8 +217,53 @@ function set_autocomplete(id) {
 		}
 	});		// end $(id+" .goods_name" ).autocomplete
 	/*---------------------------------------------------------*/
-
-
+	$(id + " .price").autocomplete({
+		source: function (request, response) {
+			//response функция для обработки ответа
+			//alert(request.term); // - строка поиска;
+			$.ajax({
+				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameForReturn",
+				type: 'GET',
+				dataType: "json",
+				data: 'term=' + request.term + '&f=price',
+				success: function (data) {
+					//alert((data));
+					response(
+						$.map(data, function (item) {
+							return {
+								value: item.price,
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
+								id: item.id,
+								name: item.name,
+								cost: 0,
+								markup: 0,
+								vat: 0,
+								price: item.price,
+								rest: '--'
+							}
+						})
+					);
+				}
+			});
+		},
+		minLength: 3,
+		select: function (event, ui) {
+			// ui.item будет содержать выбранный элемент
+			//alert(ui.item.name);
+			//alert($(this).parent('td').parent('tr').attr('id').substr(4));
+			var row = $(this).parent('td').parent('tr').attr('id').substr(4);
+			$('#row_' + row + ' .id_goods').val(ui.item.id);
+			$('#row_' + row + ' .goods_name').val(ui.item.name);
+			$('#row_' + row + ' .price').attr('cost', ui.item.cost);
+			$('#row_' + row + ' .price').attr('markup', ui.item.markup);
+			$('#row_' + row + ' .price').attr('vat', ui.item.vat);
+			$('#row_' + row + ' .quantity').focus();
+			// вставить цену товара в <input>
+			//alert(ui.item.price*1);
+			$('#row_' + row + ' .price').val((ui.item.price * 1));
+		}
+	});		// end $(id+" .id_goods" ).autocomplete
+	/*---------------------------------------------------------*/
 	$(id + ' input').keypress(function (event) {
 		if (event.keyCode == 13) {
 			console.log('next input');

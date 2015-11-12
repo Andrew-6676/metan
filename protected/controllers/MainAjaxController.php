@@ -215,6 +215,38 @@ class MainAjaxController extends CController
 //		Utils::print_r($res);
 		echo json_encode($res);
 	}
+/*---------------------------------------------------------------------------*/
+	public function ActionGetGoodsNameForReturn($term, $f) {
+
+//		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
+		$connection = Yii::app()->db;
+//		$sql_goods = "select id, name,
+//					  from {{goods}}
+//					  where upper(".$f."::text) like upper('".$term."%')";
+
+		$sql_goods  =  "select id, name, price
+						from (
+						select g.id, g.name, r.price as price
+						from vgm_rest r
+						inner join vgm_goods g on g.id = r.id_goods
+						union
+
+						select g.id, g.name, dd.price as price
+						from vgm_documentdata dd
+						inner join vgm_goods g on g.id = dd.id_goods
+						inner join vgm_document d on d.id = dd.id_doc
+
+						where d.id_operation=33 or d.id_operation=2 or d.id_operation=3
+
+						order by price
+						) as rest
+						where upper(".$f."::text) like upper('".$term."%')";
+
+		$res = $connection->createCommand($sql_goods)->queryAll();
+
+//		Utils::print_r($res);
+		echo json_encode($res);
+	}
 /*--------------------------------------------------------------------------------------------------------------------*/
 	public function ActionGetContactName($term, $f) {
 		$connection = Yii::app()->db;

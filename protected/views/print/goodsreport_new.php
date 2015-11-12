@@ -585,6 +585,7 @@ kred:
 			<?php
 			}
 			?>
+			<br>
 			<table class="total no_border">
 				<tr class="itog">
 					<td class="itog">Итого расход</td>
