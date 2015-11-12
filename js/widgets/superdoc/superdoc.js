@@ -105,6 +105,7 @@ $(document).ready(function(){
 		var pr = $(this);
 		//$('.parent_row .child_row').show();
 		// alert($('#ch_'+$(this).attr('id')).attr('id'));
+		ch.show(100);
 		ch.removeClass('hidden');
 		ch.addClass('visible');
 		pr.addClass('hidden');
@@ -116,7 +117,7 @@ $(document).ready(function(){
 		//alert($(this).attr('id').substring(8));
 		var ch = $('#ch_'+id);
 		var pr = $('#'+id);
-
+		ch.hide(0);
 		ch.addClass('hidden');
 		ch.removeClass('visible');
 		pr.removeClass('hidden');

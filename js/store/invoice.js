@@ -168,6 +168,12 @@ $(document).ready(function () {
 				//alert(data.status+'---');
 				//alert(typeof data);
 				if (data.status == 'ok') {
+					console.log(data);
+					// предлагаем распечатать счёт-фактуру
+					if (confirm('Хотите распечатать эту счёт-фактуру?')) {
+						console.log('print new invoice '+data.new_id);
+						window.open(rootFolder + '/print/index?report=Invoice&id=' + data.new_id, '_blank');
+					}
 					location.reload();
 				} else {
 					alert('Во время сохранения произошла ошибка. Проверьте введённые данные!\n\r' + JSON.stringify(data));
@@ -295,7 +301,7 @@ function writeoff(id, nttn, date_ttn, n_pl, for_) {
 							var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
 							cont = getContactData(id_contact);
 							cont = getContactData(id_contact);
-							$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').attr('link_porder')+', '+cont.agreement);
+							$('#form_ttn_osnovanie').val('п/п '+$(this).closest('.doc_hat').attr('link_porder')+$('[name="form_writeoff[n_pl]"]').val()+', '+cont.agreement);
 							// 1. адрес загрузки - взять из справочника contact по id покупателя
 							//$('#form_ttn_addr1').val(cont.addr);
 							// 2. Пункт разгрузки

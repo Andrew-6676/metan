@@ -31,7 +31,7 @@ $(document).ready(function () {
 	})
 	$('input').keypress(function (event) {
 		if (event.keyCode == 13) {
-			console.log('next input');
+			console.log('next input1');
 			//console.log($('input:visible').index(this));
 			if ( $('input:visible').eq($('input:visible').index(this) + 1).attr('name') == 'id_goods') {
 				$('input:visible').eq($('input:visible').index(this) + 2).focus();
@@ -565,8 +565,9 @@ $(document).ready(function () {
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 		//alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
 		var id_contact = $(this).parent().parent().find('[id_contact]').attr('id_contact');
+
 		if ($('.doc_title').text().indexOf('Счёт-фактура') + 1) {
-			window.open(rootFolder + '/print/index?report=Invoice&id=' + id, '_blank')
+			window.open(rootFolder + '/print/index?report=Invoice&id=' + id, '_blank');
 		}
 		if ($('.doc_title').text().indexOf('Кредит') + 1) {
 			console.log('print kredit');
@@ -592,8 +593,6 @@ $(document).ready(function () {
 			//$('#f_ttnForm_otpusk').val(_razreshil);
 			// показать
 			//$('#ttn').click();
-
-
 
 			$("#prepareTTN").dialog("open");
 		}

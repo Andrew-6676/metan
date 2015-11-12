@@ -221,7 +221,7 @@ if ($mode == 'expence'){
 		'data'=>$data,
 		//'mode'=>'one_to_many',
 		'head'=>array(
-			'doc_num'=>'Документ №',
+//			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
 			'contact.name'=>'Покупатель',
 			'operation.name'=>'Вид расхода',

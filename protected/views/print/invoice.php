@@ -236,7 +236,7 @@ $this->addCSS('print/report.css');
 							<?php
 							echo User::model()->findByPk($_GET['u'])->post;
 							echo ', ';
-							echo User::model()->findByPk($_GET['u'])->fname;
+							echo User::model()->findByPk($_GET['u'])->name;
 							?>
 						</span>
 					</td>
