@@ -22,7 +22,7 @@ class kreditAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('id_store=' . Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\'' . Yii::app()->session['workdate'] . '\'');
 		$criteria->addCondition('doc_date::text like \'' . substr(Yii::app()->session['workdate'], 0, 7) . '%\'');
-		$criteria->addCondition('doc_num2 != 0');
+		$criteria->addCondition('doc_num != \'0\'');
 
 		$res = Document::model()->with('documentdata')->findAll($criteria);
 

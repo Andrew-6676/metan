@@ -207,7 +207,7 @@
 }
 .doc_data td, .doc_data th {
 	border: 1px solid #7E7E7E;
-	padding: 1px 3px;
+	padding: 0px 3px;
 }
 .doc_data tbody tr:hover {
 	background: rgba(200,255,255, 0.6) !important;

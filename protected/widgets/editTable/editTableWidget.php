@@ -49,12 +49,13 @@ class editTableWidget extends CWidget
                         if (is_array($col)) {   // если колонка задана массивом
 	                        echo '<td>';
 	                        if (in_array('name', $col)) {
-		                        echo CHtml::ajaxLink(
-			                        $row->Goods->name,
-			                        array('store/goodsCart/'.$row->id_goods),
-			                        array('update' => '#mainDialogArea'),
-			                        array('onclick' => '$("#mainDialog").dialog("open");')
-		                        );
+		                        echo CHtml::link($row->Goods->name, '#', array('class'=>'goodscart','gid'=>$row->id_goods) );
+//		                        echo CHtml::ajaxLink(
+//			                        $row->Goods->name,
+//			                        array('store/goodsCart/'.$row->id_goods),
+//			                        array('update' => '#mainDialogArea'),
+//			                        array('onclick' => '$("#mainDialog").dialog("open");')
+//		                        );
 	                        } else {
 		                        $f = 'echo $row';
 		                        foreach ($col as $key => $ff) {

@@ -18,7 +18,13 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 				// 				));
 
 				$connection = Yii::app()->db;
-				$sql = "select array_to_string(array(select id from {{document}} "." where doc_num2=0 and id_doctype=2 and doc_date='".Yii::app()->session['workdate']."' and id_store=".Yii::app()->session['id_store']."), ',') as data";
+				$sql = "select array_to_string(array(select id
+						from {{document}}
+						where doc_num2=0
+								and doc_num='0'
+								and id_doctype=2
+								and doc_date='".Yii::app()->session['workdate']."'
+								and id_store=".Yii::app()->session['id_store']."), ',') as data";
 				$rowsData = $connection->createCommand($sql)->queryAll();
 
 				$dbData = explode(',', $rowsData[0]['data']);
@@ -44,16 +50,26 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 						$res['newRows'][] = $val;
 					}
 				}
+				$src = array(
+					51=>'nal_30.png',
+					52=>'',
+					53=>'',
+					54=>'kredit_30.png',
+					55=>'',
+					56=>'karta_30.png',
+				);
 				$newRows = Document::model()->with('documentdata')->findAllByPk($res['newRows']);
 				$arr = array();
 				foreach ($newRows as $document) {
 					$arr[$document->id][] = $document->id;
 					$arr[$document->id][] = $document->documentdata[0]->id_goods;
-					$arr[$document->id][] = $document->documentdata[0]->idGoods->name;
+					//$arr[$document->id][] = $document->documentdata[0]->idGoods->name;
+					$arr[$document->id][] = CHtml::link($document->documentdata[0]->idGoods->name, '#', array('class'=>'goodscart','gid'=>$document->documentdata[0]->id_goods) );
 					$arr[$document->id][] = $document->documentdata[0]->quantity;
 					$arr[$document->id][] = number_format($document->documentdata[0]->price,'0','.','`');
 					$arr[$document->id][] = number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity,'0','.','`');
-					$arr[$document->id][] = $document->idOperation->name;
+					$arr[$document->id][] = array($document->id_operation, '<img alt="" title="'.$document->idOperation->name.'" src="/metan_0.1/images/'.$src[$document->id_operation].'">', $document->paymentorder, $document->prim);
+					$arr[$document->id][] = $document->for;
 				}
 
 				// Utils::print_r($arr);
@@ -80,8 +96,9 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 		$criteria->addCondition('id_doctype <> 3');
 		$criteria->addCondition('id_doctype <> 1');
 		$criteria->addCondition('id_doctype = 2');
+		$criteria->addCondition('doc_num = \'0\'');
 		$criteria->addCondition('doc_num2 = 0');
-		$criteria->order ='t.date_insert asc, t.id';
+		$criteria->order ='t.date_insert desc, t.id';
 
 		$q_model = Document::model()->with('documentdata')->findAll($criteria);
 

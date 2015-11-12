@@ -82,16 +82,16 @@ $dn = '';
 				$rq = 0;
 				$po = $row->partof;
 				$class = ' class="partof" ';
-				$pr = number_format($row->price*$row->quantity,'0','.','`').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','`').')</small>';
+				$pr = number_format($row->price*$row->quantity,'0','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','&nbsp;').')</small>';
 			} else {
-				$pr = number_format($row->price*$row->quantity,'0','.','`');
+				$pr = number_format($row->price*$row->quantity,'0','.','&nbsp;');
 				$rq = $row->quantity;
 				$class = '';
 				$rest += $row->quantity*$doc->operation->operation;
 			}
 
 			if ($doc->id == $po) {
-				$pr = number_format($row->price*$row->quantity,'0','.','`').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','`').')</small>';
+				$pr = number_format($row->price*$row->quantity,'0','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','&nbsp;').')</small>';
 			}
 
 			$tr = '<tr '.$class.'>';
@@ -153,7 +153,7 @@ echo 'Остаток на '.Utils::format_date(Yii::app()->session['workdate']).
 //		echo "<br>[" . trim($doc->doc_num).'] -  '.Utils::format_date($doc->doc_date);
 //	}
 //	foreach ($doc->documentdata as $row) {
-//		echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp'.$row->quantity.' * '. number_format($row->price,'0','.','`').'';
+//		echo '<br>&nbsp&nbsp&nbsp&nbsp&nbsp'.$row->quantity.' * '. number_format($row->price,'0','.','&nbsp;').'';
 //		$rest += $row->quantity*$doc->operation->operation;
 //	}
 //}

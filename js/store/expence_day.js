@@ -24,15 +24,15 @@ $(document).ready(function () {
 		$(this).val($(this).attr('rest'));
 	});
 
-	if ($('td.operation').last().attr('id_operation')) {
-		$('#expence_id_operation').val($('td.operation').last().attr('id_operation'))
+	if ($('td.operation').eq(1).attr('id_operation')) {
+		$('#expence_id_operation').val($('td.operation').eq(1).attr('id_operation'))
 		if ($('#expence_id_operation').val()==56 || $('#expence_id_operation').val()==54) {
 			$('.additional_data').attr('open','');
 		}
 	}
 
-	if ($('td.for').last().attr('id_for')) {
-		$('#for').val($('td.for').attr('id_for'))
+	if ($('td.for').eq(1).attr('id_for')) {
+		$('#for').val($('td.for').eq(1).attr('id_for'))
 	}
 
 	$('.goods_name').focus();
@@ -48,11 +48,13 @@ $(document).ready(function () {
 			if (io==56) {
 				$('[for="expence[payment_order]"]').text('Номер карты');
 			}
+		} else {
+			$('.additional_data').removeAttr('open');
 		}
 		event.stopPropagation();
 	});
 	$('#for').click(function (event) {
-		$('.id_goods').focus();
+		$('.goods_name').focus();
 		event.stopPropagation();
 	});
 	$('#expence_id_operation').keypress(function (event) {
@@ -82,7 +84,7 @@ $(document).ready(function () {
 			}
 			event.stopPropagation();
 		}
-	})
+	});
 	/*----------- пересчёт суммы ------------------------------------------*/
 	$('.quantity, .price').change(function () {
 
@@ -103,7 +105,7 @@ $(document).ready(function () {
 			itog_summ += $(e).text().replace(/\s+/g, '') * 1;
 		})
 		$('.itog_summ').text(formatNum(itog_summ));
-	})
+	});
 
 	/*-------------Поиск по F7------------------------------*/
 	$('.search.goods_name').keyup(function (event) {
@@ -113,7 +115,7 @@ $(document).ready(function () {
 			search_data.sender = $(this).parent().parent().attr('id');
 			sForm.create(search_data);
 		}
-	})
+	});
 	/*------------ Ctrl + Enter ------------------------------------------------*/
 	$('input').keyup(function (event) {
 		//alert(event.ctrlKey);
@@ -124,7 +126,7 @@ $(document).ready(function () {
 			event.stopPropagation();
 			//alert('Ctrl+enter');
 		}
-	})
+	});
 
 	/*--------------------- Автодополнение -------------------------------------------*/
 	$(".id_goods").autocomplete({
@@ -325,7 +327,14 @@ $(document).ready(function () {
 						});
 						alert(str);
 					}
-					location.reload();
+					if ($('#new_goods_table').attr('doc_id')>0) {
+						location.reload();
+					} else {
+						clear_form();
+						checkNewData();
+						$('#overlay').hide();
+						$('#loadImg').hide();
+					}
 				} else {
 					$('#overlay').hide();
 					$('#loadImg').hide();
@@ -346,83 +355,19 @@ $(document).ready(function () {
 	$('button.del').click(function () {
 		// получаем ID удаляемого документа
 		var row = $(this).parent().parent();
-		var tmp = row.css("background");
-		row.css("background", "#fcc");
 		var id = row.attr('doc_id');
-		// alert('del '+ id);
-		// exit;
-		if (row.hasClass('delRow')) {
-			row.remove();
-		} else if (confirm("Точно хотите безвозвратно удалить строку \n " + row.find('td.name').text() + "?")) {
-			// alert('delte');
-			$.ajax({
-				url: 'http://' + document.location.host + rootFolder + "/document/delete",
-				type: 'POST',
-				dataType: "json",
-				data: {del_expense: id},
-				// функция обработки ответа сервера
-				error: function (data) {
-					alert('Во время удаления произошла ошибка. Проверьте данные!');
-					//alert(data);
-				},
-				success: function (data) {
-					// alert(data);
-					//alert(data.status);
-					//alert(typeof data);
-					// удалить строку из таблицы на странице в случае удачного удаления
-					if (data.status == 'ok') {
-						//location.reload();
-						row.remove();
-						loadDaySvod('#svodday');
-					}
-
-
-				}
-			});
-		}
-		row.css("background", "none");
+		del_doc(id,row);
 		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+	});
 
-	})
 	/*------------------ Редактировать  строку --------------------------------------------*/
 
 	/*----------------------  --------------------------------------------*/
 	$('button.edit').click(function () {
-		// alert('edit');
-			// ячейки куда надо вставлять данные
-		var td_dst = $('#new_goods_table tbody tr td');
-			// из этих ячеек надо сокпировать данные
+		// из этих ячеек надо сокпировать данные
 		var td_src = $(this).parent().parent().find('td');
-			// переносим нужные данные
-		td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
-		td_dst.eq(1).find('[name=for]').val(td_src.eq(7).attr('id_for'));
-		td_dst.eq(2).find('input').val(td_src.eq(1).text().trim());
-		td_dst.eq(3).find('input').val(td_src.eq(2).text().trim());
-		td_dst.eq(4).find('input').val(td_src.eq(3).text().trim().replace(/`/g, ""));
-		td_dst.eq(5).find('input').val(td_src.eq(4).text().trim().replace(/`/g, ""));
-			// id документа
-		$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
-			// номер карты
-		$('[name="expence[payment_order]"]').val(td_src.eq(6).attr('kart_num'));
-		$('[name="expence[descr]"]').val(td_src.eq(6).attr('prim'));
-
-		if (td_src.parent().attr('partof_id')) {
-			$('[name="expence[part_of_i]"]').val(td_src.parent().attr('partof_id'));
-			$('[name="expence[part_of_n]"]').val(td_src.parent().attr('partof_num'));
-			$('[name="expence[part_of_c]"]').prop('checked', true);
-			$('.additional_data').attr('open','');
-
-		}
-		// пересчитываем сумму
-		$('.quantity, .price').change();
-
-		$('.action').removeClass('new');
-		$('.action').addClass('edit');
-		$('.action').text('[редактирование]');
-		$('#cancel_expence').show();
-		$('#add_expence').text('Сохранить');
-		$(document).scrollTop(70);
-	})
+		edit_doc(td_src);
+	});
 
 	$('#cancel_expence').click(function () {
 		$(this).hide();
@@ -442,10 +387,99 @@ $(document).ready(function () {
 		window.open(rootFolder + '/print/index?report=Expenceday', '_blank')
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 	})
-})      // end document.ready
+});      // end document.ready
 
 /*--------------------------------------------------------------------------------------------------*/
+function clear_form() {
+	$('.dop_data').val('');
+	$('#new_goods_table input').val('');
+	$('#new_goods_table .price').removeAttr('cost');
+	$('#new_goods_table .price').removeAttr('vat');
+	$('#new_goods_table .price').removeAttr('markup');
+
+	$('.quantity, .price').change();
+
+	$('#new_goods_table .goods_name').focus();
+}
+/*--------------------------------------------------------------------------------------------------*/
+function edit_doc(td_src) {
+	// ячейки куда надо вставлять данные
+	var td_dst = $('#new_goods_table tbody tr td');
+	// переносим нужные данные
+	td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
+	if (td_src.eq(6).attr('id_operation')==54 || td_src.eq(6).attr('id_operation')==56) {
+		$('.additional_data').attr('open','');
+	} else {
+		$('.additional_data').removeAttr('open');
+	}
+	td_dst.eq(1).find('[name=for]').val(td_src.eq(7).attr('id_for'));
+	td_dst.eq(2).find('input').val(td_src.eq(1).text().trim());
+	td_dst.eq(3).find('input').val(td_src.eq(2).text().trim());
+	td_dst.eq(4).find('input').val(td_src.eq(3).text().trim().replace(/[`\s]/g, ""));
+	td_dst.eq(5).find('input').val(td_src.eq(4).text().trim().replace(/[`\s]/g, ""));
+	td_dst.eq(5).find('input').attr('cost', td_src.eq(4).attr('cost').replace(/[`\s]/g, ""));
+	td_dst.eq(5).find('input').attr('markup', td_src.eq(4).attr('markup').replace(/[`\s]/g, ""));
+	td_dst.eq(5).find('input').attr('vat', td_src.eq(4).attr('vat').replace(/[`\s]/g, ""));
+	// id документа
+	$('#new_goods_table').attr('doc_id', td_src.parent().attr('doc_id'));
+	// номер карты
+	$('[name="expence[payment_order]"]').val(td_src.eq(6).attr('kart_num'));
+	$('[name="expence[descr]"]').val(td_src.eq(6).attr('prim'));
+
+	if (td_src.parent().attr('partof_id')) {
+		$('[name="expence[part_of_i]"]').val(td_src.parent().attr('partof_id'));
+		$('[name="expence[part_of_n]"]').val(td_src.parent().attr('partof_num'));
+		$('[name="expence[part_of_c]"]').prop('checked', true);
+		$('.additional_data').attr('open','');
+
+	}
+	// пересчитываем сумму
+	$('.quantity, .price').change();
+
+	$('.action').removeClass('new');
+	$('.action').addClass('edit');
+	$('.action').text('[редактирование]');
+	$('#cancel_expence').show();
+	$('#add_expence').text('Сохранить');
+	$(document).scrollTop(70);
+}
+/*--------------------------------------------------------------------------------------------------*/
+function del_doc(id, row){
+	var tmp = row.css("background");
+	row.css("background", "#fcc");
+	// alert('del '+ id);
+	// exit;
+	if (row.hasClass('delRow')) {
+		row.remove();
+	} else if (confirm("Точно хотите безвозвратно удалить строку \n " + row.find('td.name').text() + "?")) {
+		// alert('delte');
+		$.ajax({
+			url: 'http://' + document.location.host + rootFolder + "/document/delete",
+			type: 'POST',
+			dataType: "json",
+			data: {del_expense: id},
+			// функция обработки ответа сервера
+			error: function (data) {
+				alert('Во время удаления произошла ошибка. Проверьте данные!');
+				//alert(data);
+			},
+			success: function (data) {
+				// alert(data);
+				//alert(data.status);
+				//alert(typeof data);
+				// удалить строку из таблицы на странице в случае удачного удаления
+				if (data.status == 'ok') {
+					//location.reload();
+					row.remove();
+					loadDaySvod('#svodday');
+				}
+			}
+		});
+	}
+	row.css("background", "none");
+}
 /*---------------------------- Проверка и загрузка новых строк с сервера ---------------------------*/
+var forr = {"-1" : "-", "1" : "Общий товарооборот", "2" : "Розничный товарооборот", "3" : "Собственные нужды"};
 function checkNewData() {
 	//return false;
 	// console.log('start check data');
@@ -477,31 +511,62 @@ function checkNewData() {
 			// alert(JSON.stringify(data.delRows));
 			// alert(JSON.stringify(data.newRows));
 			// alert(JSON.stringify(data.newData));
-
+			console.log(data);
 			// цикл по строкам, которые надо вставить в таблицу
 			$.each(data.newData, function (key, val) {
 				// console.log('новая строка для вставки');
 				// клонируем любую строку строку, например первую
 				var row = $('.doc_data>tbody>tr').first().clone();
-				// назначить действия кнопкам
 
 				row.removeClass('delRow');
+				row.removeClass('template');
 				// прячем её, пока не вставим данные
 				row.hide();
 				// добвляем строку в конец таблицы
-				$('.doc_data tbody').append(row);
+				//$('.doc_data tbody').append(row);
+				$('.doc_data tbody tr.template').after(row);
 				// заполняем первую колонку номером по порядку
-				row.find('.npp').text($('.doc_data tr').size());
+				row.find('.npp').text($('.doc_data tr').size()-2);
 				// вставляем id строки из БД
 				row.attr('doc_id', key);
 				row.addClass('newRow');
 
 				var td = row.find('td');
 				// цикл по ячекйкам - вносим данные, пришедшие с сервера
-				for (var i = 1; i < 6; i++) {
-					td.eq(i).text(val[i]);
+				for (var i = 1; i < 8; i++) {
+					td.eq(i).html(val[i]);
+					if (i==6) {
+						//console.log(val);
+						td.eq(i).attr('id_operation', val[i][0]);
+						td.eq(i).attr('kart_num', val[i][2]);
+						td.eq(i).attr('prim', val[i][3]);
+						td.eq(i).html(val[i][1]);
+					}
+					if (i==7) {
+						//console.log(forr[val[i]]);
+						td.eq(i).attr('id_for', val[i]);
+						td.eq(i).html(forr[val[i]]);
+					}
 				}
-				;
+
+				//  открыть карточку товара
+				$('[gid="'+val[1]+'"]').click(function (e) {
+					showGoodsCart($(this).attr('gid'));
+					return false;
+				});
+				// кнопка удалить
+				row.find('.buttons>.del').click(function (e) {
+					// получаем ID удаляемого документа
+					var row = $(this).parent().parent();
+					var id = row.attr('doc_id');
+					del_doc(id,row);
+					event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+				});
+				// кнопка редактировать
+				row.find('.buttons>.edit').click(function (e) {
+					var td_src = $(this).parent().parent().find('td');
+					edit_doc(td_src);
+				});
 				// row.find('button.del').click() = $('button.del').click();
 				// медленно выплываем строку
 				row.fadeIn(1000);
@@ -519,11 +584,12 @@ function checkNewData() {
 
 
 		//}
-	})
+	});
 
 		// запуск проверки новых документов на сервере
 	//timeout_id = window.setTimeout(checkNewData, 60000);
 }
+
 
 // $(".newRow").animate({
 // 			backgroundColor: #fff

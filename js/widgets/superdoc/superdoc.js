@@ -122,10 +122,10 @@ $(document).ready(function(){
 		pr.removeClass('hidden');
 	})
 	/*  ---------------------------------------------------------  */
-	$('.child tbody tr a').click(function() {
-		//event.stopPropagation();
-		$(this).parent().parent().toggleClass('selected');
-	});
+	//$('.child tbody tr a').click(function() {
+	//	//event.stopPropagation();
+	//	$(this).parent().parent().toggleClass('selected');
+	//});
 	/*  ---------------------------------------------------------  */
 	$('.child tbody tr').click(function() {
 		//event.stopPropagation();

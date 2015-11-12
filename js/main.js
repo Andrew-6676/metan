@@ -6,6 +6,11 @@ var anim = false;
 var ajax_count = 0;
 
 $(document).ready( function(){
+	//  показать карточку товара
+	$('.goodscart').click(function (e) {
+		showGoodsCart($(this).attr('gid'));
+		return false;
+	});
 /*----------------------------------*/
 	$('table.canhide caption').click(function () {
 		$(this).parent().find('tbody').toggleClass('hidden');
@@ -298,4 +303,17 @@ function loadDaySvod (box) {
 		//},
 		//function(){alert("Получен ответ от сервера.")}
 	);
+}
+
+/*----------- открыть карточку товара ---------------------------------------------------------------------*/
+function showGoodsCart(id) {
+	$("#mainDialog").dialog("open");
+	jQuery.ajax({
+		'url':'/metan_0.1/store/goodsCart/'+id,
+		'cache':false,
+		'success':function(html){
+					jQuery("#mainDialogArea").html(html)
+				}
+	});
+	return false;
 }

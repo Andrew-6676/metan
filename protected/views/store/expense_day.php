@@ -228,7 +228,7 @@ $this->addJS('jquery-ui.js');
 		<th>Розничная<br>цена</th>
 		<th>Сумма<br>розница</th>
 		<th>Операция</th>
-		<th></th>
+		<th>Товаро-<br>оборот</th>
 		<th>
 			<button class="print_doc_button" title="Распечатать расход"></button>
 		</th>
@@ -245,7 +245,27 @@ $this->addJS('jquery-ui.js');
 		56=>'karta_30.png',
 	);
 	$for = array('-1' => '-', '1' => 'Общий товарооборот', '2' => 'Розничный товарооборот', '3' => 'Собственные нужды');
-	$i = 0;
+	$i = count($data);
+	?>
+
+	<tr class="hidden template">
+		<td class="npp"></td>
+		<td class="id"></td>
+		<td class="name"></td>
+		<td class="quantity"></td>
+		<td class="price"></td>
+		<td class="sum"></td>
+		<td class="operation"></td>
+		<td class="for"></td>
+		<td class="buttons">
+			<button class='del'></button>
+			<button class='edit'></button>
+			<button class="save"></button>
+		</td>
+	</tr>
+
+	<?php
+
 	foreach ($data as $document) : ?>
 		<tr doc_id="<?php echo $document->id; ?>"
 			<?php
@@ -256,22 +276,28 @@ $this->addJS('jquery-ui.js');
 					echo 'class="part"';
 				}
 			?>>
-			<td class="npp"><?php echo ++$i; ?></td>
+			<td class="npp"><?php echo $i--; ?></td>
 			<td class="id"><?php echo $document->documentdata[0]->id_goods; ?></td>
 			<td class="name">
 				<?php
-					//echo CHtml::link($document->documentdata[0]->idGoods->name, array('store/goodsCart/'.$document->documentdata[0]->id_goods), array('target'=>'_blank') );
-					echo CHtml::ajaxLink(
-									$document->documentdata[0]->idGoods->name,
-									array('store/goodsCart/'.$document->documentdata[0]->id_goods),
-									array('update' => '#mainDialogArea'),
-									array('onclick' => '$("#mainDialog").dialog("open");')
-						);
+					echo CHtml::link($document->documentdata[0]->idGoods->name, '#', array('class'=>'goodscart','gid'=>$document->documentdata[0]->id_goods) );
+//					echo CHtml::ajaxLink(
+//									$document->documentdata[0]->idGoods->name,
+//									array('store/goodsCart/'.$document->documentdata[0]->id_goods),
+//									array('update' => '#mainDialogArea'),
+//									array('onclick' => '$("#mainDialog").dialog("open");')
+//						);
 				?>
 			</td>
 			<td class="quantity"><?php echo $document->documentdata[0]->quantity; ?></td>
-			<td class="price"><?php echo number_format($document->documentdata[0]->price, '0', '.', '`'); ?></td>
-			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '`'); ?></td>
+			<td class="price"
+			    cost="<?php echo number_format($document->documentdata[0]->cost, '0', '.', '&nbsp;');?>"
+			    markup="<?php echo number_format($document->documentdata[0]->markup, '0', '.', '&nbsp;');?>"
+			    vat="<?php echo number_format($document->documentdata[0]->vat, '0', '.', '&nbsp;');?>"
+				>
+				<?php echo number_format($document->documentdata[0]->price, '0', '.', '&nbsp;');?>
+			</td>
+			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '&nbsp;'); ?></td>
 			<td class="operation" id_operation="<?php echo $document->idOperation->id; ?>"
 			    kart_num="<?php echo @$document->docaddition->payment_order; ?>"
 				prim="<?php echo @$document->docaddition->descr; ?>">

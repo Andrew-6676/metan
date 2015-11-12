@@ -385,6 +385,10 @@ details label {
 	padding: 5px;
 }
 
+td.operation\.name, td.for {
+	font-size: 0.7em;
+}
+
 /*td.paymentorder {*/
 	/*display: none;*/
 /*}*/
