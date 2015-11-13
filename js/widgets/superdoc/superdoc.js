@@ -1,4 +1,15 @@
 $(document).ready(function(){
+
+	//#expand_all, #collapse_all
+
+	$('#expand_all').click(function () {
+		$('.parent_row').click();
+		return false;
+	});
+	$('#collapse_all').click(function () {
+		$('.doc_hat').click();
+		return false;
+	});
 	/*-------------------печать документа----------------------------------------------*/
 	//$('.print_doc_button').click(function(event){
 	//	var id = $(this).parent().attr('doc_id');

@@ -18,3 +18,7 @@
 .cell.empty {
 	background: rgba(255, 0, 0, 0.36);
 }
+.page_caption {
+	margin-top: 20px;
+	text-align: right;
+}

@@ -70,6 +70,8 @@ class SuperdocWidget extends CWidget
 		// print_r($this->data);
 		// echo '<br>';
 		//echo $this->items.'<br>';
+		echo  CHtml::link('Развернуть все', '#', array('id'=>'expand_all'));
+		echo  CHtml::link('Свернуть все', '#', array('id'=>'collapse_all'));
 		echo '<pre>';
 //	    print_r($this->data[0]->attributes);
 //	    print_r($this->data[0]->contact->attributes);
