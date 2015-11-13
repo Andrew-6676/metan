@@ -5,7 +5,7 @@ table {
 	font-size: 10px;
 }
 tr td:first-child {
-	width: 50px;
+	/*width: 50px;*/
 }
 tr td:last-child {
 	width: 100px;
@@ -31,7 +31,6 @@ th, td {
 	padding: 2px 5px;
 }
 
-
 tr.r td, tr.l td.r, td.r {
 	text-align: right;
 }
@@ -47,11 +46,15 @@ table.no_border td, tr.no_border td, td.no_border, table.no_border tr.no_border 
 	border: none;
 }
 
+table.no_border td.border {
+	border: 1px solid gray !important;
+}
+
 col.r {
 	text-align: right;
 }
-.itog {
-	font-weight: bold;
+tr.itog td, .itog {
+	font-weight: bold !important;
 }
 
 .sub_title {

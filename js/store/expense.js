@@ -9,26 +9,27 @@ var search_data = {
 	field: 'gname',
 	key: "id",
 	width: 800,
-	sender: null,
+	sender: null
 };
 /*--------------------------------------------------*/
 $(document).ready(function () {
 	$('#new_goods_table tbody tr:last .vat').val(_vat);
-	$('#expence_id_operation').focus();
+	//$('#expence_id_operation').focus();
+	$('[name="expence[doc_date]"]').focus();
 	$('#expence_id_operation').click(function (event) {
 		$('#for').focus();
 		event.stopPropagation();
-	})
+	});
 	$('#for').click(function (event) {
 		$('[name*=doc_date]').focus();
 		event.stopPropagation();
-	})
+	});
 	$('#expence_id_operation').keypress(function (event) {
 		if (event.keyCode == 13) {
 			$('[name*=doc_date]').focus();
 			event.stopPropagation();
 		}
-	})
+	});
 	$('input').keypress(function (event) {
 		if (event.keyCode == 13) {
 			console.log('next input1');

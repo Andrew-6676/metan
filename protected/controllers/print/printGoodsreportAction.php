@@ -23,13 +23,15 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$params['to_date'] = $to_date;
 		$params['full'] = $full;
 
-		$data = $this->getData($_GET);
+
 //		$data = $_GET;
 //		$data = array_merge($_GET, $params);
 		if (isset($_GET['forma']) && $_GET['forma']=='f058') {
-			$this->controller->render('goodsreport2', array('data' => $data, 'full' => $full));
+			$data = $this->getData2($_GET);
+			$this->controller->render('goodsreport_2', array('data' => $data, 'full' => $full));
 		} else {
-			$this->controller->render('goodsreport_new', array('data' => $data, 'full' => $full));
+			$data = $this->getData($_GET);
+			$this->controller->render('goodsreport_1', array('data' => $data, 'full' => $full));
 		}
 	}
 
@@ -204,7 +206,12 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 //
 //		$json['receipt'] = array();
 
-		$op = Operation::model()->findAll(array('condition' => 'operation<>0', 'order'=>'operation desc, id'));
+		$op = Operation::model()->findAll(
+			array(
+				'condition' => 'operation<>0',
+				'order'=>'operation desc, id'
+			)
+		);
 		$op = CHtml::listData($op,
 			'id', 'name', 'operation');
 		$op[1] = array_reverse($op[1], true);
@@ -215,29 +222,54 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$criteria = new CDbCriteria;
 		// Документы с номером 0 - отдельно (это расход за день)
 
+// Остатки -----------------------------------------------------------------------------------------------------
+		$json['rest']['tovar'] = Rest::get_Rest($_GET['from_date'], $_GET['id_store']);
+		$json['rest']['kassa'] = Kassa::getRest($_GET['from_date'], $_GET['id_store'], -1);
+
+
 // ПРИХОД ------------------------------------------------------------------------------------------------------
 
 		foreach ($op[1] as $id_op => $name_op) {
 			$criteria->condition = '';
 
-			$criteria->addCondition('id_operation = '.$id_op); // не счёт-фактура
+			$criteria->addCondition('id_operation = '.$id_op);
 			$criteria->addCondition('id_store=' .$params['id_store']);
 			$criteria->addCondition('doc_date>=\'' . $params['from_date'] . '\'');
 			$criteria->addCondition('doc_date<=\'' . $params['to_date'] . '\'');
 			$criteria->order = 'operation.operation desc, id_doctype, operation.id desc, doc_date, doc_num';
 
-			Utils::print_r($criteria->condition);
+			//Utils::print_r($criteria->condition);
 
 			$data = Document::model()->with('documentdata', 'documentdata.idGoods', 'doctype', 'operation')->findAll($criteria);
 //			Utils::print_r($data);
 			foreach ($data as $row) {
-				echo $row->doc_date;
-//				$json[$id_op]
+				//echo $row->doc_date;
+				$json[1][$id_op][] = $row;
 			}
 		}
 
 
 // РАСХОД ------------------------------------------------------------------------------------------------------
+
+		foreach ($op[-1] as $id_op => $name_op) {
+			$criteria->condition = '';
+
+			$criteria->addCondition('id_operation = '.$id_op);
+			$criteria->addCondition('doc_num2 <> 0 or id_operation=54');
+			$criteria->addCondition('id_store=' .$params['id_store']);
+			$criteria->addCondition('doc_date>=\'' . $params['from_date'] . '\'');
+			$criteria->addCondition('doc_date<=\'' . $params['to_date'] . '\'');
+			$criteria->order = 'operation.operation desc, id_doctype, operation.id desc, doc_date, doc_num';
+
+			//Utils::print_r($criteria->condition);
+
+			$data = Document::model()->with('documentdata', 'documentdata.idGoods', 'doctype', 'operation')->findAll($criteria);
+//			Utils::print_r($data);
+			foreach ($data as $row) {
+				//echo $row->doc_date;
+				$json[-1][$id_op][] = $row;
+			}
+		}
 
 		return $json;
 	}

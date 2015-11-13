@@ -29,7 +29,7 @@
 				// print_r($list);
 				// echo '</pre>';
 				echo CHtml::dropDownList('expence[id_operation]',
-									  	  '51',
+										  $mode=='kredit'?'54':'51',
 					              		  $list,
 					              		  array('class'=>'ddd')
 					              		 // array('empty' => '(Select a category')
@@ -60,7 +60,7 @@
 
 		<div class="<?php if ($mode=='kredit') echo "hidden "; ?> row r3">
 			<label for="expence[doc_num]">№ документа:</label>
-			<input  name="expence[doc_num]" placeholder="№ документа" value="<?php echo $doc_num ?>" required >
+			<input  name="expence[doc_num]" placeholder="№ документа" value="<?php echo $mode=='kredit'?'-':$doc_num ?>" required >
 		</div>	<!-- r3 -->
 		<div class="row r0">
 			<label for="invoice[contact]">Потребитель:</label>
