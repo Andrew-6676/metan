@@ -423,6 +423,12 @@ $(document).ready(function () {
 			err = true;
 			return false;
 		}
+		if ($('[name="expence[doc_num]"]').val().trim() == '') {
+			alert('Не указан номер документа!');
+			$('[name="expence[doc_num]"]').focus();
+			err = true;
+			return false;
+		}
 
 		// собираем данные в массив
 		var arr = {};
