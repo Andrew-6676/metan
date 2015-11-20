@@ -13,7 +13,7 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-//exit;
+exit;
 		echo "<pre>";
 //		echo "\nТовары:\n";
 //
@@ -32,7 +32,7 @@ class customimportAction extends CAction   /*DataController*/
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd5/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd6/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
