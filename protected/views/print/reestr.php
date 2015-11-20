@@ -254,7 +254,7 @@
 				</tbody>
 			</table>
 
-			<br><br><br><br>
+			<br><br>
 
 			<div class="report_footer">
 				<table style="width:600px;">

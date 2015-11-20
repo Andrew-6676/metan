@@ -18,7 +18,7 @@ class selectionAction extends CAction   /*---- GoodsController ----*/
 			'Rest',
 			array(
 				'criteria' => array(
-					'condition' => 'id_goods in ('.$data.')',
+					'condition' => 'id_goods in ('.$data.') and date_part(\'month\', rest_date)='.substr(Yii::app()->session['workdate'],5,2),
 				),
 				'pagination'=>false,
 //				'sort' => $sort
