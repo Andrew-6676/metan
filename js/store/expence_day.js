@@ -409,6 +409,13 @@ function edit_doc(td_src) {
 	td_dst.eq(0).find('[name*=id_operation]').val(td_src.eq(6).attr('id_operation'));
 	if (td_src.eq(6).attr('id_operation')==54 || td_src.eq(6).attr('id_operation')==56) {
 		$('.additional_data').attr('open','');
+		var io = td_src.eq(6).attr('id_operation');
+		if (io==54) {
+			$('[for="expence[payment_order]"]').text('ФИО');
+		}
+		if (io==56) {
+			$('[for="expence[payment_order]"]').text('Номер карты');
+		}
 	} else {
 		$('.additional_data').removeAttr('open');
 	}
