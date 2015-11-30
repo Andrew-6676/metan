@@ -186,16 +186,38 @@ class Goods extends CActiveRecord
 		}
 	}
 /*---------------------------------------------------------------------*/
-	public function getPrice() {
+	public function getPrice_prev() {
 
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("id_goods=" . $this->id);
+
 
 		$r = Rest::model()->find($criteria);
 		if ($r) {
 			return $r->price; //->getAttribute('price');
 		} else {
 			$r = Documentdata::model()->find($criteria);
+			if ($r) {
+				return $r->price;
+			} else {
+				return 0;
+			}
+		}
+	}
+/*---------------------------------------------------------------------*/
+	public function getPrice() {
+
+		$criteria = new CDbCriteria;
+		$criteria->addCondition("id_goods=" . $this->id);
+		//$criteria->order("doc_date");
+
+		$r = Documentdata::model()->find($criteria);
+		if ($r) {
+			return $r->price; //->getAttribute('price');
+		} else {
+			$criteria->condition = '';
+			$criteria->addCondition("id_goods=" . $this->id);
+			$r = Rest::model()->find($criteria);
 			if ($r) {
 				return $r->price;
 			} else {
