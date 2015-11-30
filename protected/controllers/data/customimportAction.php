@@ -13,7 +13,7 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-//exit;
+exit;
 		echo "<pre>";
 //		echo "\nТовары:\n";
 //
@@ -46,7 +46,7 @@ class customimportAction extends CAction   /*DataController*/
 				switch ($row['KO']) {
 					case '56':
 							//карта
-						store_56($row);
+						//store_56($row);
 						break;
 					case '54':
 							//кредит
@@ -58,7 +58,7 @@ class customimportAction extends CAction   /*DataController*/
 //						break;
 					case '51':
 //							// наличка
-						store_51($row); //готово
+						//store_51($row); //готово
 						break;
 //					case '00':
 							// остатки
