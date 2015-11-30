@@ -209,9 +209,9 @@ class Goods extends CActiveRecord
 
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("id_goods=" . $this->id);
-		//$criteria->order("doc_date");
+		$criteria->addCondition("idDocument.id_doctype=1");
 
-		$r = Documentdata::model()->find($criteria);
+		$r = Documentdata::model()->with('idDocument')->find($criteria);
 		if ($r) {
 			return $r->price; //->getAttribute('price');
 		} else {
