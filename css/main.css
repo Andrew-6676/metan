@@ -444,7 +444,7 @@ tr.minus, td.minus {
 }
 tr.nol, td.nol{
 	color: #FFFFFF;
-	background: #CECECE; !important;
+	background: #CECECE !important;
 }
 tr.sel {
 	background-color: #F04E4E !important;

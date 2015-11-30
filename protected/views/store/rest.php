@@ -39,8 +39,11 @@ $this->addJS('jquery-ui.js');
 //			// $row - номер строки начиная с 0
 //			// $data - ваша моделька
 			$class = '';
-			if ($data['rest'] < 0) { // выделяем вторую! строку
+			if ($data['rest'] < 0) {
 				$class = 'minus';
+			}
+			if ($data['rest'] == 0) {
+				$class = 'nol';
 			}
 			if ($row%2 == 0) {
 				$class .= ' odd';
