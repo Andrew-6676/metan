@@ -13,7 +13,7 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
 //		echo "\nТовары:\n";
 //
@@ -32,13 +32,13 @@ exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd5/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd6/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] < '20151110') {
+				if ($row['DATA'] != '20151120') {
 					//echo "({$row['DATA']})";
 					continue;
 				}
@@ -46,7 +46,7 @@ exit;
 				switch ($row['KO']) {
 					case '56':
 							//карта
-						//store_56($row);
+						store_56($row);
 						break;
 					case '54':
 							//кредит
@@ -58,7 +58,7 @@ exit;
 //						break;
 					case '51':
 //							// наличка
-						//store_51($row); //готово
+						store_51($row); //готово
 						break;
 //					case '00':
 							// остатки
@@ -77,24 +77,24 @@ exit;
 		}
 
 
-		echo "\nСчёт-фактуры:\n";
-
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd5/F300107.DBF';
-		$dbf3 = new dbf($dbf_path );
-
-		if ($dbf3) {
-			while ($row = $dbf3->readRec()) {
-//				if (strstr($row['DATA'],'201510')==false) {
+//		echo "\nСчёт-фактуры:\n";
+//
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd5/F300107.DBF';
+//		$dbf3 = new dbf($dbf_path );
+//
+//		if ($dbf3) {
+//			while ($row = $dbf3->readRec()) {
+////				if (strstr($row['DATA'],'201510')==false) {
+////					//echo "({$row['DATA']})";
+////					continue;
+////				}
+//				if ($row['DATA'] < '20151110') {
 //					//echo "({$row['DATA']})";
 //					continue;
 //				}
-				if ($row['DATA'] < '20151110') {
-					//echo "({$row['DATA']})";
-					continue;
-				}
-				$this->addInvoice($row);
-			}
-		}
+//				$this->addInvoice($row);
+//			}
+//		}
 
 
 		echo '</pre>';
