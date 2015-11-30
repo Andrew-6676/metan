@@ -27,7 +27,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 ?>
 
 	<div class="rep_wrapper">
-		<div class="page p">
+		<div class="page p podshiv">
 			<div class="hat">
 
 
