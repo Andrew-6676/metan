@@ -46,7 +46,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 
 		$criteria = new CDbCriteria;
 		// $criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
-		$criteria->order ='doc_date desc, doc_num desc';
+		$criteria->order ='doc_date desc, doc_num desc, docdata_id';
 		$criteria->addCondition('id_doctype = 2');
 		$criteria->addCondition('id_operation <> 54');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);

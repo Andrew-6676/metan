@@ -16,7 +16,7 @@ class printDeliverynoteAction extends CAction   /*---- PrintController ----*/
 	    $rec_doc_data = Documentdata::model()->with('idGoods')->findAll(
 		    array(
 			    'condition'=>'id_doc='.$_GET["id"],
-		       // 'order' => 'doc_date desc, doc_num desc'
+		        'order' => 'docdata_id'
             )
 	    );
 
