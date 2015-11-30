@@ -225,6 +225,7 @@ function searchForm () {
 		        				// формируем строку таблицы из списка полей, переданных в конструтор формы
 		        			var row = '';
 					        var minus = '';
+					        var nol = '';
 					        for (val of sForm.fields) {
 						        var tmp = 'item.'+val;
 						        var cl = '';
@@ -237,11 +238,15 @@ function searchForm () {
 						        if (eval(tmp)<0) {
 							        //console.log(eval(tmp));
 							        minus = 'minus';
-						        };
+						        }
+						        if (eval(tmp)==0) {
+							        //console.log(eval(tmp));
+							        nol = 'nol';
+						        }
 							}
 
 					        // выводим строку на экран
-						        $('.search_list').append('<tr class="search_item visible '+minus+'" key='+item.id + '>'
+						        $('.search_list').append('<tr class="search_item visible '+minus+' '+nol+'" key='+item.id + '>'
 						        + '<td class="char">' + item.id + '</td>'
 						        + row
 						        +'</tr>');

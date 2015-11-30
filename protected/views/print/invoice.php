@@ -179,13 +179,13 @@ $this->addCSS('print/report.css');
 			$tr .= '<td class="no_border">';
 			$tr .= '</td>';
 			$tr .= '<td class="no_border r">';
-			$tr .= number_format($data['rec_doc']->sum_cost, '0', '.', ' ');
+			$tr .= number_format($data['rec_doc']->sum_with_markup, '0', '.', ' ');
 			$tr .= '</td>';
 			$tr .= '<td class="no_border">';
 
 			$tr .= '</td>';
 			$tr .= '<td class="no_border r">';
-			$tr .=      number_format($data['rec_doc']->sum_vat, '0', '.', ' ');
+			$tr .=      number_format($data['rec_doc']->sum_vat2, '0', '.', ' ');
 			$tr .= '</td>';
 			$tr .= '<td class="no_border">';
 			$tr .= '</td>';

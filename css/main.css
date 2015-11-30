@@ -176,7 +176,7 @@ body {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c2dbef+0,a7cff0+33,a7cff0+66,c2dbef+100 */
 	/*background: -webkit-gradient(linear, left top, right top, color-stop(0%,#c2dbef), color-stop(33%,#a7cff0), color-stop(66%,#a7cff0), color-stop(100%,#c2dbef)); *//* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(left,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%); /* Chrome10+,Safari5.1+ */
-	background: linear-gradient(to right,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%);  W3C
+	background: linear-gradient(to right,  #c2dbef 0%,#a7cff0 33%,#a7cff0 66%,#c2dbef 100%);
 }
 
 /*-------------------------------------------------------------------------------------*/
@@ -441,6 +441,10 @@ td {
 tr.minus, td.minus {
 	color: red;
 	background-color: #ffff00 !important;
+}
+tr.nol, td.nol{
+	color: #FFFFFF;
+	background: #CECECE; !important;
 }
 tr.sel {
 	background-color: #F04E4E !important;
