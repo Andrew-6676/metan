@@ -13,7 +13,7 @@ class printDeliverynoteAction extends CAction   /*---- PrintController ----*/
 //	    }
 
 	    $rec_doc = Document::model()->findByPK($_GET["id"]);
-	    $rec_doc_data = Documentdata::model()->with('idGoods')->findAll('id_doc=:id_doc', array(':id_doc'=>$_GET["id"]));
+	    $rec_doc_data = Documentdata::model()->with('idGoods')->findAll('id_doc=:id_doc', array(':id_doc'=>$_GET["id"]))->order('doc_date desc, doc_num desc');
 
 
 	    $data = array('rec_doc'=>$rec_doc, 'rec_doc_data'=>$rec_doc_data);
