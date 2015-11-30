@@ -81,7 +81,7 @@ class invoiceAction extends CAction   /*---- StoreController ----*/
 //														);
 		$criteria = new CDbCriteria;
 		// $criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
-		$criteria->order = 'doc_date desc, doc_num desc';
+		$criteria->order = 'doc_date desc, doc_num desc, documentdata.id';
 		$criteria->addCondition('id_doctype = 3');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
