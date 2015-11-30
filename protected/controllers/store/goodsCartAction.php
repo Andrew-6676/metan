@@ -7,7 +7,7 @@ class goodsCartAction extends CAction   /*---- StoreController ----*/
 
 			// получаем движение товара
 //		$criteria->order ='id_doctype, id_operation, doc_date, doc_num';
-		$criteria->order = 'doc_date, t.id';
+		$criteria->order = 'doc_date, id_doctype, t.id';
 		$criteria->addCondition('documentdata.id_goods='.$id);
 		$criteria->addCondition('id_doctype<>3');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
