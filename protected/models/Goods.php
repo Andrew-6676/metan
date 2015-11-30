@@ -209,7 +209,7 @@ class Goods extends CActiveRecord
 
 		$criteria = new CDbCriteria;
 		$criteria->addCondition("id_goods=" . $this->id);
-		$criteria->addCondition("idDocument.id_doctype=1");
+		$criteria->addCondition("id_doctype=1");
 
 		$r = Documentdata::model()->with('idDocument')->find($criteria);
 		if ($r) {
