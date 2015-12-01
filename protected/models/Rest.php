@@ -168,7 +168,7 @@ class Rest extends CActiveRecord
 
 		// в предыдущем запросе не учитывалось то, что товар мог был оплачен двумя суммами (часть нал, часть безнал)
 		// часть товара оплаченная налом помечена в поле partof - в количество такой товар считать не надо, цену надо брать из прихода
-		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, COALESCE((select price from {{rest}} where id_goods=gid limit 1), (select price from {{documentdata}} where id_goods=gid limit 1)) as price, sum(quantity)::real as rest
+		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, COALESCE((select price from {{documentdata}} where id_goods=gid limit 1), (select price from {{rest}} where id_goods=gid limit 1)) as price, sum(quantity)::real as rest
 					from (
 						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
 						from vgm_goods g

@@ -446,6 +446,14 @@ tr.nol, td.nol{
 	color: #FFFFFF;
 	background: #CECECE !important;
 }
+tr.nol a, td.nol a{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+tr.nol a:hover, td.nol a:hover{
+	/*color: #00f;*/
+	text-decoration: underline;
+}
 tr.sel {
 	background-color: #F04E4E !important;
 	color: #fff;

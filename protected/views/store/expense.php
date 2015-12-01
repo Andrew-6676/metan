@@ -58,7 +58,7 @@
 			<input type="date" name="expence[doc_date]" placeholder="Дата документа" required value="<?php echo date('Y-m-d', mktime(0,0,0,$d[1],$d[2],$d[0])) ?>"> <!-- pattern="[0-9]{2}\.[0-9]{2}\.[0-9]{4}" -->
 		</div>	<!-- r2 -->
 
-		<div class="<?php if ($mode=='kredit') echo "hidden "; ?> row r3">
+		<div class="<?php if ($mode=='kredit') echo "1hidden "; ?> row r3">
 			<label for="expence[doc_num]">№ документа:</label>
 			<input  name="expence[doc_num]" placeholder="№ документа" value="<?php echo $mode=='kredit'?'-':$doc_num ?>" required >
 		</div>	<!-- r3 -->

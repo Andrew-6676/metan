@@ -384,7 +384,7 @@ $(document).ready(function () {
 	$('.print_doc_button').click(function (event) {
 		var id = $(this).parent().attr('doc_id');
 		// alert('print invoice  '+$('#doc_hat_'+id+' .doc_num').text());
-		window.open(rootFolder + '/print/index?report=Expenceday', '_blank')
+		window.open(rootFolder + '/print/index?report=Expenceday&orient=P&m[]=10&m[]=5&m[]=5&m[]=5&m[]=5&m[]=5', '_blank');
 		event.stopPropagation();    // что бы не обрабатывался onclick нижележащего элемента
 	})
 });      // end document.ready
