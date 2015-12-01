@@ -320,10 +320,10 @@ class importAction extends CAction   /*DataController*/
 						// цикл по записям импортируемой таблицы
 
 			 		while($row = $dbf->readRec()) {
-//					    if ($row['deleted']) {
-////							echo 'deleted';
-////						    continue;
-//						}
+					    if ($row['deleted']) {
+							echo 'deleted';
+						    continue;
+						}
 					    //print_r($dbf->getFields());
 //					    print_r($row);
 //					    echo '<br>'.$i++.')';
