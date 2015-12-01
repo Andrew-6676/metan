@@ -316,7 +316,7 @@ $(document).ready(function () {
 						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/[\s`]/g, ""));
 					} else {
 						//console.log($(el).text());
-						td_dst.eq(i - 1).find('input').val($(el).text().trim().replace(/[\s`]/g, ""));
+						td_dst.eq(i - 1).find('input').val($(el).text().trim());
 					}
 				}
 			})// end each cells

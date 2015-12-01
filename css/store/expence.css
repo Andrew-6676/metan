@@ -58,6 +58,9 @@ input.err {
 	border-radius: 5px 5px 0 0;
 	cursor:  auto;
 }
+.new_contact .req {
+	border: 1px solid #FF0000;
+}
 .new_contact .s {
 	width: 146px;
 }
@@ -141,11 +144,12 @@ input.err {
 }
 
 .new_doc_hat input {
-	border-radius: 5px;
+	border-radius: 3px;
 	border: 1px solid #acacac;
 	padding: 3px 4px;
 	height: 20px;
 	width: 192px;
+	margin-bottom: 2px;
 }
 
 .row {

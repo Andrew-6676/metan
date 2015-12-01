@@ -72,19 +72,19 @@
 				<div class='caption'>Добавить нового потребителя</div>
 				<div id='close_form'></div>
 				<input name='new_contact[id]' class='s' placeholder='Код'>
-				<input name='new_contact[name]' class='l' placeholder='Короткое наименование нового потребителя'>
+				<input name='new_contact[name]' class='l  req' placeholder='Короткое наименование нового потребителя' onblur='$("[name=\"new_contact[fname]\"]").val($(this).val());'>
 				<br>
-				<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя'>
+				<input name='new_contact[fname]' class='l' placeholder='Полное наименование нового потребителя' title="Полное наименование">
 				<br>
-				<input name='new_contact[address]' class='l' placeholder='Адрес'>
+				<input name='new_contact[address]' class='l' placeholder='Адрес' title="Адрес">
 				<br>
-				<input name='new_contact[unn]' class='s' placeholder='УНН'>
-				<input name='new_contact[rs]' class='s' placeholder='Расчётный счёт'>
-				<input name='new_contact[mfo]' class='s' placeholder='МФО'>
-				<input name='new_contact[okpo]' class='s' placeholder='ОКПО'>
+				<input name='new_contact[unn]' class='s req' placeholder='УНН' title="УНН">
+				<input name='new_contact[rs]' class='s req' placeholder='Расчётный счёт' title="Расчётный счёт">
+				<input name='new_contact[mfo]' class='s req' placeholder='МФО' title="МФО">
+				<input name='new_contact[okpo]' class='s' placeholder='ОКПО' title="ОКПО">
 				<br>
-				<input name='new_contact[bank]' class='l' placeholder='Банк'>
-				<input name='new_contact[agreement]' class='l' placeholder='Договор'>
+				<input name='new_contact[bank]' class='l' placeholder='Банк' title="Банк">
+				<input name='new_contact[agreement]' class='l' placeholder='Договор' title="Договор">
 				<div class='buttons'>
 					<button id='add_new_contact'>Сохранить</button>
 					<button id='cancel_new_contact'>Отмена</button>
