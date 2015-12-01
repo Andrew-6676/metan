@@ -270,7 +270,7 @@ function OnResizeElement(element, handler, time){
         _destructor();
     };
     _constructor();
-};
+}
 
 String.prototype.pad = function(l, s, t)
 {
@@ -286,13 +286,13 @@ String.prototype.pad = function(l, s, t)
 		return s;
 	}
 	else return this;
-}
+};
 
 //повторить заданную строку n раз
 String.prototype.repeat = function(n)
 {
 	return new Array( n + 1 ).join(this);
-}
+};
 
 function loadDaySvod (box) {
 	$(box).load(

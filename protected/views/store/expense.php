@@ -29,7 +29,7 @@
 				// print_r($list);
 				// echo '</pre>';
 				echo CHtml::dropDownList('expence[id_operation]',
-										  $mode=='kredit'?'54':'51',
+										  $mode=='kredit'?'54':'52',
 					              		  $list,
 					              		  array('class'=>'ddd')
 					              		 // array('empty' => '(Select a category')

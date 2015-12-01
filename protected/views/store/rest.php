@@ -107,8 +107,9 @@ $this->addJS('jquery-ui.js');
 			array(
 				'name'=>'rest',
 				'header'=>'Остаток',
-				'htmlOptions' => array('class'=>'r')
-			)
+				'htmlOptions' => array('class'=>'r'),
+				'value' => '$data[\'inv\'] ? $data[\'rest\']." (".$data[\'inv\'].")" : $data[\'rest\']',
+			),
 		)
 	));
 	// условие ? значение1 : значение2
