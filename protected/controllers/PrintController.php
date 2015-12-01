@@ -15,7 +15,7 @@ class PrintController extends Controller {
 		if (isset($_GET['m'])) {
 			$m = $_GET['m'];
 		} else {
-			$m = array(10,5,5,5,0,0);
+			$m = array(20,5,5,5,0,0);
 		}
 		$printer = new PrintPDF('A4', $orient, $m);
 		// echo $report;

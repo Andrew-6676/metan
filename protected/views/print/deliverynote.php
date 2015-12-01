@@ -97,11 +97,12 @@ $inp_data = $_GET['form_ttn'];
 						<td></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=35 align="center">
 							<?php
-								if ($inp_data['vladelec']=='b') {
-									echo $data['rec_doc']->contact->fname;
-								} else {
-									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
-								}
+								echo $inp_data['vladelec']
+//								if ($inp_data['vladelec']=='b') {
+//									echo $data['rec_doc']->contact->fname;
+//								} else {
+//									echo Store::model()->findByPk($_GET['id_store'])->storepassports[0]->name;
+//								}
 							?>
 						</td>
 						<td><br></td>
@@ -135,6 +136,7 @@ $inp_data = $_GET['form_ttn'];
 						<td><br></td>
 						<td style="border-bottom: 1px solid #1f1c1b" colspan=117 align="center">
 							<?php
+								echo $inp_data['zakazchik'];
 //								if ($inp_data['zakazchik']=='b') {
 //									echo $data['rec_doc']->contact->fname . ', ' . $data['rec_doc']->contact->address;
 //								} else {
