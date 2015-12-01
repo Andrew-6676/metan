@@ -142,7 +142,7 @@ function save_row (row) {
 					*
 					(parseFloat($(row).find('[fname=price]').attr('val')))
 				);
-			$('.vsego span').text(String(sum).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0));
+			$('.vsego span').text(String(sum).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ').pad(11,' ',0));
 			//console.log(($(row).find('[fname=price]').text()));
 
 	 	   	// записать новые значения в тег val

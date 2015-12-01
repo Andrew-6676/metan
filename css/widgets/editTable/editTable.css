@@ -119,3 +119,18 @@ td[ro=false] {
 .del_row:hover {
 	background-position: 0 100%;
 }
+
+table th {
+	color: white;
+	background: url("../../../assets/15588139/gridview/bg.gif") repeat-x scroll left top white;
+	text-align: center;
+	height: 25px;
+	border: 1px solid #fff;
+}
+table th a {
+	color: #eee;
+	text-decoration: none;
+}
+table th a:hover {
+	color: #fff;
+}
