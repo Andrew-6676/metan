@@ -225,3 +225,10 @@ tr.empty {
 	font-size: 10px;
 	/*display: block;*/
 }
+.child_row.visible>td {
+	border-width: 1px;
+}
+.child_row.visible>td:hover, .child_row.visible>td:hover .doc_hat>td {
+	border-color: #FF0000;
+	/*border-width: 1px;*/
+}

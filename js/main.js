@@ -312,7 +312,8 @@ function showGoodsCart(id) {
 		'url':'/metan_0.1/store/goodsCart/'+id,
 		'cache':false,
 		'success':function(html){
-					jQuery("#mainDialogArea").html(html)
+					jQuery("#mainDialogArea").html(html);
+					$('.ui-dialog-title').html($('h3.capt').html());
 				}
 	});
 	return false;

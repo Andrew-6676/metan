@@ -136,6 +136,20 @@ class Document extends CActiveRecord
 		));
 	}
 
+	public function defaultScope()
+	{
+		return array(
+				'condition'=>"active",
+//				'order'=>"username ASC",
+		);
+	}
+
+//	public function beforeFind(){
+//		$userCriteria = new CDbCriteria;
+//		$userCriteria->addCondition('active');
+//		$this->getDbCriteria()->mergeWith($userCriteria);
+//		parent::beforeFind();
+//	}
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

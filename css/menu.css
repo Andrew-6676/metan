@@ -73,7 +73,7 @@ nav {
 }
 
 #main_menu > ul > li.active > a, #main_menu > ul > li.active > a:hover {
-	/*color: #F5FF83;*/
+	color: #fff;
 	background-color: #585858;
 	text-decoration: none;
 	/*border-top: 2px solid gray;
@@ -128,7 +128,7 @@ nav {
 	left: 0;
 	/*top: 35px;*/
 	/*background: #CEECF5;*/
-	background-color: #FFFBB1;
+	background-color: #fff;
 	min-width: 160%;
 	box-shadow: 2px 8px 30px 3px black;
 	transition: all .3s ease-in-out;
@@ -148,7 +148,7 @@ nav {
 	padding: 0 4px 0 10px;
 	/*padding-right: 4px;*/
 	border-radius: 5px;
-	border-bottom: 1px solid #bcbcbc;
+	border-bottom: 1px dotted #bcbcbc;
 }
 
 .sub_menu > li > a {
@@ -168,18 +168,18 @@ nav {
 .sub_menu > li:hover {
 	text-decoration: none;
 	/*padding-left: 3px;*/
-	box-shadow: 2px 2px 20px 5px #3A3C3D;
+	/*box-shadow: 2px 2px 20px 5px #3A3C3D;*/
 }
 
 .sub_menu > li:hover {
-	transition: 0.2s;
-	padding-left: 15px;
-	padding-right: 0px;
-	background-color: #FFF;
+	/*transition: 0.2s;*/
+	/*padding-left: 15px;*/
+	/*padding-right: 0px;*/
+	background-color: #616161;
 	color: #000;
 }
 
 .sub_menu > li:hover a {
-	color: #000;
+	color: #fff;
 	/*text-decoration: underline;*/
 }

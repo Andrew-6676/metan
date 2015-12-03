@@ -177,7 +177,7 @@ class Rest extends CActiveRecord
 						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
 						from vgm_goods g
 						  inner join vgm_documentdata dd on g.id=dd.id_goods and dd.partof<0
-						  inner join vgm_document d on d.id=dd.id_doc
+						  inner join vgm_document d on d.id=dd.id_doc and d.active
 						  inner join vgm_operation o on o.id=d.id_operation
 						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
 						group by gid, gname, cost
@@ -213,7 +213,7 @@ class Rest extends CActiveRecord
 							select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
 							from vgm_goods g
 								inner join vgm_documentdata dd on g.id=dd.id_goods
-								inner join vgm_document d on d.id=dd.id_doc
+								inner join vgm_document d on d.id=dd.id_doc and d.active
 								inner join vgm_operation o on o.id=d.id_operation
 							where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
 							group by gid, gname, cost, price

@@ -15,7 +15,7 @@ $dn = '';
 
 
 ?>
-<h3 class="capt">
+<h3 class="capt hidden" >
 	<?php
 		echo $data['goods']->name;
 		echo ' ('.$data['goods']->id.')';
