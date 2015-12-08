@@ -189,6 +189,7 @@
 //	 						'data'=>$data,
 //	 		                ));
 
+	// если накладные
 if ($mode == 'expence'){
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
@@ -216,12 +217,12 @@ if ($mode == 'expence'){
 		),
 		'buttons'=>array('print'=>'Печать накладной','del'=>'Удалить накладную','edit'=>'Изменить накладную'),
 	));
-} else {
+} else {    // е сли кредит
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
 		//'mode'=>'one_to_many',
 		'head'=>array(
-//			'doc_num'=>'Документ №',
+			'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
 			'contact.name'=>'Покупатель',
 			'operation.name'=>'Вид расхода',

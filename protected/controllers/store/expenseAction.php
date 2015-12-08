@@ -84,11 +84,12 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		function _contact($contact){
 			if (is_array($contact)) {
 				$c = new Contact();
-				$c->name = $contact['fio'];
-				$c->fname= $contact['fio'];
-				$c->unn = '-';
-				$c->rs  = '-';
-				$c->mfo = '-';
+				$c->name   = $contact['fio'];
+				$c->fname  = $contact['fio'];
+				$c->unn    = '-';
+				$c->rs     = '-';
+				$c->mfo    = '-';
+				$c->parent = 3;
 				if ($c->save()) {
 					return $c->id;
 				} else {

@@ -80,11 +80,16 @@ $(document).ready(function () {
 			source: function (request, response) {
 				//response функция для обработки ответа
 				//alert(request.term); // - строка поиска;
+				var p = 2;
+				if ($('[name = "expence[id_operation]"]').val() == 54) {
+					p = 3;
+				}
+
 				$.ajax({
 					url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetContactName",
 					type: 'GET',
 					dataType: "json",
-					data: 'term=' + request.term + '&f=name',
+					data: 'term=' + request.term + '&f=name&p='+p,
 					success: function (data) {
 						//alert((data));
 						response(
@@ -113,11 +118,17 @@ $(document).ready(function () {
 		$('#contact_name').keyup(function (event) {
 			if (event.keyCode == 118) {
 				// alert('Поиск');
+				var action = "GetContactName";
+				var p = 2;
+				if ($('[name = "expence[id_operation]"]').val() == 54) {
+					p = 3;
+				}
 				search_data1 = {
 					capt: "Поиск клиента",
-					action: "GetContactName",
+					action: action,
 					fields: ["name", "unn"],
 					field: 'name',
+					p: p,
 					key: "id",
 					width: 800,
 					sender: 'contact_name',

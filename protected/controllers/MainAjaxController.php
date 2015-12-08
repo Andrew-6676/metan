@@ -250,10 +250,13 @@ class MainAjaxController extends CController
 /*--------------------------------------------------------------------------------------------------------------------*/
 	public function ActionGetContactName($term, $f) {
 		$connection = Yii::app()->db;
-
+		$p=2;
+		if (isset($_GET['p'])) {
+			$p=$_GET['p'];
+		}
 		$sql = "select id, trim(name) as name, trim(fname) as fname, trim(unn) as unn
 				from {{contact}}
-				where upper(".$f."::text) like upper('".$term."%') and parent=2
+				where upper(".$f."::text) like upper('".$term."%') and parent=".$p."
 				order by 2";
 		// echo '<pre>'.$sql_rest.'</pre>';
 		$res = $connection->createCommand($sql)->queryAll();

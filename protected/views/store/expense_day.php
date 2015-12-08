@@ -10,7 +10,17 @@ $this->addJS('store/expence_day.js');
 $this->addJS('jquery-ui.js');
 
 // Utils::print_r($data[0]->idOperation->name);
-//Utils::print_r($tmp);
+// 
+$oper = array(
+		51=>'Наличные',
+		//52=>'',
+		//53=>'',
+		//54=>'kredit_30.png',
+		//55=>'',
+		56=>'Карта',
+);
+//Utils::print_r($oper);
+
 ?>
 
 <div id="form">
@@ -67,14 +77,10 @@ $this->addJS('jquery-ui.js');
 			<tr id="row_1" class="new_goods_row">
 				<td>
 					<?php
-					$list = CHtml::listData($oper,
-						'id', 'name');
-					// echo '<pre>';
-					// print_r($list);
-					// echo '</pre>';
+					//$list = CHtml::listData($oper, 'id', 'name');
 					echo CHtml::dropDownList('expence[id_operation]',
 						'51',
-						$list,
+						$oper,
 						array('class' => 'id_operation')
 					// array('empty' => '(Select a category')
 					);

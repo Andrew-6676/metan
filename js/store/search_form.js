@@ -215,7 +215,7 @@ function searchForm () {
           		url: 'http://'+document.location.host + rootFolder + "/MainAjax/"+param.action,
           		type:'GET',
           		dataType: "json",
-          		data: 'term='+''+'&f='+param.field, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
+          		data: 'term='+''+'&f='+param.field+'&p='+param.p, /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
 		        success: function(data) {
 		        	// alert((data));
 		        		// формируем массив из найденых в БД строк
