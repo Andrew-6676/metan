@@ -81,6 +81,24 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 /*-----------------------------------------------------------------------------------*/
 /*---------------------- Добавление нового расхода в БД -----------------------------*/
 	private function addExpense($data) {
+		function _contact($contact){
+			if (is_array($contact)) {
+				$c = new Contact();
+				$c->name = $contact['fio'];
+				$c->fname= $contact['fio'];
+				$c->unn = '-';
+				$c->rs  = '-';
+				$c->mfo = '-';
+				if ($c->save()) {
+					return $c->id;
+				} else {
+					return 0;
+				}
+			} else {
+				return $contact;
+			}
+		}
+
 		$res = array();
 		$new_doc = false;
 
@@ -135,7 +153,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			$document->doc_num      = $doc['doc_num'];
 			$document->doc_num2     = intval($doc['doc_num']);
 			$document->doc_date     = $doc['doc_date'];
-			$document->id_contact   = $doc['id_contact'];
+			$document->id_contact   = _contact($doc['id_contact']);
 			$document->id_storage   = 2;
 			$document->reason       = '';
 			$document->id_operation = $doc['id_operation'];
@@ -251,7 +269,10 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 			echo json_encode($res);
 		}
 		// Yii::app()->db->emulatePrepare = true;
+
+
 	}	// end addExpense
+
 
 /*----------------------- Удалить расход --------------------------------------------------*/
 //	private function delExpense($id) {

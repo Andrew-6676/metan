@@ -416,8 +416,15 @@ $(document).ready(function () {
 		//alert('сохранить расход');
 		//alert(document.location.host);
 		//alert($('[name = "expence[id_operation]"]').val());
-
-		if ($('#contact_name').attr('cid') == '') {
+			// если не кредит и потребитель не выбран из справочника - ошибка
+		if ($('[name = "expence[id_operation]"]').val() != 54 && $('#contact_name').attr('cid') == '') {
+			alert('Не указан потребитель!');
+			$('#contact_name').focus();
+			err = true;
+			return false;
+		}
+			// если кредит и не введено ФИО потребителя (или не выбрано из справочника)
+		if ($('[name = "expence[id_operation]"]').val() == 54 && $('#contact_name').val() == '') {
 			alert('Не указан потребитель!');
 			$('#contact_name').focus();
 			err = true;
@@ -476,7 +483,20 @@ $(document).ready(function () {
 		// массив с аттрибутами документа (шапка)
 		arr['doc_id'] = $('#new_goods_table').attr('doc_id');
 		arr['id_operation'] = $('[name = "expence[id_operation]"]').val();
-		arr['id_contact'] = $('#contact_name').attr('cid');
+			// если кредит
+
+
+		if ($('[name = "expence[id_operation]"]').val() == 54) {
+			if ($('#contact_name').attr('cid') == '') {
+				arr['id_contact'] = {"id":-1, "fio": $('#contact_name').val()}
+			} else {
+				arr['id_contact'] = $('#contact_name').attr('cid');
+			}
+		} else {
+			arr['id_contact'] = $('#contact_name').attr('cid');
+		}
+
+
 		arr['doc_date'] = $('[name = "expence[doc_date]"]').val();
 		arr['doc_num'] = $('[name = "expence[doc_num]"]').val();
 		arr['doc_for'] = $('[name = "for"]').val();
