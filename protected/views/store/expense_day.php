@@ -10,7 +10,7 @@ $this->addJS('store/expence_day.js');
 $this->addJS('jquery-ui.js');
 
 // Utils::print_r($data[0]->idOperation->name);
-// 
+//
 $oper = array(
 		51=>'Наличные',
 		//52=>'',
