@@ -49,6 +49,21 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 																'condition'=>'id_doctype=1 and operation.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
 																'order'=>'doc_date desc, doc_num desc, documentdata.id')
 																);
+
+	   // echo '<pre>'.$sql_rest.'</pre>';
+		$criteria = new CDbCriteria;
+		$criteria->select = 'sum(price*quantity) as price';
+		$criteria->join = 'inner join {{document}} on {{document}}.id=t.id_doc';
+		$criteria->addCondition('id_doctype = 1');
+		$criteria->addCondition('id_operation > 0');
+		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
+		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
+
+
+		$sum = Documentdata::model()->find($criteria);
+
+
 		// echo '<pre>';
 		// print_r($res[0]);
 		// echo '</pre>';
@@ -58,7 +73,7 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 		// $contact = $res[2]->idContact;
 		// print_r($contact->name);
 		$this->controller->pageTitle = 'Приход';
-		$this->controller->render('receipt', array('data'=>$res));
+		$this->controller->render('receipt', array('data'=>$res, 'sum'=>$sum));
 	}
 /*-----------------------------------------------------------------------------------------*/
 /*----------------------- Удалить приход --------------------------------------------------*/

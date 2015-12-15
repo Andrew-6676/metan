@@ -111,6 +111,8 @@
 	?>
 	г.</b></u>
 	<?php echo ' (документов: <span class="counter">'.count($data).')</span>'; ?>
+	<br>
+	<?php echo ' Сумма: <b>'.number_format(round($sum->price), '0', '.', '&nbsp;').'</b>'; ?>
 </div>
 
 <div class="data">

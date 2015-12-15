@@ -35,6 +35,18 @@ class returnAction extends CAction   /*---- StoreController ----*/
 			// список операций
 		$oper = Operation::model()->findAll(array('condition'=>'operation>0',
 												  'order'=>'name'));
+
+		$criteria = new CDbCriteria;
+		$criteria->select = 'sum(price*quantity) as price';
+		$criteria->join = 'inner join {{document}} on {{document}}.id=t.id_doc';
+		$criteria->addCondition('id_doctype = 4');
+		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
+		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
+		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');
+
+
+		$sum = Documentdata::model()->find($criteria);
+
 			// следующий номер документа
 		$sql = 'SELECT max(doc_num2)::integer+1 FROM {{document}} d where id_doctype=4 and id_store='.Yii::app()->session['id_store'];
 		$doc_num = Yii::app()->db->createCommand($sql)->queryScalar();
@@ -43,7 +55,8 @@ class returnAction extends CAction   /*---- StoreController ----*/
 		$this->controller->render('return', array(
 									'data'=>$res,
 									'oper'=>$oper,
-									'doc_num'=>$doc_num
+									'doc_num'=>$doc_num,
+									'sum' => $sum
 								 ));
 	}
 
