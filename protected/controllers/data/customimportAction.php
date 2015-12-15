@@ -13,11 +13,11 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
 		echo "\nТовары:\n";
 //
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd7/f160115.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd8/f160115.dbf';
 		$dbf2 = new dbf($dbf_path );
 
 		if ($dbf2) {
@@ -28,17 +28,17 @@ exit;
 			}
 		}
 
-		exit;
+		//exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd7/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd8/f3001_15.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] < '20151121') {
+				if ($row['DATA'] != '20151101') {
 					echo "({$row['DATA']})";
 					continue;
 				}
@@ -46,7 +46,7 @@ exit;
 				switch ($row['KO']) {
 					case '56':
 							//карта
-						store_56($row);
+						//store_56($row);
 						break;
 					case '54':
 							//кредит
@@ -58,15 +58,15 @@ exit;
 //						break;
 					case '51':
 //							// наличка
-						store_51($row); //готово
+						//store_51($row); //готово
 						break;
-//					case '00':
+					case '00':
 							// остатки
-//						store_00($row); //готово
-//						break;
+						store_00($row); //готово
+						break;
 					case '02':
 							// возврат
-						$this->store_02($row); //готово
+						//$this->store_02($row); //готово
 						break;
 					default:
 						break;
@@ -259,11 +259,27 @@ function add_goods($row) {
 	}
 
 	$gch = Goods::model()->findByPK($row['KM']);
+		// если товар уже есть в справочнике
 	if ($gch) {
-		if (trim($gch->id_3torg)=='0') {
+		//if (trim($gch->id_3torg)=='0')
+		{
 			echo "\nТакой товар уже есть!\n";
-			$gch->id_3torg=trim($row['GR']);
-			//$gch->save();
+			//$gch->id_3torg=trim($row['GR']);
+
+			$reg = '/(\d{2})(\d{2})(\d{2})(\d{3})/';
+			preg_match($reg, $row['GR'], $arr);
+			array_shift($arr);
+
+			echo $row['KM'].'---';
+			if (count($arr)>0 && $arr[3]=='000') {
+				array_pop($arr);
+			}
+			echo implode('.',$arr)."\n";
+
+			$gch->id_3torg  = implode('.',$arr);
+
+
+			$gch->save();
 			echo $row['KM']." -- ".$gch->id_3torg."---".$row['GR']."\n";
 		}
 		return;
@@ -438,8 +454,8 @@ function store_00($row) {
 
 		$doc->quantity = $row['KL'];
 		$doc->cost = round($row['ZENO']);
-		$doc->markup = $row['NAZ'];
-		$doc->vat = $row['CO'];
+		$doc->vat = $row['NAZ'];
+		$doc->markup = $row['CO'];
 
 		$doc->price = $row['ZENR'];;
 
