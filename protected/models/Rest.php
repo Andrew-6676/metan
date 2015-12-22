@@ -170,7 +170,8 @@ class Rest extends CActiveRecord
 		// часть товара оплаченная налом помечена в поле partof - в количество такой товар считать не надо, цену надо брать из прихода
 		//TODO: цену выбрать только из прихода и остатков (никаких счёт-фактур)
 		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat,
-						COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} where id_goods=gid order by id desc limit 1)) as price, sum(quantity)::real as rest,
+						COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price,
+						 sum(quantity)::real as rest,
 						(select COALESCE(sum(quantity), 0)
 						from vgm_documentdata dd
 							inner join vgm_document d on d.id=dd.id_doc
