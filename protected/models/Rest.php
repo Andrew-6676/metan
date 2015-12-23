@@ -207,6 +207,125 @@ class Rest extends CActiveRecord
 		return $res;
 	}
 /*--------------------------------------------------------------------------------------------------------------------*/
+	public static function closeMonth($m, $y, $store) {
+
+		$connection = Yii::app()->db;
+		$o = '';
+		$o1 = '';
+		// добавлять ли 0 перед номером месяца
+		if ($m < 9) {
+			$o = '0';
+		}
+		if ($m < 10) {
+			$o1 = '0';
+		}
+		// дата нового месяца
+		if ($_POST['month'] < 12) {
+			$date = $y.'-'.$o.($m+1).'-01';
+		} else {
+			$date = ($y+1).'-01-01';
+		}
+		// месяц из которого брать
+		$month = $y.'-'.$o1.$m.'-%';
+
+		$sql_del_rest = "delete from {{rest}} where rest_date='".$date."' and id_store=".Yii::app()->session['id_store'];
+			// предыдущий запрос терял повторяющиеся строки
+		$store = Yii::app()->session['id_store'];
+
+		$sql_rest = "select	".$store." as id_store,
+						gid as id,
+						'".$date."' as rest_date,
+						sum(quantity)::real as rest,
+						max(cost) as cost,
+						max(markup) as markup,
+						max(vat) as vat,
+						COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price
+
+					from (
+						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
+						from vgm_goods g
+						  inner join vgm_documentdata dd on g.id=dd.id_goods and dd.partof<0
+						  inner join vgm_document d on d.id=dd.id_doc and d.active
+						  inner join vgm_operation o on o.id=d.id_operation
+						where d.doc_date::text like '".$month."' and id_store=".$store."
+						group by gid, gname, cost
+
+							union
+
+						select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, 'r' as t
+						from vgm_goods g
+						  inner join vgm_rest r on g.id=r.id_goods
+						where r.rest_date='".substr($month,0,7)."-01' and id_store=".$store."
+					) as motion
+					group by gid, gname, price
+					having sum(quantity)!=0
+					order by 1, 2";
+
+		$sql_add_rest ="insert into {{rest}} (id_store, id_goods, rest_date, quantity, cost, markup, vat, price)"
+							.$sql_rest;
+								/*."select
+									".Yii::app()->session['id_store']." as id_store,
+									gid as id,
+									'".$date."' as rest_date,
+									sum(quantity)::real as quantity,
+									max(cost) as cost,
+									max(markup) as markup,
+									max(vat) as vat,
+									price
+								from (
+									select g.id as gid, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
+									from vgm_goods g
+									  inner join vgm_documentdata dd on g.id=dd.id_goods
+									  inner join vgm_document d on d.id=dd.id_doc
+									  inner join vgm_operation o on o.id=d.id_operation
+									where d.doc_date<='".$date."' and d.doc_date::text like'".$month."' and id_store=".$store."
+									group by gid, cost, price
+
+										union
+
+									select g.id as gid, r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
+									from vgm_goods g
+									  inner join vgm_rest r on g.id=r.id_goods
+									where r.rest_date::text like '".$month."' and id_store=".$store."
+									     ) as motion
+									group by gid, price
+									having sum(quantity)!=0
+									order by 1";*/
+
+		$sql_kassa_del = "delete from {{kassa}} where kassa_date='".$date."' and id_store=".Yii::app()->session['id_store'];
+
+		$sql_kassa_add = "insert into vgm_kassa (kassa_date, sum, id_store)
+									(select '".$date."'::date, sum, id_store
+									from vgm_kassa
+									where id_store=".Yii::app()->session['id_store']." and kassa_date::text like '".$month."'
+									order by kassa_date desc
+									limit 1)";
+		// echo '<pre>'.$sql_add_rest.'</pre>';
+
+		$res = array('status'=>'unknown', 'data'=>array());
+
+		$transaction = $connection->beginTransaction();
+		try {
+			$connection->createCommand($sql_del_rest)->execute();
+			$connection->createCommand($sql_add_rest)->execute();
+			$connection->createCommand($sql_kassa_del)->execute();
+			$connection->createCommand($sql_kassa_add)->execute();
+			$transaction->commit();
+			$res['status'] = 'ok';
+			$res['data']['post'] = $_POST;
+			$res['data']['sql1'] = $sql_del_rest;
+			$res['data']['sql2'] = $sql_add_rest;
+			$res['data']['sql3'] = $sql_kassa_del;
+			$res['data']['sql4'] = $sql_kassa_add;
+		} catch (Exception $e) {
+			$transaction->rollback();
+			$res['status'] = 'error';
+			$res['data']['err'] = $e->errorInfo;
+		}
+
+		return $res;
+	}
+/*--------------------------------------------------------------------------------------------------------------------*/
 	public static function get_Rest($date, $store){
 
 		$connection = Yii::app()->db;
