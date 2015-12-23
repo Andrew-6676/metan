@@ -10,6 +10,7 @@ class restCloseAction extends CAction   /*---- StoreController ----*/
 
 		 	$connection = Yii::app()->db;
 		 	$o = '';
+			$o1 = '';
 		 		// добавлять ли 0 перед номером месяца
 		 	if ($_POST['month'] < 9) {
 		 		$o = '0';
