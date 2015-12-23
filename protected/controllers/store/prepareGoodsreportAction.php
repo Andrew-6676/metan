@@ -28,7 +28,7 @@ class prepareGoodsreportAction extends CAction   /*---- storeController ----*/
 	}
 
 
-	public function getGoodsReport($params) {
+	//public function getGoodsReport($params) {
 
 		//http://localhost/metan_0.1/MainAjax/tovRep?from=2015-07-01&to=2015-07-22
 
@@ -130,7 +130,7 @@ class prepareGoodsreportAction extends CAction   /*---- storeController ----*/
 //		);
 //
 //		echo json_encode($res);
-	}
+//	}
 
 
 

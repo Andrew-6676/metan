@@ -64,6 +64,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['day']['sum'] = 0;
 		$json['expence']['day']['data'] = array();
 		$json['expence']['karta']['sum'] = 0;
+		$json['expence']['check']['sum'] = 0;
 		$json['expence']['kredit']['sum'] = 0;
 		$json['expence']['including'][-1] = 0;
 		$json['expence']['including'][1] = 0;
@@ -97,6 +98,14 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 							);
 							$json['expence']['karta']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+							break;
+						case 53: // чеками
+							$json['expence']['check']['data'][] = array(
+								'date' => $row_d->doc_date,
+								//'kart_num' => $row_d->docaddition ? $row_d->docaddition->payment_order : 0,
+								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
+							);
+							$json['expence']['check']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							break;
 						case 54: // кредит
 							$json['expence']['kredit']['data'][] = array(

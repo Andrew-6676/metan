@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-//Utils::print_r($data);
+Utils::print_r($data);
 //exit;
 $this->addCSS('print/report.css');
 
@@ -516,6 +516,63 @@ kred:
 					</tr>
 				</table>
 			<?php
+			}
+			?>
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+<!-- ------------------------------------По чекам--- --------------------------------------------------------------- -->
+			<?php
+			$docs = $expence['check'];
+			//Utils::print_r($docs);
+			//exit;
+			if ($docs['sum']>0) {
+				?>
+
+				<div class="sub_title">
+					Продажа чеками
+				</div>
+
+
+				<table>
+					<thead>
+					<tr>
+						<th>Дата</th>
+						<th></th>
+						<!--			<th>Поставщик</th>-->
+						<th>Сумма</th>
+					</tr>
+					</thead>
+					<?php
+					$s = 0;
+					foreach ($docs['data'] as $doc) {
+						//		echo $doc['head']['num'].'<br>';
+						//		Utils::print_r($doc);
+						$tr = '<tr>';
+						$tr .= '<td>';
+						$tr .= Utils::format_date($doc['date']);
+						$tr .= '</td>';
+						//			$tr .=   '<td>';
+						////			$tr .=      $doc['kart_num'];
+						//			$tr .=   '</td>';
+						$tr .= '<td>';
+						$tr .=      $doc['contact'];
+						$tr .= '</td>';
+						$tr .= '<td class="r">';
+						$tr .= number_format($doc['sum'], '0', '.', ' ');
+						$tr .= '</td>';
+						$tr .= '</tr>';
+						$s += $doc['sum'];
+						echo $tr;
+					}
+					$total -= $s;
+					$itogo_r += $s;
+
+					?>
+					<tr>
+						<td colspan="2" class="no_border itog">Итого по данной операции:</td>
+						<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+					</tr>
+				</table>
+				<?php
 			}
 			?>
 <!-- --------------------------------------------------------------------------------------------------------------- -->

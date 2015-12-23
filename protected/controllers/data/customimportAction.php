@@ -13,22 +13,22 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
 		echo "\nТовары:\n";
-//
-//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd8/f160115.dbf';
-//		$dbf2 = new dbf($dbf_path );
-//
-//		if ($dbf2) {
-//			while ($row = $dbf2->readRec()) {   // готово
-//				//if ($row['KM'] =='41930577') {
-//					add_goods($row);
-//				//}
-//			}
-//		}
 
-		//exit;
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd9/f160115.dbf';
+		$dbf2 = new dbf($dbf_path );
+
+		if ($dbf2) {
+			while ($row = $dbf2->readRec()) {   // готово
+				//if ($row['KM'] =='41930577') {
+					add_goods($row);
+				//}
+			}
+		}
+
+		exit;
 
 		echo "\nДокументы:\n";
 

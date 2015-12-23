@@ -228,9 +228,9 @@ class Rest extends CActiveRecord
 		// месяц из которого брать
 		$month = $y.'-'.$o1.$m.'-%';
 
-		$sql_del_rest = "delete from {{rest}} where rest_date='".$date."' and id_store=".Yii::app()->session['id_store'];
-			// предыдущий запрос терял повторяющиеся строки
 		$store = Yii::app()->session['id_store'];
+		$sql_del_rest = "delete from {{rest}} where rest_date='".$date."' and id_store=".$store;
+		// предыдущий запрос терял повторяющиеся строки
 
 		$sql_rest = "select	".$store." as id_store,
 						gid as id,
