@@ -48,13 +48,13 @@ $rec_doc_data = $data['details'];
 						<div class="producer">
 							<?php
 								if ($row->idGoods->producer) {
-									echo "$sl Производитель: ".$row->idGoods->producer;
+									echo "Производитель: ".$row->idGoods->producer;
 								}
 							?>
 						</div>
 					</div>
 
-					
+
 					<?php
 
 					if (++$i%6==0) {
