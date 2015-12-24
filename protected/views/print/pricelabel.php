@@ -57,8 +57,9 @@ $rec_doc_data = $data['details'];
 
 					<?php
 
-					if (++$i==6) {
-						echo '<div style="page-break-after: always;"></div>';
+					if (++$i%6==0) {
+						echo '<div class="pbreak" style="page-break-after: always;"></div>';
+						echo "<br>";
 					}
 				}
 				?>

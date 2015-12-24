@@ -1,3 +1,12 @@
+@media print {
+	.pbreak {
+		page-break-before: always;
+	}
+	br {
+		page-break-before: always;
+	}
+}
+/*--------------------------------------------------------------*/
 .p {
 	/*width: 200mm;*/
 }
