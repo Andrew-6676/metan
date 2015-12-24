@@ -22,7 +22,7 @@ $this->menu=array(
 ?>
 
 <div class="goods_wr">
-	<h2>Редактирование <span><?php echo '"'.$model->name.'"'; ?></span></h1>
+	<h2>Редактирование <span><?php echo '"'.$model->name.'"'; ?></span></h2>
 
 	<?php
 	//		// список единиц измерения
