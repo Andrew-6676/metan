@@ -39,14 +39,29 @@
 }
 .name {
 	color: red;
-	font-size: 27px;
 	text-align: center;
+	/*font-size: 27px;*/
 	display: table-cell;
-	height: 135px;
+	height: 162px;
 	vertical-align: middle;
 	font-weight: bold;
 	padding: 0 10px;
 	width: 352px;
+}
+.f30 {
+	font-size: 30px;
+}
+.f32 {
+	font-size: 32px;
+}
+.f38 {
+	font-size: 38px;
+}
+.f45 {
+	font-size: 45px;
+}
+.f55 {
+	font-size: 55px;
 }
 .price span {
 	font-size: 0.5em;
@@ -54,8 +69,8 @@
 .price {
 	text-align: right;
 	position: absolute;
-	bottom: 21px;
-	right: 0px;
+	bottom: 10px;
+	right: -10px;
 	/* width: 100%; */
 	padding: 20px;
 	font-size: 52px;
@@ -63,4 +78,10 @@
 	color: #00f;
 	width: 290px;
 	text-align: center;
+}
+.producer {
+	position: absolute;
+	bottom: 13px;
+	right: 16px;
+
 }

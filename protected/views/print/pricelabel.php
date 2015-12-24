@@ -27,25 +27,36 @@ $rec_doc_data = $data['details'];
 					?>
 
 					<div class="cennik ">
-						<div class="mag">
-							ПУ «Метан»<br>
-						</div>
-						<div class="id_goods">
-							<?php echo $row->idGoods->id; ?>
-						</div>
+						<div class="mag">ПУ «Метан»<br></div>
+						<div class="id_goods"><?php echo $row->idGoods->id; ?></div>
 						<div class="ttn">
 							ТТН № <?php echo $rec_doc->doc_num; ?> ОТ <?php echo Utils::format_date($rec_doc->doc_date); ?>г.
 						</div>
-						<div class="name">
-							<?php echo $row->idGoods->name; ?>
-						</div>
+						<?php
+							$f=27;
+							$sl = mb_strlen(trim($row->idGoods->name));
+
+							if ($sl < 15) $f = 55;
+							if ($sl >= 15 && $sl < 25) $f = 45;
+							if ($sl >= 25 && $sl < 38) $f = 38;
+							if ($sl >= 38 && $sl < 51) $f = 32;
+						?>
+						<div class="name f<?php echo $f; ?> "><?php echo trim($row->idGoods->name); ?></div>
 						<div class="price">
 							<?php echo number_format(($row->price),'0','.'," "); ?><span>РУБ</span>
+						</div>
+						<div class="producer">
+							<?php
+								if ($row->idGoods->producer) {
+									echo "Производитель: ".$row->idGoods->producer;
+								}
+							?>
 						</div>
 					</div>
 
 
 					<?php
+
 					if (++$i==6) {
 						echo '<div style="page-break-after: always;"></div>';
 					}
