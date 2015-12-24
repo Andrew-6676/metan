@@ -419,6 +419,8 @@ $(document).ready(function () {
 		$('#contact_name').attr('cid', '');
 		$('#contact_name').val('');
 
+		$('[name*=payment_order]').val('');
+		$('[name="expence[descr]"]').val('');
 		//alert('cleared');
 	}
 

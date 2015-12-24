@@ -92,6 +92,10 @@ if (Yii::app()->user->isGuest) {
 //echo "returnUrl = "; print_r(Yii::app()->user->returnUrl);  // страница для перенаправления после удачного логина
 ?>
 -->
+
+<a href="#" id="yesterday" onclick="change_date(-1);">< Вчера</a>
+<a href="#" id="tomorrow" onclick="change_date(1);">Завтра ></a>
+
 </header>
 
 <nav id="main_menu">

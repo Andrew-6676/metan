@@ -555,3 +555,17 @@ button.reload:hover {
 	zoom: .8 !important;
 	overflow: visible;
 }
+/*---------------------------------------------------------------------------------------*/
+#yesterday, #tomorrow {
+	display: block;
+	position: absolute;
+	bottom: 0;
+}
+
+#yesterday {
+
+}
+
+#tomorrow {
+	right: 0;
+}

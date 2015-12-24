@@ -26,6 +26,12 @@ class kreditAction extends CAction   /*---- StoreController ----*/
 
 		$res = Document::model()->with('documentdata')->findAll($criteria);
 
+		$criteria->order ='';
+		$criteria->select = 'sum(price*quantity) as price';
+		$criteria->join = 'inner join {{document}} on {{document}}.id=t.id_doc';
+
+		$sum = Documentdata::model()->find($criteria);
+
 		//doc_num2>0 and
 		// список операций
 		$oper = Operation::model()->findAll(array('condition' => 'operation<0',
@@ -43,6 +49,7 @@ class kreditAction extends CAction   /*---- StoreController ----*/
 			'oper' => $oper,
 			'doc_num' => $doc_num,
 			'mode' => 'kredit',
+			'sum'  => $sum
 		));
 	}    // end run
 

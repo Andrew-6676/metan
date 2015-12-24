@@ -6,7 +6,7 @@
  * Time: 11:53
  */
 
-Utils::print_r($data);
+//Utils::print_r($data);
 //exit;
 $this->addCSS('print/report.css');
 
@@ -290,6 +290,8 @@ vozvr:
 
 exp:
 			$itogo_r = 0;
+			$sb = 0;
+			$sv = 0;
 			$docs = $expence['day'];
 			//	Utils::print_r($docs);
 			//	exit;
@@ -323,7 +325,7 @@ exp:
 					$tr .=      number_format($doc['kassa'], '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format(($r + $doc['sum'] - @$doc['return']-$doc['kassa']), '0', '.', ' ');
+					$tr .=      number_format(($r + $doc['sum'] - @$doc['return'] - $doc['kassa']), '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
 					$tr .=      @number_format($doc['return'], '0', '.', ' ');
@@ -332,17 +334,23 @@ exp:
 					$tr .=      number_format($doc['sum'], '0', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '</tr>';
+					echo $tr;
+
+					$sb += $r + $doc['sum'] - $doc['return'] - $doc['kassa'];
+					$sv += $doc['return'];
 
 					$s += $doc['sum'];
 					$r = $doc['kassa'];
 
-					echo $tr;
+
 				}
 				$total -= $s;
 				$itogo_r += $s;
 				?>
 				<tr>
-					<td colspan="4" class="no_border itog">Итого по данной операции:</td>
+					<td colspan="2" class="no_border itog">Итого по данной операции:</td>
+					<td class="r no_border itog"><?php echo number_format($sb, '0', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($sv, '0', '.', ' '); ?></td>
 					<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
 				</tr>
 			</table>
@@ -438,6 +446,14 @@ exp:
 						$itogo_r += $s[count($s) - 1];
 						?>
 						<tr class="itog">
+							<td colspan="3" class="no_border itog">Общий товарооборот:</td>
+							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][1], '0', '.', ' '); ?></td>
+						</tr>
+						<tr class="itog">
+							<td colspan="3" class="no_border itog">Собственные нужды:</td>
+							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][3], '0', '.', ' '); ?></td>
+						</tr>
+						<tr class="itog">
 							<td colspan="3" class="no_border itog">Итого по данной операции:</td>
 							<td class="r no_border itog"><?php echo number_format($s[count($s) - 1], '0', '.', ' '); ?></td>
 						</tr>
@@ -457,6 +473,7 @@ exp:
 
 					<!--	<hr>-->
 			<?php
+					//Utils::print_r($expence['including_bn']);
 				}
 			}
 			?>

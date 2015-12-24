@@ -23,11 +23,11 @@ class svodDayAction extends CAction   /*---- StoreController ----*/
 		$day_sum = Array(-1=>0, 1=>0, 2=>0, 3=>0);
 		$gr = array();
 
-		$s_model = Document::model()->with('documentdata')->findAll($criteria);
+		$s_model = Document::model()->findAll($criteria);
 
 		foreach ($s_model as $document) {
-			$sum = $document->documentdata[0]->price*$document->documentdata[0]->quantity * (-$document->operation->operation);
-			$day_sum[$document->for] += $document->documentdata[0]->price*$document->documentdata[0]->quantity;
+			$sum = $document->sum_price * (-$document->operation->operation);
+			$day_sum[$document->for] += $document->sum_price;
 
 			if (!isset($gr[$document->id_operation])) {
 				$gr[$document->id_operation] = array(0 => $sum);

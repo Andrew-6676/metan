@@ -70,6 +70,9 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['including'][1] = 0;
 		$json['expence']['including'][2] = 0;
 		$json['expence']['including'][3] = 0;
+		$json['expence']['including_bn'][1] = 0;
+		$json['expence']['including_bn'][2] = 0;
+		$json['expence']['including_bn'][3] = 0;
 		$se = 0;
 		$d='';
 
@@ -79,7 +82,11 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 			if (count($row_d->documentdata)) {
 					// считаем сумму по всем у расходу, разбивая по полю for
 				if ($row_d->operation->operation < 0) {
-					$json['expence']['including'][$row_d->for] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+					$json['expence']['including'][$row_d->for] += $row_d->sum_price;
+				}
+					// выделяем безнал
+				if ($row_d->id_operation == 52) {
+					$json['expence']['including_bn'][$row_d->for] += $row_d->sum_price;
 				}
 					// "расход за день" отдельно счиатем
 				if (trim($row_d->doc_num) == '0') {

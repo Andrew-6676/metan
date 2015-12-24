@@ -318,3 +318,18 @@ function showGoodsCart(id) {
 	});
 	return false;
 }
+/*-------------------------------------------------------------------------------*/
+function change_date(diff) {
+	console.log(diff);
+	//var wd = $('#workdate input').val().split('-');
+	//console.log(wd);
+	//var d = new Date(wd[0], wd[1], wd[2]+1);
+	var d = new Date(Date.parse($('#workdate input').val()));
+	//console.log(d.getMonth());
+	d.setDate(d.getDate() + diff);
+	var new_d = d.getFullYear() + '-'+(d.getMonth()>8 ? (d.getMonth()+1) : '0'+(d.getMonth()+1))+'-'+ (d.getDate()>9 ? d.getDate() : '0'+d.getDate());
+	//console.log(new_d);
+	$('#workdate input').val(new_d);
+
+	$('#refresh_workdate').click();
+}
