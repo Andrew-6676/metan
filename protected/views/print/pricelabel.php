@@ -34,27 +34,27 @@ $rec_doc_data = $data['details'];
 						</div>
 						<?php
 							$f=27;
-							$sl = mb_strlen(trim($row->idGoods->name));
+							$sl = mb_strlen(trim($row->idGoods->name), 'UTF8');
 
 							if ($sl < 15) $f = 55;
 							if ($sl >= 15 && $sl < 25) $f = 45;
 							if ($sl >= 25 && $sl < 38) $f = 38;
 							if ($sl >= 38 && $sl < 51) $f = 32;
 						?>
-						<div class="name f<?php echo $f; ?> "><?php echo trim($row->idGoods->name); ?></div>
+						<div class="name f<?php echo $f; ?>"><?php echo trim($row->idGoods->name); ?></div>
 						<div class="price">
 							<?php echo number_format(($row->price),'0','.'," "); ?><span>РУБ</span>
 						</div>
 						<div class="producer">
 							<?php
 								if ($row->idGoods->producer) {
-									echo "Производитель: ".$row->idGoods->producer;
+									echo "$sl Производитель: ".$row->idGoods->producer;
 								}
 							?>
 						</div>
 					</div>
 
-
+					
 					<?php
 
 					if (++$i%6==0) {
