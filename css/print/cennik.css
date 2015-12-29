@@ -59,18 +59,23 @@
 }
 .f30 {
 	font-size: 30px;
+	line-height: 32px;
 }
 .f32 {
 	font-size: 32px;
+	line-height: 34px;
 }
 .f38 {
 	font-size: 38px;
+	line-height: 39px;
 }
 .f45 {
 	font-size: 45px;
+	line-height: 45px;
 }
 .f55 {
 	font-size: 55px;
+	line-height: 55px;
 }
 .price span {
 	font-size: 0.5em;
