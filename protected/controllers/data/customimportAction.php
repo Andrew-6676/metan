@@ -13,32 +13,32 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
-		echo "\nТовары:\n";
+//		echo "\nТовары:\n";
+//
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd10/f160116.dbf';
+//		$dbf2 = new dbf($dbf_path );
+//
+//		if ($dbf2) {
+//			while ($row = $dbf2->readRec()) {   // готово
+//				//if ($row['KM'] =='41930577') {
+//					add_goods($row);
+//				//}
+//			}
+//		}
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd9/f160115.dbf';
-		$dbf2 = new dbf($dbf_path );
-
-		if ($dbf2) {
-			while ($row = $dbf2->readRec()) {   // готово
-				//if ($row['KM'] =='41930577') {
-					add_goods($row);
-				//}
-			}
-		}
-
-		exit;
+//		exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd8/f3001_15.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd10/f3001_16.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] != '20151101') {
+				if ($row['DATA'] != '20160101') {
 					echo "({$row['DATA']})";
 					continue;
 				}
@@ -62,7 +62,7 @@ exit;
 						break;
 					case '00':
 							// остатки
-						//store_00($row); //готово
+						store_00($row); //готово
 						break;
 					case '02':
 							// возврат

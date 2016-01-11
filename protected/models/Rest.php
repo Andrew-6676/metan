@@ -33,8 +33,8 @@ class Rest extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_goods, rest_date', 'required'),
-			array('id_store, id_goods, cost, markup, price', 'numerical', 'integerOnly'=>true),
-			array('quantity, vat', 'numerical'),
+			array('id_store, id_goods', 'numerical', 'integerOnly'=>true),
+			array('quantity, markup, cost, price, vat', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, id_store, id_goods, rest_date, quantity, cost, markup, vat, price', 'safe', 'on'=>'search'),
