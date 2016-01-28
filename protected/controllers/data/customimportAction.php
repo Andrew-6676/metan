@@ -15,18 +15,18 @@ class customimportAction extends CAction   /*DataController*/
 	{
 //exit;
 		echo "<pre>";
-		echo "\nТовары:\n";
-
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f160116.dbf';
-		$dbf2 = new dbf($dbf_path );
-
-		if ($dbf2) {
-			while ($row = $dbf2->readRec()) {   // готово
-				//if ($row['KM'] =='41930577') {
-					add_goods($row);
-				//}
-			}
-		}
+//		echo "\nТовары:\n";
+//
+//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f160116.dbf';
+//		$dbf2 = new dbf($dbf_path );
+//
+//		if ($dbf2) {
+//			while ($row = $dbf2->readRec()) {   // готово
+//				//if ($row['KM'] =='41930577') {
+//					add_goods($row);
+//				//}
+//			}
+//		}
 
 		//exit;
 
