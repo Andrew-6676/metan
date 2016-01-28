@@ -64,6 +64,7 @@ class PrintController extends Controller {
 			'printDeliverynote' => 'application.controllers.print.printDeliverynoteAction',
 			'printGoodsreport' => 'application.controllers.print.printGoodsreportAction',
 			'pr' => 'application.controllers.print.prAction',
+			'torg6' => 'application.controllers.print.printTorg6Action',
 		);
 	}
 

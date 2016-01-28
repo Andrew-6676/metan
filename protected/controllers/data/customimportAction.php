@@ -13,11 +13,11 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
 		echo "\nТовары:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd10/f160116.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f160116.dbf';
 		$dbf2 = new dbf($dbf_path );
 
 		if ($dbf2) {
@@ -28,25 +28,25 @@ exit;
 			}
 		}
 
-		exit;
+		//exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd10/f3001_16.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f3001_16.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] != '20160101') {
-					echo "({$row['DATA']})";
+				if ($row['DATA'] < '20160101') {
+					echo "({$row['DATA']}) - skip";
 					continue;
 				}
 
 				switch ($row['KO']) {
 					case '56':
 							//карта
-						//store_56($row);
+						store_56($row);
 						break;
 					case '54':
 							//кредит
@@ -58,15 +58,15 @@ exit;
 //						break;
 					case '51':
 //							// наличка
-						//store_51($row); //готово
+						store_51($row); //готово
 						break;
 					case '00':
 							// остатки
-						store_00($row); //готово
+						//store_00($row); //готово
 						break;
 					case '02':
 							// возврат
-						//$this->store_02($row); //готово
+						$this->store_02($row); //готово
 						break;
 					default:
 						break;
