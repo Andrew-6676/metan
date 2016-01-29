@@ -13,22 +13,22 @@ class customimportAction extends CAction   /*DataController*/
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
-//		echo "\nТовары:\n";
-//
-//		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f160116.dbf';
-//		$dbf2 = new dbf($dbf_path );
-//
-//		if ($dbf2) {
-//			while ($row = $dbf2->readRec()) {   // готово
-//				//if ($row['KM'] =='41930577') {
-//					add_goods($row);
-//				//}
-//			}
-//		}
+		echo "\nТовары:\n";
 
-		exit;
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd11/f160116.dbf';
+		$dbf2 = new dbf($dbf_path );
+
+		if ($dbf2) {
+			while ($row = $dbf2->readRec()) {   // готово
+				//if ($row['KM'] =='41930577') {
+					add_goods($row);
+				//}
+			}
+		}
+
+		//exit;
 
 		echo "\nДокументы:\n";
 
@@ -38,10 +38,10 @@ exit;
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] < '20160101') {
-					echo "({$row['DATA']}) - skip";
-					continue;
-				}
+//				if ($row['DATA'] < '20160101') {
+//					echo "({$row['DATA']}) - skip";
+//					continue;
+//				}
 
 				switch ($row['KO']) {
 					case '56':
@@ -50,7 +50,7 @@ exit;
 						break;
 					case '54':
 							//кредит
-//						store_54($row);
+						$this->store_54($row);
 						break;
 //					case '52':
 //							// безнал
@@ -62,7 +62,7 @@ exit;
 						break;
 					case '00':
 							// остатки
-						//store_00($row); //готово
+						store_00($row); //готово
 						break;
 					case '02':
 							// возврат
@@ -127,9 +127,9 @@ exit;
 				$doc->withDocdata = true;
 
 				$doc->id_goods = $row['KM'];
-				$doc->cost = round($row['ZENO']);
-				$doc->markup = $row['NAZ'];
-				$doc->vat = $row['CO'];
+				$doc->cost = $row['ZENO'];
+				$doc->markup = $row['CO'];
+				$doc->vat = $row['NAZ'];
 				$doc->quantity = $row['KL'];
 
 				$doc->price = $row['ZENR'];;
@@ -155,9 +155,9 @@ exit;
 			$doc_data->id_owner     = Yii::app()->session['id_user'];
 			$doc_data->id_editor    = Yii::app()->session['id_user'];
 			$doc_data->id_goods     = $row['KM'];
-			$doc_data->cost         = round($row['ZENO']);
-			$doc_data->markup       = $row['NAZ'];
-			$doc_data->vat          = $row['CO'];
+			$doc_data->cost         = $row['ZENO'];
+			$doc_data->markup       = $row['CO'];
+			$doc_data->vat          = $row['NAZ'];
 			$doc_data->quantity     = $row['KL'];
 //				$doc_data->packages     = $this->packages;
 //				$doc_data->gross        = $this->gross;
@@ -172,7 +172,82 @@ exit;
 		echo "Возврат: {$row['KM']} - $nttn\n";
 
 	}
+	/*------------------------------------------------------------------------*/
+	// кредит
+	public function store_54($row) {
 
+
+		$fio = mb_convert_encoding($row['FIO'], 'UTF-8', 'cp866');
+		//echo "Кредит: {$row['KM']} - $fio\n";
+
+		if (!isset($this->tmp['fio']) || $this->tmp['fio'] != $fio) {
+			echo "----Новый документ ". $fio;
+
+			$this->tmp['fio'] = $fio;
+			//$this->tmp['id_doc'] = 0;
+			//Yii::app()->db->lastInsertID
+
+			$doc = new Document();
+			try {
+				$doc->id_doctype = 2;
+				$doc->id_store = Yii::app()->session['id_store'];
+				$doc->id_storage = 2;
+				$doc->doc_num = '-';
+				$doc->doc_num2 = 0;
+				$doc->doc_date = $row['DATA'];
+				$doc->id_owner = Yii::app()->session['id_user'];
+				$doc->id_editor = Yii::app()->session['id_user'];
+				$doc->id_operation = $row['KO'];
+				$doc->id_contact = get_contact_id($fio);
+//				$doc->for = -1;
+
+				$doc->withDocdata = true;
+
+				$doc->id_goods = $row['KM'];
+				$doc->cost = $row['ZENO'];
+				$doc->markup = $row['CO'];
+				$doc->vat = $row['NAZ'];
+				$doc->quantity = $row['KL'];
+
+				$doc->price = $row['ZENR'];;
+
+				//	Utils::print_r($doc);
+
+				if (!$doc->save()) {
+					var_dump($doc->getErrors());
+				} else {
+					echo " -- ok  -- \n";
+					$this->tmp['lastID'] = $doc->id;
+				}
+			} catch (Exception $e) {
+				echo " -- error\n";
+				Utils::print_r($e);
+			}
+		} else {
+
+			$doc_data = new Documentdata();
+
+			$doc_data->id_doc       = $this->tmp['lastID'];
+			$doc_data->id_owner     = Yii::app()->session['id_user'];
+			$doc_data->id_editor    = Yii::app()->session['id_user'];
+			$doc_data->id_goods     = $row['KM'];
+			$doc_data->cost         = $row['ZENO'];
+			$doc_data->markup       = $row['CO'];
+			$doc_data->vat          = $row['NAZ'];
+			$doc_data->quantity     = $row['KL'];
+//				$doc_data->packages     = $this->packages;
+//				$doc_data->gross        = $this->gross;
+			$doc_data->price        = $row['ZENR'];
+			if (!$doc_data->save()) {
+				var_dump($doc_data->getErrors());
+			} else {
+				echo " -- ok  -- \n";
+			}
+		}
+
+
+	}
+	/*----------------------------------------------------*/
 	 public function addInvoice($row) {
 		 $nttn = mb_convert_encoding($row['NTTN'], 'UTF-8', 'cp866');
 
@@ -201,7 +276,7 @@ exit;
 				 $doc->withDocdata = true;
 
 				 $doc->id_goods = $row['KM'];
-				 $doc->cost = round($row['ZENO']);
+				 $doc->cost = $row['ZENO'];
 				 $doc->markup = $row['NAZ'];
 				 $doc->o_markup = $row['CO'];
 				 $doc->vat = $row['NDS'];
@@ -232,7 +307,7 @@ exit;
 			 $doc_data->id_owner     = Yii::app()->session['id_user'];
 			 $doc_data->id_editor    = Yii::app()->session['id_user'];
 			 $doc_data->id_goods     = $row['KM'];
-			 $doc_data->cost         = round($row['ZENO']);
+			 $doc_data->cost         = $row['ZENO'];
 			 $doc_data->markup       = $row['NAZ'];
 			 $doc_data->o_markup     = $row['CO'];
 			 $doc_data->vat          = $row['NDS'];
@@ -372,9 +447,9 @@ function store_51($row) {
 
 		$doc->withDocdata = true;
 		$doc->id_goods = $row['KM'];
-		$doc->cost = round($row['ZENO']);
-		$doc->markup = $row['NAZ'];
-		$doc->vat = $row['CO'];
+		$doc->cost = $row['ZENO'];
+		$doc->markup = $row['CO'];
+		$doc->vat = $row['NAZ'];
 		$doc->quantity = $row['KL'];
 
 		$doc->price = $row['ZENR'];;
@@ -392,13 +467,7 @@ function store_51($row) {
 	}
 
 }
-/*------------------------------------------------------------------------*/
-	// кредит
-function store_54($row) {
-	$nttn = mb_convert_encoding($row['NTTN'], 'UTF-8', 'cp866');
-	echo "Кредит: {$row['KM']} - $nttn\n";
 
-}
 /*------------------------------------------------------------------------*/
 	// карточка
 function store_56($row) {
@@ -421,9 +490,9 @@ function store_56($row) {
 
 		$doc->withDocdata = true;
 		$doc->id_goods = $row['KM'];
-		$doc->cost = round($row['ZENO']);
-		$doc->markup = $row['NAZ'];
-		$doc->vat = $row['CO'];
+		$doc->cost = $row['ZENO'];
+		$doc->markup = $row['CO'];
+		$doc->vat = $row['NAZ'];
 		$doc->quantity = $row['KL'];
 
 		$doc->price = $row['ZENR'];;
@@ -453,7 +522,7 @@ function store_00($row) {
 		$doc->rest_date = $row['DATA'];
 
 		$doc->quantity = $row['KL'];
-		$doc->cost = round($row['ZENO']);
+		$doc->cost = $row['ZENO'];
 		$doc->vat = $row['NAZ'];
 		$doc->markup = $row['CO'];
 
@@ -471,3 +540,27 @@ function store_00($row) {
 	}
 }
 /*------------------------------------------------------------------------*/
+function get_contact_id($fio) {
+	$criteria = new CDbCriteria;
+	$criteria->addCondition('fname::text like \''.$fio.'\'');
+
+	$cont = Contact::model()->find($criteria);
+	if ($cont) {
+		$id = $cont->id;
+	} else {
+		$cont = new Contact();
+		$cont->name = $fio;
+		$cont->fname = $fio;
+		$cont->rs = '-';
+		$cont->mfo = '-';
+		$cont->unn = '-';
+		$cont->parent = 3;
+
+		$id = -1;
+		if ($cont->save()) {
+			$id = $cont->id;
+		}
+	}
+
+	return $id;
+}
