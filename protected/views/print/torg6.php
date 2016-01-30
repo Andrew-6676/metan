@@ -73,7 +73,7 @@ $this->addCSS('print/report.css');
 				<tr>
 					<td>непродовольственных товаров</td>
 					<td>04</td>
-					<td>!!</td>
+					<td><?php echo Yii::app()->format->formatNumber($sum->price - $sum2->price+$rk[0]-$rk[1]) ?></td>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -134,4 +134,10 @@ $this->addCSS('print/report.css');
 		</div>
 	</div>
 <?php
+
+//Utils::print_r($sum);
+//Utils::print_r($sum2);
+//Utils::print_r($sum->price - $sum2->price);
+//Utils::print_r($rk);
+
 

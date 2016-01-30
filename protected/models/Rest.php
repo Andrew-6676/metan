@@ -326,7 +326,14 @@ class Rest extends CActiveRecord
 		return $res;
 	}
 /*--------------------------------------------------------------------------------------------------------------------*/
-	public static function get_Rest($date, $store){
+	public static function get_Rest($date, $store, $x=0){
+
+			// отнимаем день
+		if ($x<0) {
+			$d = explode('-', $date);
+			$lastday = mktime(0, 0, 0, $d[1], $d[2]-1, $d[0]);
+			$date = date('Y-m-d', $lastday);
+		}
 
 		$connection = Yii::app()->db;
 
