@@ -170,7 +170,7 @@ class Rest extends CActiveRecord
 		// часть товара оплаченная налом помечена в поле partof - в количество такой товар считать не надо, цену надо брать из прихода
 		//TODO: цену выбрать только из прихода и остатков (никаких счёт-фактур)
 		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat,
-						COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price,
+						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($date,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 and doc_date<='".$date."' and doc_date>='".substr($date,0,7)."-01' order by d.id desc limit 1)) as price,
 						 sum(quantity)::real as rest,
 						(select COALESCE(sum(quantity), 0)
 						from vgm_documentdata dd
@@ -198,7 +198,7 @@ class Rest extends CActiveRecord
 					order by ".$f.", 1, 2";
 
 		$rest = $connection->createCommand($sql_rest)->queryAll();
-
+		//echo $sql_rest;
 		if ($type=='json') {
 			$res = json_encode($rest);
 		} else {
@@ -239,7 +239,8 @@ class Rest extends CActiveRecord
 						max(cost) as cost,
 						max(markup) as markup,
 						max(vat) as vat,
-						COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price
+						--COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price
+						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($month,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 and doc_date::text like '".$month."' order by d.id desc limit 1)) as price
 
 					from (
 						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
@@ -329,15 +330,23 @@ class Rest extends CActiveRecord
 	public static function get_Rest($date, $store, $x=0){
 
 			// отнимаем день
-		if ($x<0) {
-			$d = explode('-', $date);
+		$d = explode('-', $date);
+
+		if ($x<0 && $d[2]!=1) {
 			$lastday = mktime(0, 0, 0, $d[1], $d[2]-1, $d[0]);
 			$date = date('Y-m-d', $lastday);
 		}
 
+
 		$connection = Yii::app()->db;
 
-		$sql_rest = "select sum(quantity*price) as rest
+		if ($d[2]==1) {
+			//Utils::print_r(substr($date,0,7)."-01'");
+			$sql_rest = "select sum(quantity*price) as rest
+						from vgm_rest
+						where rest_date='".substr($date,0,7)."-01'";
+		} else {
+			$sql_rest = "select sum(quantity*price) as rest
 					from (
 							select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
 							from vgm_goods g
@@ -355,6 +364,9 @@ class Rest extends CActiveRecord
 							where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
 						 ) as motion
 					--group by gid, gname, cost, markup, vat, price";
+		}
+
+
 
 		$rest = $connection->createCommand($sql_rest)->queryScalar();
 
