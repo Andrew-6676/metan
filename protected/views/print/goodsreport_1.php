@@ -26,7 +26,8 @@ $expence = array_shift($data);
 $rr = Rest::get_Rest($_GET['from_date'], $_GET['id_store'], -1);
 $rk = Kassa::getRest($_GET['from_date'], $_GET['id_store'], -1);
 
-$total = $rr+$rk;         // для накопления остатка
+//$total = $rr+$rk;         // для накопления остатка
+$total = $rr;         // для накопления остатка
 $vozvr_beznal = 0;
 ?>
 
