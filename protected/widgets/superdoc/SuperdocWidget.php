@@ -88,12 +88,14 @@ class SuperdocWidget extends CWidget
 		*/
 
 		$for = array('-1'=>'-','1'=>'Общий товарооборот','2'=>'Розничный товарооборот','3'=>'Собственные нужды');
-
+		$data_row = new stdClass();
 		$data_row->attributes[] = 'sum_cost';
 		$data_row->attributes[] = 'sum_vat';
 		$data_row->attributes[] = 'sum_price';
 		$data_row->attributes[] = 'paymentorder';
 		$data_row->attributes[] = 'prim';
+		$data_row->attributes[] = 'price';
+
 
 		$data_arr = array();
 		$type_arr = array();
@@ -106,6 +108,7 @@ class SuperdocWidget extends CWidget
 			$type_arr['sum_cost'] = 'integer';
 			$type_arr['sum_vat'] = 'integer';
 			$type_arr['sum_price'] = 'integer';
+			$type_arr['documentdata']['price'] = 'integer';
 			$type_arr['paymentorder'] = 'character';
 			$type_arr['prim'] = 'character';
 
@@ -284,6 +287,9 @@ class SuperdocWidget extends CWidget
 						eval($tstr);
 							// костыль - вывести код товара как строку, а не число
 						if ($dcol=='id_goods') {$type = 'character';}
+						if (in_array($dcol, array('markup', 'vat', 'price', 'cost'))) {
+							$type = 'integer';
+						}
 						if ($dcol=='goods.name') {
 							$val = CHtml::link($val, '#', array('class'=>'goodscart','gid'=>$docdata_row->id_goods) );
 //							 CHtml::ajaxLink(
@@ -297,8 +303,9 @@ class SuperdocWidget extends CWidget
 //				                echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '">' . $tmp['val'] . '</td>';
 					}
 						// костыль
-					if (in_array($dcol, array('markup', 'vat'))) {
+					if (in_array($dcol, array('markup', 'vat', 'price', 'cost'))) {
 						$tmp['style'] = 'r';
+						//$tmp['style'] = 'r';
 					}
 					echo '<td class="cell c' . ++$c . ' ' . $tmp['style'] . '" field="'.$dcol.'">' . $tmp['val'] . '</td>';
 				}
