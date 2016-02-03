@@ -170,6 +170,7 @@
 					success: function (data) {
 						console.log(data);
 						if (data.status == 'ok') {
+							alert(data.message);
 							//tr.find('.gr').text(tid);
 						} else {
 							$('#overlay').hide();

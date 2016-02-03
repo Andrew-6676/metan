@@ -55,6 +55,43 @@ $(document).ready(function () {
 		location.href = 'http://'+document.location.host+rootFolder+"/goods/update/"+$(this).parent().find('.cell.c2').text();
 	});
 
+	$('[field="id_goods"]').dblclick(function (event) {
+		event.stopPropagation();
+		var td = $(this);
+		var new_id = prompt('Введите новый код для:', td.text());
+		if (new_id==null) {return false;}
+		var docdata_id = td.parent().attr('docdata_id');
+		console.log("Сменить код - "+td.text()+' на '+new_id);
+			// только в случае, если нового кода нету в БД!!!!
+			// создаём запись в справочнике товаров и меняем код в приходе
+		// передаём данные на сервер
+		$.ajax({
+			url: 'http://' + document.location.host + rootFolder + "/MainAjax/newidgoods",
+			type: 'POST',
+			dataType: "json",
+			data: {old_id: td.text(), new_id: new_id, docdata_id: docdata_id},
+			// функция обработки ответа сервера
+			error: function (data) {
+				console.log(data);
+				alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+				$('#overlay').hide();
+				$('#loadImg').hide();
+			},
+			success: function (data) {
+				console.log(data);
+
+				if (data.status == 'ok') {
+					td.text(new_id);
+					alert(data.message);
+
+				} else {
+					alert(data.message);
+				}
+
+			}
+		}); //end ajax
+	});
+
 	$('[field="quantity"]').dblclick(function (event) {
 		event.stopPropagation();
 		var td = $(this);

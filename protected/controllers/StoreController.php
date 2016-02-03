@@ -14,6 +14,8 @@ class StoreController extends Controller
 //	        'getForm'   => 'application.controllers.store.getFormAction',
 			'index' => 'application.controllers.store.indexAction',
 			'store' => 'application.controllers.store.storeAction',
+			'reports' => 'application.controllers.store.reportsAction',
+			'dir' => 'application.controllers.store.dirAction',
 			'kassa' => 'application.controllers.store.kassaAction',
 			'receipt' => 'application.controllers.store.receiptAction',
 			'expense_day' => 'application.controllers.store.expense_dayAction',

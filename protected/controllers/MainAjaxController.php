@@ -414,5 +414,51 @@ class MainAjaxController extends CController
 		echo json_encode($res);
 	}
 	/*------------------------------------------------------------------------------*/
+	public function ActionNewidgoods(){
+		$res = array('status'=>'unknown', 'message'=>'test; ', 'data' => $_POST);
+
+		if (preg_match('/^\d*$/', $_POST['new_id']) == 0) {
+			$res['status'] = 'err';
+			$res['message'] = 'Код может состоять только из цифр!';
+			echo json_encode($res);
+			return -1;
+		}
+
+		// ищем новый код в справочнике товаров
+		$g = Goods::model()->findByPK($_POST['new_id']);
+		//$g ? $res['data2'] = 'found' : $res['data2'] = 'not found';
+		if ($g) {
+			$res['status'] = 'err';
+			$res['message'] = 'Код уже занят!';
+		} else {
+			$g_new = new Goods();
+			$g_new->attributes = Goods::model()->findByPK($_POST['old_id'])->attributes;
+			$g_new->id = $_POST['new_id'];
+
+			if ($g_new->save()) {
+
+					// меняем код в приходе
+				$dd = Documentdata::model()->findByPK($_POST['docdata_id']);
+				$dd->id_goods = $_POST['new_id'];
+				if ($dd->save()) {
+					$res['status'] = 'ok';
+					$res['message'] = 'Новый код добавлен в справочник и заменён в приходе.';
+				} else {
+					$res['status'] = 'err';
+					$res['message'] = 'Ошибка при изменении прихода';
+				}
+			} else {
+				$res['status'] = 'err';
+				$res['message'] = 'Ошибка при сохранении нового кода';
+			}
+
+			//$res['data2'] = print_r($g_new, true);
+
+
+		}
+
+
+		echo json_encode($res);
+	}
 	/*------------------------------------------------------------------------------*/
 }
