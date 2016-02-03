@@ -13,7 +13,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
-	<header id="header">
+	<!-- header id="header">
 		<?php
 			echo CHtml::encode(Yii::app()->name);
 			//echo "<br>ServerName = <b>".Yii::app()->request->ServerName."</b>";
@@ -32,10 +32,10 @@
 			//echo "loginUrl = "; print_r(Yii::app()->user->loginUrl);  // страница ввода логина и пароля
 			//echo "returnUrl = "; print_r(Yii::app()->user->returnUrl);  // страница для перенаправления после удачного логина
 		?>
-	</header>
+	</header -->
 
 	<nav id="main_menu">
-		<div id="main_menu_div">HELP</div>
+		<div id="main_menu_div"><b>С П Р А В К А</b></div>
 	</nav>  <!-- #main menu  -->
 
 	<div class="wrapper">
