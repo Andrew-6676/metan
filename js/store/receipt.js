@@ -47,7 +47,7 @@ $(document).ready(function () {
 		        });
 			}
 			event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
-		})
+		});
 
 	$('td.cell.empty[field="goods.id_3torg"]').dblclick(function (event) {
 		event.stopPropagation();
@@ -58,7 +58,7 @@ $(document).ready(function () {
 	$('[field="id_goods"]').dblclick(function (event) {
 		event.stopPropagation();
 		var td = $(this);
-		var new_id = prompt('Введите новый код для:', td.text());
+		var new_id = prompt('Введите новый код:', td.text());
 		if (new_id==null) {return false;}
 		var docdata_id = td.parent().attr('docdata_id');
 		console.log("Сменить код - "+td.text()+' на '+new_id);
