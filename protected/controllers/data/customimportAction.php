@@ -29,7 +29,7 @@ class customimportAction extends CAction   /*DataController*/
 //			}
 //		}
 
-//		exit;
+		exit;
 
 		echo "\nДокументы:\n";
 
@@ -39,8 +39,8 @@ class customimportAction extends CAction   /*DataController*/
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if (substr($row['DATA'], 0, 6) != '201602' || $row['DATA'] == '20160202' || $row['DATA'] == '20160201') {
-				//if ($row['DATA'] != '20160205') {
+				//if (substr($row['DATA'], 0, 6) != '201602' || $row['DATA'] == '20160202' || $row['DATA'] == '20160201') {
+				if ($row['DATA'] != '20160208') {
 					echo "({$row['DATA']}) - skip ";
 					continue;
 				}
@@ -54,7 +54,7 @@ class customimportAction extends CAction   /*DataController*/
 					case '54':
 							//кредит
 						echo "\n";
-						$this->store_54($row);
+						//$this->store_54($row);
 						break;
 //					case '52':
 //							// безнал
@@ -74,7 +74,7 @@ class customimportAction extends CAction   /*DataController*/
 					case '03':
 							// возврат
 					echo "\n";
-						$this->store_0203($row); //готово
+						//$this->store_0203($row); //готово
 						break;
 					default:
 						break;
