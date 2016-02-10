@@ -6,14 +6,15 @@
  * Time: 14:46
  */
 
-
+global $counter;
+$counter = 0;
 class customimportAction extends CAction   /*DataController*/
 {
 	public $tmp = array();
 	/*--------------------------------------------------------------------------------------------------*/
 	public function run()
 	{
-exit;
+//exit;
 		echo "<pre>";
 //		echo "\nТовары:\n";
 
@@ -28,28 +29,31 @@ exit;
 //			}
 //		}
 
-		exit;
+//		exit;
 
 		echo "\nДокументы:\n";
 
-		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd12/f3001_16.dbf';
+		$dbf_path = '/var/www/metan_0.1/public/dbf/pereezd13/f3001_16.dbf';
 		$dbf = new dbf($dbf_path );
 
 		if ($dbf) {
 			while($row = $dbf->readRec()) {
 
-				if ($row['DATA'] != '20160129' && $row['DATA'] != '20160130') {
-					echo "({$row['DATA']}) - skip";
+				if (substr($row['DATA'], 0, 6) != '201602' || $row['DATA'] == '20160202' || $row['DATA'] == '20160201') {
+				//if ($row['DATA'] != '20160205') {
+					echo "({$row['DATA']}) - skip ";
 					continue;
 				}
 
 				switch ($row['KO']) {
 					case '56':
 							//карта
+						echo "\n";
 						store_56($row);
 						break;
 					case '54':
 							//кредит
+						echo "\n";
 						$this->store_54($row);
 						break;
 //					case '52':
@@ -58,15 +62,19 @@ exit;
 //						break;
 					case '51':
 //							// наличка
+						echo "\n";
 						store_51($row); //готово
 						break;
 					case '00':
 							// остатки
+						echo "\n";
 						//store_00($row); //готово
 						break;
 					case '02':
+					case '03':
 							// возврат
-						$this->store_02($row); //готово
+					echo "\n";
+						$this->store_0203($row); //готово
 						break;
 					default:
 						break;
@@ -102,7 +110,7 @@ exit;
 
 	/*------------------------------------------------------------------------*/
 	// возврат
-	public function store_02($row) {
+	public function store_0203($row) {
 		$nttn = mb_convert_encoding($row['NTTN'], 'UTF-8', 'cp866');
 
 		if (!isset($this->tmp['num']) || $this->tmp['num'] != $nttn) {
@@ -139,7 +147,8 @@ exit;
 				if (!$doc->save()) {
 					var_dump($doc->getErrors());
 				} else {
-					echo " -- ok  -- \n";
+					global $counter;
+					echo " -- ok  ".$counter++."-- \n";
 					$this->tmp['lastID'] = $doc->id;
 				}
 			} catch (Exception $e) {
@@ -165,7 +174,8 @@ exit;
 			if (!$doc_data->save()) {
 				var_dump($doc_data->getErrors());
 			} else {
-				echo " -- ok  -- \n";
+				global $counter;
+				echo " -- ok  ".$counter++."-- \n";
 			}
 		}
 
@@ -216,7 +226,8 @@ exit;
 				if (!$doc->save()) {
 					var_dump($doc->getErrors());
 				} else {
-					echo " -- ok  -- \n";
+					global $counter;
+					echo " -- ok  ".$counter++."-- \n";
 					$this->tmp['lastID'] = $doc->id;
 				}
 			} catch (Exception $e) {
@@ -241,7 +252,8 @@ exit;
 			if (!$doc_data->save()) {
 				var_dump($doc_data->getErrors());
 			} else {
-				echo " -- ok  -- \n";
+				global $counter;
+				echo " -- ok  ".$counter++."-- \n";
 			}
 		}
 
@@ -289,7 +301,8 @@ exit;
 				 if (!$doc->save()) {
 					 var_dump($doc->getErrors());
 				 } else {
-					 echo " -- ok  -- \n";
+					 global $counter;
+					 echo " -- ok  ".$counter++."-- \n";
 					 $this->tmp['lastID'] = $doc->id;
 				 }
 			 } catch (Exception $e) {
@@ -318,7 +331,8 @@ exit;
 			 if (!$doc_data->save()) {
 				 var_dump($doc_data->getErrors());
 			 } else {
-				 echo " -- ok  -- \n";
+				 global $counter;
+				 echo " -- ok  ".$counter++."-- \n";
 			 }
 
 
@@ -459,7 +473,8 @@ function store_51($row) {
 		if (!$doc->save()) {
 			var_dump($doc->getErrors());
 		} else {
-			echo " -- ok\n";
+			global $counter;
+			echo " -- ok  ".$counter++."-- \n";
 		}
 	} catch (Exception $e) {
 		echo " -- error\n";

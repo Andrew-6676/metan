@@ -32,7 +32,7 @@ class dbf
 			// проверяем, не достигнут ли конец файла
 		if ($this->recNo != $this->count()) {
 			$this->recNo += 1;
-//			echo '/'.$this->recNo.'/' ;
+			//echo '/'.$this->recNo.'/' ;
 
 				// считываем запись
 			$rec = dbase_get_record_with_names($this->table, $this->recNo);
