@@ -30,10 +30,42 @@ class DocumentController extends Controller
 		}catch(Exception $e) {
 			$res = array('status'=>'error', 'id'=>$id, 'message'=>$e);
 		}
+		echo json_encode($res);
+	}
+	/*---------------------------------------------------------*/
+	public function actionDeactivate()
+	{
+		$id = $_POST['deactivate_doc'];
+		try {
+			$doc = Document::model()->findByPK($id);
+
+			$doc->active = false;
+			if ($doc->save()) {
+				$res = array('status' => 'ok', 'id' => $id);
+			}
+		}catch(Exception $e) {
+			$res = array('status'=>'error', 'id'=>$id, 'message'=>print_r($e,true));
+		}
 
 		echo json_encode($res);
 	}
+	/*---------------------------------------------------------*/
+	public function actionRestore()
+	{
+		$id = $_POST['restore_doc'];
+		try {
+			$doc = Document::model()->resetScope()->findByPK($id);
+//
+			$doc->active = true;
+			if ($doc->save()) {
+				$res = array('status' => 'ok', 'id' => $id);
+			}
+		}catch(Exception $e) {
+			$res = array('status'=>'error', 'id'=>$id, 'message'=>print_r($e,true));
+		}
 
+		echo json_encode($res);
+	}
 	/* ------------------------- фильтры -------------------------*
 		 public function filters()
 		{

@@ -46,15 +46,30 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 		$res = Document::model()->with('documentdata', 'sum_cost', 'operation')->findAll(array(
 																//'join'=>'inner join {{operation}} on {{operation}}.id=t.id_operation',
 //																'condition'=>'id_doctype=1 and {{operation}}.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
-																'condition'=>'id_doctype=1 and operation.operation>0 and doc_date<=\''.Yii::app()->session['workdate'].'\' and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\' and id_store='.Yii::app()->session['id_store'],
+																'condition'=>'id_doctype=1
+																				and operation.operation>0
+																				and doc_date<=\''.Yii::app()->session['workdate'].'\'
+																				and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'
+																				and id_store='.Yii::app()->session['id_store'],
 																'order'=>'doc_date desc, doc_num desc, documentdata.id')
 																);
+
+		$res2 = Document::model()->resetScope()->with('documentdata', 'sum_cost', 'operation')->findAll(array(
+																'condition'=>'id_doctype=1
+																				and active=false
+																				and operation.operation>0
+																				and doc_date<=\''.Yii::app()->session['workdate'].'\'
+																				and doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'
+																				and id_store='.Yii::app()->session['id_store'],
+				'order'=>'doc_date desc, doc_num desc, documentdata.id')
+		);
 
 	   // echo '<pre>'.$sql_rest.'</pre>';
 		$criteria = new CDbCriteria;
 		$criteria->select = 'sum(price*quantity) as price';
 		$criteria->join = 'inner join {{document}} on {{document}}.id=t.id_doc';
 		$criteria->addCondition('id_doctype = 1');
+		$criteria->addCondition('active');
 		$criteria->addCondition('id_operation > 0');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
@@ -73,7 +88,7 @@ class receiptAction extends CAction   /*---- StoreController ----*/
 		// $contact = $res[2]->idContact;
 		// print_r($contact->name);
 		$this->controller->pageTitle = 'Приход';
-		$this->controller->render('receipt', array('data'=>$res, 'sum'=>$sum));
+		$this->controller->render('receipt', array('data'=>$res, 'data2'=>$res2, 'sum'=>$sum));
 	}
 /*-----------------------------------------------------------------------------------------*/
 /*----------------------- Удалить приход --------------------------------------------------*/

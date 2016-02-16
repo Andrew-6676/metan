@@ -12,7 +12,13 @@
 .ttn_doc_button {
 	background:url(../../../images/doc_50x25.png) no-repeat;
 }
+.restore_doc_button {
+	background:url(../../../images/restore_50x25.png) no-repeat;
+}
 .del_doc_button {
+	background:url(../../../images/del.png) no-repeat;
+}
+.deactivate_doc_button {
 	background:url(../../../images/del.png) no-repeat;
 }
 .edit_doc_button {

@@ -13,7 +13,7 @@ $op = '';
 $dt = '';
 $dn = '';
 
-
+$diff_price = false;
 ?>
 <h3 class="capt hidden" >
 	<?php
@@ -21,13 +21,17 @@ $dn = '';
 		echo ' ('.$data['goods']->id.')';
 	?>
 </h3>
+
 <!--<table class="motion">-->
 <!--	<tr class="capt">-->
 <!--		<td colspan="4"></td>-->
 <!--	</tr>-->
 <?php
 	echo 'Остаток на '. Utils::format_date(substr(Yii::app()->session['workdate'],0,7).'-01').': <b>'.$data['goods']->rest0.'</b>';
-
+	if ($data['goods']->rest0price > 0) {
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small> цена: '.number_format($data['goods']->rest0price,'0','.','&nbsp;').'</small>';
+	}
+	//Utils::print_r($data['goods']->rest0price);
 	if (count($data['m']) == 0) {
 		echo "<div class='message'>Нет движения</div>";
 
@@ -46,6 +50,7 @@ $dn = '';
 			<th>№ док-та</th>
 			<th>Операция</th>
 			<th>Кол-во</th>
+<!--			<th>Цена</th>-->
 			<th>Сумма</th>
 			<th>Остаток</th>
 		</tr>
@@ -94,6 +99,11 @@ $dn = '';
 				$pr = number_format($row->price*$row->quantity,'0','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price,'0','.','&nbsp;').')</small>';
 			}
 
+			if (!$diff_price && $data['goods']->rest0price !=0 && $data['goods']->rest0price != $row->price) {
+				echo "<br><br><span style='color: red; font-size: 1.1em;'>Цена начального остатка отличается от цены в документах!</span><br><br>";
+				$diff_price = true;
+			}
+
 			$tr = '<tr '.$class.'>';
 			$tr .=     '<td>';
 			$tr .=         Utils::format_date($doc->doc_date);
@@ -107,6 +117,9 @@ $dn = '';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $rq;
 			$tr .=     '</td>';
+//			$tr .=     '<td  class="'.$m.'">';
+//			$tr .=         '<small>'.number_format($row->price,'0','.','&nbsp;').'</small>';
+//			$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $pr;
 			$tr .=     '</td>';

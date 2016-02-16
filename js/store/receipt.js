@@ -48,7 +48,70 @@ $(document).ready(function () {
 			}
 			event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
 		});
+	/*------------------- деактивация документа----------------------------------------------*/
+	$('.deactivate_doc_button').click(function (event) {
+		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+		// получаем ID удаляемого документа
+		var id = $(this).parent().attr('doc_id');
+		//alert('del '+ id);
+		if (confirm("Удалить документ №" + $('#doc_hat_' + id + ' .doc_num').text().trim() + " от " + $('#doc_hat_' + id + ' .doc_date').text().trim() + "?")) {
+		//alert('dactivate');
+		$.ajax({
+			url: 'http://' + document.location.host + rootFolder + "/document/deactivate",
+			type: 'POST',
+			dataType: "json",
+			data: {deactivate_doc: id},
+			// функция обработки ответа сервера
+			error: function (data) {
+				alert('Во время удаления произошла ошибка.');
+				//alert(data);
+			},
+			success: function (data) {
+				//console.log(data);
+				//alert(data.status);
+				//alert(typeof data);
+				// удалить строку из таблицы на странице в случае удачного удаления
+				if (data.status == 'ok') {
+					location.reload();
+					//$('#' + id + ', #ch_' + id).remove();
+				}
 
+
+			}
+		});
+		}
+	});
+
+	/*------------------- восстановление документа----------------------------------------------*/
+		$('.restore_doc_button').click(function (event) {
+		event.stopPropagation();	// что бы не обрабатывался onclick нижележащего элемента
+		// получаем ID удаляемого документа
+		var id = $(this).parent().attr('doc_id');
+		//alert('del '+ id);
+		if (confirm("Восстановить документ №" + $('#doc_hat_' + id + ' .doc_num').text().trim() + " от " + $('#doc_hat_' + id + ' .doc_date').text().trim() + "?")) {
+			//alert('dactivate');
+			$.ajax({
+				url: 'http://' + document.location.host + rootFolder + "/document/restore",
+				type: 'POST',
+				dataType: "json",
+				data: {restore_doc: id},
+				// функция обработки ответа сервера
+				error: function (data) {
+					alert('Во время восстановления произошла ошибка.');
+					//alert(data);
+				},
+				success: function (data) {
+					//console.log(data);
+					if (data.status == 'ok') {
+						location.reload();
+						//$('#' + id + ', #ch_' + id).remove();
+					}
+				}
+			});
+		}
+
+	});
+	/*-----------------------------------------------------------------------------------*/
 	$('td.cell.empty[field="goods.id_3torg"]').dblclick(function (event) {
 		event.stopPropagation();
 		console.log('add id_3torg');

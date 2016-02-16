@@ -60,6 +60,7 @@ class Goods extends CActiveRecord
 		$date = substr(Yii::app()->session['workdate'],0,7).'-01';
 		return array(
 			'rests' => array(self::HAS_MANY, 'Rest', 'id_goods'),
+			'rest0price' => array(self::STAT, 'Rest', 'id_goods', 'select'=>'avg(price)','condition'=>'rest_date=\''.$date.'\'', /*'order'=>'rest_date desc',*/ 'defaultValue'=>0),
 			'rest0' => array(self::STAT, 'Rest', 'id_goods', 'select'=>'sum(quantity)','condition'=>'rest_date=\''.$date.'\'', /*'order'=>'rest_date desc',*/ 'defaultValue'=>0),
 			'unit' => array(self::BELONGS_TO, 'Unit', 'id_unit'),
 			'torg3' => array(self::BELONGS_TO, 'Torg3', 'id_3torg'),
