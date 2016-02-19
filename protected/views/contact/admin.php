@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 	'Contacts'=>array('index'),
 	'Manage',
 );
-
+$this->addCSS('forms.css');
 $this->menu=array(
 	array('label'=>'List Contact', 'url'=>array('index')),
 	array('label'=>'Create Contact', 'url'=>array('create')),
@@ -42,6 +42,14 @@ $('.search-form form').submit(function(){
 	'id'=>'contact-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
+	'summaryText' => '{start}&ndash;{end} из {count}',
+	'pager' => array(
+		'header' => '',
+		'prevPageLabel' => '&laquo; назад',
+		'nextPageLabel' => 'далее &raquo;',
+		'maxButtonCount' => 30,
+
+	),
 	'columns'=>array(
 		'id',
 		'name',
@@ -50,7 +58,7 @@ $('.search-form form').submit(function(){
 		'mfo',
 		'okpo',
 		'unn',
-//		'address',
+		'address',
 		//'kpo',
 		//'parent',
 //		'bank',

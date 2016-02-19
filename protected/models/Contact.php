@@ -50,7 +50,7 @@ class Contact extends CActiveRecord
 			array('bank', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, fname, rs, mfo, okpo, unn, address, kpo, parent, bank, agreement', 'safe', 'on'=>'search'),
+			array('id, name, rs, mfo, okpo, unn, address, bank, agreement', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class Contact extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id' => 'Код',
 			'name' => 'Наименование',
 			'fname' => 'Полное наименование',
 			'rs' => 'Рассчётный счёт',
@@ -107,22 +107,22 @@ class Contact extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('fname',$this->fname,true);
+		//$criteria->compare('fname',$this->fname,true);
 		$criteria->compare('rs',$this->rs,true);
 		$criteria->compare('mfo',$this->mfo,true);
 		$criteria->compare('okpo',$this->okpo,true);
 		$criteria->compare('unn',$this->unn,true);
 		$criteria->compare('address',$this->address,true);
-		$criteria->compare('kpo',$this->kpo,true);
-		$criteria->compare('parent',$this->parent);
+		//$criteria->compare('kpo',$this->kpo,true);
+		//$criteria->compare('parent',$this->parent);
 		$criteria->compare('bank',$this->bank,true);
 		$criteria->compare('agreement',$this->agreement,true);
 
-		$criteria->addCondition('parent=2');
+		//$criteria->addCondition('parent=2');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination' => array('pageSize' => 50),
+			'pagination' => array('pageSize' => 100),
 		));
 	}
 

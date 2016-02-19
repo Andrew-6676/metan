@@ -168,7 +168,7 @@ class GoodsController extends Controller
 	public function actionAdmin()
 	{
 //			Utils::print_r($_GET);
-		$model=new Goods('search');
+		$model = new Goods('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Goods']))
 			$model->attributes = $_GET['Goods'];

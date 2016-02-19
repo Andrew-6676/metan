@@ -22,11 +22,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'fname'); ?>
-		<?php echo $form->textField($model,'fname',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'rs'); ?>
 		<?php echo $form->textField($model,'rs',array('size'=>15,'maxlength'=>15)); ?>
 	</div>
@@ -52,16 +47,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'kpo'); ?>
-		<?php echo $form->textField($model,'kpo',array('size'=>5,'maxlength'=>5)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'parent'); ?>
-		<?php echo $form->textField($model,'parent'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'bank'); ?>
 		<?php echo $form->textField($model,'bank',array('size'=>60,'maxlength'=>200)); ?>
 	</div>
@@ -72,7 +57,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton('Искать'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

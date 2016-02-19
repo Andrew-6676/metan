@@ -5,8 +5,19 @@
 $(document).ready(function () {
 	//console.log('rest');
 
-	$('tr').click(function () {
-		$(this).toggleClass('sel');
+	$('tr').click(function (e) {
+		if (e.shiftKey) {
+			if ($('.sel').size() > 0) {
+				$(this).prevUntil('.sel').addClass('sel');
+				$(this).addClass('sel');
+			} else {
+				$(this).toggleClass('sel');
+			}
+			// alert("shift+click");
+			// выделяем все от
+		} else {
+			$(this).toggleClass('sel');
+		}
 	});
 	
 	$('.unselect_goods').click(function () {

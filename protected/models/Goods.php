@@ -46,7 +46,7 @@ class Goods extends CActiveRecord
 			array('id_3torg', 'length', 'max'=>13),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, id_unit, producer, norder, id_supplier, id_goodsgroup, id_3torg', 'safe', 'on'=>'search'),
+			array('id, name, producer, norder, id_supplier, id_3torg', 'safe', 'on'=>'search'),
 		);
 	}
 

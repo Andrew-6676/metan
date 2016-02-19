@@ -437,15 +437,33 @@ class MainAjaxController extends CController
 
 			if ($g_new->save()) {
 
-					// меняем код в приходе
+				// в приходе копируем строку, но у же с новым кодом, в старой тсроке обнуляем кол-во
+				$new_row = new Documentdata();
 				$dd = Documentdata::model()->findByPK($_POST['docdata_id']);
-				$dd->id_goods = $_POST['new_id'];
+				$new_row->attributes =  $dd->attributes;
+				$new_row->id_goods  = $_POST['new_id'];
+				$new_row->cost      = $dd->cost    ;
+				$new_row->price     = $dd->price   ;
+				$new_row->vat       = $dd->vat     ;
+				$new_row->markup    = $dd->markup  ;
+				$new_row->quantity  = $dd->quantity;
+
+				$dd->quantity = 0;
+				//$res['message'] = print_r($new_row,true);
+//	// меняем код в приходе
+//				$dd = Documentdata::model()->findByPK($_POST['docdata_id']);
+//				$dd->id_goods = $_POST['new_id'];
 				if ($dd->save()) {
-					$res['status'] = 'ok';
-					$res['message'] = 'Новый код добавлен в справочник и заменён в приходе.';
+					if ($new_row->save()) {
+						$res['status'] = 'ok';
+						$res['message'] = 'Новый код добавлен в справочник и заменён в приходе.';
+					} else {
+						$res['status'] = 'err';
+						$res['message'] = 'Ошибка при изменении прихода (2)';
+					}
 				} else {
 					$res['status'] = 'err';
-					$res['message'] = 'Ошибка при изменении прихода';
+					$res['message'] = 'Ошибка при изменении прихода (1)';
 				}
 			} else {
 				$res['status'] = 'err';

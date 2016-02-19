@@ -173,7 +173,7 @@
 <div class="delemiter"></div>
 
 <div class="page_caption">
-	Расход за <b><u>
+	<?php echo $mode == 'expence' ? 'Накладные':'Кредиты'  ?> за <b><u>
 	<?php
 		echo Utils::getMonthName(intval(substr(Yii::app()->session['workdate'],5,2)));
 		echo date(' Y');
@@ -224,7 +224,7 @@ if ($mode == 'expence'){
 		'data'=>$data,
 		//'mode'=>'one_to_many',
 		'head'=>array(
-			'doc_num'=>'Документ №',
+			//'doc_num'=>'Документ №',
 			'doc_date'=>'Дата',
 			'contact.name'=>'Покупатель',
 			'operation.name'=>'Вид расхода',

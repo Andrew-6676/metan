@@ -569,3 +569,7 @@ button.reload:hover {
 #tomorrow {
 	right: 0;
 }
+/*------------------------------*/
+.grid-view .pager {
+	text-align: center !important;
+}
