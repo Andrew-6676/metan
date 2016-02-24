@@ -122,7 +122,7 @@ $(document).ready(function () {
 		event.stopPropagation();
 		var td = $(this);
 		var new_id = prompt('Введите новый код:', td.text());
-		if (new_id==null) {return false;}
+		if (new_id==null || new_id==td.text()) { return false; }
 		var docdata_id = td.parent().attr('docdata_id');
 		console.log("Сменить код - "+td.text()+' на '+new_id);
 			// только в случае, если нового кода нету в БД!!!!

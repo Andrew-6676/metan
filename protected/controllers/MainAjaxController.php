@@ -428,9 +428,44 @@ class MainAjaxController extends CController
 		$g = Goods::model()->findByPK($_POST['new_id']);
 		//$g ? $res['data2'] = 'found' : $res['data2'] = 'not found';
 		if ($g) {
-			$res['status'] = 'err';
-			$res['message'] = 'Код уже занят!';
+				//  если такой код есть в справочнике - сравниваем цену,
+			$g_old = Goods::model()->findByPK($_POST['old_id']);
+
+				// если код на который пытаемся изменить есть в БД и при этом совпадает и цена - то просто меняем код в приходе
+			if (($g->price==0 ) || ($g_old->price == $g->price &&  $g_old->cost == $g->cost)) {
+				// меняем код в приходе
+				// в приходе копируем строку, но у же с новым кодом, в старой тсроке обнуляем кол-во
+				$new_row = new Documentdata();
+				$dd = Documentdata::model()->findByPK($_POST['docdata_id']);
+				$new_row->attributes =  $dd->attributes;
+				$new_row->id_goods  = $_POST['new_id'];
+				$new_row->cost      = $dd->cost    ;
+				$new_row->price     = $dd->price   ;
+				$new_row->vat       = $dd->vat     ;
+				$new_row->markup    = $dd->markup  ;
+				$new_row->quantity  = $dd->quantity;
+
+				$dd->quantity = 0;
+
+				if ($dd->save()) {
+					if ($new_row->save()) {
+						$res['status'] = 'ok';
+						$res['message'] = 'Код изменён в приходе.';
+					} else {
+						$res['status'] = 'err';
+						$res['message'] = 'Ошибка при изменении прихода (4)';
+					}
+				} else {
+					$res['status'] = 'err';
+					$res['message'] = 'Ошибка при изменении прихода (3)';
+				}
+
+			} else {
+				$res['status'] = 'err';
+				$res['message'] = 'Такой код уже есть с другой ценой!'."\n".' ('.$g->name.' - '.$g->price.' р.)';
+			}
 		} else {
+				// добавляем новый код в справочник
 			$g_new = new Goods();
 			$g_new->attributes = Goods::model()->findByPK($_POST['old_id'])->attributes;
 			$g_new->id = $_POST['new_id'];

@@ -215,8 +215,8 @@ tr.empty td {
 	background: none  !important;
 	padding: 1px !important;
 }
-tr.empty {
-	font-size: 0.7em;
+tr.empty, tr.empty a {
+	font-size: 0.8em;
 	color: #bcbcbc;
 }
 
