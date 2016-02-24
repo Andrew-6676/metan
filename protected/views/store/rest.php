@@ -8,10 +8,8 @@ $this->addJS('jquery-ui.js');
 
 ?>
 
-<a href="/metan_0.1/print/index?report=Rest" target="_blank">Печать</a>
-<br>
-<a href="/metan_0.1/store/rest">Остатки на текущую дату</a>
-<br>
+<!-- a href="/metan_0.1/print/index?report=Rest" target="_blank">Печать</a>
+<br -->
 <a href="/metan_0.1/store/restEdit">Остатки на начало месяца (редактировать)</a>
 <br>
 <br>
