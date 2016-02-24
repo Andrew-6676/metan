@@ -4,8 +4,9 @@ class restAction extends CAction   /*---- StoreController ----*/
 {
 	public function run(){
 		$connection = Yii::app()->db;
-
-		$rest = Rest::getRestList('gname', '%', Yii::app()->session['workdate'], Yii::app()->session['id_store']);
+		$filter = '';
+		if (isset($_GET['filter'])) $filter = $_GET['filter'];
+		$rest = Rest::getRestList('gname', $filter.'%', Yii::app()->session['workdate'], Yii::app()->session['id_store']);
 
 //		$sql_rest = "select gid , gname as name,  price, sum(quantity)::real as rest
 //					from (

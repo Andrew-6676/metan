@@ -419,6 +419,7 @@ body {
 /*-----------------------------------------------*/
 .r {
 	text-align: right;
+	padding-right: 10px !important;
 }
 .l {
 	text-align: left;
@@ -455,7 +456,7 @@ tr.nol a:hover, td.nol a:hover{
 	text-decoration: underline;
 }
 tr.sel {
-	background-color: #F04E4E !important;
+	background-color: #4ACAA6 !important;
 	color: #fff;
 }
 
@@ -572,4 +573,7 @@ button.reload:hover {
 /*------------------------------*/
 .grid-view .pager {
 	text-align: center !important;
+}
+.grid-view .summary {
+	margin-top: 5px !important;
 }

@@ -17,8 +17,15 @@ $this->addJS('jquery-ui.js');
 <br>
 <button class="selected_goods">Выбрать</button>
 <button class="unselect_goods">Снять выделение</button>
+
+<br><br>
+<form method="get">
+	<label for="filter">Фильтр</label>
+	<input name="filter" id="filter" placeholder="<?php echo @$_GET['filter'] ?>">
+	<button class="btn" id="apply_filter">Применить</button>
+</form>
 <div class="" style="float: right; ">
-	Всего: <?php echo number_format($total, 0, '.', ' '); ?>
+	Сумма:<b> <?php echo number_format($total, 0, '.', ' '); ?></b>
 </div>
 
 <?php
@@ -54,6 +61,7 @@ $this->addJS('jquery-ui.js');
 		},
 		'id' => 'restGrid',
 		'dataProvider' => $data,
+		'summaryText' => 'Строк: {count}',
 		'enablePagination' => false,
 		//'pager'=> array(
 		//	'header' => '',
