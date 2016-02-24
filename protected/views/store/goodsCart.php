@@ -28,6 +28,7 @@ $diff_price = false;
 <!--	</tr>-->
 <?php
 	echo 'Остаток на '. Utils::format_date(substr(Yii::app()->session['workdate'],0,7).'-01').': <b>'.$data['goods']->rest0.'</b>';
+
 	if ($data['goods']->rest0price > 0) {
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small> цена: '.number_format($data['goods']->rest0price,'0','.','&nbsp;').'</small>';
 	}
@@ -117,9 +118,11 @@ $diff_price = false;
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $rq;
 			$tr .=     '</td>';
-//			$tr .=     '<td  class="'.$m.'">';
-//			$tr .=         '<small>'.number_format($row->price,'0','.','&nbsp;').'</small>';
-//			$tr .=     '</td>';
+//				$tr .=     '<td  class="'.$m.'">';
+//				$tr .=         '<small>'.number_format($row->cost,'0','.','&nbsp;').'</small><br>';
+//				$tr .=         '<small>'.number_format($row->markup,'0','.','&nbsp;').'</small><br>';
+//				$tr .=         '<small>'.number_format($row->price,'0','.','&nbsp;').'</small><br>';
+//				$tr .=     '</td>';
 			$tr .=     '<td  class="'.$m.'">';
 			$tr .=         $pr;
 			$tr .=     '</td>';
