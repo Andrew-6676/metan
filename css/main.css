@@ -444,11 +444,11 @@ tr.minus, td.minus {
 	background-color: #ffff00 !important;
 }
 tr.nol, td.nol{
-	color: #FFFFFF;
-	background: #CECECE !important;
+	color: #CACACA;
+	/*background: #CECECE !important;*/
 }
 tr.nol a, td.nol a{
-	color: #FFFFFF;
+	color: #CACACA;
 	text-decoration: none;
 }
 tr.nol a:hover, td.nol a:hover{

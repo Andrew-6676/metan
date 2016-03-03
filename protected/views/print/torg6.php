@@ -30,26 +30,17 @@ $this->addCSS('print/report.css');
 					<td>Наименование показателя</td>
 					<td>Номер
 						строки</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>За отчетный период</td>
 				</tr>
 				</thead>
 				<tr>
 					<td>Розничный товарооборот
 						(сумма строк 02 и 04) </td>
 					<td>01</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><?php echo Yii::app()->format->formatNumber($sum->price - $sum2->price+$rk[0]-$rk[1]) ?></td>
 				</tr>
 				<tr>
 					<td>в том числе продано:</td>
-					<td></td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -58,48 +49,30 @@ $this->addCSS('print/report.css');
 						и табачных изделий </td>
 					<td>02</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 				<tr>
 					<td>из них алкогольных напитков</td>
 					<td>03</td>
-					<td></td>
-					<td></td>
-					<td></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>непродовольственных товаров</td>
 					<td>04</td>
 					<td><?php echo Yii::app()->format->formatNumber($sum->price - $sum2->price+$rk[0]-$rk[1]) ?></td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 				<tr>
 					<td>Запасы товаров в розничных торговых объектах и на складах
 						на конец отчетного периода</td>
 					<td>05</td>
-					<td>!!</td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td><?php echo Yii::app()->format->formatNumber(Rest::get_Rest(Yii::app()->session['workdate'], Yii::app()->session['id_store'], -1)); ?></td>
 				</tr>
 				<tr>
 					<td>Товарооборот общественного питания (сумма строк 07 и 09)</td>
 					<td>06</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 				<tr>
 					<td>в том числе продано:</td>
-					<td></td>
-					<td></td>
-					<td></td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -108,24 +81,15 @@ $this->addCSS('print/report.css');
 						и табачных изделий </td>
 					<td>07</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 				<tr>
 					<td>из них алкогольных напитков</td>
 					<td>08</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
 				</tr>
 				<tr>
 					<td>непродовольственных товаров</td>
 					<td>09</td>
-					<td></td>
-					<td></td>
-					<td></td>
 					<td></td>
 				</tr>
 			</table>

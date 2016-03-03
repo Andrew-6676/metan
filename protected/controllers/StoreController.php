@@ -31,6 +31,7 @@ class StoreController extends Controller
 			'print' => 'application.controllers.store.printAction',
 			'svodDay' => 'application.controllers.store.svodDayAction',
 			'prepareGoodsreport' => 'application.controllers.store.prepareGoodsreportAction',
+			'prepareGruntreport' => 'application.controllers.store.prepareGruntreportAction',
 			'prepareDeliverynote' => 'application.controllers.store.prepareDeliverynoteAction',
 			'prepareWriteoff' => 'application.controllers.store.prepareWriteoffAction',
 		);

@@ -205,14 +205,20 @@ class GoodsController extends Controller
 
 		//Utils::print_r($_GET);
 		$c = 0;
-		foreach ($_POST['data'] as $gid=>$tid) {
-			if (Goods::model()->updateByPK($gid, array('id_3torg'=>$tid)) > 0) {
-				$res['status'] = 'ok';
+		if ($_POST['data']==null) {
+			if (Goods::model()->updateByPK($gid, array('id_3torg' => $tid)) > 0) {
 
-				$c++;
-			};
+			}
+		} else {
+			foreach ($_POST['data'] as $gid => $tid) {
+				if (Goods::model()->updateByPK($gid, array('id_3torg' => $tid)) > 0) {
+					$res['status'] = 'ok';
+
+					$c++;
+				};
+			}
+			$res['message'] = 'Обновлено ' . $c . ' стр.';
 		}
-		$res['message'] = 'Обновлено '.$c.' стр.';
 		echo json_encode($res);
 	}
 	/**

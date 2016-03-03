@@ -170,7 +170,7 @@ class Rest extends CActiveRecord
 		// часть товара оплаченная налом помечена в поле partof - в количество такой товар считать не надо, цену надо брать из прихода
 		//TODO: цену выбрать только из прихода и остатков (никаких счёт-фактур)
 		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat,
-						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($date,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 and doc_date<='".$date."' and doc_date>='".substr($date,0,7)."-01' order by d.id desc limit 1)) as price,
+						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($date,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) and doc_date<='".$date."' and doc_date>='".substr($date,0,7)."-01' order by d.id desc limit 1)) as price,
 						 sum(quantity)::real as rest,
 						(select COALESCE(sum(quantity), 0)
 						from vgm_documentdata dd
@@ -197,7 +197,81 @@ class Rest extends CActiveRecord
 					having upper(".$f."::text) like upper('".$term."%')
 					order by ".$f.", 1, 2";
 
-		$rest = $connection->createCommand($sql_rest)->queryAll();
+			// добавлены колонки прихода и расхода
+		$sql_rest2 = "select
+							gid as id,
+							gname as name,
+							max(cost) as cost,
+							max(markup) as markup,
+							max(vat) as vat,
+							COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($date,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) and doc_date<='".$date."' and doc_date>='".substr($date,0,7)."-01' order by d.id desc limit 1)) as price,
+							sum(quantity_rest)::real as rest_begin,
+							sum(quantity_receipt)::real as receipt,
+							sum(quantity_expence)::real as expence,
+							sum(quantity_rest+quantity_receipt-quantity_expence)::real as rest,
+							(select COALESCE(sum(quantity), 0)
+							from vgm_documentdata dd
+								inner join vgm_document d on d.id=dd.id_doc
+							where d.id_doctype=3 and id_goods=gid and  d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and link<0) as inv
+					from (
+						select
+							g.id as gid,
+							g.name as gname,
+							dd.cost as cost,
+							max(dd.markup) as markup,
+							max(vat) as vat,
+							0 as quantity_rest,
+							sum(dd.quantity) as quantity_receipt,
+							0 as quantity_expence,
+							'p' as t
+						from vgm_goods g
+						  inner join vgm_documentdata dd on g.id=dd.id_goods and dd.partof<0
+						  inner join vgm_document d on d.id=dd.id_doc and d.active
+						  inner join vgm_operation o on o.id=d.id_operation
+						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and o.operation>0
+						group by gid, gname, cost
+
+							union
+
+						select
+							g.id as gid,
+							g.name as gname,
+							dd.cost as cost,
+							max(dd.markup) as markup,
+							max(vat) as vat,
+							0 as quantity_rest,
+							0 as quantity_receipt,
+							sum(dd.quantity) as quantity_expence,
+							'r' as t
+						from vgm_goods g
+						  inner join vgm_documentdata dd on g.id=dd.id_goods and dd.partof<0
+						  inner join vgm_document d on d.id=dd.id_doc and d.active
+						  inner join vgm_operation o on o.id=d.id_operation
+						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and o.operation<0
+						group by gid, gname, cost
+
+							union
+
+						select
+							g.id as gid,
+							g.name as gname,
+							r.cost as cost,
+							r.markup as markup,
+							r.vat as vat,
+							r.quantity as quantity_rest,
+							0 as quantity_receipt,
+							0 as quantity_expence,
+							'o' as t
+						from vgm_goods g
+						  inner join vgm_rest r on g.id=r.id_goods
+						where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
+					) as motion
+					group by gid, gname, price
+					--having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
+					having upper(".$f."::text) like upper('".$term."%')
+					order by ".$f.", 1, 2";
+
+		$rest = $connection->createCommand($sql_rest2)->queryAll();
 		//echo $sql_rest;
 		if ($type=='json') {
 			$res = json_encode($rest);
@@ -232,17 +306,17 @@ class Rest extends CActiveRecord
 		$sql_del_rest = "delete from {{rest}} where rest_date='".$date."' and id_store=".$store;
 		// предыдущий запрос терял повторяющиеся строки
 
-		$sql_rest = "select	".$store." as id_store,
+		$sql_rest = "SELECT	$store as id_store,
 						gid as id,
-						'".$date."' as rest_date,
+						'$date' as rest_date,
 						sum(quantity)::real as rest,
 						max(cost) as cost,
 						max(markup) as markup,
 						max(vat) as vat,
-						--COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 order by d.id desc limit 1)) as price
+						--COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) order by d.id desc limit 1)) as price
 						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($month,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 and doc_date::text like '".$month."' order by d.id desc limit 1)) as price
 
-					from (
+					FROM (
 						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
 						from vgm_goods g
 						  inner join vgm_documentdata dd on g.id=dd.id_goods and dd.partof<0

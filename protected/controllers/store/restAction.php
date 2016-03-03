@@ -4,6 +4,7 @@ class restAction extends CAction   /*---- StoreController ----*/
 {
 	public function run(){
 		$connection = Yii::app()->db;
+
 		$filter = '';
 		if (isset($_GET['filter'])) $filter = $_GET['filter'];
 		$rest = Rest::getRestList('gname', $filter.'%', Yii::app()->session['workdate'], Yii::app()->session['id_store']);

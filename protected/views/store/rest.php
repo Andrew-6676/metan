@@ -103,13 +103,24 @@ $this->addJS('jquery-ui.js');
 				'header'=>'Цена',
 				'htmlOptions'=>array('class'=>'r'),
 			),
-//			array(
-//				'name'=>'price',
-//				'type'=>'raw',
-//				'value'=>'number_format(Goods::model()->findByPK($data["id"])->price,"0", ".", " ")',
-//				'header'=>'Цена',
-//				'htmlOptions'=>array('class'=>'r'),
-//			),
+			array(
+				'name'=>'rest_begin',
+				'value'=>'$data[\'rest_begin\']',
+				'header'=>'Остаток<br>на начало',
+				'htmlOptions'=>array('class'=>'r'),
+			),
+			array(
+				'name'=>'receipt',
+				'value'=>'$data[\'receipt\']',
+				'header'=>'Приход',
+				'htmlOptions'=>array('class'=>'r'),
+			),
+			array(
+				'name'=>'expence',
+				'value'=>'$data[\'expence\']',
+				'header'=>'Расход',
+				'htmlOptions'=>array('class'=>'r'),
+			),
 			array(
 				'name'=>'rest',
 				'header'=>'Остаток',

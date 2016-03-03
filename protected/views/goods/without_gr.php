@@ -45,6 +45,13 @@
 //DTimer::log('старт');	// засекаем время выполнения
 
 	$this->widget('zii.widgets.grid.CGridView', array(
+		'rowHtmlOptionsExpression' => function($row, $data) {
+			//if () {
+				return array('gid'=>$data->id);
+			//} else {
+			//	return '';
+			//}
+		},
 		'rowCssClassExpression' => function($row, $data) {
 			// $row - номер строки начиная с 0
 			// $data - ваша моделька
@@ -186,7 +193,6 @@
 		function set_group(tid, gid, tr) {
 			console.log('добавить к '+gid+' группу '+tid);
 //			console.log(tr);
-
 			var arr = {};
 			arr[gid] = tid;
 			$.ajax({
@@ -204,7 +210,7 @@
 				success: function (data) {
 					console.log(data);
 					if (data.status == 'ok') {
-						tr.find('.gr').text(tid);
+						tr.find('.gr').html('<a href="#" onclick="del_group(this); return false;">'+tid+'</a>');
 					} else {
 						$('#overlay').hide();
 						$('#loadImg').hide();
@@ -215,6 +221,38 @@
 
 
 			//tr.find('.gr').text(tid);
+		}
+		function del_group(sender, gid) {
+			var gid = $(sender).parent().parent().attr('gid');
+			console.log('убрать группу у '+gid);
+			var tr = $(sender).parent().parent();
+			var arr = {};
+			arr[gid] = 0;
+			$.ajax({
+				url: 'http://' + document.location.host + rootFolder + "/goods/set_gr",
+				type: 'POST',
+				dataType: "json",
+				data: {data: arr},
+				// функция обработки ответа сервера
+				error: function (data) {
+					alert(JSON.stringify(data) + '###');
+					alert('Во время сохранения произошла ошибка. Проверьте введённые данные!');
+					$('#overlay').hide();
+					$('#loadImg').hide();
+				},
+				success: function (data) {
+					console.log(data);
+					if (data.status == 'ok') {
+						tr.find('.gr').text('');
+					} else {
+						$('#overlay').hide();
+						$('#loadImg').hide();
+						alert(data.message);
+					}
+				}
+			});
+
+			return false;
 		}
 	</script>
 

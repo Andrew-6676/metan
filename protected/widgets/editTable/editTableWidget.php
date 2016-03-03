@@ -81,10 +81,10 @@ class editTableWidget extends CWidget
 					} else {
 						echo '<td class=';
 						//если число в поле - выравнивание по правому краю
-						if ($row->model()->tableSchema->getColumn($col)->dbType == 'integer' || $row->model()->tableSchema->getColumn($col)->dbType == 'real') {
+						if (strpos($row->model()->tableSchema->getColumn($col)->dbType, 'double')==0 || $row->model()->tableSchema->getColumn($col)->dbType == 'real') {
 							echo '"r" ';
 						} else {
-							echo '"l" ';
+							echo '"l" '.$row->model()->tableSchema->getColumn($col)->dbType;
 						}
 						// разрешено ли редактирование
 						echo 'ro=';
