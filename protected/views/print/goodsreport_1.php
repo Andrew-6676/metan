@@ -613,31 +613,31 @@ kred:
 					<thead>
 					<tr>
 						<th>Дата</th>
-						<th>Номер карты</th>
-						<!--			<th>Поставщик</th>-->
+						<!-- th>Номер карты</th -->
+						<!-- th>Поставщик</th -->
 						<th>Сумма</th>
 					</tr>
 					</thead>
 					<?php
 					$s = 0;
-					foreach ($docs['data'] as $doc) {
+					foreach ($docs['data'] as $date=>$sum) {
 						//		echo $doc['head']['num'].'<br>';
 						//		Utils::print_r($doc);
 						$tr = '<tr>';
 						$tr .= '<td>';
-						$tr .= Utils::format_date($doc['date']);
+						$tr .= Utils::format_date($date);
 						$tr .= '</td>';
-						$tr .= '<td>';
-						$tr .= $doc['kart_num'];
-						$tr .= '</td>';
+						//$tr .= '<td>';
+						//$tr .= $doc['kart_num'];
+						//$tr .= '</td>';
 						//			$tr .=   '<td>';
 						//			$tr .=      $doc['head']['contact'];
 						//			$tr .=   '</td>';
 						$tr .= '<td class="r">';
-						$tr .= number_format($doc['sum'], '0', '.', ' ');
+						$tr .= number_format($sum, '0', '.', ' ');
 						$tr .= '</td>';
 						$tr .= '</tr>';
-						$s += $doc['sum'];
+						$s += $sum;
 						echo $tr;
 
 					}
@@ -645,15 +645,15 @@ kred:
 					$itogo_r += $s;
 					?>
 					<tr>
-						<td colspan="2" class="no_border itog">Итого по данной операции:</td>
+						<td colspan="1" class="no_border itog">Итого по данной операции:</td>
 						<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="no_border ">Возврат безнал:</td>
+						<td colspan="1" class="no_border ">Возврат безнал:</td>
 						<td class="r no_border "><?php echo number_format($vozvr_beznal, '0', '.', ' '); ?></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="no_border ">Итого по терминалу:</td>
+						<td colspan="1" class="no_border ">Итого по терминалу:</td>
 						<td class="r no_border "><?php echo number_format($s-$vozvr_beznal, '0', '.', ' '); ?></td>
 					</tr>
 				</table>

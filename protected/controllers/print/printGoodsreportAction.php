@@ -99,11 +99,12 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 
 					switch ($row_d->id_operation) {
 						case 56: // карточка
-							$json['expence']['karta']['data'][] = array(
-								'date' => $row_d->doc_date,
-								'kart_num' => $row_d->docaddition ? $row_d->docaddition->payment_order : 0,
-								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
-							);
+							$json['expence']['karta']['data'][$row_d->doc_date] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+//							$json['expence']['karta']['data'][] = array(
+//								'date' => $row_d->doc_date,
+//								'kart_num' => $row_d->docaddition ? $row_d->docaddition->payment_order : 0,
+//								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
+//							);
 							$json['expence']['karta']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							break;
 						case 53: // чеками
