@@ -314,7 +314,7 @@ class Rest extends CActiveRecord
 						max(markup) as markup,
 						max(vat) as vat,
 						--COALESCE((select price from {{rest}} where id_goods=gid order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) order by d.id desc limit 1)) as price
-						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($month,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and id_operation=33 and doc_date::text like '".$month."' order by d.id desc limit 1)) as price
+						COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($month,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) and doc_date::text like '".$month."' order by d.id desc limit 1)) as price
 
 					FROM (
 						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, 'd' as t
