@@ -30,7 +30,9 @@ $diff_price = false;
 	echo 'Остаток на '. Utils::format_date(substr(Yii::app()->session['workdate'],0,7).'-01').': <b>'.$data['goods']->rest0.'</b>';
 
 	if ($data['goods']->rest0price > 0) {
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small> цена: '.number_format($data['goods']->rest0price,'0','.','&nbsp;').'</small>';
+		echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small> цена: '.number_format($data['goods']->rest0price,'0','.','&nbsp;').'</small>';
+	} else {
+		echo '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small> цена: '.number_format($data['goods']->price,'0','.','&nbsp;').'</small>';
 	}
 	//Utils::print_r($data['goods']->rest0price);
 	if (count($data['m']) == 0) {
@@ -72,7 +74,7 @@ $diff_price = false;
 		'33' => '/store/receipt',
 		'51' => '/store/expense_day',
 		'52' => '/store/expense',
-		'54' => '/store/expense',
+		'54' => '/store/kredit',
 		'56' => '/store/expense_day',
 	);
 	$rest = $data['goods']->rest0;

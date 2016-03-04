@@ -8,7 +8,7 @@ class dirAction extends CAction   /*---- StoreController ----*/
 		//Utils::print_r($this->controller->id);
 
 
-		$page_menu = Menu::model()->findAll(['condition'=>'parent=49', 'order'=>'ord']);
+		$page_menu = Menu::model()->findAll(['condition'=>'parent=49 and enabled', 'order'=>'ord']);
 		$sub_items = array();
 		foreach($page_menu as $item) {
 			// echo $item->url.'---';

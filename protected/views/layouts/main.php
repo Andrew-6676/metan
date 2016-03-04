@@ -106,14 +106,14 @@ if (!Yii::app()->user->isGuest) {
 	// загружаем из БД главное меню
 	$menu = Menu::model()->findAllBySql('select m.id, m.url
 													from {{menu}} m inner join {{group}} g on g.id=m.id_group
-													where enabled=true and level=0 and category=\'main\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
+													where enabled and level=0 and category=\'main\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
 													order by ord',
 		array(':id' => intval(Yii::app()->user->id)));
 
 
 	$sub_menu = Menu::model()->findAllBySql('select m.id, m.url
 													from {{menu}} m inner join {{group}} g on g.id=m.id_group
-													where enabled=true and level>0 and category=\'sub\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
+													where enabled and level>0 and category=\'sub\' and (m.id_group=0 or g.id=(select id_group from vgm_user where id=:id))
 													order by ord',
 		array(':id' => intval(Yii::app()->user->id)));
 

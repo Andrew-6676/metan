@@ -61,16 +61,16 @@ class StoreController extends Controller
 			//        'users'=>array('prod', 'admin'),					// остальным выдаст ошибку
 			//    ),
 			array('deny',
-				'actions' => array('expense_day',
-					'print',
-					'return',
-					'receipt',
-					'expense',
-					'invoice',
-					'rest',
-					'restEdit',
-					'restClose',
-					'setGoodsreport'),            // запреить всем доступ к "*"
+//				'actions' => array('expense_day',
+//					'print',
+//					'return',
+//					'receipt',
+//					'expense',
+//					'invoice',
+//					'rest',
+//					'restEdit',
+//					'restClose',
+//					'setGoodsreport'),            // запреить всем доступ к "*"
 				'users' => array('?'),                    // запрет должен стоять после разрешения
 			),
 		);
