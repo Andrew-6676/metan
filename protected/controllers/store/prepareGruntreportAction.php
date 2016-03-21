@@ -43,7 +43,7 @@ function getGruntReport($from_date, $to_date) {
 			(SELECT
 				g.name as gname,
 				substring(g.name, '\d+')::int AS vol,
-				substring(g.name, '(ДВИНА|УНИВЕР|ЦВЕТОЧНЫЙ|ТОМАТНЫЙ|ТОМАТ\+ПЕРЕЦ|ПЕРЦ|УРОЖАЙ.+\s|РАССАДН)') AS name,
+				substring(g.name, '(ДВИНА|УНИВЕР|ЦВЕТОЧНЫЙ|ТОМАТНЫЙ|ТОМАТ\+ПЕРЕЦ|ПЕРЦ|УРОЖАЙ.+\s|РАССАДН|ОВОЩ|КИПОВАННЫЙ)') AS name,
 				quantity,
 				price
 			FROM vgm_documentdata AS dd
