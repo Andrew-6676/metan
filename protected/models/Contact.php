@@ -40,7 +40,7 @@ class Contact extends CActiveRecord
 		return array(
 			array('name, fname, unn, rs, mfo', 'required'),
 			array('parent', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>80),
+			array('name', 'length', 'max'=>255),
 			array('fname, address, agreement', 'length', 'max'=>255),
 			array('rs', 'length', 'max'=>15),
 			array('mfo', 'length', 'max'=>9),
