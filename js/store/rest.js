@@ -41,3 +41,9 @@ $(document).ready(function () {
 	})
 
 });
+
+
+//function open_card(sender) {
+//	//console.log(sender);
+//
+//}

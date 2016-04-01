@@ -88,7 +88,7 @@ $this->addJS('jquery-ui.js');
 				'header'=>'Наименование',
 				'type'=>'raw',
 				//'value'=> 'CHtml::link($data[\'name\'], array(\'store/goodsCart/\'.$data[\'id\']));'
-				'value'=>'CHtml::link($data[\'name\'], "#", array("class"=>"goodscart","gid"=>$data[\'id\']) )',
+				'value'=>'CHtml::link($data[\'name\'], "#", array("class"=>"goodscart","gid"=>$data[\'id\'],  "onclick"=>"showGoodsCart($(this).attr(\'gid\')); return false;"))',
 //				'value'=>'CHtml::ajaxLink(
 //									$data[\'name\'],
 //									array("store/goodsCart/".$data[\'id\']),
