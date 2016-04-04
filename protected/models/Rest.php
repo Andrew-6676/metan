@@ -204,6 +204,9 @@ class Rest extends CActiveRecord
 							max(cost) as cost,
 							max(markup) as markup,
 							max(vat) as vat,
+							--price as price_1,
+							(select price from vgm_rest where id_goods=gid and rest_date='2016-03-01' order by rest_date desc limit 1) as price_from_rest,
+							(select price from vgm_documentdata dd inner join vgm_document d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) and doc_date<='2016-03-31' and doc_date>='2016-03-01' order by d.id desc limit 1) as price_from_doc,
 							COALESCE((select price from {{rest}} where id_goods=gid and rest_date='".substr($date,0,7)."-01' order by rest_date desc limit 1), (select price from {{documentdata}} dd inner join {{document}} d on d.id=dd.id_doc where id_goods=gid and (id_operation in(2,3,33)) and doc_date<='".$date."' and doc_date>='".substr($date,0,7)."-01' order by d.id desc limit 1)) as price,
 							sum(quantity_rest)::real as rest_begin,
 							sum(quantity_receipt)::real as receipt,
@@ -218,6 +221,7 @@ class Rest extends CActiveRecord
 							g.id as gid,
 							g.name as gname,
 							dd.cost as cost,
+							dd.price as price,
 							max(dd.markup) as markup,
 							max(vat) as vat,
 							0 as quantity_rest,
@@ -229,7 +233,7 @@ class Rest extends CActiveRecord
 						  inner join vgm_document d on d.id=dd.id_doc and d.active
 						  inner join vgm_operation o on o.id=d.id_operation
 						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and o.operation>0
-						group by gid, gname, cost
+						group by gid, gname, cost, price
 
 							union
 
@@ -237,6 +241,7 @@ class Rest extends CActiveRecord
 							g.id as gid,
 							g.name as gname,
 							dd.cost as cost,
+							dd.price as price,
 							max(dd.markup) as markup,
 							max(vat) as vat,
 							0 as quantity_rest,
@@ -248,7 +253,7 @@ class Rest extends CActiveRecord
 						  inner join vgm_document d on d.id=dd.id_doc and d.active
 						  inner join vgm_operation o on o.id=d.id_operation
 						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and o.operation<0
-						group by gid, gname, cost
+						group by gid, gname, cost, price
 
 							union
 
@@ -256,6 +261,7 @@ class Rest extends CActiveRecord
 							g.id as gid,
 							g.name as gname,
 							r.cost as cost,
+							r.price as price,
 							r.markup as markup,
 							r.vat as vat,
 							r.quantity as quantity_rest,
@@ -272,7 +278,7 @@ class Rest extends CActiveRecord
 					order by ".$f.", 1, 2";
 
 		$rest = $connection->createCommand($sql_rest2)->queryAll();
-		//echo $sql_rest;
+		//echo '<pre>'.$sql_rest2.'</pre>';
 		if ($type=='json') {
 			$res = json_encode($rest);
 		} else {

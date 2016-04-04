@@ -442,6 +442,8 @@ td {
 tr.minus, td.minus {
 	color: red;
 	background-color: #ffff00 !important;
+	font-weight: bold;
+	/*font-size: 1em;*/
 }
 tr.nol, td.nol{
 	color: #CACACA;
@@ -460,7 +462,12 @@ tr.sel {
 	color: #fff;
 }
 
-
+.invalid_price {
+	color: white !important;
+	font-weight: bold !important;
+	font-size: 1.2em !important;
+	background: #FF0202 !important;
+}
 /*-------------------------------------------------*/
 table.std caption, table.std th {
 	font-weight: bold;

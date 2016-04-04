@@ -50,6 +50,9 @@ $this->addJS('jquery-ui.js');
 			if ($data['rest'] == 0) {
 				$class = 'nol';
 			}
+			if (($data['price_from_rest'] && $data['price_from_doc']) && ($data['price_from_rest'] != $data['price_from_doc'])) {
+				$class = 'invalid_price';
+			}
 			if ($row%2 == 0) {
 				$class .= ' odd';
 			} else {
