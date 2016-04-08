@@ -74,9 +74,66 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 		$data = $connection->createCommand($sql)->queryAll();
 		//$data = $sql;
 
-		//$rest = Rest::getRestList('gid', '', $year.$kvartal[$kv][1], Yii::app()->session['id_store']);
-		
+			// считаем остатки по группам
+		$rest = Rest::getRestList('gid', '', $year.$kvartal[$kv][1], Yii::app()->session['id_store']);
 
-		$this->controller->render('torg4p', array('data'=>$data/*, 'rest'=>$rest*/));
+		$sql_gr = "select distinct g.id, g.id_3torg
+					from vgm_documentdata as dd
+						inner join vgm_goods as g on dd.id_goods = g.id
+						inner join vgm_document as d on d.id=dd.id_doc
+					where 
+						d.id_store=".Yii::app()->session['id_store']." 
+						and doc_date>='".$year.$kvartal[$kv][0]."' 
+						and doc_date<='".$year.$kvartal[$kv][1]."'
+						and id_doctype = 2
+						and \"for\"=2";
+
+		$sql_gr2 = "select distinct g.id, g.id_3torg
+					from vgm_documentdata as dd
+						inner join vgm_goods as g on dd.id_goods = g.id
+						inner join vgm_document as d on d.id=dd.id_doc
+					where 
+						d.id_store=".Yii::app()->session['id_store']." 
+						and doc_date>='".$year.$kvartal[$kv][0]."' 
+						and doc_date<='".$year.$kvartal[$kv][1]."'
+						and id_doctype = 2
+						and \"for\"=2
+						and upper(g.producer) like 'РБ%'";
+
+		$gr = $connection->createCommand($sql_gr)->queryAll();
+		$gr = CHtml::listData($gr, 'id','id_3torg');
+
+		$ost = array();
+		foreach ($rest as $row) {
+			if (array_key_exists($row['id'], $gr))
+				if (isset($ost[$gr[$row['id']]])) {
+					$ost[$gr[$row['id']]]['q'] += $row['rest'];
+					$ost[$gr[$row['id']]]['s'] += $row['rest']*$row['price'];
+				} else {
+					$ost[$gr[$row['id']]]['q'] = $row['rest'];
+					$ost[$gr[$row['id']]]['s'] = $row['rest']*$row['price'];
+				}
+		}
+
+		$rst[0] = $ost;
+
+		$gr = $connection->createCommand($sql_gr2)->queryAll();
+		$gr = CHtml::listData($gr, 'id','id_3torg');
+		
+		$ost2 = array();
+		foreach ($rest as $row) {
+			if (array_key_exists($row['id'], $gr))
+				if (isset($ost2[$gr[$row['id']]])) {
+					$ost2[$gr[$row['id']]]['q'] += $row['rest'];
+					$ost2[$gr[$row['id']]]['s'] += $row['rest']*$row['price'];
+				} else {
+					$ost2[$gr[$row['id']]]['q'] = $row['rest'];
+					$ost2[$gr[$row['id']]]['s'] = $row['rest']*$row['price'];
+				}
+		}
+
+		$rst[1] = $ost2;
+
+		$this->controller->render('torg4p', array('data'=>$data, 'rst'=>$rst));
 	}
 }

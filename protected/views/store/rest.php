@@ -50,7 +50,8 @@ $this->addJS('jquery-ui.js');
 			if ($data['rest'] == 0) {
 				$class = 'nol';
 			}
-			if (($data['quantity'] != 0) && (($data['price_from_rest'] && $data['price_from_doc']) && ($data['price_from_rest'] != $data['price_from_doc']))) {
+			// TODO что-то тут не так
+			if (($data['receipt']!= 0) && (($data['price_from_rest'] && $data['price_from_doc']) && ($data['price_from_rest'] != $data['price_from_doc']))) {
 				$class = 'invalid_price';
 			}
 			if ($row%2 == 0) {

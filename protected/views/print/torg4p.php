@@ -26,14 +26,22 @@ $this->addCSS('print/report.css');
 			<table>
 				<thead>
 					<tr>
-						<th>Группа</th>
-						<th>Код группы</th>
-						<th>Количество</th>
-						<th>Количество РБ</th>
-						<th>Сумма, <br>млн.руб</th>
-						<th>Сумма&nbsp;РБ,<br>млн.руб</th>
-						<th>Остаток</th>
-						<th>Остаток РБ</th>
+						<th rowspan="2">Группа</th>
+						<th rowspan="2">Код группы</th>
+						<th colspan="2">Количество</th>
+						<th colspan="2">Сумма, <br>млн.руб</th>
+						<th colspan="2">Остаток кол-во</th>
+						<th colspan="2">Остаток млн.руб.</th>
+					</tr>
+					<tr>
+						<th>Всего</th>
+						<th>в том числе РБ</th>
+						<th>Всего</th>
+						<th>в том числе РБ</th>
+						<th>Всего</th>
+						<th>в том числе РБ</th>
+						<th>Всего</th>
+						<th>в том числе РБ</th>
 					</tr>
 				</thead>
 			<?php
@@ -47,8 +55,10 @@ $this->addCSS('print/report.css');
 					$tr .= '<td class="r">'.$row['quantity_rb'].'</td>';
 					$tr .= '<td class="r">'.Yii::app()->format->formatNumber($row['sum']/1000000).'</td>';
 					$tr .= '<td class="r">'.Yii::app()->format->formatNumber($row['sum_rb']/1000000).'</td>';
-					$tr .= '<td>'.''.'</td>';
-					$tr .= '<td>'.''.'</td>';
+					$tr .= '<td class="r">'.@$rst[0][$row['id_3torg']]['q'].'</td>';
+					$tr .= '<td class="r">'.@$rst[1][$row['id_3torg']]['q'].'</td>';
+					$tr .= '<td class="r">'.Yii::app()->format->formatNumber(@$rst[0][$row['id_3torg']]['s']/1000000).'</td>';
+					$tr .= '<td class="r">'.Yii::app()->format->formatNumber(@$rst[1][$row['id_3torg']]['s']/1000000).'</td>';
 					$tr .= '</tr>';
 					echo $tr;
 				}
@@ -59,7 +69,7 @@ $this->addCSS('print/report.css');
 
 <?php
 
-//Utils::print_r($rest);
+//Utils::print_r($rst);
 //Utils::print_r($sum2);
 //Utils::print_r($sum->price - $sum2->price);
 //Utils::print_r($rk);
