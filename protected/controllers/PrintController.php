@@ -66,6 +66,7 @@ class PrintController extends Controller {
 			'printGruntreport' => 'application.controllers.print.printGruntreportAction',
 			'pr' => 'application.controllers.print.prAction',
 			'torg6' => 'application.controllers.print.printTorg6Action',
+			'torg4p' => 'application.controllers.print.printTorg4pAction',
 		);
 	}
 
