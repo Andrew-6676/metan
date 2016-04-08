@@ -8,7 +8,11 @@
 
 $this->addCSS('print/report.css');
 
-?>
+?><style>
+	table {
+		font-size: 14px;
+	}
+</style>
 	<div class="rep_wrapper">
 		<div class="page l">
 			<div class="report_title">

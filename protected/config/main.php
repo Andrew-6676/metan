@@ -58,6 +58,14 @@ return array(
 	),
 	// application components -------------------------------------------------------------
 	'components'=>array(
+		'format'=>array(
+			'class'=>'CFormatter',
+			'numberFormat'=>array(
+				'decimals'=>3,
+				'decimalSeparator'=>',',
+				'thousandSeparator'=>''
+			),
+		),
 		// 'CHttpCookie'=>array(
 		// 	'domain'=>'.xxxxx.com'
 		// ),
