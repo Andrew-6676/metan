@@ -197,6 +197,7 @@ class Rest extends CActiveRecord
 					having upper(".$f."::text) like upper('".$term."%')
 					order by ".$f.", 1, 2";
 
+		$inv_start_date = '2016-01-01'; // как далеко в прошлое лезть за счетами фактуры
 			// добавлены колонки прихода и расхода
 		$sql_rest2 = "select
 							gid as id,
@@ -215,7 +216,7 @@ class Rest extends CActiveRecord
 							(select COALESCE(sum(quantity), 0)
 							from vgm_documentdata dd
 								inner join vgm_document d on d.id=dd.id_doc
-							where d.id_doctype=3 and id_goods=gid and  d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store." and link<0) as inv
+							where d.id_doctype=3 and id_goods=gid and  d.doc_date<='".$date."' and d.doc_date>='".$inv_start_date."' and id_store=".$store." and link<0) as inv
 					from (
 						select
 							g.id as gid,
