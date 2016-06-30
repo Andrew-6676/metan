@@ -277,9 +277,15 @@ $oper = array(
 			<?php
 				if ($document->documentdata[0]->partof > 0) {
 					$d = Document::model()->findByPK($document->documentdata[0]->partof);
-					echo 'partof_num="' . $d->getAttribute('doc_num').' от '.Utils::format_date($d->getAttribute('doc_date')).'"';
-					echo 'partof_id="' . $document->documentdata[0]->partof . '"';
-					echo 'class="part"';
+					if ($d) {
+						echo 'partof_num="' . $d->getAttribute('doc_num').' от '.Utils::format_date($d->getAttribute('doc_date')).'"';
+						echo 'partof_id="' . $document->documentdata[0]->partof . '"';
+						echo 'class="part"';
+					} else {
+						echo 'partof_num="-1"';
+						echo 'partof_id="-1"';
+						echo 'class="part"';
+					}
 				}
 			?>>
 			<td class="npp"><?php echo $i--; ?></td>
