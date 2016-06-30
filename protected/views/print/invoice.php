@@ -11,6 +11,7 @@ $this->addCSS('print/report.css');
 ?>
 	<div class="rep_wrapper">
 		<div class="page l">
+		<br>
 			<div class="rekvizit" style="height: 75px;">
 				<div class="post" style="float: left" width="40%">
 					<table class="no_border">
