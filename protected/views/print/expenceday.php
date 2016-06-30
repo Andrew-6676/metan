@@ -47,10 +47,10 @@
                             <?php print ($row->quantity); ?>
                         </td>
                          <td class="r">
-                            <?php print number_format(($row->price),'0','.'," "); ?>
+                            <?php print number_format(($row->price), '2','.'," "); ?>
                          </td>
                          <td class="r">
-                             <?php print number_format(($row->price*$row->quantity),'0','.'," "); ?>
+                             <?php print number_format(($row->price*$row->quantity), '2','.'," "); ?>
                          </td>
                      </tr>
                 <?php  } ?>

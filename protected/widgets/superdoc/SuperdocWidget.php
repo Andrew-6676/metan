@@ -39,15 +39,15 @@ class SuperdocWidget extends CWidget
 			$style = 'r';
 		}
 		if (strpos($type, 'integer') !== false) {
-			$val = number_format($val, '0', '.', '&nbsp;');
+			$val = number_format($val, '2', '.', '&nbsp;');
 			$style = 'r';
 		}
 		if (strpos($type, 'character') !== false) {
-//			$val = number_format($val,'0','.','&nbsp;');
+//			$val = number_format($val, '2','.','&nbsp;');
 			$style = 'l';
 		}
 		if (strpos($type, 'real') !== false) {
-//			$val = number_format($val,'0','.','&nbsp;');
+//			$val = number_format($val, '2','.','&nbsp;');
 			$style = 'r';
 		}
 		if (strpos($type, 'date') !== false) {

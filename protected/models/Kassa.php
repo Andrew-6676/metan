@@ -27,7 +27,7 @@ class Kassa extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('sum, id_store', 'numerical', 'integerOnly'=>true),
+			array('id_store', 'numerical', 'integerOnly'=>true),
 			array('kassa_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

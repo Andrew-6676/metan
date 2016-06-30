@@ -23,7 +23,7 @@ $this->addJS('jquery-ui.js');
 	<button class="btn" id="apply_filter">Применить</button>
 </form>
 <div class="" style="float: right; ">
-	Сумма:<b> <?php echo number_format($total, 0, '.', ' '); ?></b>
+	Сумма:<b> <?php echo number_format($total, '2', '.', ' '); ?></b>
 </div>
 
 <?php
@@ -103,7 +103,7 @@ $this->addJS('jquery-ui.js');
 			),
 			array(
 				'name'=>'price',
-				'value'=>'number_format($data["price"],"0", ".", " ")',
+				'value'=>'number_format($data["price"], "2", ".", " ")',
 				'header'=>'Цена',
 				'htmlOptions'=>array('class'=>'r'),
 			),

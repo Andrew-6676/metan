@@ -41,7 +41,7 @@ $vozvr_beznal = 0;
 						Остаток на <?php echo $df; ?>
 					</td>
 					<td class="r">
-						<?php echo number_format($rr+$rk, '0', '.', ' '); ?>
+						<?php echo number_format($rr+$rk, '2', '.', ' '); ?>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@ $vozvr_beznal = 0;
 						В том числе по товару
 					</td>
 					<td class="r">
-						<?php echo number_format($rr, '0', '.', ' '); ?>
+						<?php echo number_format($rr, '2', '.', ' '); ?>
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +57,7 @@ $vozvr_beznal = 0;
 						В том числе по кассе
 					</td>
 					<td class="r">
-						<?php echo number_format($rk, '0', '.', ' '); ?>
+						<?php echo number_format($rk, '2', '.', ' '); ?>
 					</td>
 				</tr>
 			</table>
@@ -126,7 +126,7 @@ $vozvr_beznal = 0;
 							$tr .=      $doc['head']['contact'];
 							$tr .=   '</td>';
 							$tr .=   '<td class="r">';
-							$tr .=      number_format($row['price'] * $row['quantity'], '0', '.', ' ');
+							$tr .=      number_format($row['price'] * $row['quantity'], '2', '.', ' ');
 							$tr .=   '</td>';
 							$tr .= '</tr>';
 
@@ -144,7 +144,7 @@ $vozvr_beznal = 0;
 						$tr .=      $doc['head']['contact'];
 						$tr .=   '</td>';
 						$tr .=   '<td class="r">';
-						$tr .=      number_format($doc['head']['sum_price'], '0', '.', ' ');
+						$tr .=      number_format($doc['head']['sum_price'], '2', '.', ' ');
 						$tr .=   '</td>';
 						$tr .= '</tr>';
 
@@ -158,11 +158,11 @@ $vozvr_beznal = 0;
 				?>
 				<tr>
 					<td colspan="3" class="no_border itog">Итого по данной операции:</td>
-					<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 				</tr>
 				<tr>
 					<td colspan="3" class="no_border itog">Итого приход с остатком:</td>
-					<td class="r no_border itog"><?php echo number_format($s+$rk+$rr, '0', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($s+$rk+$rr, '2', '.', ' '); ?></td>
 				</tr>
 			</table>
 
@@ -228,7 +228,7 @@ vozvr:
 								// $tr .=      $doc['head']['contact'];
 								// $tr .=   '</td>';
 								$tr .=  '<td class="r">';
-								$tr .=      number_format($row['price'] * $row['quantity'], '0', '.', ' ');
+								$tr .=      number_format($row['price'] * $row['quantity'], '2', '.', ' ');
 								$tr .=  '</td>';
 								$tr .= '</tr>';
 
@@ -247,7 +247,7 @@ vozvr:
 							// $tr .=      $doc['head']['contact'];
 							// $tr .=   '</td>';
 							$tr .= '<td class="r">';
-							$tr .= number_format($doc['head']['sum_price'], '0', '.', ' ');
+							$tr .= number_format($doc['head']['sum_price'], '2', '.', ' ');
 							$tr .= '</td>';
 							$tr .= '</tr>';
 
@@ -266,7 +266,7 @@ vozvr:
 
 					<tr>
 						<td colspan="2" class="no_border itog">Итого по данной операции:</td>
-						<td class="r no_border itog"><?php echo number_format($sv[count($sv) - 1], '0', '.', ' '); ?></td>
+						<td class="r no_border itog"><?php echo number_format($sv[count($sv) - 1], '2', '.', ' '); ?></td>
 					</tr>
 
 				</table>
@@ -277,7 +277,7 @@ vozvr:
 			<table>
 				<tr>
 					<td colspan="2" class="no_border itog">Итого по приходу:</td>
-					<td class="r no_border itog"><?php echo @number_format(array_sum($sv)+$s, '0', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo @number_format(array_sum($sv)+$s, '2', '.', ' '); ?></td>
 				</tr>
 			</table>
 
@@ -323,16 +323,16 @@ exp:
 					$tr .=      Utils::format_date($doc['date']);
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format($doc['kassa'], '0', '.', ' ');
+					$tr .=      number_format($doc['kassa'], '2', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format(($r + $doc['sum'] - @$doc['return'] - $doc['kassa']), '0', '.', ' ');
+					$tr .=      number_format(($r + $doc['sum'] - @$doc['return'] - $doc['kassa']), '2', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      @number_format($doc['return'], '0', '.', ' ');
+					$tr .=      @number_format($doc['return'], '2', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format($doc['sum'], '0', '.', ' ');
+					$tr .=      number_format($doc['sum'], '2', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '</tr>';
 					echo $tr;
@@ -350,9 +350,9 @@ exp:
 				?>
 				<tr>
 					<td colspan="2" class="no_border itog">Итого по данной операции:</td>
-					<td class="r no_border itog"><?php echo number_format($sb, '0', '.', ' '); ?></td>
-					<td class="r no_border itog"><?php echo number_format($sv, '0', '.', ' '); ?></td>
-					<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($sb, '2', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($sv, '2', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 				</tr>
 			</table>
 
@@ -416,7 +416,7 @@ exp:
 									$tr .= $doc['head']['contact'];
 									$tr .= '</td>';
 									$tr .= '<td class="r">';
-									$tr .= number_format($row['price'] * $row['quantity'], '0', '.', ' ');
+									$tr .= number_format($row['price'] * $row['quantity'], '2', '.', ' ');
 									$tr .= '</td>';
 									$tr .= '</tr>';
 
@@ -434,7 +434,7 @@ exp:
 								$tr .= $doc['head']['contact'];
 								$tr .= '</td>';
 								$tr .= '<td class="r">';
-								$tr .= number_format($doc['head']['sum_price'], '0', '.', ' ');
+								$tr .= number_format($doc['head']['sum_price'], '2', '.', ' ');
 								$tr .= '</td>';
 								$tr .= '</tr>';
 
@@ -448,15 +448,15 @@ exp:
 						?>
 						<tr class="itog">
 							<td colspan="3" class="no_border itog">Общий товарооборот:</td>
-							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][1], '0', '.', ' '); ?></td>
+							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][1], '2', '.', ' '); ?></td>
 						</tr>
 						<tr class="itog">
 							<td colspan="3" class="no_border itog">Собственные нужды:</td>
-							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][3], '0', '.', ' '); ?></td>
+							<td class="r no_border itog"><?php echo number_format($expence['including_bn'][3], '2', '.', ' '); ?></td>
 						</tr>
 						<tr class="itog">
 							<td colspan="3" class="no_border itog">Итого по данной операции:</td>
-							<td class="r no_border itog"><?php echo number_format($s[count($s) - 1], '0', '.', ' '); ?></td>
+							<td class="r no_border itog"><?php echo number_format($s[count($s) - 1], '2', '.', ' '); ?></td>
 						</tr>
 
 						<!--  ?php
@@ -465,7 +465,7 @@ exp:
 								?>
 								<tr class="itog">
 									<td colspan="3" class="no_border itog">Итого по накладным:</td>
-									<td class="r no_border itog">< ?php echo number_format(array_sum($s),'0','.',' '); ?></td>
+									<td class="r no_border itog">< ?php echo number_format(array_sum($s), '2','.',' '); ?></td>
 								</tr>
 								<php
 							}
@@ -518,7 +518,7 @@ kred:
 						$tr .=      $doc['contact'];
 						$tr .= '</td>';
 						$tr .= '<td class="r">';
-						$tr .= number_format($doc['sum'], '0', '.', ' ');
+						$tr .= number_format($doc['sum'], '2', '.', ' ');
 						$tr .= '</td>';
 						$tr .= '</tr>';
 						$s += $doc['sum'];
@@ -530,7 +530,7 @@ kred:
 					?>
 					<tr>
 						<td colspan="2" class="no_border itog">Итого по данной операции:</td>
-						<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+						<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 					</tr>
 				</table>
 			<?php
@@ -575,7 +575,7 @@ kred:
 						$tr .=      $doc['contact'];
 						$tr .= '</td>';
 						$tr .= '<td class="r">';
-						$tr .= number_format($doc['sum'], '0', '.', ' ');
+						$tr .= number_format($doc['sum'], '2', '.', ' ');
 						$tr .= '</td>';
 						$tr .= '</tr>';
 						$s += $doc['sum'];
@@ -587,7 +587,7 @@ kred:
 					?>
 					<tr>
 						<td colspan="2" class="no_border itog">Итого по данной операции:</td>
-						<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+						<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 					</tr>
 				</table>
 				<?php
@@ -634,7 +634,7 @@ kred:
 						//			$tr .=      $doc['head']['contact'];
 						//			$tr .=   '</td>';
 						$tr .= '<td class="r">';
-						$tr .= number_format($sum, '0', '.', ' ');
+						$tr .= number_format($sum, '2', '.', ' ');
 						$tr .= '</td>';
 						$tr .= '</tr>';
 						$s += $sum;
@@ -646,15 +646,15 @@ kred:
 					?>
 					<tr>
 						<td colspan="1" class="no_border itog">Итого по данной операции:</td>
-						<td class="r no_border itog"><?php echo number_format($s, '0', '.', ' '); ?></td>
+						<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="no_border ">Возврат безнал:</td>
-						<td class="r no_border "><?php echo number_format($vozvr_beznal, '0', '.', ' '); ?></td>
+						<td class="r no_border "><?php echo number_format($vozvr_beznal, '2', '.', ' '); ?></td>
 					</tr>
 					<tr>
 						<td colspan="1" class="no_border ">Итого по терминалу:</td>
-						<td class="r no_border "><?php echo number_format($s-$vozvr_beznal, '0', '.', ' '); ?></td>
+						<td class="r no_border "><?php echo number_format($s-$vozvr_beznal, '2', '.', ' '); ?></td>
 					</tr>
 				</table>
 			<?php
@@ -664,7 +664,7 @@ kred:
 			<table class="total no_border">
 				<tr class="itog">
 					<td class="itog">Итого расход</td>
-					<td class="itog r"><?php echo number_format($itogo_r, '0', '.', ' '); ?></td>
+					<td class="itog r"><?php echo number_format($itogo_r, '2', '.', ' '); ?></td>
 				</tr>
 			</table>
 
@@ -672,7 +672,7 @@ kred:
 			<table class="total no_border" >
 				<tr class="itog">
 					<td class="itog">Остаток на <?php echo Utils::format_date($_GET['to_date']); ?></td>
-					<td class="itog r"><?php echo number_format($total, '0','.',' '); ?></td>
+					<td class="itog r"><?php echo number_format($total, '2','.',' '); ?></td>
 				</tr>
 			</table>
 		</div>

@@ -43,7 +43,7 @@
 				// выводим итог, если
 			echo '<tr class="sum_gr">';
 			echo '<td colspan="5"><b>Итого по группе</b> '.$curr_group.'</td>';
-				echo '<td class="sum">'.number_format($sum_gr,'0','.',' ').'</td>';
+				echo '<td class="sum">'.number_format($sum_gr, '2','.',' ').'</td>';
 			echo '</tr>';
 				// начинаем новую группу
 			// echo '<tr>';
@@ -62,21 +62,21 @@
 			echo '<td class="n">'.$n++.'</td>';
 			echo '<td class="gid">'.$row['gid'].'</td>';
 			echo '<td class="gname">'.$row['gname'].'</td>';
-			echo '<td class="price">'.number_format($row['price'],'0','.',' ').'</td>';
+			echo '<td class="price">'.number_format($row['price'], '2','.',' ').'</td>';
 			echo '<td class="rest">'.$row['rest'].'</td>';
-			echo '<td class="sum">'.number_format($row['rest']*$row['price'],'0','.',' ').'</td>';
+			echo '<td class="sum">'.number_format($row['rest']*$row['price'], '2','.',' ').'</td>';
 		echo '</tr>';
 	}
 
 
 	echo '<tr class="sum_gr">';
 		echo '<td colspan="5"><b>Итого по группе</b>'.$group.'</td>';
-		echo '<td class="sum">'.number_format($sum_gr,'0','.',' ').'</td>';
+		echo '<td class="sum">'.number_format($sum_gr, '2','.',' ').'</td>';
 	echo '</tr>';
 
 	echo '<tr class="sum_m">';
 		echo '<td colspan="5"><b>ИТОГО ПО МАГАЗИНУ</b></td>';
-		echo '<td class="sum">'.number_format($sum_m,'0','.',' ').'</td>';
+		echo '<td class="sum">'.number_format($sum_m, '2','.',' ').'</td>';
 	echo '</tr>';
 ?>
 </table>

@@ -178,7 +178,7 @@ $oper = array(
 
 <div class="form">
 	Касса на начало дня:
-	<?php echo CHtml::textField('kassa_rest', number_format(Kassa::getRest(), '0', '.', '`'), array('id'=>'kassa_rest', 'rest'=>Kassa::getRest())); ?>
+	<?php echo CHtml::textField('kassa_rest', number_format(Kassa::getRest(), '2', '2', '`'), array('id'=>'kassa_rest', 'rest'=>Kassa::getRest())); ?>
 	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
 	<script type="text/javascript">
 
@@ -297,13 +297,13 @@ $oper = array(
 			</td>
 			<td class="quantity"><?php echo $document->documentdata[0]->quantity; ?></td>
 			<td class="price"
-			    cost="<?php echo number_format($document->documentdata[0]->cost, '0', '.', '&nbsp;');?>"
-			    markup="<?php echo number_format($document->documentdata[0]->markup, '0', '.', '&nbsp;');?>"
-			    vat="<?php echo number_format($document->documentdata[0]->vat, '0', '.', '&nbsp;');?>"
+			    cost="<?php echo number_format($document->documentdata[0]->cost, '2', '.', '&nbsp;');?>"
+			    markup="<?php echo number_format($document->documentdata[0]->markup, '2', '.', '&nbsp;');?>"
+			    vat="<?php echo number_format($document->documentdata[0]->vat, '2', '.', '&nbsp;');?>"
 				>
-				<?php echo number_format($document->documentdata[0]->price, '0', '.', '&nbsp;');?>
+				<?php echo number_format($document->documentdata[0]->price, '2', '.', '&nbsp;');?>
 			</td>
-			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '0', '.', '&nbsp;'); ?></td>
+			<td class="sum"><?php echo number_format($document->documentdata[0]->price * $document->documentdata[0]->quantity, '2', '.', '&nbsp;'); ?></td>
 			<td class="operation" id_operation="<?php echo $document->idOperation->id; ?>"
 			    kart_num="<?php echo @$document->docaddition->payment_order; ?>"
 				prim="<?php echo @$document->docaddition->descr; ?>">

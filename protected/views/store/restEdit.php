@@ -79,7 +79,7 @@
 //				),
 //				array(
 //						'name'=>'price',
-//						'value'=>'number_format($data["price"],"0", ".", " ")',
+//						'value'=>'number_format($data["price"], "2", ".", " ")',
 //						'header'=>'Цена',
 //						'htmlOptions'=>array('class'=>'r'),
 //				),

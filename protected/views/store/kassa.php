@@ -87,7 +87,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'name'=>'sum',
-			'value' =>'number_format($data->sum, "0", ".", "`")',
+			'value' =>'number_format($data->sum, "2", ".", "`")',
 			'htmlOptions'=>array('style'=>'text-align: right'),
 		)
 	)

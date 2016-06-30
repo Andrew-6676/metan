@@ -200,7 +200,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 						<td>х</td>
 						<td>х</td>
 						<td class="r">
-							<?php echo number_format($total_rest, '0', ' ', ' '); ?>
+							<?php echo number_format($total_rest, '2', ' ', ' '); ?>
 						</td>
 						<td></td>
 						<td></td>
@@ -233,7 +233,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 							$tr .= $doc->doc_num; //3
 							$tr .= '</td>';
 							$tr .= '<td class="r">';
-							$tr .= number_format($doc->sum_price, '0', ' ', ' '); //4
+							$tr .= number_format($doc->sum_price, '2', ' ', ' '); //4
 							$tr .= '</td>';
 							$tr .= '<td>';
 							$tr .= ''; //5
@@ -262,7 +262,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 						<td>х</td>
 						<td>х</td>
 						<td class="r">
-							<?php echo number_format($sum, '0', ' ', ' ')?>
+							<?php echo number_format($sum, '2', ' ', ' ')?>
 						</td>
 						<td></td>
 						<td></td>
@@ -275,7 +275,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 						<td>х</td>
 						<td>х</td>
 						<td class="r">
-							<?php echo number_format($total_rest, '0', ' ', ' ')?>
+							<?php echo number_format($total_rest, '2', ' ', ' ')?>
 						</td>
 						<td></td>
 						<td></td>
@@ -308,7 +308,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 							$tr .= $doc->doc_num; //3
 							$tr .= '</td>';
 							$tr .= '<td class="r">';
-							$tr .= number_format($doc->sum_price, '0', ' ', ' '); //4
+							$tr .= number_format($doc->sum_price, '2', ' ', ' '); //4
 							$tr .= '</td>';
 							$tr .= '<td>';
 							$tr .= ''; //5
@@ -338,7 +338,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 						<td>х</td>
 						<td>х</td>
 						<td class="r">
-							<?php echo number_format($sum, '0', ' ', ' ')?>
+							<?php echo number_format($sum, '2', ' ', ' ')?>
 						</td>
 						<td></td>
 						<td></td>
@@ -353,7 +353,7 @@ $store = Storepassport::model()->find('id_store='.$_GET['id_store']);
 						<td>х</td>
 						<td>х</td>
 						<td class="r">
-							<?php echo number_format($total_rest, '0', ' ', ' ')?>
+							<?php echo number_format($total_rest, '2', ' ', ' ')?>
 						</td>
 						<td></td>
 						<td></td>

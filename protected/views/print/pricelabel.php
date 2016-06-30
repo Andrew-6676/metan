@@ -43,7 +43,7 @@ $rec_doc_data = $data['details'];
 						?>
 						<div class="name f<?php echo $f; ?>"><?php echo trim($row->idGoods->name); ?></div>
 						<div class="price">
-							<?php echo number_format(($row->price),'0','.'," "); ?><span>РУБ</span>
+							<?php echo number_format(($row->price), '2','.'," "); ?><span>РУБ</span>
 						</div>
 						<div class="producer">
 							<?php

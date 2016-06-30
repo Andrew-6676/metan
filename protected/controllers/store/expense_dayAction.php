@@ -66,8 +66,8 @@ class expense_dayAction extends CAction   /*---- StoreController ----*/
 					//$arr[$document->id][] = $document->documentdata[0]->idGoods->name;
 					$arr[$document->id][] = CHtml::link($document->documentdata[0]->idGoods->name, '#', array('class'=>'goodscart','gid'=>$document->documentdata[0]->id_goods) );
 					$arr[$document->id][] = $document->documentdata[0]->quantity;
-					$arr[$document->id][] = number_format($document->documentdata[0]->price,'0','.','`');
-					$arr[$document->id][] = number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity,'0','.','`');
+					$arr[$document->id][] = number_format($document->documentdata[0]->price, '2','.','`');
+					$arr[$document->id][] = number_format($document->documentdata[0]->price*$document->documentdata[0]->quantity, '2','.','`');
 					$arr[$document->id][] = array($document->id_operation, '<img alt="" title="'.$document->idOperation->name.'" src="/metan_0.1/images/'.$src[$document->id_operation].'">', $document->paymentorder, $document->prim);
 					$arr[$document->id][] = $document->for;
 				}

@@ -99,7 +99,7 @@ class editTableWidget extends CWidget
 								echo "<a href='" . Yii::app()->getBaseUrl() . "/goods/update/" . $row->$col . "'>{$row->$col}</a>"; // ссылка на редактирование
 								break;
 							case 'price':
-								echo number_format($row->$col, '0', '.', '&nbsp;');
+								echo number_format($row->$col, '2', '.', '&nbsp;');
 								break;
 							default:
 								echo "{$row->$col}"; // вывод значения в ячейку таблицы

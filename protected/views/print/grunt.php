@@ -36,13 +36,13 @@
 					$tr .=      $item['vol'];
 					$tr .=   '</td>';
 					$tr .=   '<td class="r">';
-					$tr .=      number_format($item['quantity'], '0', ' ', ' ');
+					$tr .=      number_format($item['quantity'], '2', ' ', ' ');
 					$tr .=   '</td>';
 					$tr .=   '<td class="r">';
-					$tr .=      number_format($item['price'], '0', ' ', ' ');
+					$tr .=      number_format($item['price'], '2', ' ', ' ');
 					$tr .=   '</td>';
 					$tr .=   '<td class="r">';
-					$tr .=      number_format($item['sum'], '0', ' ', ' ');
+					$tr .=      number_format($item['sum'], '2', ' ', ' ');
 					$tr .=   '</td>';
 					$tr .= '</tr>';
 
