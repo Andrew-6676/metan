@@ -116,7 +116,7 @@ class Kassa extends CActiveRecord
 
 			$criteria->addCondition("kassa_date<'" . $date . "'");
 			$criteria->addCondition("id_store=" . $store);
-			$criteria->order = 'kassa_date desc';
+			$criteria->order = 'kassa_date desc, id desc';
 
 			$r = Kassa::model()->find($criteria);
 			if ($r) {
