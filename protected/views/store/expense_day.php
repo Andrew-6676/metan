@@ -178,7 +178,7 @@ $oper = array(
 
 <div class="form">
 	Касса на начало дня:
-	<?php echo CHtml::textField('kassa_rest', number_format(Kassa::getRest(), '2', '2', '`'), array('id'=>'kassa_rest', 'rest'=>Kassa::getRest())); ?>
+	<?php echo CHtml::textField('kassa_rest', number_format(Kassa::getRest(), '2', '.', '`'), array('id'=>'kassa_rest', 'rest'=>Kassa::getRest())); ?>
 	<?php echo CHtml::button('Сохранить',array('onclick'=>'send();')); ?>
 	<script type="text/javascript">
 
