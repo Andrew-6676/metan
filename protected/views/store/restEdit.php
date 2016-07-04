@@ -7,7 +7,7 @@
 		<table>
 			<tr>
 				<td align="right">Сумма: &nbsp;</td>
-				<td><b><span><?php echo number_format($sum, 0, '.', ' '); ?></span></b></td>
+				<td><b><span><?php echo number_format($sum, 2, '.', ' '); ?></span></b></td>
 			</tr>
 			<tr>
 				<td align="right">Нименований: &nbsp;</td>
