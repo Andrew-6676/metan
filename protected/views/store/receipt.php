@@ -20,7 +20,7 @@
 	г.</b></u>
 	<?php echo ' (документов: '.count($data).')'; ?>
 	<br>
-	<?php echo ' Сумма: <b>'.number_format(round($sum->price), '2', '.', '&nbsp;').'</b>'; ?>
+	<?php echo ' Сумма: <b>'.number_format($sum->price, '2', '.', '&nbsp;').'</b>'; ?>
 </div>
 
 <div class="data">
