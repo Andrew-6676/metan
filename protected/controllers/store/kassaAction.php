@@ -52,7 +52,7 @@ class kassaAction extends CAction   /*SiteController*/
 					$kassa->id_store = Yii::app()->session['id_store'];
 				}
 
-				$kassa->sum = $_POST['mess'];
+				$kassa->sum = str_replace(',', '.', $_POST['mess']);
 
 				if ($kassa->save()) {
 					$res['status'] = 'ok';

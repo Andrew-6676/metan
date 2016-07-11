@@ -125,7 +125,7 @@ class Utils{
 		}
 		else $out[] = $nul;
 		$out[] = self::morph(intval($rub), $unit[1][0],$unit[1][1],$unit[1][2]); // rub
-		//$out[] = $kop.' '.morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
+		$out[] = $kop.' '.self::morph($kop,$unit[0][0],$unit[0][1],$unit[0][2]); // kop
 
 		return trim(preg_replace('/ {2,}/', ' ', join(' ',$out)));
 	}
