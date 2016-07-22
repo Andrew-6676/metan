@@ -62,7 +62,7 @@ $this->addCSS('print/report.css');
 					$tr .= '</tr>';
 					echo $tr;
 				}
-
+				// TODO суммы по столбцам
 			?>
 			</table>
 

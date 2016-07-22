@@ -130,7 +130,7 @@ $vozvr_beznal = 0;
 							$tr .=   '</td>';
 							$tr .= '</tr>';
 
-							$s += $row['price'] * $row['quantity'];
+							$s += round($row['price'] * $row['quantity'], 2);
 						}
 					} else {    // если краткий вывод
 						$tr .= '<tr>';
