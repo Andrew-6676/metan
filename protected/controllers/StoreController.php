@@ -20,7 +20,8 @@ class StoreController extends Controller
 			'receipt' => 'application.controllers.store.receiptAction',
 			'expense_day' => 'application.controllers.store.expense_dayAction',
 			'expense' => 'application.controllers.store.expenseAction',
-			'kredit' => 'application.controllers.store.kreditAction',
+			'kredit' => 'application.controllers.store.kreditAction',   // кредит
+			'kredit2' => 'application.controllers.store.kredit2Action', //  рассрочка
 			'return' => 'application.controllers.store.returnAction',
 			'rest' => 'application.controllers.store.restAction',
 			'restEdit' => 'application.controllers.store.restEditAction',
