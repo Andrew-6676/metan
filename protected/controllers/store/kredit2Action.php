@@ -17,8 +17,8 @@ class kredit2Action extends CAction   /*---- StoreController ----*/
 		$criteria = new CDbCriteria;
 		// $criteria->join = 'inner join {{operation}} on {{operation}}.id=t.id_operation';
 		$criteria->order = 'doc_date desc, doc_num desc';
-		$criteria->addCondition('id_doctype = 12');
-		$criteria->addCondition('id_operation = 54');
+		$criteria->addCondition('id_doctype = 2');
+		$criteria->addCondition('id_operation = 66');
 		$criteria->addCondition('id_store=' . Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\'' . Yii::app()->session['workdate'] . '\'');
 		$criteria->addCondition('doc_date::text like \'' . substr(Yii::app()->session['workdate'], 0, 7) . '%\'');

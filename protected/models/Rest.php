@@ -50,6 +50,7 @@ class Rest extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'Goods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
+			'goods' => array(self::BELONGS_TO, 'Goods', 'id_goods'),
 			'Store' => array(self::BELONGS_TO, 'Store', 'id_store'),
 		);
 	}
@@ -121,50 +122,8 @@ class Rest extends CActiveRecord
 	 * $f    - поле для фильтра (код, наименование)
 	 * $term - значение фильтра
 	*/
-	public static function getRestList($f, $term, $date, $store, $type='arr'){
+	public static function getRestList_old($f, $term, $date, $store, $type='arr'){
 		$connection = Yii::app()->db;
-
-		//$sql_rest = "select gid as id, gname as name, price, sum(quantity)::real as rest
-	/*	$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
-					 from (
-							select g.id as gid, g.name as gname, dd.cost as cost, dd.markup as markup, vat, dd.quantity*o.operation as quantity, dd.price, 'd' as t
-							from vgm_goods g
-								inner join vgm_documentdata dd on g.id=dd.id_goods
-								inner join vgm_document d on d.id=dd.id_doc
-								inner join vgm_operation o on o.id=d.id_operation
-							where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
-								union
-							select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
-							from vgm_goods g
-								inner join vgm_rest r on g.id=r.id_goods
-							where r.rest_date::text like '".substr($date,0,7)."-01' and id_store=".$store."
-						 ) as motion
-					--group by gid, gname, cost, markup, vat, price
-					group by gid, gname, price
-					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
-					order by ".$f.", 1, 2";
-	*/
-			// в предыдущем запросе выпадали повторяющиеся строки - как результат - неправильные остатки
-//		$sql_rest = "select gid as id, gname as name, max(cost) as cost, max(markup) as markup, max(vat) as vat, price, sum(quantity)::real as rest
-//					from (
-//						select g.id as gid, g.name as gname, dd.cost as cost, max(dd.markup) as markup, max(vat) as vat, sum(dd.quantity*o.operation) as quantity, dd.price, 'd' as t
-//						from vgm_goods g
-//						  inner join vgm_documentdata dd on g.id=dd.id_goods
-//						  inner join vgm_document d on d.id=dd.id_doc
-//						  inner join vgm_operation o on o.id=d.id_operation
-//						where d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store."
-//						group by gid, gname, cost, price
-//
-//							union
-//
-//						select g.id as gid, g.name as gname,  r.cost as cost, r.markup as markup, r.vat as vat, r.quantity, r.price as price, 'r' as t
-//						from vgm_goods g
-//						  inner join vgm_rest r on g.id=r.id_goods
-//						where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
-//					) as motion
-//					group by gid, gname, price
-//					having sum(quantity)!=0 and upper(".$f."::text) like upper('".$term."%')
-//					order by ".$f.", 1, 2";
 
 		// в предыдущем запросе не учитывалось то, что товар мог был оплачен двумя суммами (часть нал, часть безнал)
 		// часть товара оплаченная налом помечена в поле partof - в количество такой товар считать не надо, цену надо брать из прихода
@@ -280,12 +239,199 @@ class Rest extends CActiveRecord
 
 		$rest = $connection->createCommand($sql_rest2)->queryAll();
 		//echo '<pre>'.$sql_rest2.'</pre>';
+
 		if ($type=='json') {
 			$res = json_encode($rest);
 		} else {
 			$res = $rest;
 		}
 		return $res;
+	}
+
+	/**----------------------------------------------
+	 * $f    - поле для фильтра (код, наименование)
+	 * $term - значение фильтра
+	 */
+	public static function getRestList_new($f, $term, $date, $store, $type='arr') {
+		$inv_start_date = '2016-06-01';
+		/* надо вернуть:
+		id
+		name
+		cost
+		markup
+		vat
+		price
+		price_from_doc
+		price_from_rest
+		rest_begin
+		receipt
+		expence
+		inv
+		rest
+*/
+			// 1. выбираем остаток на начало
+		$criteria_1 = new CDbCriteria;
+		$criteria_1->order ='id_goods';
+		$criteria_1->with = array('goods');
+		$criteria_1->addCondition('rest_date = \''.substr($date,0,7).'-01\'');
+		$criteria_1->addCondition('id_store='.$store);
+		$criteria_1->addCondition('upper(goods.'.$f.'::text) like upper(\''.$term.'%\')');
+
+		$model_1 = Rest::model()->findAll($criteria_1);
+		$rest_arr = $model_1;
+
+			// 2. выбираем движение товара за месяц
+		$criteria_2 = new CDbCriteria;
+		$criteria_2->with = array('documentdata', 'sum_cost', 'operation', 'documentdata.goods');
+		$criteria_2->addCondition('id_doctype<>3');
+		$criteria_2->addCondition('doc_date<=\''.$date.'\'');
+		$criteria_2->addCondition('doc_date::text like \''.substr($date,0,7).'%\'');
+		$criteria_2->addCondition('id_store='.$store);
+		$criteria_2->addCondition('upper(goods.'.$f.'::text) like upper(\''.$term.'%\')');
+
+		$model_2 = Document::model()->findAll($criteria_2);
+		$doc_arr = $model_2;
+
+			// 3. выбираем счета-фактуры за последние 4-5 месяцев
+		$criteria_3 = new CDbCriteria;
+		$criteria_3->with = array('documentdata', 'sum_cost', 'operation', 'documentdata.goods');
+		$criteria_3->addCondition('id_doctype=3');
+		$criteria_3->addCondition('doc_date<=\''.$date.'\'');
+		$criteria_3->addCondition("doc_date>='".$inv_start_date."'");
+		$criteria_3->addCondition('id_store='.$store);
+		$criteria_3->addCondition('link<0');
+		$criteria_3->addCondition('upper(goods.'.$f.'::text) like upper(\''.$term.'%\')');
+
+		$model_3 = Document::model()->findAll($criteria_3);
+		$inv_arr = $model_3;
+
+
+			// заносим в результирующий массив остатки на начало месяца
+		$res = [];
+		foreach ($rest_arr as $item) {
+			$res[$item->id_goods] = [];
+			$res[$item->id_goods]['id'] = $item->id_goods;
+			$res[$item->id_goods]['name'] = $item->Goods->name;
+			$res[$item->id_goods]['cost'] = $item->cost;
+			$res[$item->id_goods]['markup'] = $item->markup;
+			$res[$item->id_goods]['vat'] = $item->vat;
+			$res[$item->id_goods]['price'] = $item->price;
+			$res[$item->id_goods]['price_list'][$item->price] = 0;
+			$res[$item->id_goods]['price_from_rest'] = $item->price;
+			$res[$item->id_goods]['price_from_doc'] = $item->price;
+			$res[$item->id_goods]['rest_begin'] = $item->quantity;
+			$res[$item->id_goods]['receipt'] = 0;
+			$res[$item->id_goods]['expence'] = 0;
+			$res[$item->id_goods]['inv'] = 0;
+			$res[$item->id_goods]['rest'] = (real)$item->quantity;
+		}
+
+			// добавляем в результирующий массив движение товаров (приход, расход...)
+		foreach ($doc_arr as $doc) {
+			foreach ($doc->documentdata as $row) {
+				//echo $doc->operation->operation.'-'.$row->quantity.';';
+				//$res[] = $row->id_goods;
+				if (!array_key_exists($row->id_goods, $res)) {
+
+					$receipt = $doc->operation->operation > 0 ? $row->quantity : 0;
+					if ($row->partof>0) {
+						$expence = 0;
+						$rest = 0;
+					} else {
+						$expence = $doc->operation->operation < 0 ? $row->quantity : 0;
+						$rest = $row->quantity*$doc->operation->operation;
+					}
+
+					$res[$row->id_goods] = [];
+					$res[$row->id_goods]['id'] = $row->goods->id;
+					$res[$row->id_goods]['name'] = $row->goods->name;
+					$res[$row->id_goods]['cost'] = $row->cost;
+					$res[$row->id_goods]['markup'] = $row->markup;
+					$res[$row->id_goods]['vat'] = $row->vat;
+					$res[$row->id_goods]['price'] = $row->price;
+					$res[$row->id_goods]['price_list'][$row->price] = 0;
+					$res[$row->id_goods]['price_from_doc'] = $doc->id_doctype==1 ? $row->price : 0;
+					//$res[$row->id_goods]['price_from_rest'] = -1,
+					$res[$row->id_goods]['rest_begin'] = 0;
+					$res[$row->id_goods]['receipt'] = $receipt;
+					$res[$row->id_goods]['expence'] = $expence;
+					$res[$row->id_goods]['inv'] = 0;
+					$res[$row->id_goods]['rest'] = (real)$rest;
+				} else {
+					$receipt = $doc->operation->operation > 0 ? $res[$row->id_goods]['receipt']+$row->quantity : $res[$row->id_goods]['receipt'];
+					if ($row->partof>0) {
+						$expence = $res[$row->id_goods]['expence'];
+						$rest = $res[$row->id_goods]['rest'];
+					} else {
+						$expence = $doc->operation->operation < 0 ? $res[$row->id_goods]['expence']+$row->quantity : $res[$row->id_goods]['expence'];
+						$rest = $res[$row->id_goods]['rest'] + $row->quantity*$doc->operation->operation;
+					}
+
+
+					// $res[$row->id_goods]['id'] = -1;
+					// $res[$row->id_goods]['name'] = $row->goods->name;
+					// $res[$row->id_goods]['cost'] = 0;
+					// $res[$row->id_goods]['markup'] = 0;
+					// $res[$row->id_goods]['vat'] = 0;
+					 $res[$row->id_goods]['price_list'][$row->price] = 0;
+					// $res[$row->id_goods]['price_from_doc'] = 0;
+					// $res[$row->id_goods]['price_from_rest'] = 0;
+					// $res[$row->id_goods]['rest_begin'] = 0;
+					$res[$row->id_goods]['receipt'] = $receipt;
+					$res[$row->id_goods]['expence'] = $expence;
+					//$res[$row->id_goods]['inv'] = $doc->operation->operation == 0 ? $res[$row->id_goods]['inv'] + $row->quantity : $res[$row->id_goods]['inv'];
+					$res[$row->id_goods]['rest'] = (real)$rest;
+				}
+			}
+		}
+
+			// добавляем в результирующий массив количество по счетам-фактурам
+		foreach ($inv_arr as $doc) {
+
+			foreach ($doc->documentdata as $row) {
+//				if ($row->id_goods==43930495) {
+//					print_r($doc);
+//				}
+				if (!array_key_exists($row->id_goods, $res)) {
+//					$res[$row->id_goods] = [];
+//					$res[$row->id_goods]['id'] = -1;
+//					$res[$row->id_goods]['name'] = $row->goods->name;
+//					$res[$row->id_goods]['cost'] = $row->cost;
+//					$res[$row->id_goods]['markup'] = $row->markup;
+//					$res[$row->id_goods]['vat'] = $row->vat;
+//					//$res[$row->id_goods]['price'] = -1,
+//					$res[$row->id_goods]['price_from_doc'] = $row->price;
+//					//$res[$row->id_goods]['price_from_rest'] = -1,
+//					$res[$row->id_goods]['rest_begin'] = 0;
+//					$res[$row->id_goods]['receipt'] = $doc->operation->operation > 0 ? $row->quantity : 0;
+//					$res[$row->id_goods]['expence'] = $doc->operation->operation < 0 ? $row->quantity : 0;
+//					$res[$row->id_goods]['inv'] = $row->quantity;
+//					$res[$row->id_goods]['rest'] = $row->quantity*$doc->operation->operation;
+				} else {
+					// $res[$row->id_goods]['id'] = -1;
+					// $res[$row->id_goods]['name'] = $row->goods->name;
+					// $res[$row->id_goods]['cost'] = 0;
+					// $res[$row->id_goods]['markup'] = 0;
+					// $res[$row->id_goods]['vat'] = 0;
+					// $res[$row->id_goods]['price'] = 0;
+					// $res[$row->id_goods]['price_from_doc'] = 0;
+					// $res[$row->id_goods]['price_from_rest'] = 0;
+					// $res[$row->id_goods]['rest_begin'] = 0;
+					// $res[$row->id_goods]['receipt'] = $doc->operation->operation > 0 ? $res[$row->id_goods]['receipt']+$row->quantity : $res[$row->id_goods]['receipt'];
+					// $res[$row->id_goods]['expence'] = $doc->operation->operation < 0 ? $res[$row->id_goods]['expence']+$row->quantity : $res[$row->id_goods]['expence'];
+					$res[$row->id_goods]['inv'] = $res[$row->id_goods]['inv'] + $row->quantity;
+					// $res[$row->id_goods]['rest'] = $res[$row->id_goods]['rest'] + $row->quantity*$doc->operation->operation;
+				}
+			}
+		}
+
+		if ($type=='json') {
+			$rest = json_encode($res);
+		} else {
+			$rest = $res;
+		}
+
+		return $rest;
 	}
 /*--------------------------------------------------------------------------------------------------------------------*/
 	public static function closeMonth($m, $y, $store) {
@@ -524,4 +670,17 @@ class Rest extends CActiveRecord
 	/*-------------------------------------------------------*/
 
 
+}
+
+function toArray($ar_arr, $index_column=null) {
+	$res = [];
+	foreach ($ar_arr as $item) {
+		if ($index_column==null) {
+			$res[] = $item->getAttributes();
+		} else {
+			$res[$item[$index_column]] = $item->getAttributes();
+		}
+
+	}
+	return $res;
 }

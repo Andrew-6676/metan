@@ -197,12 +197,14 @@ class MainAjaxController extends CController
 	}
 
 /*------------------------------------------------------------------------*/
+		// поиск товара в остатках
 	public function ActionGetGoodsNameFromRest($term, $f) {
 
-		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
+		$rest = Rest::getRestList_new($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');
 		echo $rest;
 	}
 /*------------------------------------------------------------------------*/
+		// поиск товара для возврата, без учёта остатков
 	public function ActionGetGoodsNameFromAll($term, $f) {
 
 //		$rest = Rest::getRestList($f, $term, Yii::app()->session['workdate'], Yii::app()->session['id_store'], 'json');

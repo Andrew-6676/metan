@@ -4,7 +4,7 @@ var search_data = {
 	capt: "Поиск для расхода",
 	action: "GetGoodsNameFromRest",
 	fields: ["name", "rest", "price"],
-	field: 'gname',
+	field: 'name',
 	key: "id",
 	width: 800,
 	sender: null
@@ -137,7 +137,7 @@ $(document).ready(function () {
 				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameFromRest",
 				type: 'GET',
 				dataType: "json",
-				data: 'term=' + request.term + '&f=gid',
+				data: 'term=' + request.term + '&f=id',
 				success: function (data) {
 					//alert((data));
 					response(
@@ -145,7 +145,7 @@ $(document).ready(function () {
 							return {
 								value: item.id,
 								//label: '[' + item.id + '] ' + item.name + '  (' + item.rest + ' шт по ' + item.price + 'р.)',
-								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ' + item.rest.pad(6,' ',0) +('('+item.inv+')').pad(5,' ',0) + ' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
+								label: '' + String(item.id).pad(10) + ' ' + item.name.pad(50) + ' ' + (''+item.rest).pad(6,' ',0) +('('+item.inv+')').pad(5,' ',0) + ' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
 								name: item.name,
 								cost:   item.cost,
 								markup: item.markup,
@@ -185,7 +185,7 @@ $(document).ready(function () {
 				url: 'http://' + document.location.host + rootFolder + "/MainAjax/GetGoodsNameFromRest",
 				type: 'GET',
 				dataType: "json",
-				data: 'term=' + request.term + '&f=gname', /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
+				data: 'term=' + request.term + '&f=name', /*параметры для поиска: term - искомая строка, f - по какому полю искать*/
 				success: function (data) {
 					//alert((data));
 					// формируем массив из найденых в БД строк
@@ -194,7 +194,7 @@ $(document).ready(function () {
 							return {     // формируем массив нужной структуры
 								id: item.id,    // это поле для вставки в соседний <input> (код товара)
 								value: item.name + '    (' + item.rest + ' шт)',    // это поле вставится в <input>
-								label: '' + String(item.id).pad(10)  + ' ' + item.name.pad(50) + ' ' + item.rest.pad(6,' ',0) + ('('+item.inv+')').pad(5,' ',0) +' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
+								label: '' + String(item.id).pad(10)  + ' ' + item.name.pad(50) + ' ' + (''+item.rest).pad(6,' ',0) + ('('+item.inv+')').pad(5,' ',0) +' ' + String(item.price).replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1`').pad(11,' ',0),		// это поле отобразится в выпадающем списке
 								cost:   item.cost,
 								markup: item.markup,
 								vat:    item.vat,

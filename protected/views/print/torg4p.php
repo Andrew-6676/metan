@@ -17,7 +17,7 @@ $this->addCSS('print/report.css');
 	<div class="rep_wrapper">
 		<div class="page l">
 			<div class="report_title">
-				Торг 4
+				Торг 4 (<?php echo $kv; ?> квартал)
 			</div>
 			<div class="sub_title">
 

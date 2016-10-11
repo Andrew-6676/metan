@@ -30,10 +30,10 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 		$mon = (int)substr(Yii::app()->session['workdate'],5,2);
 		$year = substr(Yii::app()->session['workdate'],0,4);
 
-		if ($mon > 2 && $mon <= 5) $kv = 1;
-		if ($mon > 5 && $mon <= 8) $kv = 2;
-		if ($mon > 8 && $mon <= 11) $kv = 3;
-		if ($mon > 11 || $mon <= 2) $kv = 4;
+		if ($mon > 2  && $mon <= 5)  $kv = 1;
+		if ($mon > 5  && $mon <= 8)  $kv = 2;
+		if ($mon > 8  && $mon <= 11) $kv = 3;
+		if ($mon > 11 || $mon <= 2)  $kv = 4;
 
 		$data = $kvartal[$kv];
 
@@ -134,6 +134,6 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 
 		$rst[1] = $ost2;
 
-		$this->controller->render('torg4p', array('data'=>$data, 'rst'=>$rst));
+		$this->controller->render('torg4p', array('data'=>$data, 'rst'=>$rst, 'kv'=>$kv));
 	}
 }

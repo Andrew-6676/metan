@@ -2,10 +2,10 @@ var search_data = {
 	capt: "Поиск для счёт-фактуры",
 	action: "GetGoodsNameFromRest",
 	fields: ["name", "rest", "price"],
-	field: 'gname',
+	field: 'name',
 	key: "id",
 	width: 800,
-	sender: null,
+	sender: null
 };
 
 /*-----------------------------------------------------------*/

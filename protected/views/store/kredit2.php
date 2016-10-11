@@ -29,7 +29,7 @@
 				// print_r($list);
 				// echo '</pre>';
 				echo CHtml::dropDownList('expence[id_operation]',
-										  $mode=='kredit'?'54':'52',
+										 '66',
 					              		  $list,
 					              		  array('class'=>'ddd')
 					              		 // array('empty' => '(Select a category')
@@ -162,10 +162,10 @@
 			</div>
 		</details>
 		<div class="form_footer">
-<!--			<button id="add_new_row" type="button">Добавить строку</button>-->
-<!--			<button id="add_expence" type="button">Сохранить</button>-->
-<!--			<button id="cancel_expence" type="button">Отмена</button>-->
-<!--			<button id="clear_form" type="button">Очистить</button>-->
+			<button id="add_new_row" type="button">Добавить строку</button>
+			<button id="add_expence" type="button">Сохранить</button>
+			<button id="cancel_expence" type="button">Отмена</button>
+			<button id="clear_form" type="button">Очистить</button>
 		</div>
 	</div>
 </div>
@@ -173,7 +173,7 @@
 <div class="delemiter"></div>
 
 <div class="page_caption">
-	<?php echo $mode == 'expence' ? 'Накладные':'Кредиты'  ?> за <b><u>
+	Рассрочка за <b><u>
 	<?php
 		echo Utils::getMonthName(intval(substr(Yii::app()->session['workdate'],5,2)));
 		echo date(' Y');
@@ -191,35 +191,7 @@
 //	 						'data'=>$data,
 //	 		                ));
 
-	// если накладные
-if ($mode == 'expence'){
-	$this->widget('SuperdocWidget',array(
-		'data'=>$data,
-		//'mode'=>'one_to_many',
-		'head'=>array(
-			'doc_num'=>'Документ №',
-			'doc_date'=>'Дата',
-			'contact.name'=>'Покупатель',
-			'operation.name'=>'Вид расхода',
-			'for'=>'Товарооборот',
-//			'sum_vat'=>'Сумма НДС',
-//			'sum_cost'=>'Сумма',
-			'sum_price'=>'Сумма',
-//			'prim'=>'Платёжное поручение',
-		),
-		'columns'=> array(
-			'id_goods'  =>'Код',
-			'goods.name'=>'Наименование товара',
-			'quantity'  =>'Количество',
-			'cost'      =>'Покупная цена',
-			'markup'    =>'Наценка',
-			'vat'       =>'НДС',
-			'price'     =>'Розничная цена',
-			'=quantity*price'=>'Сумма розница'
-		),
-		'buttons'=>array('print'=>'Печать накладной','del'=>'Удалить накладную','edit'=>'Изменить накладную'),
-	));
-} else {    // е сли кредит
+
 	$this->widget('SuperdocWidget',array(
 		'data'=>$data,
 		//'mode'=>'one_to_many',
@@ -244,9 +216,9 @@ if ($mode == 'expence'){
 			'price'     =>'Розничная цена',
 			'=quantity*price'=>'Сумма розница'
 		),
-		'buttons'=>array('del'=>'Удалить накладную','edit'=>'Изменить накладную'),
+		'buttons'=>array('del'=>'Удалить документ','edit'=>'Изменить документ'),
 	));
-}
+
 
 ?>
 </div>
@@ -254,6 +226,7 @@ if ($mode == 'expence'){
 <div style="text-align: center; font-size: 3em; font-weight: bold;">
 	Эта функция ещё в разработке
 </div>
+
 
 <?php
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(

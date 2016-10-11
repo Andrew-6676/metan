@@ -49,6 +49,7 @@ class expenseAction extends CAction   /*---- StoreController ----*/
 		$criteria->order ='doc_date desc, doc_num desc, documentdata.id';
 		$criteria->addCondition('id_doctype = 2');
 		$criteria->addCondition('id_operation <> 54');
+		$criteria->addCondition('id_operation <> 66');
 		$criteria->addCondition('id_store='.Yii::app()->session['id_store']);
 		$criteria->addCondition('doc_date<=\''.Yii::app()->session['workdate'].'\'');
 		$criteria->addCondition('doc_date::text like \''.substr(Yii::app()->session['workdate'],0,7).'%\'');

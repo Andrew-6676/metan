@@ -14,6 +14,7 @@ $dt = '';
 $dn = '';
 
 $diff_price = false;
+
 ?>
 <h3 class="capt hidden" >
 	<?php
@@ -91,7 +92,7 @@ $diff_price = false;
 				$rq = 0;
 				$po = $row->partof;
 				$class = ' class="partof" ';
-				$pr = number_format($row->price*$row->quantity,'','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price, '2','.','&nbsp;').')</small>';
+				$pr = number_format($row->price*$row->quantity,'2','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price, '2','.','&nbsp;').')</small>';
 			} else {
 				$pr = number_format($row->price*$row->quantity, '2','.','&nbsp;');
 				$rq = $row->quantity;
@@ -100,7 +101,7 @@ $diff_price = false;
 			}
 
 			if ($doc->id == $po) {
-				$pr = number_format($row->price*$row->quantity,'0','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price, '2','.','&nbsp;').')</small>';
+				$pr = number_format($row->price*$row->quantity,'2','.','&nbsp;').' <small>('.number_format(Goods::model()->findByPK($row->id_goods)->price, '2','.','&nbsp;').')</small>';
 			}
 
 			if (!$diff_price && $data['goods']->rest0price !=0 && $data['goods']->rest0price != $row->price) {
