@@ -223,10 +223,6 @@
 ?>
 </div>
 
-<div style="text-align: center; font-size: 3em; font-weight: bold;">
-	Эта функция ещё в разработке
-</div>
-
 
 <?php
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
