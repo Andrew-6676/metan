@@ -58,7 +58,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		//		echo $res[0]->doctype->name;
 		//		echo $res[0]->operation->name;
 		//		Utils::print_r($res[0]->documentdata[0]->idGoods->name);
-		//		Utils::print_r($res[0]);
+				//Utils::print_r($res);
 		$json = array();
 //		$json['expence']['return'] = array();
 		$json['expence']['day']['sum'] = 0;
@@ -66,6 +66,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['karta']['sum'] = 0;
 		$json['expence']['check']['sum'] = 0;
 		$json['expence']['kredit']['sum'] = 0;
+		$json['expence']['kredit2']['sum'] = 0;
 		$json['expence']['including'][-1] = 0;
 		$json['expence']['including'][1] = 0;
 		$json['expence']['including'][2] = 0;
@@ -74,7 +75,9 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['including_bn'][2] = 0;
 		$json['expence']['including_bn'][3] = 0;
 		$se = 0;
+		$se2 = 0;
 		$d='';
+		$arr = [];
 
 			// формируем массив документов
 		foreach ($res as $row_d) {
@@ -95,22 +98,17 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 					if ($d != $row_d->doc_date) {
 						$d = $row_d->doc_date;
 						$se = 0;
+						$se2 = 0;
 					}
 
 					switch ($row_d->id_operation) {
 						case 56: // карточка
 							$json['expence']['karta']['data'][$row_d->doc_date] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
-//							$json['expence']['karta']['data'][] = array(
-//								'date' => $row_d->doc_date,
-//								'kart_num' => $row_d->docaddition ? $row_d->docaddition->payment_order : 0,
-//								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
-//							);
 							$json['expence']['karta']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							break;
 						case 53: // чеками
 							$json['expence']['check']['data'][] = array(
 								'date' => $row_d->doc_date,
-								//'kart_num' => $row_d->docaddition ? $row_d->docaddition->payment_order : 0,
 								'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 							);
 							$json['expence']['check']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
@@ -119,33 +117,45 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 							$json['expence']['kredit']['data'][] = array(
 								'date' => $row_d->doc_date,
 								'contact' => ($row_d->docaddition ? $row_d->docaddition->payment_order : 0).$row_d->contact->name,
-								//'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 								'sum'=> $row_d->sum_price,
 							);
-							//$json['expence']['kredit']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							$json['expence']['kredit']['sum'] += $row_d->sum_price;
 							break;
 						default:
-							//$json['expence']['day']['data'][] = array(
-							//'date' => $row_d->doc_date,
-							//'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
-							//);
-							//$json['expence']['day']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+							if ($row_d->id_operation==61) {
+								$json['expence']['kredit2']['data'][] = array(
+									'date' => $row_d->doc_date,
+									'contact' => ($row_d->docaddition ? $row_d->docaddition->payment_order : 0).$row_d->contact->name,
+									//'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
+									'sum'=> $row_d->sum_price,
+								);
+								$json['expence']['kredit2']['sum'] += $row_d->sum_price;
+								$se2  += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+								$arr[$row_d->doc_date] = $se2;
+								//echo $se2.'-';
+							}
 							$se += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
-								// чтобы не затереть уже добавленный возврат - сливаем массивы
+							// чтобы не затереть уже добавленный возврат - сливаем массивы
 							if (isset($json['expence']['day']['data'][$row_d->doc_date])) {
+								//echo "$se2<br>";
 								$json['expence']['day']['data'][$row_d->doc_date] = array_merge($json['expence']['day']['data'][$row_d->doc_date], array(
 									'date' => $row_d->doc_date,
-									'sum' => $se,
+									'sum' => $se + $arr[$row_d->doc_date],
+									's61' => $arr[$row_d->doc_date],
 									'kassa' => Kassa::getRest($row_d->doc_date, $_GET['id_store']),
 								));
 							} else {
+								//echo "--$se2<br>";
 								$json['expence']['day']['data'][$row_d->doc_date] = array(
 									'date' => $row_d->doc_date,
-									'sum' => $se,
+									'sum' => $se + $arr[$row_d->doc_date],
+									's61' => $arr[$row_d->doc_date],
 									'kassa' => Kassa::getRest($row_d->doc_date,  $_GET['id_store']),
 								);
 							}
+
+							//Utils::print_r($json['expence']['day']['data'][$row_d->doc_date]);
+
 							$json['expence']['day']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							break;
 					}   // end switch
@@ -172,12 +182,9 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 						$json['expence']['kredit']['data'][] = array(
 							'date' => $row_d->doc_date,
 							'contact' => $row_d->contact->name,
-							//'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
 							'sum'=> $row_d->sum_price,
 						);
-						//$json['expence']['kredit']['sum'] += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 						$json['expence']['kredit']['sum'] += $row_d->sum_price;
-						//break;
 					else:
 
 							// шапка документа
@@ -205,7 +212,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 				}   // если не расход за день
 			}
 		}
-
+//Utils::print_r($arr);
 		return $json;
 	}
 

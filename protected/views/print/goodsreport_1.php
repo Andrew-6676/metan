@@ -294,7 +294,7 @@ exp:
 			$sb = 0;
 			$sv = 0;
 			$docs = $expence['day'];
-			//	Utils::print_r($docs);
+				//Utils::print_r($docs);
 			//	exit;
 			?>
 
@@ -355,7 +355,66 @@ exp:
 					<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
 				</tr>
 			</table>
+			<!-- --------------------------------------------------------------------------------------------------- -->
 
+			<?php
+				//  взносы по рассрочке
+			$docs = $expence['kredit2'];
+			$itogo_r2 = 0;
+			?>
+			<div class="sub_title">
+				Взносы по рассрочке
+			</div>
+
+			<table>
+				<thead>
+				<tr>
+					<th>Дата</th>
+					<th>ФИО</th>
+					<th>ТТН</th>
+					<th>сумма</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php
+				$s = 0;
+				$r = $rk;
+				foreach ($docs['data'] as $date => $doc) {
+					//echo $doc['head']['num'].'<br>';
+					//Utils::print_r($doc);
+					$tr = '<tr>';
+					$tr .=  '<td>';
+					$tr .=      Utils::format_date($doc['date']);
+					$tr .=  '</td>';
+					$tr .=  '<td class="r">';
+
+					$tr .=  '</td>';
+					$tr .=  '<td class="r">';
+
+					$tr .=  '</td>';
+					$tr .=  '<td class="r">';
+					$tr .=      number_format($doc['sum'], '2', '.', ' ');
+					$tr .=  '</td>';
+					$tr .=  '</tr>';
+					echo $tr;
+
+//					$sb += $r + $doc['sum'] - $doc['return'] - $doc['kassa'];
+//					$sv += $doc['return'];
+//
+					$s += $doc['sum'];
+//					$r = $doc['kassa'];
+
+
+				}
+//				$total -= $s;
+				$itogo_r2 += $s;
+				?>
+				<tr>
+					<td colspan="3" class="no_border itog">Итого по данной операции:</td>
+					<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
+				</tr>
+				</tbody>
+			</table>
 <!-- --------------------------------------------------------------------------------------------------------------- -->
 <!-- ------------------------------------- Безнал ------------------------------------------------------------------ -->
 			<?php
@@ -672,7 +731,7 @@ kred:
 			<table class="total no_border" >
 				<tr class="itog">
 					<td class="itog">Остаток на <?php echo Utils::format_date($_GET['to_date']); ?></td>
-					<td class="itog r"><?php echo number_format($total, '2','.',' '); ?></td>
+					<td class="itog r"><?php echo number_format($total+$itogo_r2, '2','.',' '); ?></td>
 				</tr>
 			</table>
 		</div>
