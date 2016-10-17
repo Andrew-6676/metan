@@ -393,7 +393,7 @@ exp:
 
 					$tr .=  '</td>';
 					$tr .=  '<td class="r">';
-					$tr .=      number_format($doc['sum'], '2', '.', ' ');
+					$tr .=      number_format(-$doc['sum'], '2', '.', ' ');
 					$tr .=  '</td>';
 					$tr .=  '</tr>';
 					echo $tr;
@@ -411,7 +411,7 @@ exp:
 				?>
 				<tr>
 					<td colspan="3" class="no_border itog">Итого по данной операции:</td>
-					<td class="r no_border itog"><?php echo number_format($s, '2', '.', ' '); ?></td>
+					<td class="r no_border itog"><?php echo number_format(-$s, '2', '.', ' '); ?></td>
 				</tr>
 				</tbody>
 			</table>
@@ -731,7 +731,7 @@ kred:
 			<table class="total no_border" >
 				<tr class="itog">
 					<td class="itog">Остаток на <?php echo Utils::format_date($_GET['to_date']); ?></td>
-					<td class="itog r"><?php echo number_format($total+$itogo_r2, '2','.',' '); ?></td>
+					<td class="itog r"><?php echo number_format($total, '2','.',' '); ?></td>
 				</tr>
 			</table>
 		</div>

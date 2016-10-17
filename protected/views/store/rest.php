@@ -63,7 +63,7 @@ $this->addJS('jquery-ui.js');
 		},
 		'id' => 'restGrid',
 		'dataProvider' => $data,
-		'summaryText' => 'Строк: {count}',
+		'summaryText' => 'Строк: '.$count.'',
 		'enablePagination' => false,
 		//'pager'=> array(
 		//	'header' => '',

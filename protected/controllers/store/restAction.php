@@ -11,13 +11,19 @@ class restAction extends CAction   /*---- StoreController ----*/
 
 
 		$total = 0;
+		$count = 0;
 		foreach ($rest as $r) {
-			$total += $r['price']*$r['rest'];
+			if ($r['id']!=99999999) {
+				$total += $r['price'] * $r['rest'];
+				$count++;
+			} else {
+				$total -= $r['price'];
+			}
 //			$total += $r['rest']*Goods::model()->findByPK($r['id'])->price;
 		}
 
 
-		$count = count($rest);
+		//$count = count($rest);
 //		$SqldataProvider = new CActiveDataProvider($rest, array(
 //	    	'keyField'=>'gid',
 //	    	'totalItemCount'=>$count,
@@ -42,6 +48,6 @@ class restAction extends CAction   /*---- StoreController ----*/
 
 
 	 	$this->controller->pageTitle = 'Остатки товара';
-	 	$this->controller->render('rest', array('data'=>$dataProvider, 'total'=>$total));
+	 	$this->controller->render('rest', array('data'=>$dataProvider, 'total'=>$total, 'count'=>$count));
 	}
 }

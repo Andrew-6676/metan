@@ -123,6 +123,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 							break;
 						default:
 							if ($row_d->id_operation==61) {
+								//Utils::print_r($row_d);
 								$json['expence']['kredit2']['data'][] = array(
 									'date' => $row_d->doc_date,
 									'contact' => ($row_d->docaddition ? $row_d->docaddition->payment_order : 0).$row_d->contact->name,

@@ -284,6 +284,7 @@ class Rest extends CActiveRecord
 		$criteria_2 = new CDbCriteria;
 		$criteria_2->with = array('documentdata', 'sum_cost', 'operation', 'documentdata.goods');
 		$criteria_2->addCondition('id_doctype<>3');
+		//$criteria_2->addCondition('id_operation!=61');
 		$criteria_2->addCondition('doc_date<=\''.$date.'\'');
 		$criteria_2->addCondition('doc_date::text like \''.substr($date,0,7).'%\'');
 		$criteria_2->addCondition('id_store='.$store);
