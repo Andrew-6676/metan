@@ -47,7 +47,8 @@ $this->addCSS('print/report.css');
 				</thead>
 			<?php
 				//Utils::print_r($data);
-
+				$sum = 0;
+				$sum_rb = 0;
 				foreach ($data as $row) {
 					$tr = '<tr>';
 					$tr .= '<td>'.$row['name'].'</td>';
@@ -63,7 +64,14 @@ $this->addCSS('print/report.css');
 					$tr .= '<td class="r">'.Yii::app()->format->formatNumber(@$rst[1][$row['id_3torg']]['s']/1000).'</td>';
 					$tr .= '</tr>';
 					echo $tr;
+					$sum += $row['sum'];
+					$sum_rb += $row['sum_rb'];
 				}
+				echo '<tr>
+						<td colspan="5">Итого:</td>
+						<td colspan="2">'.Yii::app()->format->formatNumber($sum).'</td>
+						<td colspan="2">'.Yii::app()->format->formatNumber($sum_rb).'</td>
+					  </tr>';
 				// TODO суммы по столбцам
 			?>
 			</table>
