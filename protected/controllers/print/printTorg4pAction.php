@@ -38,9 +38,9 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 		$data = $kvartal[$kv];
 
 		$connection = Yii::app()->db;
-		$sql= "select id, name, id_3torg,sum(quantity) as quantity, sum(quantity_rb) as quantity_rb, sum(sum) as sum, sum(sum_rb) as sum_rb
+		$sql= "select id, name, id_3torg, month, sum(quantity) as quantity, sum(quantity_rb) as quantity_rb, sum(sum) as sum, sum(sum_rb) as sum_rb
 			 from (
-			select t.id, t.name, id_3torg, sum(quantity) as quantity, NULL as quantity_rb, sum(quantity*price) as sum, NULL as sum_rb
+			select t.id, t.name, id_3torg, EXTRACT(MONTH FROM  doc_date) as month, sum(quantity) as quantity, NULL as quantity_rb, sum(quantity*price) as sum, NULL as sum_rb
 			from vgm_documentdata as dd
 				inner join vgm_document as d on d.id=dd.id_doc
 				inner join vgm_goods as g on dd.id_goods = g.id
@@ -51,9 +51,9 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 				and doc_date<='".$year.$kvartal[$kv][1]."'
 				and id_doctype = 2
 				and \"for\"=2
-			group by t.id, g.id_3torg,t.name
+			group by t.id, g.id_3torg,t.name, EXTRACT(MONTH FROM  doc_date)
 				union
-			select t.id, t.name, id_3torg, NULL as quantity, sum(quantity) as quantity_rb, NULL as sum, sum(quantity*price) as sum
+			select t.id, t.name, id_3torg, EXTRACT(MONTH FROM  doc_date) as month, NULL as quantity, sum(quantity) as quantity_rb, NULL as sum, sum(quantity*price) as sum
 			from vgm_documentdata as dd
 				inner join vgm_document as d on d.id=dd.id_doc
 				inner join vgm_goods as g on dd.id_goods = g.id
@@ -65,17 +65,18 @@ class printTorg4pAction extends CAction   /*---- PrintController ----*/
 				and id_doctype = 2
 				and \"for\"=2
 				and upper(g.producer) like 'РБ%'
-			group by t.id, g.id_3torg,t.name
+			group by t.id, g.id_3torg,t.name, EXTRACT(MONTH FROM  doc_date)
 			order by id
 			) as tmp
-			group by id, name, id_3torg
+			group by id, name, id_3torg, month
 			order by id_3torg";
 
 		$data = $connection->createCommand($sql)->queryAll();
 		//$data = $sql;
+		//Utils::print_r($sql);
 
 			// считаем остатки по группам
-		$rest = Rest::getRestList('gid', '', $year.$kvartal[$kv][1], Yii::app()->session['id_store']);
+		$rest = Rest::getRestList_new('id', '', $year.$kvartal[$kv][1], Yii::app()->session['id_store']);
 
 		$sql_gr = "select distinct g.id, g.id_3torg
 					from vgm_documentdata as dd
