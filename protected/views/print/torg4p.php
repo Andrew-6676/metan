@@ -11,11 +11,14 @@ $this->addCSS('print/report.css');
 ?>
 	<style>
 		table {
-			font-size: 14px;
+			font-size: 12px;
+		}
+		td {
+			white-space: normal;
 		}
 	</style>
 	<div class="rep_wrapper">
-		<div class="page l">
+		<div class="page p">
 			<div class="report_title">
 				Торг 4 (<?php echo $kv; ?> квартал)
 			</div>
@@ -42,13 +45,14 @@ $this->addCSS('print/report.css');
 						<th>Всего</th>
 						<th>в том числе РБ</th>
 						<th>Всего</th>
-						<th>в том числе РБ</th>
+						<th>в том<br>числе РБ</th>
 					</tr>
 				</thead>
 			<?php
 				//Utils::print_r($data);
 				$sum = 0;
 				$sum_rb = 0;
+				$ost = 0;
 				foreach ($data as $row) {
 					$tr = '<tr>';
 					$tr .= '<td>'.$row['name'].'</td>';
@@ -66,11 +70,14 @@ $this->addCSS('print/report.css');
 					echo $tr;
 					$sum += $row['sum']/1000;
 					$sum_rb += $row['sum_rb']/1000;
+					$ost += @$rst[0][$row['id_3torg']]['s']/1000;
 				}
 				echo '<tr>
-						<td colspan="5">Итого:</td>
-						<td colspan="2">'.Yii::app()->format->formatNumber($sum).'</td>
-						<td colspan="2">'.Yii::app()->format->formatNumber($sum_rb).'</td>
+						<td class="r" colspan="5">Итого:</td>
+						<td class="r">'.Yii::app()->format->formatNumber($sum).'</td>
+						<td class="r">'.Yii::app()->format->formatNumber($sum_rb).'</td>
+						<td colspan="2"></td>
+						<td class="r" colspan="2">'.Yii::app()->format->formatNumber($ost).'</td>
 					  </tr>';
 				// TODO суммы по столбцам
 			?>
