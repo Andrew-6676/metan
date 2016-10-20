@@ -13,12 +13,12 @@ class restAction extends CAction   /*---- StoreController ----*/
 		$total = 0;
 		$count = 0;
 		foreach ($rest as $r) {
-			if ($r['id']!=99999999) {
+			//if ($r['id']!=99999999) {
 				$total += $r['price'] * $r['rest'];
 				$count++;
-			} else {
-				$total -= $r['price'];
-			}
+			//} else {
+			//	$total -= $r['price'];
+			//}
 //			$total += $r['rest']*Goods::model()->findByPK($r['id'])->price;
 		}
 
