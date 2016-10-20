@@ -731,7 +731,7 @@ kred:
 			<table class="total no_border" >
 				<tr class="itog">
 					<td class="itog">Остаток на <?php echo Utils::format_date($_GET['to_date']); ?></td>
-					<td class="itog r"><?php echo number_format($total, '2','.',' '); ?></td>
+					<td class="itog r"><?php echo number_format($total+$itogo_r2, '2','.',' '); ?></td>
 				</tr>
 			</table>
 		</div>
