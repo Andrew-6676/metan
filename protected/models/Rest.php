@@ -573,6 +573,7 @@ class Rest extends CActiveRecord
 			$sql_rest = "select sum(quantity*price) as rest
 						from vgm_rest
 						where rest_date='".substr($date,0,7)."-01'";
+			$sql_rest2 = "select 0";
 		} else {
 			$sql_rest = "select sum(quantity*price) as rest
 					from (
@@ -592,16 +593,19 @@ class Rest extends CActiveRecord
 							where r.rest_date='".substr($date,0,7)."-01' and id_store=".$store."
 						 ) as motion
 					--group by gid, gname, cost, markup, vat, price";
+			$sql_rest2 = "select sum(price) as rest
+						 from vgm_document d inner join vgm_documentdata dd on dd.id_doc=d.id
+						 where d.id_operation=61 and d.doc_date<='".$date."' and d.doc_date>='".substr($date,0,7)."-01' and id_store=".$store;
 		}
 
 
-
 		$rest = $connection->createCommand($sql_rest)->queryScalar();
+		$rest2 = $connection->createCommand($sql_rest2)->queryScalar();
 
 
 //		$rest = $rest->rest;
 		if ($rest) {
-			return $rest;
+			return $rest+$rest2;
 		} else {
 			return -1;
 		}
