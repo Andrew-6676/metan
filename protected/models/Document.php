@@ -81,8 +81,8 @@ class Document extends CActiveRecord
 			'sum_cost'      => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST(quantity*cost as numeric),2))'),
 			'sum_markup'    => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST((quantity*cost*(markup/100)) as numeric),2))'),
 			'sum_vat'       => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST((vat/100)*(quantity*cost*(1+markup/100)) as numeric),2))'),
-			'sum_vat2'      => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST((vat/100)*(quantity*price) as numeric),2))'),
-			'sum_price'     => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST(quantity*price as numeric),2))'),
+			'sum_vat2'      => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(CAST((vat/100)*(quantity*price) as numeric))'),
+			'sum_price'     => array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST(quantity*price as numeric),3))'),
 			'sum_with_markup'=>array(self::STAT,  'Documentdata', 'id_doc', 'select' => 'SUM(round(CAST((markup/100+1)*cost*quantity as numeric),2))'),
 		);
 	}
