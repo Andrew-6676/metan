@@ -1,6 +1,7 @@
 /**
  * Created by andrew on 28.08.15.
  */
+var nol_hidden = false;
 
 $(document).ready(function () {
 	//console.log('rest');
@@ -38,8 +39,24 @@ $(document).ready(function () {
 		} else {
 			alert("Не выбрано ни одной записи.");
 		}
-	})
+	});
 
+	/* ---------------------------------------------------------------------- */
+	$('#hide_nol').click(function (e) {
+		e.stopPropagation();
+		nol_hidden = !nol_hidden;
+		if (nol_hidden) {
+			$(this).text('Показать с нулевым остатком');
+			//$('.summary').text('Строк:');
+			$('.nol').hide();
+		} else {
+			$(this).text('Спрятать с нулевым остатком');
+			//$('.summary').text('Строк:');
+			$('.nol').show();
+		}
+
+		return false;
+	});
 });
 
 

@@ -21,6 +21,7 @@ $this->addJS('jquery-ui.js');
 	<label for="filter">Фильтр</label>
 	<input name="filter" id="filter" placeholder="<?php echo @$_GET['filter'] ?>">
 	<button class="btn" id="apply_filter">Применить</button>
+	<button class="btn" id="hide_nol">Спрятать с нулевым остатком</button>
 </form>
 <div class="" style="float: right; ">
 	Сумма:<b> <?php echo number_format($total, '2', '.', ' '); ?></b>
