@@ -317,7 +317,7 @@ exp:
 				$r = $rk;
 				foreach ($docs['data'] as $date => $doc) {
 					//echo $doc['head']['num'].'<br>';
-					Utils::print_r($doc);
+					//Utils::print_r($doc);
 					$tr = '<tr>';
 					$tr .=  '<td>';
 					$tr .=      Utils::format_date($doc['date']);
