@@ -317,7 +317,7 @@ exp:
 				$r = $rk;
 				foreach ($docs['data'] as $date => $doc) {
 					//echo $doc['head']['num'].'<br>';
-					//Utils::print_r($doc);
+					Utils::print_r($doc);
 					$tr = '<tr>';
 					$tr .=  '<td>';
 					$tr .=      Utils::format_date($doc['date']);
@@ -358,12 +358,12 @@ exp:
 			<!-- --------------------------------------------------------------------------------------------------- -->
 
 			<?php
-				//  взносы по рассрочке
+				//  взносы по рассрочке нал
 			$docs = $expence['kredit2'];
 			$itogo_r2 = 0;
 			?>
 			<div class="sub_title">
-				Взносы по рассрочке
+				Взносы по рассрочке (наличные)
 			</div>
 
 			<table>
@@ -415,6 +415,71 @@ exp:
 				</tr>
 				</tbody>
 			</table>
+
+			<?php
+			if ($expence['kredit3']) {
+
+
+				//  взносы по рассрочке безнал
+				$docs = $expence['kredit3'];
+				//$itogo_r2 = 0;
+				?>
+				<div class="sub_title">
+					Взносы по рассрочке (терминал)
+				</div>
+
+				<table>
+					<thead>
+					<tr>
+						<th>Дата</th>
+						<th>ФИО</th>
+						<th>ТТН</th>
+						<th>сумма</th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php
+					$s = 0;
+					$r = $rk;
+					foreach ($docs['data'] as $date => $doc) {
+						//echo $doc['head']['num'].'<br>';
+						//Utils::print_r($doc);
+						$tr = '<tr>';
+						$tr .= '<td>';
+						$tr .= Utils::format_date($doc['date']);
+						$tr .= '</td>';
+						$tr .= '<td class="r">';
+
+						$tr .= '</td>';
+						$tr .= '<td class="r">';
+
+						$tr .= '</td>';
+						$tr .= '<td class="r">';
+						$tr .= number_format(-$doc['sum'], '2', '.', ' ');
+						$tr .= '</td>';
+						$tr .= '</tr>';
+						echo $tr;
+
+//					$sb += $r + $doc['sum'] - $doc['return'] - $doc['kassa'];
+//					$sv += $doc['return'];
+//
+						$s += $doc['sum'];
+//					$r = $doc['kassa'];
+
+
+					}
+					//				$total -= $s;
+					$itogo_r2 += $s;
+					?>
+					<tr>
+						<td colspan="3" class="no_border itog">Итого по данной операции:</td>
+						<td class="r no_border itog"><?php echo number_format(-$s, '2', '.', ' '); ?></td>
+					</tr>
+					</tbody>
+				</table>
+				<?php
+			}
+				?>
 <!-- --------------------------------------------------------------------------------------------------------------- -->
 <!-- ------------------------------------- Безнал ------------------------------------------------------------------ -->
 			<?php

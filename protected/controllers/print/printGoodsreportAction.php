@@ -67,6 +67,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 		$json['expence']['check']['sum'] = 0;
 		$json['expence']['kredit']['sum'] = 0;
 		$json['expence']['kredit2']['sum'] = 0;
+		$json['expence']['kredit3']['sum'] = 0;
 		$json['expence']['including'][-1] = 0;
 		$json['expence']['including'][1] = 0;
 		$json['expence']['including'][2] = 0;
@@ -135,6 +136,19 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 								$arr[$row_d->doc_date] = $se2;
 								//echo $se2.'-';
 							}
+							if ($row_d->id_operation==62) {
+								//Utils::print_r($row_d);
+								$json['expence']['kredit3']['data'][] = array(
+									'date' => $row_d->doc_date,
+									'contact' => ($row_d->docaddition ? $row_d->docaddition->payment_order : 0).$row_d->contact->name,
+									//'sum' => $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price,
+									'sum'=> $row_d->sum_price,
+								);
+								$json['expence']['kredit3']['sum'] += $row_d->sum_price;
+								$se2  += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
+								$arr[$row_d->doc_date] = $se2;
+								//echo $se2.'-';
+							}
 							$se += $row_d->documentdata[0]->quantity * $row_d->documentdata[0]->price;
 							// чтобы не затереть уже добавленный возврат - сливаем массивы
 							if (isset($json['expence']['day']['data'][$row_d->doc_date])) {
@@ -143,6 +157,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 									'date' => $row_d->doc_date,
 									'sum' => $se + $arr[$row_d->doc_date],
 									's61' => $arr[$row_d->doc_date],
+									's62' => $arr[$row_d->doc_date],
 									'kassa' => Kassa::getRest($row_d->doc_date, $_GET['id_store']),
 								));
 							} else {
@@ -151,6 +166,7 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 									'date' => $row_d->doc_date,
 									'sum' => $se + $arr[$row_d->doc_date],
 									's61' => $arr[$row_d->doc_date],
+									's62' => $arr[$row_d->doc_date],
 									'kassa' => Kassa::getRest($row_d->doc_date,  $_GET['id_store']),
 								);
 							}
@@ -214,6 +230,28 @@ class printGoodsreportAction extends CAction   /*---- PrintController ----*/
 			}
 		}
 //Utils::print_r($arr);
+
+		$criteria2 = new CDbCriteria;
+		$criteria->addCondition('id_store=' .$params['id_store']);
+		$criteria2->addCondition('kassa_date>=\'' . $params['from_date'] . '\'');
+		$criteria2->addCondition('kassa_date<=\'' . $params['to_date'] . '\'');
+		$criteria2->order = 'kassa_date';
+
+		$res2 = Kassa::model()->findAll($criteria2);
+		//Utils::print_r($res2);
+		foreach ($res2 as $k) {
+			if (!array_key_exists($k->kassa_date, $json['expence']['day']['data'])) {
+				echo "{$k->kassa_date} - {$k->sum}<br>";
+				$json['expence']['day']['data'][$k->kassa_date] = array(
+					'date' => $k->kassa_date,
+					'sum' => 0,
+					's61' => 0,
+					's62' => 0,
+					'kassa' => Kassa::getRest($k->kassa_date,  $_GET['id_store']),
+				);
+			}
+		}
+
 		return $json;
 	}
 
